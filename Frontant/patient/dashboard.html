@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Dashboard | OptiHealth</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/logo/logo.png" alt="Logo">
+                <h2>OptiHealth</h2>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="doctors.html">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <span>Doctors</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="book-appointment.html">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                        <span>Book Appointment</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="appointments.html">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>My Appointments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="topbar">
+                <div>
+                    <h2>
+                        Welcome,
+                        <span id="patientName">Patient</span>
+                        👋
+                    </h2>
+                    <p>
+                        Manage your appointments and health records.
+                    </p>
+                </div>
+                <div class="topbar-right">
+                    <img src="../assets/images/patient.png" alt="Patient">
+                </div>
+            </header>
+            <!-- Dashboard Cards -->
+            <section class="card-grid">
+                <div class="card stat-card info-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Appointments</h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="totalAppointments">12</h2>
+                        <p>Total appointments booked</p>
+                    </div>
+                </div>
+
+                <div class="card stat-card success-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Upcoming</h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="upcomingAppointments">4</h2>
+                        <p>Upcoming appointments</p>
+                    </div>
+                </div>
+
+                <div class="card stat-card warning-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Completed</h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="completedAppointments">7</h2>
+                        <p>Completed appointments</p>
+                    </div>
+                </div>
+
+                <div class="card stat-card danger-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pending</h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="pendingAppointments">1</h2>
+                        <p>Waiting for confirmation</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="dashboard-section">
+
+                <div class="section-header">
+                    <h2>Recent Appointments</h2>
+                    <a href="appointments.html" class="doctor-btn">View All</a>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="appointmentTable">
+                            <tr>
+                                <td>#APT001</td>
+                                <td>Dr. Raj Sharma</td>
+                                <td>05 Jul 2026</td>
+                                <td>10:30 AM</td>
+                                <td><span class="badge success">Confirmed</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>#APT002</td>
+                                <td>Dr. Priya Verma</td>
+                                <td>08 Jul 2026</td>
+                                <td>02:00 PM</td>
+                                <td><span class="badge warning">Pending</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>#APT003</td>
+                                <td>Dr. Amit Singh</td>
+                                <td>12 Jul 2026</td>
+                                <td>11:00 AM</td>
+                                <td><span class="badge danger">Cancelled</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Top Doctors</h2>
+                    <a href="doctors.html" class="doctor-btn">View All</a>
+                </div>
+
+                <div class="doctor-grid">
+                    <div class="doctor-card">
+                        <img src="../assets/images/doctor1.jpg" alt="Doctor">
+                        <div class="doctor-info">
+                            <h3>Dr. Raj Sharma</h3>
+                            <span>Cardiologist</span>
+                            <p>10+ Years Experience</p>
+                            <a href="book-appointment.html" class="doctor-btn">
+                                Book Appointment
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="doctor-card">
+                        <img src="../assets/images/doctor2.jpg" alt="Doctor">
+                        <div class="doctor-info">
+                            <h3>Dr. Priya Verma</h3>
+                            <span>Neurologist</span>
+                            <p>8+ Years Experience</p>
+                            <a href="book-appointment.html" class="doctor-btn">
+                                Book Appointment
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="doctor-card">
+                        <img src="../assets/images/doctor3.jpg" alt="Doctor">
+                        <div class="doctor-info">
+                            <h3>Dr. Amit Singh</h3>
+                            <span>Orthopedic</span>
+                            <p>12+ Years Experience</p>
+
+                            <a href="book-appointment.html" class="doctor-btn">
+                                Book Appointment
+                            </a>
+                        </div>
+                    </div>
+
+            </section>
+            <section class="dashboard-section">
+                <div class="card">
+
+                    <h2>Health Tips</h2>
+                    <ul class="tips-list">
+                        <li>💧 Drink at least 2–3 liters of water daily.</li>
+                        <li>🥗 Eat a balanced diet rich in fruits and vegetables.</li>
+                        <li>🏃 Exercise for at least 30 minutes every day.</li>
+                        <li>😴 Sleep 7–8 hours for better health.</li>
+                        <li>🩺 Schedule regular health checkups.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="loader"></div>
+
+    <div class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/loader.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/patient.js"></script>
+    <script src="../js/dashboard.js"></script>
+
+    <script>
+        requireRole("PATIENT");
+        const user = getUser();
+        if (user) {
+            const patient = document.getElementById("patientName");
+            if (patient) {
+                patient.innerHTML = user.fullName || user.name || "Patient";
+            }
+        }
+    </script>
+</body>
+
+</html>

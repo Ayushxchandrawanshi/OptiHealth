@@ -16,13 +16,18 @@ async function registerPatient(e) {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (fullName === "" || email === "" || phone === "" || gender === "" || dob === "" || password === "") {
+    if (!fullName || !email || !phone || !gender || !dob || !password || !confirmPassword) {
         alert("Please fill all fields.");
         return;
     }
 
-    if (phone.length !== 10) {
-        alert("Phone number must be 10 digits.");
+    if (phone.length !== 10 || isNaN(phone)) {
+        alert("Enter a valid 10 digit phone number.");
+        return;
+    }
+
+    if (password.length < 6) {
+        alert("Password must be at least 6 characters.");
         return;
     }
 
@@ -32,25 +37,37 @@ async function registerPatient(e) {
     }
 
     const patient = {
-        fullName: fullName,
-        email: email,
-        phone: phone,
-        gender: gender,
-        dob: dob,
-        password: password
+        fullName,
+        email,
+        phone,
+        gender,
+        dob,
+        password
     };
 
-    const response = await patientRegister(patient);
+    try {
 
-    if (response.success) {
+        const response = await patientRegister(patient);
 
-        alert(response.message);
+        if (response.success) {
 
-        window.location.href = "login.html";
+            alert(response.message);
 
-    } else {
+            document.getElementById("patientRegisterForm").reset();
 
-        alert(response.message);
+            window.location.href = "login.html";
+
+        } else {
+
+            alert(response.message || "Registration Failed.");
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Server Error.");
 
     }
 

@@ -8,23 +8,32 @@ async function registerDoctor(e) {
 
     e.preventDefault();
 
-    const fullName = document.getElementById("fullName").value.trim();
+    const doctorName = document.getElementById("doctorName").value.trim();
     const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const gender = document.getElementById("gender").value;
     const specialization = document.getElementById("specialization").value.trim();
-    const qualification = document.getElementById("qualification").value.trim();
     const experience = document.getElementById("experience").value.trim();
+    const fee = document.getElementById("fee").value.trim();
+    const description = document.getElementById("description").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (fullName === "" || email === "" || phone === "" || gender === "" || specialization === "" || qualification === "" || experience === "" || password === "") {
+    if (!doctorName || !email || !specialization || !experience || !fee || !description || !password || !confirmPassword) {
         alert("Please fill all fields.");
         return;
     }
 
-    if (phone.length !== 10) {
-        alert("Phone number must be 10 digits.");
+    if (isNaN(experience) || experience < 0) {
+        alert("Enter valid experience.");
+        return;
+    }
+
+    if (isNaN(fee) || fee <= 0) {
+        alert("Enter valid consultation fee.");
+        return;
+    }
+
+    if (password.length < 6) {
+        alert("Password must be at least 6 characters.");
         return;
     }
 
@@ -34,14 +43,13 @@ async function registerDoctor(e) {
     }
 
     const doctor = {
-        fullName: fullName,
+        doctorName: doctorName,
         email: email,
-        phone: phone,
-        gender: gender,
+        password: password,
         specialization: specialization,
-        qualification: qualification,
-        experience: experience,
-        password: password
+        experience: parseInt(experience),
+        fee: parseFloat(fee),
+        description: description
     };
 
     try {
@@ -49,16 +57,24 @@ async function registerDoctor(e) {
         const response = await doctorRegister(doctor);
 
         if (response.success) {
+
             alert(response.message);
+
+            document.getElementById("doctorRegisterForm").reset();
+
             window.location.href = "login.html";
+
         } else {
-            alert(response.message);
+
+            alert(response.message || "Registration Failed.");
+
         }
 
     } catch (error) {
 
         console.error(error);
-        alert("Registration failed. Please try again.");
+
+        alert("Server Error. Please try again.");
 
     }
 

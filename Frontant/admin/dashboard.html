@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OptiHealth | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animation.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+
+                <img src="../assets/logo/logo.png" alt="Logo">
+
+                <h2>OptiHealth</h2>
+
+            </div>
+
+            <ul class="sidebar-menu">
+
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="doctors.html">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <span>Doctors</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="patients.html">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Patients</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="appointments.html">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Appointments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+
+                    <h2>
+
+                        Admin Dashboard
+
+                    </h2>
+
+                    <p>
+
+                        Welcome,
+                        <span id="adminName">Administrator</span>
+
+                    </p>
+
+                </div>
+
+                <div class="topbar-right">
+
+                    <img src="../assets/images/admin.png" alt="Admin">
+
+                </div>
+
+            </header>
+
+            <section class="card-grid">
+
+                <div class="card stat-card info-card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+
+                            Doctors
+
+                        </h3>
+
+                        <div class="card-icon">
+
+                            <i class="fa-solid fa-user-doctor"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h2 id="totalDoctors">
+
+                            0
+
+                        </h2>
+
+                        <p>
+
+                            Registered Doctors
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="card stat-card success-card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+
+                            Patients
+
+                        </h3>
+
+                        <div class="card-icon">
+
+                            <i class="fa-solid fa-users"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h2 id="totalPatients">
+
+                            0
+
+                        </h2>
+
+                        <p>
+
+                            Registered Patients
+
+                        </p>
+
+                    </div>
+
+                </div>
+                <div class="card stat-card warning-card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+
+                            Appointments
+
+                        </h3>
+
+                        <div class="card-icon">
+
+                            <i class="fa-solid fa-calendar-check"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h2 id="totalAppointments">
+
+                            0
+
+                        </h2>
+
+                        <p>
+
+                            Total Appointments
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="card stat-card danger-card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+
+                            Pending
+
+                        </h3>
+
+                        <div class="card-icon">
+
+                            <i class="fa-solid fa-hourglass-half"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h2 id="pendingAppointments">
+
+                            0
+
+                        </h2>
+
+                        <p>
+
+                            Pending Requests
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="dashboard-section">
+
+                <div class="section-header">
+
+                    <h2>
+
+                        Recent Appointments
+
+                    </h2>
+
+                    <a href="appointments.html" class="doctor-btn">
+
+                        View All
+
+                    </a>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Appointment ID</th>
+
+                                <th>Patient ID</th>
+
+                                <th>Doctor ID</th>
+
+                                <th>Date</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="recentAppointments">
+
+                            <tr>
+
+                                <td colspan="5" style="text-align:center;padding:35px;">
+
+                                    Loading Appointments...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <section class="dashboard-section">
+
+                <div class="card">
+
+                    <h2>
+
+                        Quick Actions
+
+                    </h2>
+
+                    <div class="quick-actions">
+
+                        <a href="doctors.html" class="doctor-btn">
+
+                            <i class="fa-solid fa-user-doctor"></i>
+
+                            Manage Doctors
+
+                        </a>
+
+                        <a href="patients.html" class="doctor-btn">
+
+                            <i class="fa-solid fa-users"></i>
+
+                            Manage Patients
+
+                        </a>
+
+                        <a href="appointments.html" class="doctor-btn">
+
+                            <i class="fa-solid fa-calendar-check"></i>
+
+                            Manage Appointments
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <div class="loader"></div>
+    <div class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/loader.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin-dashboard.js"></script>
+    <script>
+        requireRole("ADMIN");
+        const admin = getUserData();
+        if (!admin) {
+            window.location.href = "../login.html";
+        }
+        document.getElementById("adminName").innerText = admin.fullName || admin.name || "Administrator";
+    </script>
+</body>
+
+</html>

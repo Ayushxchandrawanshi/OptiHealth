@@ -140,3 +140,31 @@ function getAllPatients(token) {
 function getAdminAppointments(token) {
     return apiRequest("/admin/appointment", "GET", null, token);
 }
+
+function addDoctor(doctor, token) {
+    return apiRequest("/admin/doctor", "POST", doctor, token);
+}
+
+function updateDoctor(id, doctor, token) {
+    return apiRequest(`/admin/doctor/${id}`, "PUT", doctor, token);
+}
+
+function deleteDoctor(id, token) {
+    return apiRequest(`/admin/doctor/${id}`, "DELETE", null, token);
+}
+
+function addPatient(patient, token) {
+    return apiRequest("/admin/patient", "POST", patient, token);
+}
+
+function updatePatient(id, patient, token) {
+    return apiRequest(`/admin/patient/${id}`, "PUT", patient, token);
+}
+
+function deletePatient(id, token) {
+    return apiRequest(`/admin/patient/${id}`, "DELETE", null, token);
+}
+
+function deleteAppointment(id, token) {
+    return apiRequest(`/admin/appointment/${id}`, "DELETE", null, token);
+}

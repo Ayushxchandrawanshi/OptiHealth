@@ -1309,31 +1309,85 @@ p {
 /* ===============================
    Mobile
 =================================*/
-
 @media(max-width:576px) {
-
     h1 {
-
         font-size: 34px;
-
     }
 
     h2 {
-
         font-size: 28px;
-
     }
 
     h3 {
-
         font-size: 22px;
-
     }
 
     .container {
-
         width: 92%;
-
     }
+}
 
+.about-hospital-img {
+    width: 100%;
+    max-width: 1200px;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+}
+
+.doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.doctor-card {
+    background: #fff;
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
+    transition: .3s;
+}
+
+.doctor-card:hover {
+    transform: translateY(-8px);
+}
+
+.doctor-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 20px;
+    border: 6px solid #eef3ff;
+}
+
+.doctor-card h3 {
+    margin: 10px 0 5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.doctor-card p {
+    color: #2563eb;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+@media(max-width:992px) {
+    .doctors-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:768px) {
+    .doctors-grid {
+        grid-template-columns: 1fr;
+    }
 }

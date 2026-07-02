@@ -1,3 +1,7 @@
+/* ===========================
+   Doctor Registration
+=========================== */
+
 const doctorForm = document.getElementById("doctorRegisterForm");
 
 if (doctorForm) {
@@ -60,7 +64,7 @@ async function registerDoctor(e) {
 
             alert(response.message);
 
-            document.getElementById("doctorRegisterForm").reset();
+            doctorForm.reset();
 
             window.location.href = "login.html";
 
@@ -77,5 +81,101 @@ async function registerDoctor(e) {
         alert("Server Error. Please try again.");
 
     }
+
+}
+
+/* ===========================
+   Doctors Page
+=========================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const container = document.getElementById("doctorContainer");
+
+    if (container) {
+        loadDoctors();
+    }
+
+});
+
+async function loadDoctors() {
+
+    try {
+
+        const doctors = await getDoctors();
+
+        const container = document.getElementById("doctorContainer");
+
+        if (!container) {
+            return;
+        }
+
+        container.innerHTML = "";
+
+        if (!doctors || doctors.length === 0) {
+
+            container.innerHTML = `
+<div class="card">
+<h3>No Doctors Available</h3>
+</div>
+`;
+
+            return;
+
+        }
+
+        doctors.forEach(doctor => {
+
+            container.innerHTML += `
+
+<div class="doctor-card">
+
+<img src="assets/images/default-doctor.jpg" class="doctor-img">
+
+<h3>${doctor.doctorName}</h3>
+
+<p><strong>${doctor.specialization}</strong></p>
+
+<p>${doctor.experience} Years Experience</p>
+
+<p>₹${doctor.fee}</p>
+
+<p>${doctor.description}</p>
+
+<a href="login.html" class="btn btn-primary">
+Book Appointment
+</a>
+
+</div>
+
+`;
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+/* ===========================
+   Search Doctor
+=========================== */
+
+function searchDoctors() {
+
+    const value = document.getElementById("searchDoctor").value.toLowerCase();
+
+    const cards = document.querySelectorAll(".doctor-card");
+
+    cards.forEach(card => {
+
+        const text = card.innerText.toLowerCase();
+
+        card.style.display = text.includes(value) ? "block" : "none";
+
+    });
 
 }

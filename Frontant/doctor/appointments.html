@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OptiHealth | Doctor Appointments</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/logo/logo.png" alt="Logo">
+                <h2>OptiHealth</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="appointments.html">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Appointments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>
+                        Doctor Appointments
+                    </h2>
+                    <p>
+                        Manage all patient appointment requests.
+                    </p>
+                </div>
+                <div class="topbar-right">
+                    <img src="../assets/images/doctor.png" alt="Doctor">
+                </div>
+            </header>
+            <section class="card-grid">
+                <div class="card stat-card info-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Total
+                        </h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="totalAppointments">
+                            0
+                        </h2>
+                        <p>
+                            Total Appointments
+                        </p>
+                    </div>
+                </div>
+                <div class="card stat-card warning-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Pending
+                        </h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="pendingAppointments">
+                            0
+                        </h2>
+                        <p>
+                            Waiting For Action
+                        </p>
+                    </div>
+                </div>
+                <div class="card stat-card success-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Accepted</h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="acceptedAppointments">0</h2>
+                        <p>Approved Appointments</p>
+                    </div>
+                </div>
+
+                <div class="card stat-card danger-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Rejected</h3>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 id="rejectedAppointments">0</h2>
+                        <p>Rejected Appointments</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="dashboard-section">
+
+                <div class="section-header">
+                    <h2>Appointment Requests</h2>
+                </div>
+
+                <div class="table-container">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Patient ID</th>
+                                <th>Booking Date</th>
+                                <th>Appointment Date</th>
+                                <th>Time</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="appointmentTable">
+
+                            <tr>
+                                <td colspan="8" style="text-align:center;padding:40px;">
+                                    Loading Appointments...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <section class="dashboard-section">
+
+                <div class="card">
+
+                    <h2>Doctor Instructions</h2>
+
+                    <ul class="tips-list">
+                        <li>📅 Accept appointments after selecting available date and time.</li>
+                        <li>✅ Accepted appointments will be visible to patients.</li>
+                        <li>❌ Reject only when you are unavailable.</li>
+                        <li>🩺 Check appointment reason before taking action.</li>
+                        <li>📋 Keep your schedule updated regularly.</li>
+                    </ul>
+
+                </div>
+
+            </section>
+        </main>
+
+    </div>
+
+    <div class="loader"></div>
+
+    <div class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+
+    <script src="../js/navbar.js"></script>
+    <script src="../js/loader.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/doctor-appointments.js"></script>
+
+    <script>
+
+        requireRole("DOCTOR");
+
+        const doctor = getUserData();
+
+        if (!doctor) {
+            window.location.href = "../login.html";
+        }
+    </script>
+</body>
+
+</html>

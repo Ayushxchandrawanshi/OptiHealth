@@ -3,6 +3,7 @@ package com.example.demo.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -39,8 +40,8 @@ public class WebSecurityConfig {
                         "/api/admin/register",
                         "/api/admin/login"
                 ).permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/patients/doctors").permitAll()
                 // Swagger
-
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/v3/api-docs/**"

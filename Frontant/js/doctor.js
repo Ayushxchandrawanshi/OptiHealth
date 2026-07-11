@@ -121,16 +121,22 @@ async function loadDoctors() {
 `;
 
             return;
-
         }
 
-        doctors.forEach(doctor => {
+        doctors.forEach((doctor, index) => {
+
+            let image = "assets/images/default-doctor.jpg";
+
+            if (index === 0) image = "assets/images/doctor1.jpg";
+            if (index === 1) image = "assets/images/doctor2.jpg";
+            if (index === 2) image = "assets/images/doctor3.jpg";
+            if (index === 2) image = "assets/images/doctor4.jpg";
+            if (index === 2) image = "assets/images/doctor5.jpg";
 
             container.innerHTML += `
-
 <div class="doctor-card">
 
-<img src="assets/images/default-doctor.jpg" class="doctor-img">
+<img src="${image}" class="doctor-img">
 
 <h3>${doctor.doctorName}</h3>
 
@@ -147,7 +153,6 @@ Book Appointment
 </a>
 
 </div>
-
 `;
 
         });

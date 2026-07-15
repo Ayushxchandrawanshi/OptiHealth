@@ -52,7 +52,7 @@ public class PatientService {
     // Book Appointment
     // ==========================
     public void bookAppointment(AppointmentModel appointment) {
-
+        appointment.setStatus("PENDING");
         appointmentRepo.save(appointment);
 
     }

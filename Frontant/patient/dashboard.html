@@ -83,9 +83,6 @@
                         Manage your appointments and health records.
                     </p>
                 </div>
-                <div class="topbar-right">
-                    <img src="../assets/images/patient.png" alt="Patient">
-                </div>
             </header>
             <!-- Dashboard Cards -->
             <section class="card-grid">
@@ -195,7 +192,9 @@
             <section class="dashboard-section">
                 <div class="section-header">
                     <h2>Top Doctors</h2>
-                    <a href="doctors.html" class="doctor-btn">View All</a>
+                    <button class="doctor-btn" onclick="showAllDoctors()" id="viewAllBtn">
+                        View All
+                    </button>
                 </div>
 
                 <div class="doctor-grid">
@@ -235,19 +234,19 @@
                             </a>
                         </div>
                     </div>
+                </div>
 
-            </section>
-            <section class="dashboard-section">
-                <div class="card">
-
-                    <h2>Health Tips</h2>
-                    <ul class="tips-list">
-                        <li>💧 Drink at least 2–3 liters of water daily.</li>
-                        <li>🥗 Eat a balanced diet rich in fruits and vegetables.</li>
-                        <li>🏃 Exercise for at least 30 minutes every day.</li>
-                        <li>😴 Sleep 7–8 hours for better health.</li>
-                        <li>🩺 Schedule regular health checkups.</li>
-                    </ul>
+                <!-- Hidden Doctor List -->
+                <div id="allDoctorsSection" style="display:none; margin-top:40px;">
+                    <h2 class="section-title">
+                        All Doctors
+                    </h2>
+                    <div class="search-box">
+                        <input type="text" id="searchDoctorDashboard" placeholder="Search Doctor..."
+                            onkeyup="searchDashboardDoctors()">
+                    </div>
+                    <div class="doctors-grid" id="dashboardDoctorsContainer">
+                    </div>
                 </div>
             </section>
         </main>
@@ -269,11 +268,15 @@
 
     <script>
         requireRole("PATIENT");
-        const user = getUser();
-        if (user) {
+        const patientData = getUserData();
+        if (patientData) {
             const patient = document.getElementById("patientName");
             if (patient) {
-                patient.innerHTML = user.fullName || user.name || "Patient";
+                patient.innerHTML =
+                    patientData.fullName ||
+                    patientData.patientName ||
+                    patientData.name ||
+                    "Patient";
             }
         }
     </script>

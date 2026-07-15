@@ -1308,17 +1308,17 @@ p {
 
 .doctors-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .doctor-card {
     background: #fff;
-    padding: 30px 20px;
     border-radius: 20px;
+    padding: 25px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
     transition: .3s;
 }
 
@@ -1327,25 +1327,56 @@ p {
 }
 
 .doctor-img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
+    border-radius: 50%;
     display: block;
     margin: 0 auto 20px;
-    border: 6px solid #eef3ff;
+    border: 6px solid #edf3ff;
 }
 
 .doctor-card h3 {
-    margin: 10px 0 5px;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #0f172a;
 }
 
 .doctor-card p {
+    margin: 8px 0;
+    color: #4b5563;
+}
+
+.doctor-card strong {
     color: #2563eb;
-    font-size: 17px;
-    font-weight: 600;
+}
+
+.doctor-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    max-width: 500px;
+    margin: 30px 0;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 18px 22px;
+    border-radius: 40px;
+    border: 2px solid #dbeafe;
+    font-size: 18px;
+    outline: none;
+    transition: .3s;
+}
+
+.search-box input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 15px rgba(37, 99, 235, .2);
 }
 
 @media(max-width:992px) {
@@ -1505,4 +1536,18 @@ p {
 
 .search-box input {
     padding-left: 55px;
+}
+
+/* Show All Doctors */
+
+.doctor-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+#dashboardDoctorsContainer {
+    margin-top: 30px;
 }

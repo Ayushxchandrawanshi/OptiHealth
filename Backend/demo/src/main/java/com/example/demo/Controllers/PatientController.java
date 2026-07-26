@@ -36,9 +36,7 @@ public class PatientController {
     // ==========================
     @PostMapping("/register")
     public ApiResponse registerPatient(@RequestBody PatientModel patient) {
-
         patientService.registerPatient(patient);
-
         return new ApiResponse(
                 true,
                 "Patient Registered Successfully");
@@ -50,9 +48,7 @@ public class PatientController {
     // ==========================
     @PostMapping("/login")
     public LoginResponse loginPatient(@RequestBody LoginRequest request) {
-
         return authService.patientLogin(request);
-
     }
 
     // ==========================
@@ -60,9 +56,7 @@ public class PatientController {
     // ==========================
     @GetMapping("/doctors")
     public List<DoctorModel> getAllDoctors() {
-
         return patientService.getAllDoctors();
-
     }
 
     // ==========================

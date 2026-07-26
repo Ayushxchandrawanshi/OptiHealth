@@ -147,3 +147,25 @@ async function showAllDoctors() {
         console.error(error);
     }
 }
+
+/* ===========================
+   Search Doctors
+=========================== */
+function searchDashboardDoctors() {
+    const value = document
+        .getElementById("searchDoctorDashboard")
+        .value
+        .toLowerCase();
+    const cards = document.querySelectorAll(
+        "#dashboardDoctorsContainer .doctor-card"
+    );
+
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(value)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}

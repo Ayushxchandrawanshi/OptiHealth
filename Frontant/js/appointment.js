@@ -1,103 +1,57 @@
+async function loadDoctors() {
+    const token = localStorage.getItem("token");
+    const response = await getDoctors(token);
+    const doctorSelect = document.getElementById("doctorId");
+    doctorSelect.innerHTML = "<option value=''>Choose Doctor</option>";
+    if (!response || !Array.isArray(response)) return;
+    response.forEach(doctor => {
+        const option = document.createElement("option");
+        option.value = doctor.id;
+        option.text = `Dr. ${doctor.doctorName} - ${doctor.specialization}`;
+        option.dataset.department = doctor.specialization;
+        doctorSelect.appendChild(option);
+    });
+    doctorSelect.addEventListener("change", () => {
+        const selected = doctorSelect.options[doctorSelect.selectedIndex];
+        document.getElementById("department").value = selected.dataset.department || "";
+    });
+}
+
 async function bookAppointment() {
-
+    const token = localStorage.getItem("token");
+    const patientId = getPatientId();
     const doctorId = document.getElementById("doctorId").value;
-    const department = document.getElementById("department").value;
     const appointmentDate = document.getElementById("appointmentDate").value;
-    const timeSlot = document.getElementById("timeSlot").value;
-    const priority = document.getElementById("priority").value;
-    const age = document.getElementById("age").value;
-    const symptoms = document.getElementById("symptoms").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const medicalHistory = document.getElementById("medicalHistory").value.trim();
+    const appointmentTime = document.getElementById("appointmentTime").value;
+    const reason = document.getElementById("reason").value.trim();
+    const remarks = document.getElementById("remarks").value.trim();
 
-    if (!doctorId || !department || !appointmentDate || !timeSlot || !age || !symptoms || !description) {
+    if (!doctorId || !appointmentDate || !appointmentTime || !reason) {
         alert("Please fill all required fields.");
         return;
     }
 
     const appointment = {
-        doctorId,
-        department,
+        doctorId: Number(doctorId),
+        patientId: Number(patientId),
+        bookingDate: new Date().toISOString().split("T")[0],
         appointmentDate,
-        timeSlot,
-        priority,
-        age,
-        symptoms,
-        description,
-        medicalHistory
+        appointmentTime: appointmentTime + ":00",
+        status: "PENDING",
+        reason,
+        remarks
     };
-    try {
 
-        const response = await apiRequest(
-            "/appointments/book",
-            "POST",
-            appointment,
-            authHeader()
-        );
-
-        if (response.success) {
-            alert(response.message);
-            document.getElementById("appointmentForm").reset();
-        } else {
-            alert(response.message || "Booking failed.");
-        }
-
-    } catch (error) {
-        console.error(error);
-        alert("Unable to book appointment.");
+    const response = await createPatientAppointment(appointment, token);
+    if (response.success) {
+        alert("Appointment booked successfully.");
+        document.getElementById("appointmentForm").reset();
     }
-}
-
-async function loadAppointments() {
-    const table = document.getElementById("appointmentTable");
-    if (!table) return;
-    try {
-        const appointments = await apiRequest(
-            "/appointments/patient",
-            "GET",
-            null,
-            authHeader()
-        );
-        table.innerHTML = "";
-        appointments.forEach((appointment, index) => {
-            table.innerHTML += `
-<tr>
-<td>${index + 1}</td>
-<td>${appointment.doctorName}</td>
-<td>${appointment.department}</td>
-<td>${appointment.appointmentDate}</td>
-<td>${appointment.timeSlot}</td>
-<td>${appointment.status}</td>
-<td>
-<button class="doctor-btn" onclick="cancelAppointment(${appointment.id})">
-Cancel
-</button>
-</td>
-</tr>
-`;
-        });
-    } catch (error) {
-        console.error(error);
-    }
-}
-async function cancelAppointment(id) {
-
-    if (!confirm("Cancel this appointment?")) return;
-    try {
-        const response = await apiRequest(
-            "/appointments/" + id,
-            "DELETE",
-            null,
-            authHeader()
-        );
-        alert(response.message);
-        loadAppointments();
-    } catch (error) {
-        console.error(error);
-        alert("Unable to cancel appointment.");
+    else {
+        alert(response.message || "Booking Failed");
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadAppointments();
+    loadDoctors();
 });

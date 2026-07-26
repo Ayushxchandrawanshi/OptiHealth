@@ -61,7 +61,7 @@ function getDoctors(token = null) {
     return apiRequest("/patients/doctors", "GET", null, token);
 }
 
-function bookAppointment(appointment, token) {
+function createPatientAppointment(appointment, token) {
     return apiRequest("/patients/bookAppointment", "POST", appointment, token);
 }
 

@@ -1308,8 +1308,9 @@ p {
 
 .doctors-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 350px));
     gap: 30px;
+    justify-content: left;
     margin-top: 40px;
 }
 
@@ -1320,6 +1321,9 @@ p {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
     transition: .3s;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
 }
 
 .doctor-card:hover {

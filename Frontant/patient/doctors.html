@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Doctors | OptiHealth</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/logo/logo.png">
+                <h2>OptiHealth</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="doctors.html">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <span>Doctors</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="book-appointment.html">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                        <span>Book Appointment</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="appointments.html">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>My Appointments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>Our Doctors</h2>
+                    <p>Find the right specialist and book your appointment.</p>
+                </div>
+            </header>
+
+            <div class="doctor-search">
+                <input type="text" id="searchDoctor" class="form-control"
+                    placeholder="Search doctor by name or specialization..." onkeyup="searchDoctors()">
+            </div>
+            <div class="doctors-grid" id="doctorContainer">
+            </div>
+        </main>
+    </div>
+
+    <div class="loader"></div>
+
+    <div class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+
+    <script src="../js/loader.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/doctor.js"></script>
+
+    <script>
+        requireRole("PATIENT");
+        loadDoctors();
+    </script>
+
+</body>
+
+</html>

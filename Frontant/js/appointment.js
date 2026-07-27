@@ -4,6 +4,7 @@ async function loadDoctors() {
     const doctorSelect = document.getElementById("doctorId");
     doctorSelect.innerHTML = "<option value=''>Choose Doctor</option>";
     if (!response || !Array.isArray(response)) return;
+
     response.forEach(doctor => {
         const option = document.createElement("option");
         option.value = doctor.id;
@@ -11,6 +12,16 @@ async function loadDoctors() {
         option.dataset.department = doctor.specialization;
         doctorSelect.appendChild(option);
     });
+
+    const params = new URLSearchParams(window.location.search);
+    const selectedDoctor = params.get("doctorId");
+
+    if (selectedDoctor) {
+        doctorSelect.value = selectedDoctor;
+        const option = doctorSelect.options[doctorSelect.selectedIndex];
+        document.getElementById("department").value = option.dataset.department || "";
+    }
+
     doctorSelect.addEventListener("change", () => {
         const selected = doctorSelect.options[doctorSelect.selectedIndex];
         document.getElementById("department").value = selected.dataset.department || "";

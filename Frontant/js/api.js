@@ -69,6 +69,14 @@ function getPatientAppointments(patientId, token) {
     return apiRequest(`/patients/appointments/${patientId}`, "GET", null, token);
 }
 
+function getPatientProfile(patientId, token) {
+    return apiRequest(`/patients/${patientId}`, "GET", null, token);
+}
+
+function updatePatientProfile(patientId, patient, token) {
+    return apiRequest(`/patients/${patientId}`, "PUT", patient, token);
+}
+
 /* ===========================
    DOCTOR APIs
 =========================== */

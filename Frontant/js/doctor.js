@@ -125,13 +125,13 @@ async function loadDoctors() {
 
         doctors.forEach((doctor, index) => {
 
-            let image = "assets/images/default-doctor.jpg";
+            let image = "../assets/images/default-doctor.jpg";
 
-            if (index === 0) image = "assets/images/doctor1.jpg";
-            if (index === 1) image = "assets/images/doctor2.jpg";
-            if (index === 2) image = "assets/images/doctor3.jpg";
-            if (index === 2) image = "assets/images/doctor4.jpg";
-            if (index === 2) image = "assets/images/doctor5.jpg";
+            if (index === 0) image = "../assets/images/doctor1.jpg";
+            if (index === 1) image = "../assets/images/doctor2.jpg";
+            if (index === 2) image = "../assets/images/doctor3.jpg";
+            if (index === 3) image = "../assets/images/doctor4.jpg";
+            if (index === 4) image = "../assets/images/doctor5.jpg";
 
             container.innerHTML += `
 <div class="doctor-card">
@@ -148,7 +148,7 @@ async function loadDoctors() {
 
 <p>${doctor.description}</p>
 
-<a href="login.html" class="btn btn-primary">
+<a href="book-appointment.html?doctorId=${doctor.id}" class="btn btn-primary">
 Book Appointment
 </a>
 

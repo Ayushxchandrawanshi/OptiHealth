@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OptiHealth | Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #06b6d4;
+            --dark: #0f172a;
+            --light: #ffffff;
+            --text: #475569;
+            --glass: rgba(255, 255, 255, .15);
+            --border: rgba(255, 255, 255, .25);
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .35;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: #38bdf8;
+            top: -80px;
+            left: -80px;
+        }
+
+        .circle:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: #22c55e;
+            bottom: -120px;
+            right: -120px;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: #f97316;
+            top: 40%;
+            left: 55%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        .login-container {
+            width: 1120px;
+            max-width: 92%;
+            height: 620px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .18);
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .35);
+        }
+
+        .left-panel {
+            position: relative;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .right-panel {
+            background: #fff;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .left-panel h4 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            color: #bfdbfe;
+        }
+
+        .left-panel h1 {
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .left-panel>p {
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 470px;
+            color: #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        .feature-box {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px 22px;
+            border: 1px solid rgba(255, 255, 255, .18);
+            background: rgba(255, 255, 255, .08);
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            transition: .3s;
+        }
+
+        .feature:hover {
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .feature i {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border-radius: 50%;
+            background: #fff;
+            color: #2563eb;
+            flex-shrink: 0;
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: #dbeafe;
+            line-height: 1.6;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .login-box h2 {
+            font-size: 38px;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 35px;
+            font-size: 15px;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .role {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #e2e8f0;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .role.active {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .role:hover {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .input-box i:first-child {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 56px;
+            padding: 0 52px;
+            border: 1px solid #d1d5db;
+            border-radius: 14px;
+            font-size: 15px;
+            outline: none;
+            transition: .3s;
+        }
+
+        .input-box input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .15);
+        }
+
+        .eye {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #475569;
+        }
+
+        .options a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 56px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, .35);
+        }
+
+        .register {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 15px;
+            color: #64748b;
+        }
+
+        .register a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2563eb;
+            margin-left: 4px;
+        }
+
+        @media(max-width:1000px) {
+
+            .login-container {
+                grid-template-columns: 1fr;
+                height: auto;
+                margin: 40px 0;
+            }
+
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                padding: 50px 35px;
+            }
+
+            .login-box {
+                max-width: 100%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="left-panel">
+            <h4>WELCOME TO</h4>
+            <h1>OptiHealth</h1>
+
+            <p>
+                Smart Hospital Management System designed to simplify appointments,
+                patient records, doctor management and healthcare services with a
+                modern digital experience.
+            </p>
+
+            <div class="feature-box">
+                <div class="feature">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <div>
+                        <h3>Experienced Doctors</h3>
+                        <p>Consult highly qualified specialists anytime.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div>
+                        <h3>Easy Appointment</h3>
+                        <p>Book appointments in just a few clicks.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <div>
+                        <h3>Secure Records</h3>
+                        <p>Your medical history remains safe and protected.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="login-box">
+                <h2>Login</h2>
+                <p class="subtitle">
+                    Sign in to continue to your dashboard.
+                </p>
+
+                <div class="role-selector">
+                    <button type="button" class="role active" id="patientRole">Patient</button>
+                    <button type="button" class="role" id="doctorRole">Doctor</button>
+                    <button type="button" class="role" id="adminRole">Admin</button>
+                </div>
+
+                <form>
+                    <div class="input-box">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" required>
+                        <i class="fa-solid fa-eye eye"></i>
+                    </div>
+
+                    <div class="options">
+                        <label>
+                            <input type="checkbox">
+                            Remember Me
+                        </label>
+                        <a href="forgot-password.html">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        Login
+                    </button>
+                    <div class="register">
+                        Don't have an account?
+                        <a href="register.html">Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const roles = document.querySelectorAll(".role");
+
+        roles.forEach(role => {
+            role.addEventListener("click", function () {
+                roles.forEach(btn => btn.classList.remove("active"));
+                this.classList.add("active");
+            });
+        });
+
+        const eye = document.querySelector(".eye");
+        const password = document.getElementById("password");
+
+        eye.addEventListener("click", () => {
+            if (password.type === "password") {
+                password.type = "text";
+                eye.classList.remove("fa-eye");
+                eye.classList.add("fa-eye-slash");
+
+            } else {
+                password.type = "password";
+                eye.classList.remove("fa-eye-slash");
+                eye.classList.add("fa-eye");
+            }
+        });
+
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const email = document.querySelector('input[type="email"]').value.trim();
+            const pass = password.value.trim();
+
+            if (email === "" || pass === "") {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            const activeRole = document.querySelector(".role.active").textContent.trim();
+            if (activeRole === "Patient") {
+                window.location.href = "../patient/dashboard.html";
+            } else if (activeRole === "Doctor") {
+                window.location.href = "../doctor/dashboard.html";
+            } else {
+                window.location.href = "../admin/dashboard.html";
+            }
+        });
+
+        window.addEventListener("load", () => {
+            document.querySelector(".login-container").style.opacity = "0";
+            document.querySelector(".login-container").style.transform = "translateY(40px)";
+
+            setTimeout(() => {
+                document.querySelector(".login-container").style.transition = ".8s";
+                document.querySelector(".login-container").style.opacity = "1";
+                document.querySelector(".login-container").style.transform = "translateY(0)";
+            }, 200);
+        });
+
+    </script>
+</body>
+
+</html>

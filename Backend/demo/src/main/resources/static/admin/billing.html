@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Billing Management | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --dark: #0f172a;
+            --dark2: #1e293b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --info: #2563eb;
+            --bg: #f5f7fb;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #111827);
+            color: #fff;
+            overflow-y: auto;
+            transition: .3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a i {
+            width: 24px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .search-box {
+            width: 320px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .search-box i {
+            margin-right: 12px;
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ddd;
+            object-fit: cover;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #0f766e);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 760px;
+        }
+
+        .billing-wrapper {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .tools-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            background: #fff;
+            min-width: 170px;
+        }
+
+        .generate-btn {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1500px;
+        }
+
+        th {
+            background: #f8fbff;
+            padding: 16px;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+        .patient-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .patient-box img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ddd;
+            object-fit: cover;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .paid {
+            background: #16a34a;
+        }
+
+        .pending {
+            background: #f59e0b;
+        }
+
+        .partial {
+            background: #2563eb;
+        }
+
+        .overdue {
+            background: #dc2626;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-buttons button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 15px;
+            transition: .3s;
+        }
+
+        .view-btn {
+            background: #2563eb;
+        }
+
+        .edit-btn {
+            background: #f59e0b;
+        }
+
+        .pay-btn {
+            background: #16a34a;
+        }
+
+        .download-btn {
+            background: #7c3aed;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        .action-buttons button:hover {
+            transform: translateY(-3px);
+        }
+
+        .modal {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, .55);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 5000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 900px;
+            background: #fff;
+            border-radius: 22px;
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            background: #f1f5f9;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            resize: none;
+        }
+
+        .input-group textarea {
+            height: 120px;
+        }
+
+        .full-width {
+            grid-column: 1/-1;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .save-btn {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            background: #16a34a;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            background: #dc2626;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media(max-width:1200px) {
+
+            .search-box {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .tools-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filters select,
+            .filters input,
+            .generate-btn {
+                width: 100%;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-actions button {
+                width: 100%;
+            }
+
+        }
+
+        @media(max-width:500px) {
+
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-hospital"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Admin Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+
+                <a href="doctors.html"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+
+                <a href="patients.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+
+                <a href="departments.html"><i class="fa-solid fa-building"></i><span>Departments</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-file-invoice-dollar"></i><span>Billing</span></a>
+
+                <a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+
+                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Billing Management</h2>
+                        <p>Manage bills, invoices and payment records.</p>
+                    </div>
+
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search bills...">
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>5</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/admin.png" alt="">
+                        <div>
+                            <h4>Admin</h4>
+                            <p>System Administrator</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <h1>Billing & Payments 💳</h1>
+
+                    <p>Generate invoices, manage payments, update bill status and download billing records for every
+                        patient from one dashboard.</p>
+
+                </section>
+
+                <div class="billing-wrapper">
+                    <div class="tools-bar">
+
+                        <div class="filters">
+
+                            <select id="statusFilter">
+                                <option value="all">All Payment Status</option>
+                                <option>Paid</option>
+                                <option>Pending</option>
+                                <option>Partial</option>
+                                <option>Overdue</option>
+                            </select>
+
+                            <select id="patientFilter">
+                                <option value="all">All Patients</option>
+                                <option>Rahul Verma</option>
+                                <option>Priya Sharma</option>
+                                <option>Amit Patel</option>
+                                <option>Sneha Joshi</option>
+                            </select>
+
+                            <input type="date" id="dateFilter">
+
+                        </div>
+
+                        <button class="generate-btn" id="generateBillBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            Generate Bill
+                        </button>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="table-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>Bill ID</th>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Date</th>
+                                        <th>Total Amount</th>
+                                        <th>Paid</th>
+                                        <th>Due</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="billingTable">
+
+                                    <tr>
+
+                                        <td>BILL101</td>
+
+                                        <td>
+
+                                            <div class="patient-box">
+                                                <img src="../assets/patient.png">
+                                                <div>
+                                                    <b>Rahul Verma</b><br>
+                                                    <small>PAT101</small>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td>Dr. Rahul Sharma</td>
+                                        <td>25-07-2026</td>
+                                        <td>₹5,000</td>
+                                        <td>₹5,000</td>
+                                        <td>₹0</td>
+
+                                        <td><span class="status paid">Paid</span></td>
+
+                                        <td>
+
+                                            <div class="action-buttons">
+
+                                                <button class="view-btn">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="edit-btn">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button class="pay-btn">
+                                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                                </button>
+
+                                                <button class="download-btn">
+                                                    <i class="fa-solid fa-download"></i>
+                                                </button>
+
+                                                <button class="delete-btn">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>BILL102</td>
+
+                                        <td>
+
+                                            <div class="patient-box">
+                                                <img src="../assets/patient.png">
+                                                <div>
+                                                    <b>Priya Sharma</b><br>
+                                                    <small>PAT102</small>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td>Dr. Neha Gupta</td>
+                                        <td>26-07-2026</td>
+                                        <td>₹7,500</td>
+                                        <td>₹4,000</td>
+                                        <td>₹3,500</td>
+
+                                        <td><span class="status partial">Partial</span></td>
+
+                                        <td>
+
+                                            <div class="action-buttons">
+
+                                                <button class="view-btn">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="edit-btn">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button class="pay-btn">
+                                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                                </button>
+
+                                                <button class="download-btn">
+                                                    <i class="fa-solid fa-download"></i>
+                                                </button>
+
+                                                <button class="delete-btn">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>BILL103</td>
+
+                                        <td>
+
+                                            <div class="patient-box">
+                                                <img src="../assets/patient.png">
+                                                <div>
+                                                    <b>Amit Patel</b><br>
+                                                    <small>PAT103</small>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td>Dr. Raj Patel</td>
+                                        <td>27-07-2026</td>
+                                        <td>₹3,200</td>
+                                        <td>₹0</td>
+                                        <td>₹3,200</td>
+
+                                        <td><span class="status pending">Pending</span></td>
+
+                                        <td>
+
+                                            <div class="action-buttons">
+
+                                                <button class="view-btn">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="edit-btn">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button class="pay-btn">
+                                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                                </button>
+
+                                                <button class="download-btn">
+                                                    <i class="fa-solid fa-download"></i>
+                                                </button>
+
+                                                <button class="delete-btn">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>BILL104</td>
+
+                                        <td>
+
+                                            <div class="patient-box">
+                                                <img src="../assets/patient.png">
+                                                <div>
+                                                    <b>Sneha Joshi</b><br>
+                                                    <small>PAT104</small>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td>Dr. Pooja Verma</td>
+                                        <td>28-07-2026</td>
+                                        <td>₹8,900</td>
+                                        <td>₹2,000</td>
+                                        <td>₹6,900</td>
+
+                                        <td><span class="status overdue">Overdue</span></td>
+
+                                        <td>
+
+                                            <div class="action-buttons">
+
+                                                <button class="view-btn">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="edit-btn">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button class="pay-btn">
+                                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                                </button>
+
+                                                <button class="download-btn">
+                                                    <i class="fa-solid fa-download"></i>
+                                                </button>
+
+                                                <button class="delete-btn">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Generate / Edit Bill Modal -->
+
+                    <div class="modal" id="billModal">
+
+                        <div class="modal-content">
+
+                            <button class="close-btn">&times;</button>
+
+                            <h2 class="modal-title">Generate Bill</h2>
+
+                            <div class="form-grid">
+
+                                <div class="input-group">
+                                    <label>Patient</label>
+                                    <select id="billPatient">
+                                        <option>Rahul Verma</option>
+                                        <option>Priya Sharma</option>
+                                        <option>Amit Patel</option>
+                                        <option>Sneha Joshi</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Doctor</label>
+                                    <select id="billDoctor">
+                                        <option>Dr. Rahul Sharma</option>
+                                        <option>Dr. Neha Gupta</option>
+                                        <option>Dr. Raj Patel</option>
+                                        <option>Dr. Pooja Verma</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Bill Date</label>
+                                    <input type="date" id="billDate">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Total Amount</label>
+                                    <input type="number" id="billAmount">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Paid Amount</label>
+                                    <input type="number" id="paidAmount">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Payment Status</label>
+                                    <select id="billStatus">
+                                        <option>Paid</option>
+                                        <option>Pending</option>
+                                        <option>Partial</option>
+                                        <option>Overdue</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group full-width">
+                                    <label>Remarks</label>
+                                    <textarea id="billRemarks" placeholder="Enter remarks..."></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-actions">
+
+                                <button class="save-btn">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    Save Bill
+                                </button>
+
+                                <button class="cancel-btn">
+                                    Cancel
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- View Bill Modal -->
+
+                    <div class="modal" id="viewModal">
+
+                        <div class="modal-content">
+
+                            <button class="close-btn">&times;</button>
+
+                            <h2 class="modal-title">Invoice Details</h2>
+
+                            <div class="form-grid">
+
+                                <div class="input-group">
+                                    <label>Bill ID</label>
+                                    <input type="text" value="BILL101" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Patient</label>
+                                    <input type="text" value="Rahul Verma" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Doctor</label>
+                                    <input type="text" value="Dr. Rahul Sharma" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Total Amount</label>
+                                    <input type="text" value="₹5,000" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Paid Amount</label>
+                                    <input type="text" value="₹5,000" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Due Amount</label>
+                                    <input type="text" value="₹0" readonly>
+                                </div>
+
+                                <div class="input-group full-width">
+                                    <label>Remarks</label>
+                                    <textarea readonly>Payment received successfully.</textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-actions">
+
+                                <button class="cancel-btn closeView">
+                                    Close
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        const generateBillBtn = document.getElementById("generateBillBtn");
+        const billModal = document.getElementById("billModal");
+        const viewModal = document.getElementById("viewModal");
+
+        const searchInput = document.querySelector(".search-box input");
+        const statusFilter = document.getElementById("statusFilter");
+        const patientFilter = document.getElementById("patientFilter");
+        const dateFilter = document.getElementById("dateFilter");
+
+        const billRows = document.querySelectorAll("#billingTable tr");
+
+        const saveBtn = document.querySelector(".save-btn");
+        const cancelBtn = document.querySelector(".cancel-btn");
+
+        menuBtn.addEventListener("click", () => {
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+
+        });
+
+        document.addEventListener("click", e => {
+
+            if (window.innerWidth <= 900) {
+
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            }
+            else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        document.querySelector(".profile").addEventListener("click", () => {
+
+            window.location.href = "profile.html";
+
+        });
+
+        generateBillBtn.addEventListener("click", () => {
+
+            document.querySelector("#billModal .modal-title").innerText = "Generate Bill";
+
+            document.getElementById("billAmount").value = "";
+            document.getElementById("paidAmount").value = "";
+            document.getElementById("billRemarks").value = "";
+
+            billModal.style.display = "flex";
+
+        });
+
+        document.querySelectorAll(".edit-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                const row = btn.closest("tr");
+
+                document.querySelector("#billModal .modal-title").innerText = "Edit Bill";
+
+                document.getElementById("billPatient").value = row.cells[1].querySelector("b").innerText;
+                document.getElementById("billDoctor").value = row.cells[2].innerText;
+                document.getElementById("billAmount").value = row.cells[4].innerText.replace(/[₹,]/g, "");
+                document.getElementById("paidAmount").value = row.cells[5].innerText.replace(/[₹,]/g, "");
+                document.getElementById("billStatus").value = row.cells[7].innerText;
+
+                billModal.style.display = "flex";
+
+            });
+
+        });
+
+        document.querySelectorAll(".view-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                viewModal.style.display = "flex";
+
+            });
+
+        });
+
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                if (confirm("Delete this bill?")) {
+
+                    btn.closest("tr").remove();
+
+                    alert("Bill Deleted Successfully.");
+
+                }
+
+            });
+
+        });
+
+        document.querySelectorAll(".pay-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                const row = btn.closest("tr");
+
+                row.cells[5].innerText = row.cells[4].innerText;
+                row.cells[6].innerText = "₹0";
+                row.cells[7].innerHTML = '<span class="status paid">Paid</span>';
+
+                alert("Payment Completed Successfully.");
+
+            });
+
+        });
+
+        document.querySelectorAll(".download-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                alert("Invoice Download Started.");
+
+            });
+
+        });
+
+        saveBtn.addEventListener("click", () => {
+
+            alert("Bill Saved Successfully.");
+
+            billModal.style.display = "none";
+
+        });
+
+        cancelBtn.addEventListener("click", () => {
+
+            billModal.style.display = "none";
+
+        });
+
+        document.querySelector(".closeView").addEventListener("click", () => {
+
+            viewModal.style.display = "none";
+
+        });
+
+        document.querySelectorAll(".close-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                billModal.style.display = "none";
+                viewModal.style.display = "none";
+
+            });
+
+        });
+
+        window.addEventListener("click", e => {
+
+            if (e.target === billModal) {
+                billModal.style.display = "none";
+            }
+
+            if (e.target === viewModal) {
+                viewModal.style.display = "none";
+            }
+
+        });
+
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            billRows.forEach(row => {
+
+                const text = row.innerText.toLowerCase();
+
+                row.style.display = text.includes(value) ? "" : "none";
+
+            });
+
+        });
+
+        statusFilter.addEventListener("change", filterBills);
+        patientFilter.addEventListener("change", filterBills);
+        dateFilter.addEventListener("change", filterBills);
+
+        function filterBills() {
+
+            const status = statusFilter.value.toLowerCase();
+            const patient = patientFilter.value.toLowerCase();
+            const date = dateFilter.value;
+
+            billRows.forEach(row => {
+
+                const rowStatus = row.cells[7].innerText.toLowerCase();
+                const rowPatient = row.cells[1].innerText.toLowerCase();
+
+                const statusMatch = status === "all" || rowStatus === status;
+                const patientMatch = patient === "all" || rowPatient.includes(patient);
+
+                let dateMatch = true;
+
+                if (date !== "") {
+
+                    const rowDate = row.cells[3].innerText.split("-");
+
+                    const formatted = rowDate[2] + "-" + rowDate[1] + "-" + rowDate[0];
+
+                    dateMatch = formatted === date;
+
+                }
+
+                row.style.display = (statusMatch && patientMatch && dateMatch) ? "" : "none";
+
+            });
+
+        }
+
+        document.querySelectorAll("tbody tr").forEach(row => {
+
+            row.addEventListener("mouseenter", () => {
+
+                row.style.background = "#f8fbff";
+
+            });
+
+            row.addEventListener("mouseleave", () => {
+
+                row.style.background = "transparent";
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

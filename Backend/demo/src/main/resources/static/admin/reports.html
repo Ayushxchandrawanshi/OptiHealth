@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports & Analytics | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --dark: #0f172a;
+            --dark2: #1e293b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --info: #2563eb;
+            --bg: #f5f7fb;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #111827);
+            color: #fff;
+            overflow-y: auto;
+            transition: .3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a i {
+            width: 24px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .search-box {
+            width: 320px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .search-box i {
+            margin-right: 12px;
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ddd;
+            object-fit: cover;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #0f766e);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 760px;
+        }
+
+        .report-wrapper {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .report-card {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: .3s;
+        }
+
+        .report-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card-content h4 {
+            font-size: 15px;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .card-content h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .card-content p {
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .revenue {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+        }
+
+        .patient {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+        }
+
+        .appointment {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .doctor {
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+        }
+
+        .tools-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            background: #fff;
+            font-size: 14px;
+            min-width: 180px;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .export-buttons button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        .pdf-btn {
+            background: #dc2626;
+        }
+
+        .excel-btn {
+            background: #16a34a;
+        }
+
+        .export-buttons button:hover {
+            transform: translateY(-3px);
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .chart-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .chart-card h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .chart-card canvas {
+            width: 100% !important;
+            height: 320px !important;
+        }
+
+        .table-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .table-card h3 {
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th {
+            padding: 15px;
+            background: #f8fbff;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .status {
+            padding: 6px 14px;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .good {
+            background: #16a34a;
+        }
+
+        .average {
+            background: #f59e0b;
+        }
+
+        .low {
+            background: #dc2626;
+        }
+
+        @media(max-width:1200px) {
+            .search-box {
+                display: none;
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:900px) {
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width:768px) {
+            .tools-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filters select,
+            .filters input {
+                width: 100%;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+            }
+
+            .export-buttons button {
+                width: 100%;
+            }
+
+            .profile div {
+                display: none;
+            }
+        }
+
+        @media(max-width:500px) {
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .report-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-hospital"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Admin Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+
+                <a href="doctors.html"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+
+                <a href="patients.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+
+                <a href="departments.html"><i class="fa-solid fa-building"></i><span>Departments</span></a>
+
+                <a href="billing.html"><i class="fa-solid fa-file-invoice-dollar"></i><span>Billing</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+
+                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Reports & Analytics</h2>
+                        <p>Hospital performance reports and business analytics.</p>
+                    </div>
+
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search reports...">
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>3</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/admin.png" alt="">
+                        <div>
+                            <h4>Admin</h4>
+                            <p>System Administrator</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+                    <h1>Reports & Analytics 📊</h1>
+                    <p>Analyze hospital revenue, appointments, doctors, departments and patient statistics using
+                        interactive dashboards.</p>
+                </section>
+
+                <div class="report-wrapper">
+                    <div class="cards">
+
+                        <div class="report-card">
+                            <div class="card-content">
+                                <h4>Total Revenue</h4>
+                                <h2>₹24.8L</h2>
+                                <p><i class="fa-solid fa-arrow-trend-up"></i> +12.6% This Month</p>
+                            </div>
+                            <div class="card-icon revenue">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-content">
+                                <h4>Total Patients</h4>
+                                <h2>2,486</h2>
+                                <p><i class="fa-solid fa-arrow-trend-up"></i> +8.3% This Month</p>
+                            </div>
+                            <div class="card-icon patient">
+                                <i class="fa-solid fa-hospital-user"></i>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-content">
+                                <h4>Appointments</h4>
+                                <h2>684</h2>
+                                <p><i class="fa-solid fa-calendar-check"></i> 27 Today</p>
+                            </div>
+                            <div class="card-icon appointment">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-content">
+                                <h4>Total Doctors</h4>
+                                <h2>54</h2>
+                                <p><i class="fa-solid fa-user-doctor"></i> 6 Departments</p>
+                            </div>
+                            <div class="card-icon doctor">
+                                <i class="fa-solid fa-user-doctor"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tools-bar">
+
+                        <div class="filters">
+
+                            <select id="yearFilter">
+                                <option>2026</option>
+                                <option>2025</option>
+                                <option>2024</option>
+                            </select>
+
+                            <select id="departmentFilter">
+                                <option>All Departments</option>
+                                <option>Cardiology</option>
+                                <option>Neurology</option>
+                                <option>Orthopedics</option>
+                                <option>Pediatrics</option>
+                                <option>Dermatology</option>
+                            </select>
+
+                            <input type="month" id="monthFilter">
+
+                        </div>
+
+                        <div class="export-buttons">
+
+                            <button class="pdf-btn">
+                                <i class="fa-solid fa-file-pdf"></i>
+                                Export PDF
+                            </button>
+
+                            <button class="excel-btn">
+                                <i class="fa-solid fa-file-excel"></i>
+                                Export Excel
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-grid">
+
+                        <div class="chart-card">
+
+                            <h3>Monthly Revenue</h3>
+
+                            <canvas id="revenueChart"></canvas>
+
+                        </div>
+
+                        <div class="chart-card">
+
+                            <h3>Appointments Overview</h3>
+
+                            <canvas id="appointmentChart"></canvas>
+
+                        </div>
+
+                        <div class="chart-card">
+
+                            <h3>Department Performance</h3>
+
+                            <canvas id="departmentChart"></canvas>
+
+                        </div>
+
+                        <div class="chart-card">
+
+                            <h3>Patient Growth</h3>
+
+                            <canvas id="patientChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-card">
+
+                        <h3>Department Statistics</h3>
+
+                        <div class="table-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>Department</th>
+                                        <th>Doctors</th>
+                                        <th>Patients</th>
+                                        <th>Appointments</th>
+                                        <th>Revenue</th>
+                                        <th>Performance</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr>
+                                        <td>Cardiology</td>
+                                        <td>12</td>
+                                        <td>245</td>
+                                        <td>168</td>
+                                        <td>₹8,20,000</td>
+                                        <td><span class="status good">Excellent</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Neurology</td>
+                                        <td>10</td>
+                                        <td>191</td>
+                                        <td>124</td>
+                                        <td>₹6,45,000</td>
+                                        <td><span class="status good">Excellent</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Orthopedics</td>
+                                        <td>8</td>
+                                        <td>140</td>
+                                        <td>96</td>
+                                        <td>₹4,80,000</td>
+                                        <td><span class="status average">Good</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Pediatrics</td>
+                                        <td>9</td>
+                                        <td>210</td>
+                                        <td>142</td>
+                                        <td>₹3,95,000</td>
+                                        <td><span class="status good">Excellent</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Dermatology</td>
+                                        <td>6</td>
+                                        <td>98</td>
+                                        <td>73</td>
+                                        <td>₹2,10,000</td>
+                                        <td><span class="status low">Average</span></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-card">
+
+                        <h3>Top Performing Doctors</h3>
+
+                        <div class="table-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>Doctor</th>
+                                        <th>Department</th>
+                                        <th>Patients</th>
+                                        <th>Appointments</th>
+                                        <th>Rating</th>
+                                        <th>Revenue</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr>
+                                        <td>Dr. Rahul Sharma</td>
+                                        <td>Cardiology</td>
+                                        <td>182</td>
+                                        <td>146</td>
+                                        <td>4.9 ⭐</td>
+                                        <td>₹4,25,000</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Dr. Neha Gupta</td>
+                                        <td>Neurology</td>
+                                        <td>161</td>
+                                        <td>128</td>
+                                        <td>4.8 ⭐</td>
+                                        <td>₹3,80,000</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Dr. Raj Patel</td>
+                                        <td>Orthopedics</td>
+                                        <td>145</td>
+                                        <td>119</td>
+                                        <td>4.7 ⭐</td>
+                                        <td>₹3,15,000</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Dr. Pooja Verma</td>
+                                        <td>Pediatrics</td>
+                                        <td>172</td>
+                                        <td>134</td>
+                                        <td>4.9 ⭐</td>
+                                        <td>₹3,42,000</td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const searchInput = document.querySelector(".search-box input");
+        const yearFilter = document.getElementById("yearFilter");
+        const departmentFilter = document.getElementById("departmentFilter");
+        const monthFilter = document.getElementById("monthFilter");
+        const pdfBtn = document.querySelector(".pdf-btn");
+        const excelBtn = document.querySelector(".excel-btn");
+
+        menuBtn.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+        });
+
+        document.addEventListener("click", e => {
+            if (window.innerWidth <= 900) {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+        });
+
+        document.querySelector(".profile").addEventListener("click", () => {
+            window.location.href = "profile.html";
+        });
+
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            document.querySelectorAll("tbody tr").forEach(row => {
+
+                row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+
+            });
+
+        });
+
+        yearFilter.addEventListener("change", () => {
+            alert("Year : " + yearFilter.value);
+        });
+
+        departmentFilter.addEventListener("change", () => {
+            alert("Department : " + departmentFilter.value);
+        });
+
+        monthFilter.addEventListener("change", () => {
+            alert("Month : " + monthFilter.value);
+        });
+
+        pdfBtn.addEventListener("click", () => {
+            alert("PDF Report Generated Successfully.");
+        });
+
+        excelBtn.addEventListener("click", () => {
+            alert("Excel Report Generated Successfully.");
+        });
+
+        document.querySelectorAll("tbody tr").forEach(row => {
+
+            row.addEventListener("mouseenter", () => {
+                row.style.background = "#f8fbff";
+            });
+
+            row.addEventListener("mouseleave", () => {
+                row.style.background = "transparent";
+            });
+
+        });
+
+        new Chart(document.getElementById("revenueChart"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                datasets: [{
+                    label: "Revenue",
+                    data: [12, 15, 18, 16, 22, 24, 27],
+                    backgroundColor: [
+                        "#0f766e",
+                        "#14b8a6",
+                        "#2563eb",
+                        "#3b82f6",
+                        "#7c3aed",
+                        "#f59e0b",
+                        "#16a34a"
+                    ],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById("appointmentChart"), {
+            type: "line",
+            data: {
+                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                datasets: [{
+                    label: "Appointments",
+                    data: [22, 34, 31, 46, 40, 55, 49],
+                    borderColor: "#2563eb",
+                    backgroundColor: "rgba(37,99,235,.15)",
+                    fill: true,
+                    tension: .4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        new Chart(document.getElementById("departmentChart"), {
+            type: "doughnut",
+            data: {
+                labels: [
+                    "Cardiology",
+                    "Neurology",
+                    "Orthopedics",
+                    "Pediatrics",
+                    "Dermatology"
+                ],
+                datasets: [{
+                    data: [28, 22, 18, 20, 12],
+                    backgroundColor: [
+                        "#0f766e",
+                        "#2563eb",
+                        "#7c3aed",
+                        "#f59e0b",
+                        "#dc2626"
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        new Chart(document.getElementById("patientChart"), {
+            type: "line",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                datasets: [{
+                    label: "Patients",
+                    data: [180, 220, 270, 310, 390, 450, 520],
+                    borderColor: "#16a34a",
+                    backgroundColor: "rgba(22,163,74,.12)",
+                    fill: true,
+                    tension: .4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+
+</body>
+
+</html>

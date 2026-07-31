@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Doctors | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --dark: #0f172a;
+            --dark2: #1e293b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --info: #2563eb;
+            --bg: #f5f7fb;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #111827);
+            color: #fff;
+            overflow-y: auto;
+            transition: .3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a i {
+            width: 24px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .search-box {
+            width: 320px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .search-box i {
+            margin-right: 12px;
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #0f766e);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            right: -90px;
+            top: -90px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 760px;
+        }
+
+        .doctor-wrapper {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .tools-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filters select {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            background: #fff;
+            min-width: 170px;
+        }
+
+        .add-btn {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1150px;
+        }
+
+        th {
+            background: #f8fbff;
+            padding: 16px;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+        .doctor-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .doctor-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ddd;
+            object-fit: cover;
+        }
+
+        .status {
+            padding: 6px 14px;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .active {
+            background: #16a34a;
+        }
+
+        .inactive {
+            background: #dc2626;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 15px;
+            transition: .3s;
+        }
+
+        .view-btn {
+            background: #2563eb;
+        }
+
+        .edit-btn {
+            background: #f59e0b;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        .action-buttons button:hover {
+            transform: translateY(-3px);
+        }
+
+        .modal {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, .55);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 5000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 850px;
+            background: #fff;
+            border-radius: 22px;
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            background: #f1f5f9;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            resize: none;
+        }
+
+        .input-group textarea {
+            height: 120px;
+        }
+
+        .full-width {
+            grid-column: 1/-1;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .save-btn {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            background: #16a34a;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            background: #dc2626;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media(max-width:1200px) {
+
+            .search-box {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .tools-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filters select,
+            .add-btn {
+                width: 100%;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-actions button {
+                width: 100%;
+            }
+
+        }
+
+        @media(max-width:500px) {
+
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-hospital"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Admin Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+
+                <a href="patients.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+
+                <a href="departments.html"><i class="fa-solid fa-building"></i><span>Departments</span></a>
+
+                <a href="billing.html"><i class="fa-solid fa-file-invoice-dollar"></i><span>Billing</span></a>
+
+                <a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+
+                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Manage Doctors</h2>
+                        <p>Add, edit, view and manage all hospital doctors.</p>
+                    </div>
+
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search doctors...">
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>6</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/admin.png" alt="">
+                        <div>
+                            <h4>Admin</h4>
+                            <p>System Administrator</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+                    <h1>Doctor Management 👨‍⚕️</h1>
+                    <p>Manage doctor profiles, departments, availability, consultation fees and account status from one
+                        place.</p>
+                </section>
+
+                <div class="doctor-wrapper">
+                    <div class="tools-bar">
+
+                        <div class="filters">
+
+                            <select id="departmentFilter">
+                                <option value="all">All Departments</option>
+                                <option>Cardiology</option>
+                                <option>Neurology</option>
+                                <option>Orthopedics</option>
+                                <option>Pediatrics</option>
+                                <option>Dermatology</option>
+                            </select>
+
+                            <select id="statusFilter">
+                                <option value="all">All Status</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+
+                        </div>
+
+                        <button class="add-btn" id="addDoctorBtn">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Add Doctor
+                        </button>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="table-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>Doctor</th>
+                                        <th>Department</th>
+                                        <th>Experience</th>
+                                        <th>Fee</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="doctorTable">
+
+                                    <tr>
+
+                                        <td>
+
+                                            <div class="doctor-info">
+                                                <img src="../assets/doctor.png" alt="">
+                                                <div>
+                                                    <b>Dr. Rahul Sharma</b><br>
+                                                    <small>DOC101</small>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td>Cardiology</td>
+                                        <td>12 Years</td>
+                                        <td>₹700</td>
+                                        <td>9876543210</td>
+                                        <td>rahul@gmail.com</td>
+                                        <td><span class="status active">Active</span></td>
+
+                                        <td>
+
+                                            <div class="action-buttons">
+
+                                                <button class="view-btn">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="edit-btn">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button class="delete-btn">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+
+                                            <div class="doctor-info">
+                                                <img src="../assets/doctor.png" alt="">
+                                                <div>
+                                                    <b>Dr. Neha Gupta</b><br>
+                                                    <small>DOC102</small>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td>Neurology</td>
+                                        <td>8 Years</td>
+                                        <td>₹900</td>
+                                        <td>9988776655</td>
+                                        <td>neha@gmail.com</td>
+                                        <td><span class="status active">Active</span></td>
+
+                                        <td>
+
+                                            <div class="action-buttons">
+
+                                                <button class="view-btn">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="edit-btn">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button class="delete-btn">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+
+                                            <div class="doctor-info">
+                                                <img src="../assets/doctor.png" alt="">
+                                                <div>
+                                                    <b>Dr. Raj Patel</b><br>
+                                                    <small>DOC103</small>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td>Orthopedics</td>
+                                        <td>15 Years</td>
+                                        <td>₹1000</td>
+                                        <td>9123456789</td>
+                                        <td>raj@gmail.com</td>
+                                        <td><span class="status inactive">Inactive</span></td>
+
+                                        <td>
+
+                                            <div class="action-buttons">
+
+                                                <button class="view-btn">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="edit-btn">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button class="delete-btn">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ================= ADD / EDIT DOCTOR MODAL ================= -->
+
+                    <div class="modal" id="doctorModal">
+
+                        <div class="modal-content">
+
+                            <button class="close-btn">&times;</button>
+
+                            <h2 class="modal-title">Doctor Details</h2>
+
+                            <div class="form-grid">
+
+                                <div class="input-group">
+                                    <label>Doctor Name</label>
+                                    <input type="text" id="doctorName">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Email</label>
+                                    <input type="email" id="doctorEmail">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Phone</label>
+                                    <input type="tel" id="doctorPhone">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Department</label>
+                                    <select id="doctorDepartment">
+                                        <option>Cardiology</option>
+                                        <option>Neurology</option>
+                                        <option>Orthopedics</option>
+                                        <option>Pediatrics</option>
+                                        <option>Dermatology</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Experience</label>
+                                    <input type="number" id="doctorExperience">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Consultation Fee</label>
+                                    <input type="number" id="doctorFee">
+                                </div>
+
+                                <div class="input-group full-width">
+                                    <label>Address</label>
+                                    <textarea id="doctorAddress"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-actions">
+
+                                <button class="save-btn">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    Save Doctor
+                                </button>
+
+                                <button class="cancel-btn">
+                                    Cancel
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ================= VIEW DOCTOR MODAL ================= -->
+
+                    <div class="modal" id="viewModal">
+
+                        <div class="modal-content">
+
+                            <button class="close-btn">&times;</button>
+
+                            <h2 class="modal-title">Doctor Information</h2>
+
+                            <div class="form-grid">
+
+                                <div class="input-group">
+                                    <label>Name</label>
+                                    <input type="text" value="Dr. Rahul Sharma" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Email</label>
+                                    <input type="text" value="rahul@gmail.com" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Department</label>
+                                    <input type="text" value="Cardiology" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Experience</label>
+                                    <input type="text" value="12 Years" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Consultation Fee</label>
+                                    <input type="text" value="₹700" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Status</label>
+                                    <input type="text" value="Active" readonly>
+                                </div>
+
+                                <div class="input-group full-width">
+                                    <label>Address</label>
+                                    <textarea readonly>Indore, Madhya Pradesh</textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-actions">
+
+                                <button class="cancel-btn closeView">
+                                    Close
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const searchInput = document.querySelector(".search-box input");
+
+        const addDoctorBtn = document.getElementById("addDoctorBtn");
+        const doctorModal = document.getElementById("doctorModal");
+        const viewModal = document.getElementById("viewModal");
+
+        const saveBtn = document.querySelector(".save-btn");
+        const cancelBtn = document.querySelector(".cancel-btn");
+
+        const departmentFilter = document.getElementById("departmentFilter");
+        const statusFilter = document.getElementById("statusFilter");
+
+        const doctorRows = document.querySelectorAll("#doctorTable tr");
+
+        document.querySelectorAll(".view-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                viewModal.style.display = "flex";
+            });
+        });
+
+        document.querySelector(".closeView").addEventListener("click", () => {
+            viewModal.style.display = "none";
+        });
+
+        addDoctorBtn.addEventListener("click", () => {
+
+            document.querySelector(".modal-title").innerText = "Add Doctor";
+
+            document.getElementById("doctorName").value = "";
+            document.getElementById("doctorEmail").value = "";
+            document.getElementById("doctorPhone").value = "";
+            document.getElementById("doctorExperience").value = "";
+            document.getElementById("doctorFee").value = "";
+            document.getElementById("doctorAddress").value = "";
+
+            doctorModal.style.display = "flex";
+
+        });
+
+        document.querySelectorAll(".edit-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                const row = btn.closest("tr");
+
+                document.querySelector(".modal-title").innerText = "Edit Doctor";
+
+                document.getElementById("doctorName").value = row.cells[0].querySelector("b").innerText;
+                document.getElementById("doctorDepartment").value = row.cells[1].innerText;
+                document.getElementById("doctorExperience").value = parseInt(row.cells[2].innerText);
+                document.getElementById("doctorFee").value = row.cells[3].innerText.replace("₹", "");
+
+                doctorModal.style.display = "flex";
+
+            });
+
+        });
+
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                if (confirm("Delete this doctor?")) {
+                    btn.closest("tr").remove();
+                }
+
+            });
+
+        });
+
+        saveBtn.addEventListener("click", () => {
+
+            alert("Doctor information saved successfully.");
+
+            doctorModal.style.display = "none";
+
+        });
+
+        cancelBtn.addEventListener("click", () => {
+
+            doctorModal.style.display = "none";
+
+        });
+
+        document.querySelectorAll(".close-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                doctorModal.style.display = "none";
+                viewModal.style.display = "none";
+
+            });
+
+        });
+
+        window.addEventListener("click", e => {
+
+            if (e.target === doctorModal) {
+                doctorModal.style.display = "none";
+            }
+
+            if (e.target === viewModal) {
+                viewModal.style.display = "none";
+            }
+
+        });
+
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            doctorRows.forEach(row => {
+
+                const text = row.innerText.toLowerCase();
+
+                row.style.display = text.includes(value) ? "" : "none";
+
+            });
+
+        });
+
+        departmentFilter.addEventListener("change", filterDoctors);
+        statusFilter.addEventListener("change", filterDoctors);
+
+        function filterDoctors() {
+
+            const dept = departmentFilter.value.toLowerCase();
+            const status = statusFilter.value.toLowerCase();
+
+            doctorRows.forEach(row => {
+
+                const rowDept = row.cells[1].innerText.toLowerCase();
+                const rowStatus = row.cells[6].innerText.toLowerCase();
+
+                const deptMatch = dept === "all" || rowDept === dept;
+                const statusMatch = status === "all" || rowStatus === status;
+
+                row.style.display = (deptMatch && statusMatch) ? "" : "none";
+
+            });
+
+        }
+
+        menuBtn.addEventListener("click", () => {
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+
+        });
+
+        document.addEventListener("click", e => {
+
+            if (window.innerWidth <= 900) {
+
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        document.querySelector(".profile").addEventListener("click", () => {
+
+            window.location.href = "profile.html";
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Settings | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --dark: #0f172a;
+            --dark2: #1e293b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --info: #2563eb;
+            --bg: #f5f7fb;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #111827);
+            color: #fff;
+            overflow-y: auto;
+            transition: .3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a i {
+            width: 24px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .search-box {
+            width: 320px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .search-box i {
+            margin-right: 12px;
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #0f766e);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 760px;
+        }
+
+        .settings-wrapper {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .setting-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .setting-card h3 {
+            font-size: 22px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            background: #fff;
+            transition: .3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .input-group textarea {
+            height: 110px;
+            resize: none;
+        }
+
+        .full-width {
+            grid-column: 1/-1;
+        }
+
+        .switch-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 15px;
+        }
+
+        .switch-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .switch-info p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #cbd5e1;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            left: 3px;
+            top: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        .switch input:checked+.slider {
+            background: #16a34a;
+        }
+
+        .switch input:checked+.slider:before {
+            transform: translateX(30px);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .save-btn {
+            padding: 13px 28px;
+            border: none;
+            border-radius: 14px;
+            background: #16a34a;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .reset-btn {
+            padding: 13px 28px;
+            border: none;
+            border-radius: 14px;
+            background: #dc2626;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .save-btn:hover,
+        .reset-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        @media(max-width:1200px) {
+
+            .search-box {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .switch-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:500px) {
+
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .setting-card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-hospital"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Admin Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+
+                <a href="doctors.html"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+
+                <a href="patients.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+
+                <a href="departments.html"><i class="fa-solid fa-building"></i><span>Departments</span></a>
+
+                <a href="billing.html"><i class="fa-solid fa-file-invoice-dollar"></i><span>Billing</span></a>
+
+                <a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Settings</h2>
+                        <p>Manage hospital and system settings.</p>
+                    </div>
+
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search settings...">
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/admin.png" alt="">
+                        <div>
+                            <h4>Admin</h4>
+                            <p>System Administrator</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+                    <h1>System Settings ⚙️</h1>
+                    <p>Configure hospital information, notifications, billing, appointments, security and system
+                        preferences.</p>
+                </section>
+
+                <div class="settings-wrapper">
+                    <div class="setting-card">
+
+                        <h3><i class="fa-solid fa-hospital"></i>Hospital Information</h3>
+
+                        <div class="form-grid">
+
+                            <div class="input-group">
+                                <label>Hospital Name</label>
+                                <input type="text" value="OptiHealth Hospital">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Hospital Email</label>
+                                <input type="email" value="contact@optihealth.com">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Phone Number</label>
+                                <input type="text" value="+91 9876543210">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Website</label>
+                                <input type="text" value="www.optihealth.com">
+                            </div>
+
+                            <div class="input-group full-width">
+                                <label>Hospital Address</label>
+                                <textarea>123 MG Road, Indore, Madhya Pradesh</textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="setting-card">
+
+                        <h3><i class="fa-solid fa-user-shield"></i>Admin Account</h3>
+
+                        <div class="form-grid">
+
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" value="Administrator">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Email</label>
+                                <input type="email" value="admin@optihealth.com">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Username</label>
+                                <input type="text" value="admin">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Mobile Number</label>
+                                <input type="text" value="9876543210">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="setting-card">
+
+                        <h3><i class="fa-solid fa-lock"></i>Change Password</h3>
+
+                        <div class="form-grid">
+
+                            <div class="input-group">
+                                <label>Current Password</label>
+                                <input type="password">
+                            </div>
+
+                            <div class="input-group">
+                                <label>New Password</label>
+                                <input type="password">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Confirm Password</label>
+                                <input type="password">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="setting-card">
+
+                        <h3><i class="fa-solid fa-bell"></i>Notifications</h3>
+
+                        <div class="switch-card">
+                            <div class="switch-info">
+                                <h4>Email Notifications</h4>
+                                <p>Receive appointment and billing emails.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="switch-card">
+                            <div class="switch-info">
+                                <h4>SMS Notifications</h4>
+                                <p>Send SMS alerts to patients.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="switch-card">
+                            <div class="switch-info">
+                                <h4>Push Notifications</h4>
+                                <p>Receive system notifications.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="setting-card">
+
+                        <h3><i class="fa-solid fa-calendar-check"></i>Appointment Settings</h3>
+
+                        <div class="form-grid">
+
+                            <div class="input-group">
+                                <label>Appointment Duration</label>
+                                <select>
+                                    <option>15 Minutes</option>
+                                    <option selected>30 Minutes</option>
+                                    <option>45 Minutes</option>
+                                    <option>60 Minutes</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Daily Appointment Limit</label>
+                                <input type="number" value="100">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Working Days</label>
+                                <select>
+                                    <option>Monday - Saturday</option>
+                                    <option>Monday - Friday</option>
+                                    <option>All Days</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Working Hours</label>
+                                <input type="text" value="09:00 AM - 06:00 PM">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="setting-card">
+
+                        <h3><i class="fa-solid fa-file-invoice-dollar"></i>Billing Settings</h3>
+
+                        <div class="form-grid">
+
+                            <div class="input-group">
+                                <label>Currency</label>
+                                <select>
+                                    <option selected>Indian Rupee (₹)</option>
+                                    <option>US Dollar ($)</option>
+                                    <option>Euro (€)</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label>GST (%)</label>
+                                <input type="number" value="18">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Invoice Prefix</label>
+                                <input type="text" value="BILL-">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Payment Due (Days)</label>
+                                <input type="number" value="7">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="setting-card">
+
+                        <h3><i class="fa-solid fa-shield-halved"></i>Security Settings</h3>
+
+                        <div class="switch-card">
+                            <div class="switch-info">
+                                <h4>Two-Factor Authentication</h4>
+                                <p>Secure admin login with OTP.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="switch-card">
+                            <div class="switch-info">
+                                <h4>Maintenance Mode</h4>
+                                <p>Temporarily disable user access.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="switch-card">
+                            <div class="switch-info">
+                                <h4>Automatic Database Backup</h4>
+                                <p>Create daily backups automatically.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="action-buttons">
+
+                            <button class="save-btn">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Save Settings
+                            </button>
+
+                            <button class="reset-btn">
+                                <i class="fa-solid fa-rotate-left"></i>
+                                Reset Settings
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const searchInput = document.querySelector(".search-box input");
+        const profile = document.querySelector(".profile");
+        const saveBtn = document.querySelector(".save-btn");
+        const resetBtn = document.querySelector(".reset-btn");
+
+        menuBtn.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+        });
+
+        document.addEventListener("click", e => {
+            if (window.innerWidth <= 900) {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+        });
+
+        profile.addEventListener("click", () => {
+            window.location.href = "profile.html";
+        });
+
+        saveBtn.addEventListener("click", () => {
+
+            const hospital = document.querySelector('input[value="OptiHealth Hospital"]').value;
+            const email = document.querySelector('input[value="contact@optihealth.com"]').value;
+
+            if (hospital.trim() === "") {
+                alert("Hospital Name is required.");
+                return;
+            }
+
+            if (email.trim() === "") {
+                alert("Hospital Email is required.");
+                return;
+            }
+
+            alert("Settings Saved Successfully.");
+
+        });
+
+        resetBtn.addEventListener("click", () => {
+
+            if (confirm("Reset all settings to default?")) {
+
+                document.querySelectorAll("input[type='text'],input[type='email'],input[type='password'],input[type='number'],textarea").forEach(input => {
+
+                    if (input.type === "password") {
+                        input.value = "";
+                    }
+
+                });
+
+                document.querySelectorAll("select").forEach(select => {
+
+                    select.selectedIndex = 0;
+
+                });
+
+                document.querySelectorAll(".switch input").forEach(toggle => {
+
+                    toggle.checked = false;
+
+                });
+
+                alert("Settings Reset Successfully.");
+
+            }
+
+        });
+
+        document.querySelectorAll(".switch input").forEach(toggle => {
+
+            toggle.addEventListener("change", () => {
+
+                const settingName = toggle.closest(".switch-card").querySelector("h4").innerText;
+
+                if (toggle.checked) {
+                    console.log(settingName + " Enabled");
+                } else {
+                    console.log(settingName + " Disabled");
+                }
+
+            });
+
+        });
+
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            document.querySelectorAll(".setting-card").forEach(card => {
+
+                const text = card.innerText.toLowerCase();
+
+                card.style.display = text.includes(value) ? "block" : "none";
+
+            });
+
+        });
+
+        document.querySelectorAll("input,select,textarea").forEach(field => {
+
+            field.addEventListener("focus", () => {
+
+                field.style.borderColor = "#0f766e";
+
+            });
+
+            field.addEventListener("blur", () => {
+
+                field.style.borderColor = "#e2e8f0";
+
+            });
+
+        });
+
+        document.querySelectorAll(".setting-card").forEach(card => {
+
+            card.addEventListener("mouseenter", () => {
+
+                card.style.transform = "translateY(-4px)";
+                card.style.transition = ".3s";
+
+            });
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = "translateY(0)";
+
+            });
+
+        });
+
+        document.querySelector(".notify").addEventListener("click", () => {
+
+            alert("No new notifications.");
+
+        });
+
+        document.querySelectorAll(".sidebar nav a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                document.querySelectorAll(".sidebar nav a").forEach(item => item.classList.remove("active"));
+
+                link.classList.add("active");
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

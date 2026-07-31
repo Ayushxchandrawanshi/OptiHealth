@@ -72,6 +72,11 @@
         .logo h2 {
             font-size: 28px;
             font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
         }
 
         .portal {
@@ -89,12 +94,14 @@
         .sidebar nav a {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
             padding: 15px 18px;
             text-decoration: none;
             color: #fff;
             border-radius: 14px;
             transition: .3s;
+            font-size: 17px;
+            font-weight: 500;
         }
 
         .sidebar nav a:hover,
@@ -103,7 +110,8 @@
         }
 
         .sidebar nav i {
-            width: 22px;
+            width: 24px;
+            min-width: 24px;
             text-align: center;
             font-size: 18px;
         }
@@ -580,7 +588,7 @@
                     <span>Settings</span>
                 </a>
 
-                <a href="../auth/doctor-login.html">
+                <a href="../auth/login.html">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>

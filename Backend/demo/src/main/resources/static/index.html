@@ -146,6 +146,14 @@ HEADER
             width: 100%;
         }
 
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
         .action {
             display: flex;
             gap: 15px;
@@ -377,25 +385,23 @@ HERO
         </div>
 
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Doctors</a>
-            <a href="#">Departments</a>
-            <a href="#">Services</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="#home">Home</a>
+            <a href="#doctors">Doctors</a>
+            <a href="#departments">Departments</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
         </nav>
 
         <div class="action">
-            <a href="#" class="btn login">Login</a>
-            <a href="#" class="btn start">Get Started</a>
+            <a href="auth/login.html" class="btn login">Login</a>
+            <a href="auth/register.html" class="btn start">Get Started</a>
         </div>
 
     </header>
 
-    <section class="hero">
-
+    <section class="hero" id="home">
         <div class="left">
-
             <div class="badge">
                 🏥 Smart Healthcare Platform
             </div>
@@ -410,8 +416,8 @@ HERO
             </p>
 
             <div class="hero-btn">
-                <a href="#" class="book">Book Appointment</a>
-                <a href="#" class="doctor">Find Doctors</a>
+                <a href="#contact" class="book">Book Appointment</a>
+                <a href="#doctors" class="doctor">Find Doctors</a>
             </div>
 
         </div>
@@ -662,7 +668,7 @@ STATISTICS
 DEPARTMENTS
 =======================-->
 
-    <section class="departments">
+    <section class="departments" id="departments">
 
         <div class="section-title">
             <h4>Our Departments</h4>
@@ -803,8 +809,7 @@ DEPARTMENTS
 WHY CHOOSE US
 =======================-->
 
-    <section class="why">
-
+    <section class="why" id="services">
         <div class="why-left">
             <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1200" alt="Doctor">
         </div>
@@ -816,7 +821,8 @@ WHY CHOOSE US
             <h2>Complete Healthcare Solution For Every Patient</h2>
 
             <p>
-                OptiHealth combines experienced doctors, smart technology and modern healthcare services to provide the
+                OptiHealth combines experienced doctors, smart technology and modern healthcare services to provide
+                the
                 best medical experience for every patient.
             </p>
 
@@ -1019,7 +1025,7 @@ EMERGENCY
 OUR DOCTORS
 =======================-->
 
-    <section class="doctors-section">
+    <section class="doctors-section" id="doctors">
 
         <div class="section-title">
             <h4>Our Specialists</h4>
@@ -1173,7 +1179,7 @@ DOCTORS
 TESTIMONIALS
 =======================-->
 
-    <section class="testimonials">
+    <section class="testimonials" id="about">
 
         <div class="section-title">
             <h4>Testimonials</h4>
@@ -1364,7 +1370,7 @@ BOOK APPOINTMENT
 CONTACT
 =======================-->
 
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
 
         <div class="section-title">
             <h4>Contact Us</h4>
@@ -1441,403 +1447,433 @@ CONTACT
 
         </div>
 
-    </section>
-
-    <style>
-        /*======================
+        <style>
+            /*======================
 CONTACT
 =======================*/
 
-        .contact-section {
-            padding: 110px 8%;
-            background: #f8fbff;
-        }
-
-        .contact-container {
-            margin-top: 60px;
-            display: grid;
-            grid-template-columns: 1fr 1.1fr;
-            gap: 45px;
-            align-items: start;
-        }
-
-        .contact-left {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .contact-card {
-            display: flex;
-            gap: 22px;
-            align-items: flex-start;
-            background: #fff;
-            border-radius: 22px;
-            padding: 28px;
-            box-shadow: var(--shadow);
-            transition: .35s;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .contact-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 28px;
-            color: #fff;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-        }
-
-        .contact-card h3 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        .contact-card p {
-            color: var(--text);
-            line-height: 28px;
-        }
-
-        .contact-right {
-            background: #fff;
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: var(--shadow);
-        }
-
-        .input-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .contact-right input {
-            width: 100%;
-            padding: 18px;
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            outline: none;
-            font-size: 16px;
-            transition: .3s;
-        }
-
-        .contact-right textarea {
-            width: 100%;
-            padding: 18px;
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            outline: none;
-            resize: none;
-            font-size: 16px;
-            margin-bottom: 25px;
-            transition: .3s;
-        }
-
-        .contact-right input:focus,
-        .contact-right textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
-        }
-
-        .contact-right button {
-            border: none;
-            padding: 18px 38px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: .35s;
-        }
-
-        .contact-right button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 35px rgba(37, 99, 235, .25);
-        }
-
-        @media(max-width:991px) {
-
-            .contact-container {
-                grid-template-columns: 1fr;
+            .contact-section {
+                padding: 110px 8%;
+                background: #f8fbff;
             }
 
-            .input-row {
-                grid-template-columns: 1fr;
+            .contact-container {
+                margin-top: 60px;
+                display: grid;
+                grid-template-columns: 1fr 1.1fr;
+                gap: 45px;
+                align-items: start;
+            }
+
+            .contact-left {
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .contact-card {
+                display: flex;
+                gap: 22px;
+                align-items: flex-start;
+                background: #fff;
+                border-radius: 22px;
+                padding: 28px;
+                box-shadow: var(--shadow);
+                transition: .35s;
+            }
+
+            .contact-card:hover {
+                transform: translateY(-8px);
+            }
+
+            .contact-icon {
+                width: 65px;
+                height: 65px;
+                border-radius: 18px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 28px;
+                color: #fff;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+            }
+
+            .contact-card h3 {
+                font-size: 22px;
+                margin-bottom: 8px;
+            }
+
+            .contact-card p {
+                color: var(--text);
+                line-height: 28px;
             }
 
             .contact-right {
-                padding: 30px;
+                background: #fff;
+                padding: 40px;
+                border-radius: 25px;
+                box-shadow: var(--shadow);
             }
 
-        }
-    </style>
+            .input-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
 
-    <!--======================
+            .contact-right input {
+                width: 100%;
+                padding: 18px;
+                border: 1px solid #e5e7eb;
+                border-radius: 14px;
+                outline: none;
+                font-size: 16px;
+                transition: .3s;
+            }
+
+            .contact-right textarea {
+                width: 100%;
+                padding: 18px;
+                border: 1px solid #e5e7eb;
+                border-radius: 14px;
+                outline: none;
+                resize: none;
+                font-size: 16px;
+                margin-bottom: 25px;
+                transition: .3s;
+            }
+
+            .contact-right input:focus,
+            .contact-right textarea:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+            }
+
+            .contact-right button {
+                border: none;
+                padding: 18px 38px;
+                border-radius: 50px;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: #fff;
+                font-size: 17px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: .35s;
+            }
+
+            .contact-right button:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 35px rgba(37, 99, 235, .25);
+            }
+
+            @media(max-width:991px) {
+
+                .contact-container {
+                    grid-template-columns: 1fr;
+                }
+
+                .input-row {
+                    grid-template-columns: 1fr;
+                }
+
+                .contact-right {
+                    padding: 30px;
+                }
+
+            }
+        </style>
+
+        <!--======================
 FOOTER
 =======================-->
 
-    <footer class="footer">
+        <footer class="footer">
 
-        <div class="footer-top">
+            <div class="footer-top">
 
-            <div class="footer-box">
-                <h2>OptiHealth</h2>
-                <p>OptiHealth is committed to delivering world-class healthcare services through experienced doctors,
-                    advanced technology, and compassionate patient care.</p>
+                <div class="footer-box">
+                    <h2>OptiHealth</h2>
+                    <p>OptiHealth is committed to delivering world-class healthcare services through experienced
+                        doctors,
+                        advanced technology, and compassionate patient care.</p>
 
-                <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="footer-box">
+
+                    <h3>Quick Links</h3>
+
+                    <nav>
+                        <a href="#home">Home</a>
+                        <a href="#doctors">Doctors</a>
+                        <a href="#departments">Departments</a>
+                        <a href="#services">Services</a>
+                        <a href="#about">About</a>
+                        <a href="#contact">Contact</a>
+                    </nav>
+
+                </div>
+
+                <div class="footer-box">
+
+                    <h3>Departments</h3>
+
+                    <ul>
+                        <li><a href="#">Cardiology</a></li>
+                        <li><a href="#">Neurology</a></li>
+                        <li><a href="#">Orthopedics</a></li>
+                        <li><a href="#">Pediatrics</a></li>
+                        <li><a href="#">Emergency Care</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="footer-box">
+
+                    <h3>Newsletter</h3>
+
+                    <p>Subscribe to receive health tips, medical updates and hospital news.</p>
+
+                    <div class="newsletter">
+
+                        <input type="email" placeholder="Enter Your Email">
+
+                        <button>Subscribe</button>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="footer-box">
+            <div class="footer-bottom">
 
-                <h3>Quick Links</h3>
+                <p>© 2026 OptiHealth. All Rights Reserved.</p>
 
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Doctors</a></li>
-                    <li><a href="#">Departments</a></li>
-                    <li><a href="#">Appointments</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                <a href="#" id="backToTop">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </a>
 
             </div>
 
-            <div class="footer-box">
+        </footer>
 
-                <h3>Departments</h3>
-
-                <ul>
-                    <li><a href="#">Cardiology</a></li>
-                    <li><a href="#">Neurology</a></li>
-                    <li><a href="#">Orthopedics</a></li>
-                    <li><a href="#">Pediatrics</a></li>
-                    <li><a href="#">Emergency Care</a></li>
-                </ul>
-
-            </div>
-
-            <div class="footer-box">
-
-                <h3>Newsletter</h3>
-
-                <p>Subscribe to receive health tips, medical updates and hospital news.</p>
-
-                <div class="newsletter">
-
-                    <input type="email" placeholder="Enter Your Email">
-
-                    <button>Subscribe</button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
-
-            <p>© 2026 OptiHealth. All Rights Reserved.</p>
-
-            <a href="#" id="backToTop">
-                <i class="fa-solid fa-arrow-up"></i>
-            </a>
-
-        </div>
-
-    </footer>
-
-    <style>
-        /*======================
+        <style>
+            /*======================
 FOOTER
 =======================*/
 
-        .footer {
-            background: #0f172a;
-            color: #fff;
-            padding: 90px 8% 30px;
-        }
-
-        .footer-top {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.3fr;
-            gap: 45px;
-        }
-
-        .footer-box h2 {
-            font-size: 34px;
-            margin-bottom: 18px;
-            color: #fff;
-        }
-
-        .footer-box h3 {
-            margin-bottom: 25px;
-            font-size: 24px;
-        }
-
-        .footer-box p {
-            color: #cbd5e1;
-            line-height: 30px;
-        }
-
-        .footer-box ul {
-            list-style: none;
-        }
-
-        .footer-box ul li {
-            margin-bottom: 14px;
-        }
-
-        .footer-box ul li a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: .3s;
-        }
-
-        .footer-box ul li a:hover {
-            color: #fff;
-            padding-left: 8px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .social-links a {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: #1e293b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            text-decoration: none;
-            transition: .35s;
-        }
-
-        .social-links a:hover {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transform: translateY(-5px);
-        }
-
-        .newsletter {
-            margin-top: 20px;
-            display: flex;
-            border-radius: 50px;
-            overflow: hidden;
-            background: #fff;
-        }
-
-        .newsletter input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 16px 18px;
-            font-size: 15px;
-        }
-
-        .newsletter button {
-            border: none;
-            padding: 16px 22px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .footer-bottom {
-            margin-top: 70px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, .12);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-bottom p {
-            color: #cbd5e1;
-        }
-
-        #backToTop {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-            transition: .35s;
-        }
-
-        #backToTop:hover {
-            transform: translateY(-8px);
-        }
-
-        @media(max-width:1100px) {
-
-            .footer-top {
-                grid-template-columns: repeat(2, 1fr);
+            .footer {
+                background: #0f172a;
+                color: #fff;
+                padding: 90px 8% 30px;
             }
 
-        }
-
-        @media(max-width:700px) {
-
             .footer-top {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1.3fr;
+                gap: 45px;
             }
 
-            .footer-bottom {
-                flex-direction: column;
-                gap: 20px;
+            .footer-box h2 {
+                font-size: 34px;
+                margin-bottom: 18px;
+                color: #fff;
+            }
+
+            .footer-box h3 {
+                margin-bottom: 25px;
+                font-size: 24px;
+            }
+
+            .footer-box p {
+                color: #cbd5e1;
+                line-height: 30px;
+            }
+
+            .footer-box ul {
+                list-style: none;
+            }
+
+            .footer-box ul li {
+                margin-bottom: 14px;
+            }
+
+            .footer-box ul li a {
+                color: #cbd5e1;
+                text-decoration: none;
+                transition: .3s;
+            }
+
+            .footer-box ul li a:hover {
+                color: #fff;
+                padding-left: 8px;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .social-links a {
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                background: #1e293b;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                text-decoration: none;
+                transition: .35s;
+            }
+
+            .social-links a:hover {
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                transform: translateY(-5px);
             }
 
             .newsletter {
-                flex-direction: column;
-                border-radius: 18px;
+                margin-top: 20px;
+                display: flex;
+                border-radius: 50px;
+                overflow: hidden;
+                background: #fff;
+            }
+
+            .newsletter input {
+                flex: 1;
+                border: none;
+                outline: none;
+                padding: 16px 18px;
+                font-size: 15px;
             }
 
             .newsletter button {
-                width: 100%;
+                border: none;
+                padding: 16px 22px;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: #fff;
+                cursor: pointer;
+                font-weight: 600;
             }
 
-        }
-    </style>
+            .footer-bottom {
+                margin-top: 70px;
+                padding-top: 30px;
+                border-top: 1px solid rgba(255, 255, 255, .12);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-    <script>
+            .footer-bottom p {
+                color: #cbd5e1;
+            }
 
-        /*======================
-        BACK TO TOP
-        =======================*/
+            #backToTop {
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                text-decoration: none;
+                font-size: 20px;
+                transition: .35s;
+            }
 
-        document.getElementById("backToTop").addEventListener("click", function (e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
+            #backToTop:hover {
+                transform: translateY(-8px);
+            }
+
+            @media(max-width:1100px) {
+
+                .footer-top {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+            }
+
+            @media(max-width:700px) {
+
+                .footer-top {
+                    grid-template-columns: 1fr;
+                }
+
+                .footer-bottom {
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                .newsletter {
+                    flex-direction: column;
+                    border-radius: 18px;
+                }
+
+                .newsletter button {
+                    width: 100%;
+                }
+
+            }
+        </style>
+
+        <script>
+
+            /*======================
+            BACK TO TOP
+            =======================*/
+
+            document.getElementById("backToTop").addEventListener("click", function (e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
             });
-        });
 
-    </script>
+            const sections = document.querySelectorAll("section[id]");
+            const navLinks = document.querySelectorAll("nav a");
+
+            window.addEventListener("scroll", () => {
+
+                let current = "";
+
+                sections.forEach(section => {
+
+                    const sectionTop = section.offsetTop - 120;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (window.scrollY >= sectionTop) {
+                        current = section.getAttribute("id");
+                    }
+
+                });
+
+                navLinks.forEach(link => {
+
+                    link.classList.remove("active");
+
+                    if (link.getAttribute("href") === "#" + current) {
+                        link.classList.add("active");
+                    }
+
+                });
+
+            });
+
+        </script>
 
 </body>
 

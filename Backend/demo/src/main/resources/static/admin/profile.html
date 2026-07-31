@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Profile | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --dark: #0f172a;
+            --dark2: #1e293b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --info: #2563eb;
+            --bg: #f5f7fb;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #111827);
+            color: #fff;
+            overflow-y: auto;
+            transition: .3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a i {
+            width: 24px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .search-box {
+            width: 320px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .search-box i {
+            margin-right: 12px;
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #0f766e);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 760px;
+        }
+
+        .profile-wrapper {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .profile-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            position: relative;
+            width: 140px;
+            height: 140px;
+        }
+
+        .profile-image img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e2e8f0;
+        }
+
+        .upload-btn {
+            position: absolute;
+            right: 0;
+            bottom: 8px;
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .profile-info h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .profile-info h4 {
+            font-size: 17px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .profile-info p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            border-color: var(--primary);
+        }
+
+        .input-group textarea {
+            height: 110px;
+            resize: none;
+        }
+
+        .full-width {
+            grid-column: 1/-1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-card i {
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .stat-card h2 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .stat-card p {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .activity-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        .activity-card h3 {
+            margin-bottom: 20px;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .timeline-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #ecfeff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        thead {
+            background: #f8fafc;
+        }
+
+        th {
+            padding: 18px 20px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 20px;
+            font-size: 15px;
+            border-bottom: 1px solid #edf2f7;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        td i {
+            margin-right: 10px;
+            color: #0f766e;
+            width: 20px;
+            text-align: center;
+        }
+
+        tbody tr {
+            transition: .3s;
+        }
+
+        tbody tr:hover {
+            background: #f8fbff;
+        }
+
+        .status {
+            display: inline-block;
+            min-width: 100px;
+            padding: 8px 18px;
+            border-radius: 30px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .good {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .average {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .low {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 16%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 14%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 18%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 18%;
+        }
+
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 18%;
+        }
+
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 16%;
+            text-align: center;
+        }
+
+        .edit-btn,
+        .save-btn {
+            padding: 13px 28px;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+            color: #fff;
+        }
+
+        .edit-btn {
+            background: #2563eb;
+        }
+
+        .save-btn {
+            background: #16a34a;
+        }
+
+        .edit-btn:hover,
+        .save-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        @media(max-width:1200px) {
+            .search-box {
+                display: none;
+            }
+        }
+
+        @media(max-width:900px) {
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width:768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+
+            .profile div {
+                display: none;
+            }
+        }
+
+        @media(max-width:500px) {
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .profile-card,
+            .activity-card {
+                padding: 20px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-hospital"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Admin Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+                <a href="doctors.html"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+                <a href="patients.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+                <a href="departments.html"><i class="fa-solid fa-building"></i><span>Departments</span></a>
+                <a href="billing.html"><i class="fa-solid fa-file-invoice-dollar"></i><span>Billing</span></a>
+                <a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                <a href="#" class="active"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Admin Profile</h2>
+                        <p>Manage your account and profile information.</p>
+                    </div>
+
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/admin.png" alt="">
+                        <div>
+                            <h4>Administrator</h4>
+                            <p>System Administrator</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+                    <h1>Admin Profile 👤</h1>
+                    <p>Manage your profile information, account settings and recent activities from one place.</p>
+                </section>
+
+                <div class="profile-wrapper">
+                    <div class="profile-card">
+
+                        <div class="profile-header">
+
+                            <div class="profile-image">
+                                <img src="../assets/admin.png" id="profilePreview" alt="Admin">
+                                <input type="file" id="profileUpload" hidden accept="image/*">
+                                <button class="upload-btn" id="uploadImageBtn">
+                                    <i class="fa-solid fa-camera"></i>
+                                </button>
+                            </div>
+
+                            <div class="profile-info">
+                                <h2>Administrator</h2>
+                                <h4>System Administrator</h4>
+                                <p>Responsible for managing doctors, patients, appointments, billing, reports and
+                                    complete hospital administration.</p>
+                            </div>
+
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" id="fullName" value="Administrator">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Email</label>
+                                <input type="email" id="email" value="admin@optihealth.com">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Phone Number</label>
+                                <input type="text" id="phone" value="+91 9876543210">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Date of Birth</label>
+                                <input type="date" id="dob" value="1995-05-12">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Gender</label>
+                                <select id="gender">
+                                    <option selected>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Role</label>
+                                <input type="text" value="System Administrator" readonly>
+                            </div>
+
+                            <div class="input-group full-width">
+                                <label>Address</label>
+                                <textarea id="address">123 MG Road, Indore, Madhya Pradesh</textarea>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Current Password</label>
+                                <input type="password" id="currentPassword">
+                            </div>
+
+                            <div class="input-group">
+                                <label>New Password</label>
+                                <input type="password" id="newPassword">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="confirmPassword">
+                            </div>
+
+                        </div>
+
+                        <div class="action-buttons">
+
+                            <button class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                                Edit Profile
+                            </button>
+
+                            <button class="save-btn">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Save Changes
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <div class="stat-card">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <h2>54</h2>
+                            <p>Total Doctors</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <i class="fa-solid fa-hospital-user"></i>
+                            <h2>2486</h2>
+                            <p>Total Patients</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <h2>684</h2>
+                            <p>Appointments</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                            <h2>₹24.8L</h2>
+                            <p>Total Revenue</p>
+                        </div>
+
+                    </div>
+
+                    <div class="activity-card">
+
+                        <h3>Recent Activity</h3>
+
+                        <div class="timeline">
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>New Doctor Added</h4>
+                                    <p>Dr. Ankit Sharma was added to the Cardiology Department • 20 minutes ago</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Appointment Approved</h4>
+                                    <p>Appointment #APT2045 was approved successfully • 1 hour ago</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon">
+                                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Invoice Generated</h4>
+                                    <p>Invoice BILL-1025 generated for Rahul Verma • 3 hours ago</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon">
+                                    <i class="fa-solid fa-database"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Database Backup Completed</h4>
+                                    <p>Automatic backup completed successfully • Today 02:00 AM</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="activity-card">
+
+                        <h3>Recent Login History</h3>
+
+                        <div class="table-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Device</th>
+                                        <th>Browser</th>
+                                        <th>IP Address</th>
+                                        <th>Status</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr>
+                                        <td>30 Jul 2026</td>
+                                        <td>09:12 AM</td>
+                                        <td><i class="fa-solid fa-desktop"></i> Windows PC</td>
+                                        <td><i class="fa-brands fa-chrome"></i> Chrome</td>
+                                        <td>192.168.1.20</td>
+                                        <td><span class="status good">Success</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>29 Jul 2026</td>
+                                        <td>07:48 PM</td>
+                                        <td><i class="fa-solid fa-laptop"></i> Laptop</td>
+                                        <td><i class="fa-brands fa-edge"></i> Edge</td>
+                                        <td>192.168.1.18</td>
+                                        <td><span class="status good">Success</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>28 Jul 2026</td>
+                                        <td>11:04 AM</td>
+                                        <td><i class="fa-solid fa-mobile-screen"></i> Android</td>
+                                        <td><i class="fa-brands fa-chrome"></i> Chrome </td>
+                                        <td>192.168.1.15</td>
+                                        <td><span class="status average">Verified</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>27 Jul 2026</td>
+                                        <td>08:55 PM</td>
+                                        <td><i class="fa-solid fa-desktop"></i> Windows PC</td>
+                                        <td><i class="fa-brands fa-chrome"></i> Chrome</td>
+                                        <td>192.168.1.20</td>
+                                        <td><span class="status good">Success</span></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const profile = document.querySelector(".profile");
+        const uploadBtn = document.getElementById("uploadImageBtn");
+        const uploadInput = document.getElementById("profileUpload");
+        const preview = document.getElementById("profilePreview");
+        const editBtn = document.querySelector(".edit-btn");
+        const saveBtn = document.querySelector(".save-btn");
+        const searchInput = document.querySelector(".search-box input");
+
+        menuBtn.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+        });
+
+        document.addEventListener("click", e => {
+            if (window.innerWidth <= 900) {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+        });
+
+        profile.addEventListener("click", () => {
+            window.location.href = "profile.html";
+        });
+
+        uploadBtn.addEventListener("click", () => {
+            uploadInput.click();
+        });
+
+        uploadInput.addEventListener("change", e => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    preview.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        editBtn.addEventListener("click", () => {
+            document.querySelectorAll("#fullName,#email,#phone,#dob,#gender,#address,#currentPassword,#newPassword,#confirmPassword").forEach(field => {
+                field.removeAttribute("readonly");
+                field.removeAttribute("disabled");
+            });
+            alert("Profile Editing Enabled.");
+        });
+
+        saveBtn.addEventListener("click", () => {
+
+            const name = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+
+            if (name === "") {
+                alert("Full Name is required.");
+                return;
+            }
+
+            if (email === "") {
+                alert("Email is required.");
+                return;
+            }
+
+            if (phone === "") {
+                alert("Phone Number is required.");
+                return;
+            }
+
+            const newPass = document.getElementById("newPassword").value;
+            const confirmPass = document.getElementById("confirmPassword").value;
+
+            if (newPass !== confirmPass) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            alert("Profile Updated Successfully.");
+
+        });
+
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            document.querySelectorAll(".profile-card,.activity-card,.stat-card").forEach(card => {
+
+                card.style.display = card.innerText.toLowerCase().includes(value) ? "" : "none";
+
+            });
+
+        });
+
+        document.querySelectorAll("input,textarea,select").forEach(field => {
+
+            field.addEventListener("focus", () => {
+                field.style.borderColor = "#0f766e";
+            });
+
+            field.addEventListener("blur", () => {
+                field.style.borderColor = "#e2e8f0";
+            });
+
+        });
+
+        document.querySelectorAll(".stat-card").forEach(card => {
+
+            card.addEventListener("mouseenter", () => {
+                card.style.transform = "translateY(-6px)";
+                card.style.transition = ".3s";
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "translateY(0)";
+            });
+
+        });
+
+        document.querySelectorAll(".timeline-item").forEach(item => {
+
+            item.addEventListener("mouseenter", () => {
+                item.style.transform = "translateX(8px)";
+                item.style.transition = ".3s";
+            });
+
+            item.addEventListener("mouseleave", () => {
+                item.style.transform = "translateX(0)";
+            });
+
+        });
+
+        document.querySelector(".notify").addEventListener("click", () => {
+            alert("No new notifications.");
+        });
+
+        document.querySelectorAll(".sidebar nav a").forEach(link => {
+
+            link.addEventListener("click", () => {
+                document.querySelectorAll(".sidebar nav a").forEach(item => item.classList.remove("active"));
+                link.classList.add("active");
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #06b6d4;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fc;
+            --light: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+            --radius: 18px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            background: linear-gradient(180deg, #0f172a, #1d4ed8);
+            padding: 30px 22px;
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #60a5fa;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            flex: 1;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 46px;
+            height: 46px;
+            background: #eef4ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .page-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #eef4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 11px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            right: -90px;
+            top: -120px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            left: -60px;
+            bottom: -60px;
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .settings-wrapper {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .left-card,
+        .right-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .setting-profile {
+            text-align: center;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .setting-profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #eef4ff;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+
+        .setting-profile h2 {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .setting-profile p {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: #f8fbff;
+            border-radius: 14px;
+            font-size: 14px;
+        }
+
+        .info-row span {
+            color: var(--text);
+        }
+
+        .save-settings {
+            width: 100%;
+            height: 52px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .save-settings:hover {
+            transform: translateY(-3px);
+        }
+
+        .setting-section {
+            margin-bottom: 35px;
+        }
+
+        .setting-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .setting-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 15px;
+        }
+
+        .setting-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .setting-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            background: #eef4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--primary);
+        }
+
+        .setting-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .setting-desc {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 58px;
+            height: 30px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #cbd5e1;
+            border-radius: 50px;
+            transition: .3s;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        .switch input:checked+.slider {
+            background: var(--success);
+        }
+
+        .switch input:checked+.slider:before {
+            transform: translateX(28px);
+        }
+
+        .theme-select,
+        .language-select {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            background: #fff;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .logout-btn,
+        .delete-btn {
+            border: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .logout-btn {
+            background: #2563eb;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+        }
+
+        .logout-btn:hover,
+        .delete-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        @media(max-width:1200px) {
+
+            .settings-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .setting-profile {
+                position: static;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .setting-box {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .profile div {
+                display: none;
+            }
+
+            .page-title h2 {
+                font-size: 22px;
+            }
+
+        }
+
+        @media(max-width:500px) {
+
+            .left-card,
+            .right-card {
+                padding: 20px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .setting-profile img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .action-group {
+                flex-direction: column;
+            }
+
+            .logout-btn,
+            .delete-btn {
+                width: 100%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Patient Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+
+                <a href="find-doctor.html"><i class="fa-solid fa-user-doctor"></i><span>Find Doctors</span></a>
+
+                <a href="book-appointment.html"><i class="fa-solid fa-calendar-plus"></i><span>Book
+                        Appointment</span></a>
+
+                <a href="my-appointments.html"><i class="fa-solid fa-calendar-check"></i><span>My
+                        Appointments</span></a>
+
+                <a href="medical-history.html"><i class="fa-solid fa-file-medical"></i><span>Medical History</span></a>
+
+                <a href="profile.html"><i class="fa-solid fa-user"></i><span>My Profile</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Settings</h2>
+                        <p>Manage your account preferences and security.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/profile.png" alt="">
+                        <div>
+                            <h4>Ayush</h4>
+                            <p>Patient</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <div>
+                        <h1>Account Settings</h1>
+                        <p>Customize notifications, privacy, appearance and security settings for your OptiHealth
+                            account.</p>
+                    </div>
+
+                </section>
+
+                <div class="settings-wrapper">
+                    <div class="left-card setting-profile">
+
+                        <img src="../assets/profile.png" alt="Profile">
+
+                        <h2>Ayush Chandrawanshi</h2>
+                        <p>Patient Account</p>
+
+                        <div class="account-info">
+
+                            <div class="info-row">
+                                <span>Patient ID</span>
+                                <strong>OPT10245</strong>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Email</span>
+                                <strong>ayush@gmail.com</strong>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Phone</span>
+                                <strong>9876543210</strong>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Account Status</span>
+                                <strong style="color:#16a34a;">Active</strong>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Member Since</span>
+                                <strong>Jan 2026</strong>
+                            </div>
+
+                        </div>
+
+                        <button class="save-settings">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Settings
+                        </button>
+
+                    </div>
+
+                    <div class="right-card">
+
+                        <div class="setting-section">
+
+                            <h2>Security</h2>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">Two-Factor Authentication</div>
+                                        <div class="setting-desc">Increase account security with OTP verification.</div>
+                                    </div>
+                                </div>
+
+                                <label class="switch">
+                                    <input type="checkbox" id="twoFactor">
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-bell"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">Login Alerts</div>
+                                        <div class="setting-desc">Receive alerts whenever your account logs in.</div>
+                                    </div>
+                                </div>
+
+                                <label class="switch">
+                                    <input type="checkbox" checked id="loginAlert">
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="setting-section">
+
+                            <h2>Notifications</h2>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">Email Notifications</div>
+                                        <div class="setting-desc">Appointment and report updates by email.</div>
+                                    </div>
+                                </div>
+
+                                <label class="switch">
+                                    <input type="checkbox" checked id="emailNotification">
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-message"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">SMS Notifications</div>
+                                        <div class="setting-desc">Receive reminders directly on your phone.</div>
+                                    </div>
+                                </div>
+
+                                <label class="switch">
+                                    <input type="checkbox" checked id="smsNotification">
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-calendar-check"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">Appointment Reminder</div>
+                                        <div class="setting-desc">Notify before upcoming appointments.</div>
+                                    </div>
+                                </div>
+
+                                <label class="switch">
+                                    <input type="checkbox" checked id="appointmentReminder">
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="setting-section">
+
+                            <h2>Appearance</h2>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-palette"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">Theme</div>
+                                        <div class="setting-desc">Choose your preferred application theme.</div>
+                                    </div>
+
+                                </div>
+
+                                <select class="theme-select" id="themeSelect">
+                                    <option>Light</option>
+                                    <option>Dark</option>
+                                    <option>System</option>
+                                </select>
+
+                            </div>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-language"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">Language</div>
+                                        <div class="setting-desc">Select your preferred language.</div>
+                                    </div>
+
+                                </div>
+
+                                <select class="language-select" id="languageSelect">
+                                    <option selected>English</option>
+                                    <option>Hindi</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="setting-section">
+
+                            <h2>Privacy</h2>
+
+                            <div class="setting-box">
+
+                                <div class="setting-left">
+                                    <div class="setting-icon">
+                                        <i class="fa-solid fa-lock"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="setting-title">Remember Me</div>
+                                        <div class="setting-desc">Keep your account signed in on this device.</div>
+                                    </div>
+                                </div>
+
+                                <label class="switch">
+                                    <input type="checkbox" checked id="rememberMe">
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="setting-section">
+
+                            <h2>Account Actions</h2>
+
+                            <div class="action-group">
+
+                                <button class="logout-btn">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    Logout
+                                </button>
+
+                                <button class="delete-btn">
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete Account
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        const saveBtn = document.querySelector(".save-settings");
+        const logoutBtn = document.querySelector(".logout-btn");
+        const deleteBtn = document.querySelector(".delete-btn");
+
+        const themeSelect = document.getElementById("themeSelect");
+        const languageSelect = document.getElementById("languageSelect");
+
+        const switches = document.querySelectorAll('.switch input');
+
+        window.onload = () => {
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = "-270px";
+            } else {
+                sidebar.style.left = "0";
+            }
+
+            const savedTheme = localStorage.getItem("theme");
+
+            if (savedTheme) {
+
+                themeSelect.value = savedTheme;
+                applyTheme(savedTheme);
+
+            }
+
+        };
+
+        menuBtn.onclick = () => {
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+
+        };
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        switches.forEach(toggle => {
+
+            toggle.addEventListener("change", () => {
+
+                const name = toggle.id;
+                const value = toggle.checked;
+
+                localStorage.setItem(name, value);
+
+            });
+
+        });
+
+        themeSelect.addEventListener("change", () => {
+
+            const theme = themeSelect.value;
+
+            localStorage.setItem("theme", theme);
+
+            applyTheme(theme);
+
+        });
+
+        function applyTheme(theme) {
+
+            if (theme === "Dark") {
+
+                document.body.style.background = "#0f172a";
+
+                document.querySelectorAll(".left-card,.right-card,.topbar").forEach(card => {
+                    card.style.background = "#1e293b";
+                    card.style.color = "#fff";
+                });
+
+                document.querySelectorAll(".setting-box,.info-row").forEach(box => {
+                    box.style.background = "#334155";
+                    box.style.color = "#fff";
+                });
+
+            }
+
+            else {
+
+                document.body.style.background = "#f4f7fc";
+
+                document.querySelectorAll(".left-card,.right-card,.topbar").forEach(card => {
+                    card.style.background = "#fff";
+                    card.style.color = "#0f172a";
+                });
+
+                document.querySelectorAll(".setting-box").forEach(box => {
+                    box.style.background = "#f8fbff";
+                    box.style.color = "#0f172a";
+                });
+
+                document.querySelectorAll(".info-row").forEach(box => {
+                    box.style.background = "#f8fbff";
+                    box.style.color = "#0f172a";
+                });
+
+            }
+
+        }
+
+        languageSelect.addEventListener("change", () => {
+
+            alert("Language changed to " + languageSelect.value);
+
+        });
+
+        saveBtn.onclick = () => {
+
+            const settings = {};
+
+            switches.forEach(toggle => {
+
+                settings[toggle.id] = toggle.checked;
+
+            });
+
+            settings.theme = themeSelect.value;
+            settings.language = languageSelect.value;
+
+            localStorage.setItem("patientSettings", JSON.stringify(settings));
+
+            alert("Settings saved successfully.");
+
+        };
+
+        logoutBtn.onclick = () => {
+
+            const confirmLogout = confirm("Are you sure you want to logout?");
+
+            if (confirmLogout) {
+
+                window.location.href = "../auth/login.html";
+
+            }
+
+        };
+
+        deleteBtn.onclick = () => {
+
+            const confirmDelete = confirm("This action cannot be undone.\nDo you really want to delete your account?");
+
+            if (confirmDelete) {
+
+                alert("Delete Account API will be connected after backend integration.");
+
+            }
+
+        };
+
+        document.querySelector(".notify").onclick = () => {
+
+            alert("No new notifications.");
+
+        };
+
+        document.querySelector(".profile").onclick = () => {
+
+            window.location.href = "profile.html";
+
+        };
+
+        document.querySelectorAll(".sidebar nav a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                document.querySelectorAll(".sidebar nav a").forEach(item => item.classList.remove("active"));
+
+                link.classList.add("active");
+
+            });
+
+        });
+
+        document.addEventListener("keydown", e => {
+
+            if (e.ctrlKey && e.key === "s") {
+
+                e.preventDefault();
+
+                saveBtn.click();
+
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

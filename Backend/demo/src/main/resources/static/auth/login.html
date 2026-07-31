@@ -39,7 +39,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
         }
 
@@ -102,7 +103,7 @@
         .login-container {
             width: 1120px;
             max-width: 92%;
-            height: 620px;
+            height: 700px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             background: rgba(255, 255, 255, .08);
@@ -124,11 +125,12 @@
         }
 
         .right-panel {
-            background: #fff;
             padding: 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background: linear-gradient(135deg, #f5f9ff, #eef6ff, #e5f1ff);
+            border-left: 1px solid rgba(255, 255, 255, .15);
         }
 
 
@@ -245,7 +247,7 @@
         }
 
         .role:hover {
-            background: #3b82f6;
+            background: #3f4a5c;
             color: #fff;
         }
 

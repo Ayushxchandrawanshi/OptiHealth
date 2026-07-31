@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OptiHealth | Register</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #06b6d4;
+            --dark: #0f172a;
+            --light: #ffffff;
+            --text: #475569;
+            --glass: rgba(255, 255, 255, .15);
+            --border: rgba(255, 255, 255, .20);
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .35;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: #38bdf8;
+            top: -80px;
+            left: -80px;
+        }
+
+        .circle:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: #22c55e;
+            bottom: -120px;
+            right: -120px;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: #f97316;
+            top: 40%;
+            left: 55%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+
+        }
+
+        .register-container {
+            width: 1180px;
+            max-width: 92%;
+            min-height: 700px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .18);
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .35);
+        }
+
+        .left-panel {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .right-panel {
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8fbff, #edf6ff, #e6f4ff);
+        }
+
+
+
+        .left-panel h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .welcome-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, .85);
+            margin-bottom: 40px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px 20px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .12);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            transition: .35s;
+        }
+
+        .feature-card:hover {
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, .14);
+        }
+
+        .feature-card i {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, .82);
+        }
+
+        .register-box {
+            width: 100%;
+            max-width: 470px;
+            margin: auto;
+        }
+
+        .register-box h2 {
+            font-size: 34px;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #dbeafe;
+            color: #1e3a8a;
+            transition: .3s;
+        }
+
+        .role-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+        }
+
+        .role-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #d6e2f0;
+            outline: none;
+            font-size: 14px;
+            transition: .3s;
+            background: #fff;
+        }
+
+        .input-group textarea {
+            resize: none;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+        }
+
+        .password-group input {
+            padding-right: 50px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            bottom: 16px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            margin-top: 8px;
+            transition: .35s;
+            box-shadow: 0 15px 30px rgba(37, 99, 235, .25);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 35px rgba(37, 99, 235, .35);
+        }
+
+        .login-link {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .login-link a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media(max-width:1000px) {
+
+            .register-container {
+                grid-template-columns: 1fr;
+                height: auto;
+                margin: 40px 0;
+            }
+
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                padding: 45px 30px;
+            }
+
+            .register-box {
+                max-width: 100%;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .register-container {
+                border-radius: 22px;
+            }
+
+            .right-panel {
+                padding: 35px 22px;
+            }
+
+            .register-box h2 {
+                font-size: 28px;
+            }
+
+            .role-selector {
+                flex-direction: column;
+            }
+
+            .role-btn {
+                width: 100%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <div class="register-container">
+        <div class="left-panel">
+            <h1>Create Your Account</h1>
+
+            <p class="welcome-text">
+                Join OptiHealth and experience secure, fast and hassle-free healthcare
+                management. Register as a Patient to book appointments or as a Doctor to
+                manage your patients efficiently.
+            </p>
+
+            <div class="feature-list">
+
+                <div class="feature-card">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <div>
+                        <h3>Secure Registration</h3>
+                        <p>Your personal information is encrypted and protected.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div>
+                        <h3>Easy Appointment</h3>
+                        <p>Book and manage appointments in just a few clicks.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fa-solid fa-stethoscope"></i>
+                    <div>
+                        <h3>Professional Healthcare</h3>
+                        <p>Connect with experienced doctors anytime.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="register-box">
+
+                <h2>Create Account</h2>
+
+                <p class="subtitle">
+                    Select your role and complete the registration.
+                </p>
+
+                <div class="role-selector">
+
+                    <button class="role-btn active" data-role="patient">
+                        Patient
+                    </button>
+
+                    <button class="role-btn" data-role="doctor">
+                        Doctor
+                    </button>
+
+                </div>
+
+                <form id="registerForm">
+
+                    <div class="patient-fields">
+
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter your full name">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="Enter your email">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="Enter phone number">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Gender</label>
+                            <select>
+                                <option>Select Gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Date of Birth</label>
+                            <input type="date">
+                        </div>
+
+                        <div class="input-group password-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Create password">
+                            <i class="fa-solid fa-eye toggle-password"></i>
+                        </div>
+
+                        <div class="input-group password-group">
+                            <label>Confirm Password</label>
+                            <input type="password" placeholder="Confirm password">
+                            <i class="fa-solid fa-eye toggle-password"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="doctor-fields" style="display:none;">
+
+                        <div class="input-group">
+                            <label>Doctor Name</label>
+                            <input type="text" placeholder="Enter doctor name">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="Enter email">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Specialization</label>
+                            <input type="text" placeholder="Cardiologist, Dentist...">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Experience (Years)</label>
+                            <input type="number" placeholder="Enter experience">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Consultation Fee (₹)</label>
+                            <input type="number" placeholder="Enter fee">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Description</label>
+                            <textarea rows="3" placeholder="Write about yourself"></textarea>
+                        </div>
+
+                        <div class="input-group password-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Create password">
+                            <i class="fa-solid fa-eye toggle-password"></i>
+                        </div>
+
+                        <div class="input-group password-group">
+                            <label>Confirm Password</label>
+                            <input type="password" placeholder="Confirm password">
+                            <i class="fa-solid fa-eye toggle-password"></i>
+                        </div>
+
+                    </div>
+
+                    <button class="register-btn">
+                        Create Account
+                    </button>
+
+                    <div class="login-link">
+                        Already have an account?
+                        <a href="login.html">Sign In</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const roleButtons = document.querySelectorAll(".role-btn");
+        const patientFields = document.querySelector(".patient-fields");
+        const doctorFields = document.querySelector(".doctor-fields");
+
+        roleButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                roleButtons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                const role = button.dataset.role;
+
+                if (role === "patient") {
+                    patientFields.style.display = "block";
+                    doctorFields.style.display = "none";
+                }
+                else {
+                    patientFields.style.display = "none";
+                    doctorFields.style.display = "block";
+                }
+
+            });
+
+        });
+
+        const toggleIcons = document.querySelectorAll(".toggle-password");
+
+        toggleIcons.forEach(icon => {
+
+            icon.addEventListener("click", () => {
+
+                const input = icon.previousElementSibling;
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    icon.classList.remove("fa-eye");
+                    icon.classList.add("fa-eye-slash");
+                }
+                else {
+                    input.type = "password";
+                    icon.classList.remove("fa-eye-slash");
+                    icon.classList.add("fa-eye");
+                }
+
+            });
+
+        });
+
+        const registerForm = document.getElementById("registerForm");
+
+        registerForm.addEventListener("submit", (e) => {
+
+            e.preventDefault();
+
+            const activeRole = document.querySelector(".role-btn.active").dataset.role;
+
+            const visibleInputs = document.querySelectorAll(
+                activeRole === "patient"
+                    ? ".patient-fields input, .patient-fields select"
+                    : ".doctor-fields input, .doctor-fields textarea"
+            );
+
+            for (let field of visibleInputs) {
+
+                if (field.value.trim() === "") {
+
+                    alert("Please fill all required fields.");
+                    field.focus();
+                    return;
+
+                }
+
+            }
+
+            const registerButton = document.querySelector(".register-btn");
+
+            registerButton.disabled = true;
+            registerButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+            setTimeout(() => {
+
+                registerButton.disabled = false;
+                registerButton.innerHTML = "Create Account";
+
+                if (activeRole === "patient") {
+                    window.location.href = "../patient/dashboard.html";
+                }
+                else {
+                    window.location.href = "../doctor/dashboard.html";
+                }
+
+            }, 1500);
+
+        });
+
+        window.addEventListener("load", () => {
+
+            const container = document.querySelector(".register-container");
+
+            container.style.opacity = "0";
+            container.style.transform = "translateY(40px)";
+
+            setTimeout(() => {
+
+                container.style.transition = ".8s ease";
+                container.style.opacity = "1";
+                container.style.transform = "translateY(0)";
+
+            }, 100);
+
+        });
+
+    </script>
+</body>
+
+</html>

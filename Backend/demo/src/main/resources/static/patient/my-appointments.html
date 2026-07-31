@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #06b6d4;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #ffffff;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fc;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+            --radius: 18px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 270px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, #0f172a, #1d4ed8);
+            color: #fff;
+            padding: 30px 22px;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #60a5fa;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            flex: 1;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #eef4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .page-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            background: #eef4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 11px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ddd;
+            object-fit: cover;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            padding: 35px;
+            border-radius: 24px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            top: -130px;
+            right: -80px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            left: -50px;
+            bottom: -70px;
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .stat-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: #eef4ff;
+            color: var(--primary);
+        }
+
+        .stat-info h3 {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+
+        .stat-info p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .filter-bar {
+            background: #fff;
+            padding: 22px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            height: 55px;
+            padding: 0 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+            font-size: 15px;
+            transition: .3s;
+        }
+
+        .filter-bar input:focus,
+        .filter-bar select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+        }
+
+        .filter-bar button {
+            height: 55px;
+            padding: 0 30px;
+            border: none;
+            border-radius: 14px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filter-bar button:hover {
+            background: #1d4ed8;
+        }
+
+        .appointment-section {
+            margin-top: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .section-header a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .appointment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .appointment-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: .35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .appointment-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .appointment-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .doctor {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .doctor img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .doctor h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .doctor p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .status {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .completed {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .cancelled {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .card-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .detail-box {
+            background: #f8fbff;
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .detail-box i {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .detail-box h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .detail-box p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card-actions button {
+            flex: 1;
+            height: 48px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .reschedule-btn {
+            background: #eef4ff;
+            color: #2563eb;
+        }
+
+        .reschedule-btn:hover {
+            background: #dbeafe;
+        }
+
+        .cancel-btn {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .cancel-btn:hover {
+            background: #dc2626;
+        }
+
+        .view-btn {
+            background: #22c55e;
+            color: #fff;
+        }
+
+        .view-btn:hover {
+            background: #16a34a;
+        }
+
+        @media(max-width:1200px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .appointment-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .filter-bar {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .card-details {
+                grid-template-columns: 1fr;
+            }
+
+            .card-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .card-actions {
+                flex-direction: column;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:480px) {
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .page-title h2 {
+                font-size: 22px;
+            }
+
+            .stat-card,
+            .appointment-card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Patient Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="find-doctor.html">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Find Doctors</span>
+                </a>
+
+                <a href="book-appointment.html">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+
+                <a href="medical-history.html">
+                    <i class="fa-solid fa-file-medical"></i>
+                    <span>Medical History</span>
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="../auth/login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>My Appointments</h2>
+                        <p>Track, manage and reschedule your appointments.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/profile.png" alt="Profile">
+                        <div>
+                            <h4>Ayush</h4>
+                            <p>Patient</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <div>
+                        <h1>Manage Your Appointments</h1>
+                        <p>View upcoming consultations, completed visits and manage all your appointments from one
+                            place.</p>
+                    </div>
+
+                </section>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Total Appointments</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>3</h3>
+                            <p>Upcoming</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>4</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-ban"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1</h3>
+                            <p>Cancelled</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="filter-bar">
+
+                    <input type="text" placeholder="Search doctor...">
+
+                    <select>
+                        <option>All Status</option>
+                        <option>Upcoming</option>
+                        <option>Completed</option>
+                        <option>Cancelled</option>
+                    </select>
+
+                    <select>
+                        <option>All Departments</option>
+                        <option>Cardiology</option>
+                        <option>Neurology</option>
+                        <option>Orthopedic</option>
+                        <option>Dermatology</option>
+                        <option>Pediatrics</option>
+                    </select>
+
+                    <button>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Search
+                    </button>
+
+                </div>
+
+                <section class="appointment-section">
+
+                    <div class="section-header">
+                        <h2>Appointments</h2>
+                        <a href="book-appointment.html">+ New Appointment</a>
+                    </div>
+
+                    <div class="appointment-grid">
+
+                        <div class="appointment-card">
+
+                            <div class="card-top">
+
+                                <div class="doctor">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg">
+                                    <div>
+                                        <h3>Dr. Rahul Sharma</h3>
+                                        <p>Cardiologist</p>
+                                    </div>
+                                </div>
+
+                                <span class="status pending">
+                                    Upcoming
+                                </span>
+
+                            </div>
+
+                            <div class="card-details">
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <h4>18 Aug</h4>
+                                    <p>Appointment Date</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <h4>10:00 AM</h4>
+                                    <p>Time</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-video"></i>
+                                    <h4>Online</h4>
+                                    <p>Consultation</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <h4>₹700</h4>
+                                    <p>Fee</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card-actions">
+                                <button class="reschedule-btn">Reschedule</button>
+                                <button class="cancel-btn">Cancel</button>
+                            </div>
+
+                        </div>
+
+                        <div class="appointment-card">
+
+                            <div class="card-top">
+
+                                <div class="doctor">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg">
+                                    <div>
+                                        <h3>Dr. Priya Mehta</h3>
+                                        <p>Dermatologist</p>
+                                    </div>
+                                </div>
+
+                                <span class="status completed">
+                                    Completed
+                                </span>
+
+                            </div>
+
+                            <div class="card-details">
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <h4>10 Aug</h4>
+                                    <p>Appointment Date</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <h4>11:30 AM</h4>
+                                    <p>Time</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-hospital"></i>
+                                    <h4>Offline</h4>
+                                    <p>Consultation</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-prescription"></i>
+                                    <h4>View</h4>
+                                    <p>Prescription</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card-actions">
+                                <button class="view-btn">View Details</button>
+                            </div>
+
+                        </div>
+
+                        <div class="appointment-card">
+
+                            <div class="card-top">
+
+                                <div class="doctor">
+                                    <img src="https://randomuser.me/api/portraits/men/76.jpg">
+                                    <div>
+                                        <h3>Dr. Arjun Singh</h3>
+                                        <p>Orthopedic</p>
+                                    </div>
+                                </div>
+
+                                <span class="status pending">
+                                    Upcoming
+                                </span>
+
+                            </div>
+
+                            <div class="card-details">
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <h4>22 Aug</h4>
+                                    <p>Appointment Date</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <h4>02:30 PM</h4>
+                                    <p>Time</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-hospital"></i>
+                                    <h4>Offline</h4>
+                                    <p>Consultation</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <h4>₹900</h4>
+                                    <p>Fee</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card-actions">
+                                <button class="reschedule-btn">Reschedule</button>
+                                <button class="cancel-btn">Cancel</button>
+                            </div>
+
+                        </div>
+
+                        <div class="appointment-card">
+
+                            <div class="card-top">
+
+                                <div class="doctor">
+                                    <img src="https://randomuser.me/api/portraits/women/25.jpg">
+                                    <div>
+                                        <h3>Dr. Sneha Patel</h3>
+                                        <p>Gynecologist</p>
+                                    </div>
+                                </div>
+
+                                <span class="status cancelled">
+                                    Cancelled
+                                </span>
+
+                            </div>
+
+                            <div class="card-details">
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <h4>02 Aug</h4>
+                                    <p>Appointment Date</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <h4>09:00 AM</h4>
+                                    <p>Time</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                    <h4>Cancelled</h4>
+                                    <p>Status</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <h4>₹1000</h4>
+                                    <p>Fee</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card-actions">
+                                <button class="reschedule-btn">Book Again</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+        </div>
+        </main>
+    </div>
+    </div>
+
+    <script>
+
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        const searchInput = document.querySelector(".filter-bar input");
+        const statusFilter = document.querySelectorAll(".filter-bar select")[0];
+        const departmentFilter = document.querySelectorAll(".filter-bar select")[1];
+
+        const cards = document.querySelectorAll(".appointment-card");
+
+        if (window.innerWidth <= 900) {
+            sidebar.style.left = "-270px";
+        }
+
+        menuBtn.addEventListener("click", () => {
+
+            if (window.innerWidth <= 900) {
+
+                if (sidebar.style.left === "0px") {
+                    sidebar.style.left = "-270px";
+                } else {
+                    sidebar.style.left = "0";
+                }
+
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        function filterAppointments() {
+
+            const search = searchInput.value.toLowerCase();
+            const status = statusFilter.value.toLowerCase();
+            const department = departmentFilter.value.toLowerCase();
+
+            cards.forEach(card => {
+
+                const doctor = card.querySelector(".doctor h3").innerText.toLowerCase();
+                const dept = card.querySelector(".doctor p").innerText.toLowerCase();
+                const currentStatus = card.querySelector(".status").innerText.toLowerCase();
+
+                const matchSearch = doctor.includes(search);
+
+                const matchStatus =
+                    status === "all status" ||
+                    currentStatus === status;
+
+                const matchDepartment =
+                    department === "all departments" ||
+                    dept.includes(department);
+
+                if (matchSearch && matchStatus && matchDepartment) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+
+            });
+
+        }
+
+        searchInput.addEventListener("keyup", filterAppointments);
+        statusFilter.addEventListener("change", filterAppointments);
+        departmentFilter.addEventListener("change", filterAppointments);
+
+        document.querySelector(".filter-bar button").addEventListener("click", filterAppointments);
+
+        document.querySelectorAll(".cancel-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                const confirmCancel = confirm("Do you want to cancel this appointment?");
+
+                if (confirmCancel) {
+
+                    const card = btn.closest(".appointment-card");
+
+                    const status = card.querySelector(".status");
+
+                    status.innerText = "Cancelled";
+                    status.className = "status cancelled";
+
+                    btn.disabled = true;
+                    btn.innerText = "Cancelled";
+
+                }
+
+            });
+
+        });
+
+        document.querySelectorAll(".reschedule-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                window.location.href = "book-appointment.html";
+
+            });
+
+        });
+
+        document.querySelectorAll(".view-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                alert("Appointment details page will be available soon.");
+
+            });
+
+        });
+
+        document.querySelector(".notify").addEventListener("click", () => {
+
+            alert("You have 2 new notifications.");
+
+        });
+
+        window.addEventListener("load", () => {
+
+            cards.forEach((card, index) => {
+
+                card.style.opacity = "0";
+                card.style.transform = "translateY(30px)";
+
+                setTimeout(() => {
+
+                    card.style.transition = ".5s";
+                    card.style.opacity = "1";
+                    card.style.transform = "translateY(0)";
+
+                }, index * 120);
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

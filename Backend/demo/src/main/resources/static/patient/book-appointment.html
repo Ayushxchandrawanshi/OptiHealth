@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #06b6d4;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #ffffff;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fc;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+            --radius: 18px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 270px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, #0f172a, #1d4ed8);
+            color: #fff;
+            padding: 30px 22px;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #60a5fa;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            flex: 1;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 46px;
+            height: 46px;
+            background: #eef4ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .page-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            background: #eef4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 11px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ddd;
+            object-fit: cover;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            top: -130px;
+            right: -80px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            bottom: -90px;
+            left: -60px;
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            max-width: 650px;
+            line-height: 1.7;
+        }
+
+        .booking-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .form-card,
+        .summary-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* CSS */
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+            font-size: 15px;
+            background: #fff;
+            transition: .3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .full-width {
+            grid-column: 1/3;
+        }
+
+        .doctor-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px;
+            background: #f8fbff;
+            border: 1px solid #dbeafe;
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+
+        .doctor-card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .doctor-info h3 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .doctor-info p {
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #f59e0b;
+            font-size: 14px;
+        }
+
+        .slot-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 30px 0 15px;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .slot {
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: .3s;
+            background: #fff;
+        }
+
+        .slot:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .slot.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .type-box {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .type-card {
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            cursor: pointer;
+            text-align: center;
+            transition: .3s;
+            background: #fff;
+        }
+
+        .type-card i {
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .type-card h4 {
+            margin-bottom: 8px;
+        }
+
+        .type-card p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .type-card:hover {
+            border-color: var(--primary);
+        }
+
+        .type-card.active {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .summary-card {
+            position: sticky;
+            top: 105px;
+            height: fit-content;
+        }
+
+        .summary-card h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-item span:first-child {
+            color: var(--text);
+        }
+
+        .summary-item span:last-child {
+            font-weight: 600;
+        }
+
+        .total {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .confirm-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, .25);
+        }
+
+        .note {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 14px;
+            background: #eff6ff;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #475569;
+        }
+
+        @media(max-width:1200px) {
+
+            .booking-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+                position: static;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .type-box {
+                grid-template-columns: 1fr;
+            }
+
+            .doctor-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:480px) {
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .page-title h2 {
+                font-size: 22px;
+            }
+
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card,
+            .summary-card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Patient Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="find-doctor.html">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Find Doctors</span>
+                </a>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+
+                <a href="my-appointments.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+
+                <a href="medical-history.html">
+                    <i class="fa-solid fa-file-medical"></i>
+                    <span>Medical History</span>
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="../auth/login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Book Appointment</h2>
+                        <p>Schedule your consultation with your preferred doctor.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/profile.png" alt="Profile">
+                        <div>
+                            <h4>Ayush</h4>
+                            <p>Patient</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <div>
+                        <h1>Book Your Appointment</h1>
+                        <p>Select your doctor, choose a convenient date & time, and confirm your appointment within
+                            seconds.</p>
+                    </div>
+
+                </section>
+
+                <div class="booking-wrapper">
+                    <div class="form-card">
+
+                        <h2 class="section-title">
+                            <i class="fa-solid fa-calendar-plus"></i>
+                            Book Appointment
+                        </h2>
+
+                        <div class="doctor-card">
+
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Doctor">
+
+                            <div class="doctor-info">
+                                <h3>Dr. Rahul Sharma</h3>
+                                <p>Senior Cardiologist</p>
+
+                                <div class="rating">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span>4.9 (320 Reviews)</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label>Patient Name</label>
+                                <input type="text" placeholder="Enter your name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="Enter email">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input type="tel" placeholder="Enter mobile number">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" placeholder="Enter age">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Appointment Date</label>
+                                <input type="date">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select>
+                                    <option>Cardiology</option>
+                                    <option>Neurology</option>
+                                    <option>Orthopedic</option>
+                                    <option>Dermatology</option>
+                                    <option>Pediatrics</option>
+                                    <option>Gynecology</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Reason for Visit</label>
+                                <textarea placeholder="Describe your health problem..."></textarea>
+                            </div>
+
+                        </div>
+
+                        <h3 class="slot-title">
+                            Choose Time Slot
+                        </h3>
+
+                        <div class="time-slots">
+
+                            <div class="slot active">09:00 AM</div>
+                            <div class="slot">09:30 AM</div>
+                            <div class="slot">10:00 AM</div>
+                            <div class="slot">10:30 AM</div>
+
+                            <div class="slot">11:00 AM</div>
+                            <div class="slot">11:30 AM</div>
+                            <div class="slot">12:00 PM</div>
+                            <div class="slot">12:30 PM</div>
+
+                            <div class="slot">02:00 PM</div>
+                            <div class="slot">02:30 PM</div>
+                            <div class="slot">03:00 PM</div>
+                            <div class="slot">03:30 PM</div>
+
+                        </div>
+
+                        <h3 class="slot-title">
+                            Consultation Type
+                        </h3>
+
+                        <div class="type-box">
+
+                            <div class="type-card active">
+
+                                <i class="fa-solid fa-video"></i>
+
+                                <h4>Online</h4>
+
+                                <p>Video consultation from home.</p>
+
+                            </div>
+
+                            <div class="type-card">
+
+                                <i class="fa-solid fa-hospital"></i>
+
+                                <h4>Hospital Visit</h4>
+
+                                <p>Visit doctor at hospital.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="summary-card">
+
+                        <h3>Appointment Summary</h3>
+
+                        <div class="summary-item">
+                            <span>Doctor</span>
+                            <span>Dr. Rahul Sharma</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Department</span>
+                            <span>Cardiology</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Date</span>
+                            <span id="summaryDate">--</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Time</span>
+                            <span id="summaryTime">09:00 AM</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Consultation</span>
+                            <span id="summaryType">Online</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Consultation Fee</span>
+                            <span>₹700</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Total Amount</span>
+                            <span class="total">₹700</span>
+                        </div>
+
+                        <button class="confirm-btn">
+                            <i class="fa-solid fa-check"></i>
+                            Confirm Appointment
+                        </button>
+
+                        <div class="note">
+                            <strong>Note:</strong><br>
+                            Please arrive at least 15 minutes before your appointment. Carry previous medical reports
+                            and a valid ID proof. Online consultation link will be shared after confirmation.
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        const slots = document.querySelectorAll(".slot");
+        const typeCards = document.querySelectorAll(".type-card");
+
+        const summaryTime = document.getElementById("summaryTime");
+        const summaryType = document.getElementById("summaryType");
+        const summaryDate = document.getElementById("summaryDate");
+
+        const dateInput = document.querySelector('input[type="date"]');
+        const confirmBtn = document.querySelector(".confirm-btn");
+
+        if (window.innerWidth <= 900) {
+            sidebar.style.left = "-270px";
+        }
+
+        menuBtn.addEventListener("click", () => {
+
+            if (window.innerWidth <= 900) {
+
+                if (sidebar.style.left === "0px") {
+                    sidebar.style.left = "-270px";
+                } else {
+                    sidebar.style.left = "0";
+                }
+
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        slots.forEach(slot => {
+
+            slot.addEventListener("click", () => {
+
+                slots.forEach(item => item.classList.remove("active"));
+
+                slot.classList.add("active");
+
+                summaryTime.innerText = slot.innerText;
+
+            });
+
+        });
+
+        typeCards.forEach(card => {
+
+            card.addEventListener("click", () => {
+
+                typeCards.forEach(item => item.classList.remove("active"));
+
+                card.classList.add("active");
+
+                summaryType.innerText = card.querySelector("h4").innerText;
+
+            });
+
+        });
+
+        dateInput.addEventListener("change", () => {
+
+            if (dateInput.value) {
+
+                const date = new Date(dateInput.value);
+
+                summaryDate.innerText = date.toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                });
+
+            }
+
+        });
+
+        confirmBtn.addEventListener("click", () => {
+
+            const patient = document.querySelector('input[type="text"]').value.trim();
+            const email = document.querySelector('input[type="email"]').value.trim();
+            const phone = document.querySelector('input[type="tel"]').value.trim();
+            const age = document.querySelector('input[type="number"]').value.trim();
+            const reason = document.querySelector("textarea").value.trim();
+
+            if (patient === "") {
+                alert("Please enter patient name.");
+                return;
+            }
+
+            if (email === "") {
+                alert("Please enter email.");
+                return;
+            }
+
+            if (phone === "") {
+                alert("Please enter mobile number.");
+                return;
+            }
+
+            if (age === "") {
+                alert("Please enter age.");
+                return;
+            }
+
+            if (dateInput.value === "") {
+                alert("Please select appointment date.");
+                return;
+            }
+
+            if (reason === "") {
+                alert("Please enter reason for visit.");
+                return;
+            }
+
+            alert("Appointment Booked Successfully!");
+
+            window.location.href = "my-appointments.html";
+
+        });
+
+        document.querySelector(".notify").addEventListener("click", () => {
+
+            alert("You have 2 new notifications.");
+
+        });
+
+    </script>
+
+</body>
+
+</html>

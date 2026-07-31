@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Dashboard | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #06b6d4;
+            --dark: #0f172a;
+            --light: #ffffff;
+            --background: #f3f8ff;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 15px 35px rgba(0, 0, 0, .08);
+            --radius: 18px;
+        }
+
+        body {
+            background: var(--background);
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #0f172a, #1e3a8a, #2563eb);
+            color: #fff;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            min-height: 100vh;
+        }
+
+
+        .logo-section {
+            padding: 30px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            text-align: center;
+        }
+
+        .logo-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo-section p {
+            font-size: 14px;
+            opacity: .8;
+        }
+
+        .sidebar-menu {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            transition: .3s;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, .16);
+            transform: translateX(6px);
+        }
+
+        .topbar {
+            height: 80px;
+            padding: 0 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 12px 18px;
+            border-radius: 14px;
+            width: 360px;
+        }
+
+        .search-box i {
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-btn {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 50%;
+            background: #eef5ff;
+            cursor: pointer;
+            position: relative;
+            font-size: 18px;
+            color: var(--primary);
+            transition: .3s;
+        }
+
+        .notification-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -4px;
+            right: -2px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 50px;
+        }
+
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .profile-box img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #dbeafe;
+        }
+
+        .profile-box h4 {
+            font-size: 16px;
+            color: var(--dark);
+        }
+
+        .profile-box p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .dashboard-content {
+            padding: 30px;
+        }
+
+        .welcome-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            padding: 40px;
+            border-radius: var(--radius);
+            color: #fff;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .welcome-card h1 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .welcome-card p {
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 25px;
+        }
+
+        .welcome-card img {
+            width: 260px;
+            max-width: 100%;
+        }
+
+        .welcome-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .primary-btn {
+            background: #fff;
+            color: var(--primary);
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 255, .15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .3);
+        }
+
+        .primary-btn:hover,
+        .secondary-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 24px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: var(--shadow);
+            transition: .3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .stat-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #dbeafe;
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .stat-card h2 {
+            font-size: 30px;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .stat-card p {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .left-column,
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h3 {
+            color: var(--dark);
+            font-size: 20px;
+        }
+
+        .card-header a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .appointment-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px;
+            border-radius: 16px;
+            background: #f8fbff;
+        }
+
+        .appointment-date {
+            width: 90px;
+            text-align: center;
+            padding: 18px;
+            border-radius: 16px;
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .appointment-date h2 {
+            font-size: 32px;
+        }
+
+        .appointment-info h4 {
+            font-size: 20px;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .appointment-info p {
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .confirmed {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .history-list {
+            list-style: none;
+        }
+
+        .history-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .history-list li:last-child {
+            border-bottom: none;
+        }
+
+        .history-list h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .history-list p {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .history-list span {
+            background: #dcfce7;
+            color: #15803d;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .doctor-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doctor-item:last-child {
+            border-bottom: none;
+        }
+
+        .doctor-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .doctor-item div {
+            flex: 1;
+        }
+
+        .doctor-item h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .doctor-item p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .doctor-item button {
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 15px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item i {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #dbeafe;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .notification-item h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .notification-item p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        @media(max-width:1200px) {
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:992px) {
+
+            .sidebar {
+                left: -280px;
+                transition: .4s;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .search-box {
+                width: 220px;
+            }
+
+            .welcome-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .welcome-buttons {
+                justify-content: center;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .dashboard-content {
+                padding: 20px;
+            }
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-box div {
+                display: none;
+            }
+
+            .welcome-card {
+                padding: 30px;
+            }
+
+            .welcome-card h1 {
+                font-size: 28px;
+            }
+
+            .welcome-buttons {
+                flex-direction: column;
+            }
+
+            .primary-btn,
+            .secondary-btn {
+                width: 100%;
+            }
+
+            .appointment-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .history-list li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .doctor-item {
+                flex-wrap: wrap;
+            }
+
+            .doctor-item button {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <div class="logo-section">
+
+                <h2>
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    OptiHealth
+                </h2>
+
+                <p>Patient Portal</p>
+
+            </div>
+
+            <nav class="sidebar-menu">
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Find Doctors</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-file-medical"></i>
+                    <span>Medical History</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-prescription"></i>
+                    <span>Prescriptions</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="../auth/login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="topbar">
+                <div class="menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchDoctor" placeholder="Search doctors, appointments...">
+                </div>
+
+                <div class="topbar-right">
+                    <button class="notification-btn">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-count">
+                            3
+                        </span>
+                    </button>
+
+                    <div class="profile-box">
+                        <img src="../assets/profile.png" alt="Patient">
+                        <div>
+                            <h4 id="patientName">
+                                Patient Name
+                            </h4>
+                            <p>
+                                Patient
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="dashboard-content">
+                <section class="welcome-section">
+
+                    <div class="welcome-card">
+                        <div>
+                            <h1>
+                                Welcome,
+                                <span id="patientFullName">Patient</span> 👋
+                            </h1>
+
+                            <p>
+                                Manage your appointments, track your medical records and stay connected with your
+                                healthcare providers.
+                            </p>
+
+                            <div class="welcome-buttons">
+                                <button class="primary-btn">
+                                    <i class="fa-solid fa-calendar-plus"></i>
+                                    Book Appointment
+                                </button>
+
+                                <button class="secondary-btn">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                    Find Doctor
+                                </button>
+                            </div>
+                        </div>
+
+                        <img src="../assets/dashboard-doctor.png" alt="Doctor">
+                    </div>
+                </section>
+
+                <section class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+
+                        <div>
+                            <h2 id="appointmentCount">
+                                08
+                            </h2>
+
+                            <p>
+                                Appointments
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+
+                        <div>
+                            <h2 id="doctorCount">
+                                24
+                            </h2>
+
+                            <p>
+                                Available Doctors
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-file-medical"></i>
+                        </div>
+
+                        <div>
+                            <h2 id="reportCount">
+                                13
+                            </h2>
+
+                            <p>
+                                Medical Reports
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-prescription"></i>
+                        </div>
+
+                        <div>
+                            <h2 id="prescriptionCount">
+                                06
+                            </h2>
+
+                            <p>
+                                Prescriptions
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="dashboard-grid">
+                    <div class="left-column">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>
+                                    Upcoming Appointment
+                                </h3>
+
+                                <a href="#">
+                                    View All
+                                </a>
+                            </div>
+
+                            <div class="appointment-card">
+                                <div class="appointment-date">
+                                    <h2>
+                                        25
+                                    </h2>
+
+                                    <span>
+                                        AUG
+                                    </span>
+
+                                </div>
+
+                                <div class="appointment-info">
+                                    <h4 id="nextDoctorName">
+                                        Dr. Sarah Johnson
+                                    </h4>
+                                    <p>
+                                        Cardiologist
+                                    </p>
+
+                                    <p>
+                                        10:30 AM • Room 204
+                                    </p>
+
+                                    <span class="status confirmed">
+                                        Confirmed
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>
+                                    Recent Medical History
+                                </h3>
+
+                                <a href="#">
+                                    View All
+                                </a>
+                            </div>
+
+                            <ul class="history-list">
+                                <li>
+                                    <div>
+                                        <h4>
+                                            Blood Test
+                                        </h4>
+
+                                        <p>
+                                            15 July 2026
+                                        </p>
+                                    </div>
+
+                                    <span>
+                                        Completed
+                                    </span>
+                                </li>
+
+                                <li>
+                                    <div>
+                                        <h4>
+                                            General Checkup
+                                        </h4>
+
+                                        <p>
+                                            10 July 2026
+                                        </p>
+                                    </div>
+
+                                    <span>
+                                        Completed
+                                    </span>
+                                </li>
+
+                                <li>
+                                    <div>
+                                        <h4>
+                                            Dental Consultation
+                                        </h4>
+
+                                        <p>
+                                            02 July 2026
+                                        </p>
+                                    </div>
+
+                                    <span>
+                                        Completed
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="right-column">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>
+                                    Top Doctors
+                                </h3>
+
+                                <a href="#">
+                                    See All
+                                </a>
+                            </div>
+
+                            <div class="doctor-item">
+                                <img src="../assets/doctor1.jpg" alt="Doctor">
+                                <div>
+                                    <h4>
+                                        Dr. Sarah Johnson
+                                    </h4>
+
+                                    <p>
+                                        Cardiologist
+                                    </p>
+                                </div>
+
+                                <button>
+                                    Book
+                                </button>
+                            </div>
+
+                            <div class="doctor-item">
+                                <img src="../assets/doctor2.jpg" alt="Doctor">
+                                <div>
+                                    <h4>
+                                        Dr. Michael Lee
+                                    </h4>
+
+                                    <p>
+                                        Neurologist
+                                    </p>
+                                </div>
+
+                                <button>
+                                    Book
+                                </button>
+                            </div>
+
+                            <div class="doctor-item">
+                                <img src="../assets/doctor3.jpg" alt="Doctor">
+
+                                <div>
+                                    <h4>
+                                        Dr. Emily Clark
+                                    </h4>
+
+                                    <p>
+                                        Dermatologist
+                                    </p>
+                                </div>
+
+                                <button>
+                                    Book
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>
+                                    Notifications
+                                </h3>
+                            </div>
+
+                            <div class="notification-item">
+                                <i class="fa-solid fa-bell"></i>
+                                <div>
+                                    <h4>
+                                        Appointment Reminder
+                                    </h4>
+
+                                    <p>
+                                        Tomorrow at 10:30 AM
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <i class="fa-solid fa-file-circle-check"></i>
+
+                                <div>
+                                    <h4>
+                                        Lab Report Ready
+                                    </h4>
+
+                                    <p>
+                                        Your blood test report is available.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <i class="fa-solid fa-heart-circle-check"></i>
+
+                                <div>
+                                    <h4>
+                                        Health Tip
+                                    </h4>
+
+                                    <p>
+                                        Drink at least 2 litres of water daily.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        menuBtn.addEventListener("click", () => {
+
+            sidebar.classList.toggle("active");
+
+        });
+
+        document.addEventListener("click", (e) => {
+
+            if (window.innerWidth <= 992) {
+
+                if (
+                    !sidebar.contains(e.target) &&
+                    !menuBtn.contains(e.target)
+                ) {
+                    sidebar.classList.remove("active");
+                }
+
+            }
+
+        });
+
+        const menuLinks = document.querySelectorAll(".sidebar-menu a");
+
+        menuLinks.forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                menuLinks.forEach(item => item.classList.remove("active"));
+                link.classList.add("active");
+
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove("active");
+                }
+
+            });
+
+        });
+
+        const notificationBtn = document.querySelector(".notification-btn");
+
+        notificationBtn.addEventListener("click", () => {
+
+            alert("You have 3 new notifications.");
+
+        });
+
+        const primaryButton = document.querySelector(".primary-btn");
+        const secondaryButton = document.querySelector(".secondary-btn");
+
+        primaryButton.addEventListener("click", () => {
+
+            window.location.href = "book-appointment.html";
+
+        });
+
+        secondaryButton.addEventListener("click", () => {
+
+            window.location.href = "find-doctor.html";
+
+        });
+
+        const doctorButtons = document.querySelectorAll(".doctor-item button");
+
+        doctorButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                window.location.href = "book-appointment.html";
+
+            });
+
+        });
+
+        const patientData = {
+
+            fullName: "Patient Name",
+            appointments: 8,
+            doctors: 24,
+            reports: 13,
+            prescriptions: 6,
+            nextDoctor: "Dr. Sarah Johnson"
+
+        };
+
+        function loadDashboard() {
+
+            document.getElementById("patientFullName").textContent = patientData.fullName;
+
+            document.getElementById("patientName").textContent = patientData.fullName;
+
+            document.getElementById("appointmentCount").textContent = patientData.appointments;
+
+            document.getElementById("doctorCount").textContent = patientData.doctors;
+
+            document.getElementById("reportCount").textContent = patientData.reports;
+
+            document.getElementById("prescriptionCount").textContent = patientData.prescriptions;
+
+            document.getElementById("nextDoctorName").textContent = patientData.nextDoctor;
+
+        }
+
+        loadDashboard();
+
+        const cards = document.querySelectorAll(".stat-card,.card");
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+
+                }
+
+            });
+
+        }, {
+            threshold: .15
+        });
+
+        cards.forEach(card => {
+
+            card.style.opacity = "0";
+            card.style.transform = "translateY(35px)";
+            card.style.transition = ".6s ease";
+
+            observer.observe(card);
+
+        });
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove("active");
+            }
+
+        });
+
+        document.querySelector('a[href="../auth/login.html"]').addEventListener("click", (e) => {
+
+            e.preventDefault();
+
+            const logout = confirm("Are you sure you want to logout?");
+
+            if (!logout) {
+                return;
+            }
+
+            /*
+            
+            Future Spring Boot Integration
+            
+            localStorage.removeItem("token");
+            
+            fetch("/api/auth/logout",{
+            method:"POST",
+            headers:{
+            Authorization:"Bearer "+localStorage.getItem("token")
+            }
+            });
+            
+            */
+
+            window.location.href = "../auth/login.html";
+
+        });
+
+    </script>
+</body>
+
+</html>

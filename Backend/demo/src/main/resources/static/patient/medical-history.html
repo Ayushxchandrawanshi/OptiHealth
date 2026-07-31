@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical History | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #06b6d4;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #ffffff;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fc;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+            --radius: 18px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 270px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, #0f172a, #1d4ed8);
+            color: #fff;
+            padding: 30px 22px;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #60a5fa;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            flex: 1;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 46px;
+            height: 46px;
+            background: #eef4ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .page-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #eef4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ef4444;
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            top: -120px;
+            right: -80px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50%;
+            left: -60px;
+            bottom: -70px;
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .history-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .profile-card,
+        .history-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 25px;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #dbeafe;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 22px;
+            transition: .3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -30px;
+            top: 28px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #dbeafe;
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .timeline-text {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .info-box {
+            background: #f8fbff;
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .info-box h4 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .info-box p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .profile-card {
+            text-align: center;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .profile-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+            margin-bottom: 18px;
+        }
+
+        .profile-card h2 {
+            font-size: 25px;
+            margin-bottom: 6px;
+        }
+
+        .profile-card p {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 25px;
+        }
+
+        .profile-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px;
+            background: #f8fbff;
+            border-radius: 14px;
+            font-size: 14px;
+        }
+
+        .download-btn {
+            width: 100%;
+            height: 52px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, .25);
+        }
+
+        .search-box {
+            margin: 30px 0;
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 18px;
+        }
+
+        .search-box input,
+        .search-box select {
+            height: 55px;
+            padding: 0 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .search-box button {
+            height: 55px;
+            padding: 0 28px;
+            border: none;
+            border-radius: 14px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media(max-width:1200px) {
+
+            .history-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card {
+                position: static;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:480px) {
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .page-title h2 {
+                font-size: 22px;
+            }
+
+            .profile-card,
+            .history-card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Patient Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="find-doctor.html">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Find Doctors</span>
+                </a>
+
+                <a href="book-appointment.html">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+
+                <a href="my-appointments.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-file-medical"></i>
+                    <span>Medical History</span>
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="../auth/login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Medical History</h2>
+                        <p>View your complete health records and prescriptions.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/profile.png" alt="Profile">
+                        <div>
+                            <h4>Ayush</h4>
+                            <p>Patient</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <div>
+                        <h1>Your Medical History</h1>
+                        <p>Access diagnoses, prescriptions, lab reports and previous consultations anytime from your
+                            OptiHealth account.</p>
+                    </div>
+
+                </section>
+
+                <div class="history-wrapper">
+                    <div class="profile-card">
+
+                        <img src="../assets/profile.png" alt="Patient">
+
+                        <h2>Ayush</h2>
+                        <p>Patient ID : OPT10245</p>
+
+                        <div class="profile-list">
+
+                            <div class="profile-item">
+                                <span>Age</span>
+                                <strong>22 Years</strong>
+                            </div>
+
+                            <div class="profile-item">
+                                <span>Blood Group</span>
+                                <strong>B+</strong>
+                            </div>
+
+                            <div class="profile-item">
+                                <span>Height</span>
+                                <strong>175 cm</strong>
+                            </div>
+
+                            <div class="profile-item">
+                                <span>Weight</span>
+                                <strong>70 Kg</strong>
+                            </div>
+
+                            <div class="profile-item">
+                                <span>Allergies</span>
+                                <strong>None</strong>
+                            </div>
+
+                            <div class="profile-item">
+                                <span>Last Checkup</span>
+                                <strong>18 Aug 2026</strong>
+                            </div>
+
+                        </div>
+
+                        <button class="download-btn">
+                            <i class="fa-solid fa-download"></i>
+                            Download Medical Report
+                        </button>
+
+                    </div>
+
+                    <div class="history-card">
+
+                        <div class="search-box">
+
+                            <input type="text" placeholder="Search diagnosis, doctor or medicine...">
+
+                            <select>
+                                <option>All Records</option>
+                                <option>2026</option>
+                                <option>2025</option>
+                                <option>2024</option>
+                            </select>
+
+                            <button>
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                Search
+                            </button>
+
+                        </div>
+
+                        <div class="timeline">
+
+                            <div class="timeline-item">
+
+                                <p class="timeline-date">
+                                    18 Aug 2026
+                                </p>
+
+                                <h2 class="timeline-title">
+                                    Heart Checkup
+                                </h2>
+
+                                <p class="timeline-text">
+                                    Routine heart examination completed successfully. Blood pressure and ECG reports
+                                    were normal. Doctor recommended regular exercise and healthy diet.
+                                </p>
+
+                                <div class="info-grid">
+
+                                    <div class="info-box">
+                                        <h4>Dr. Rahul Sharma</h4>
+                                        <p>Cardiologist</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>BP 120/80</h4>
+                                        <p>Blood Pressure</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>ECG Normal</h4>
+                                        <p>Test Result</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Vitamin D</h4>
+                                        <p>Medicine</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="timeline-item">
+
+                                <p class="timeline-date">
+                                    10 Jun 2026
+                                </p>
+
+                                <h2 class="timeline-title">
+                                    Skin Allergy Treatment
+                                </h2>
+
+                                <p class="timeline-text">
+                                    Patient reported skin irritation due to seasonal allergy. Prescribed anti-allergic
+                                    tablets and moisturizing cream for two weeks.
+                                </p>
+
+                                <div class="info-grid">
+
+                                    <div class="info-box">
+                                        <h4>Dr. Priya Mehta</h4>
+                                        <p>Dermatologist</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Skin Allergy</h4>
+                                        <p>Diagnosis</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Tablet + Cream</h4>
+                                        <p>Prescription</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Recovered</h4>
+                                        <p>Status</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="timeline-item">
+
+                                <p class="timeline-date">
+                                    22 Mar 2026
+                                </p>
+
+                                <h2 class="timeline-title">
+                                    Orthopedic Consultation
+                                </h2>
+
+                                <p class="timeline-text">
+                                    Mild knee pain after sports activity. X-Ray showed no fracture. Doctor advised
+                                    physiotherapy and calcium supplements.
+                                </p>
+
+                                <div class="info-grid">
+
+                                    <div class="info-box">
+                                        <h4>Dr. Arjun Singh</h4>
+                                        <p>Orthopedic</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Knee Pain</h4>
+                                        <p>Problem</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>X-Ray Normal</h4>
+                                        <p>Report</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Calcium</h4>
+                                        <p>Medicine</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="timeline-item">
+
+                                <p class="timeline-date">
+                                    15 Jan 2026
+                                </p>
+
+                                <h2 class="timeline-title">
+                                    Annual Health Checkup
+                                </h2>
+
+                                <p class="timeline-text">
+                                    Complete body health checkup including CBC, Sugar, Thyroid and Cholesterol tests.
+                                    All reports were within normal range.
+                                </p>
+
+                                <div class="info-grid">
+
+                                    <div class="info-box">
+                                        <h4>General Physician</h4>
+                                        <p>Doctor</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>CBC Normal</h4>
+                                        <p>Blood Test</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Sugar Normal</h4>
+                                        <p>Glucose</p>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h4>Healthy</h4>
+                                        <p>Overall Status</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const searchInput = document.querySelector(".search-box input");
+        const yearFilter = document.querySelector(".search-box select");
+        const records = document.querySelectorAll(".timeline-item");
+        const downloadBtn = document.querySelector(".download-btn");
+
+        menuBtn.onclick = () => {
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+        };
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+        });
+
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            records.forEach(record => {
+
+                const text = record.innerText.toLowerCase();
+
+                record.style.display = text.includes(value) ? "block" : "none";
+
+            });
+
+        });
+
+        yearFilter.addEventListener("change", () => {
+
+            const year = yearFilter.value;
+
+            records.forEach(record => {
+
+                const text = record.innerText;
+
+                if (year === "All Records") {
+                    record.style.display = "block";
+                }
+                else if (text.includes(year)) {
+                    record.style.display = "block";
+                }
+                else {
+                    record.style.display = "none";
+                }
+
+            });
+
+        });
+
+        downloadBtn.onclick = () => {
+
+            alert("Medical Report download will be available after backend integration.");
+
+        };
+
+        const observer = new IntersectionObserver(entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+
+                }
+
+            });
+
+        }, {
+            threshold: .15
+        });
+
+        records.forEach(record => {
+
+            record.style.opacity = "0";
+            record.style.transform = "translateY(40px)";
+            record.style.transition = ".6s";
+
+            observer.observe(record);
+
+        });
+
+        document.querySelectorAll(".sidebar nav a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                document.querySelectorAll(".sidebar nav a").forEach(item => item.classList.remove("active"));
+
+                link.classList.add("active");
+
+            });
+
+        });
+
+        document.querySelector(".notify").addEventListener("click", () => {
+
+            alert("No new medical notifications.");
+
+        });
+
+        document.querySelector(".profile").addEventListener("click", () => {
+
+            window.location.href = "profile.html";
+
+        });
+
+        document.querySelectorAll(".timeline-item").forEach(item => {
+
+            item.addEventListener("mouseenter", () => {
+
+                item.style.transform = "translateY(-6px)";
+
+            });
+
+            item.addEventListener("mouseleave", () => {
+
+                item.style.transform = "translateY(0)";
+
+            });
+
+        });
+
+        document.addEventListener("keydown", e => {
+
+            if (e.key === "/") {
+
+                e.preventDefault();
+
+                searchInput.focus();
+
+            }
+
+        });
+
+        window.onload = () => {
+
+            if (window.innerWidth <= 900) {
+
+                sidebar.style.left = "-270px";
+
+            }
+
+        };
+    </script>
+
+</body>
+
+</html>

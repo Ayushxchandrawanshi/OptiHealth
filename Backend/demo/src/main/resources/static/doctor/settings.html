@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Settings | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --dark: #0f172a;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fb;
+            --white: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #0f766e);
+            color: #fff;
+            overflow-y: auto;
+            transition: .3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .85;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ecfeff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 4px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 720px;
+        }
+
+        .settings-wrapper {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: minmax(320px, 360px) minmax(0, 1fr);
+            gap: 25px;
+            align-items: start;
+            width: 100%;
+        }
+
+        .settings-sidebar,
+        .settings-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: var(--primary);
+        }
+
+        .setting-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 15px;
+        }
+
+        .setting-item:last-child {
+            border: none;
+        }
+
+        .setting-info h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .setting-info p {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, .15);
+        }
+
+        .full-width {
+            grid-column: 1/-1;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 30px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #cbd5e1;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            bottom: 4px;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        .switch input:checked+.slider {
+            background: var(--success);
+        }
+
+        .switch input:checked+.slider::before {
+            transform: translateX(26px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .action-buttons button {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .save-btn {
+            background: var(--success);
+        }
+
+        .reset-btn {
+            background: var(--warning);
+        }
+
+        .logout-btn {
+            background: var(--primary);
+        }
+
+        .delete-btn {
+            background: var(--danger);
+        }
+
+        .action-buttons button:hover {
+            transform: translateY(-3px);
+        }
+
+        @media(max-width:1200px) {
+            .settings-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:900px) {
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+
+        }
+
+        @media(max-width:500px) {
+
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Doctor Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
+
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+
+                <a href="patient-details.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+
+                <a href="prescription.html"><i class="fa-solid fa-prescription"></i><span>Prescriptions</span></a>
+
+                <a href="medical-history.html"><i class="fa-solid fa-file-waveform"></i><span>Medical History</span></a>
+
+                <a href="schedule.html"><i class="fa-solid fa-clock"></i><span>Schedule</span></a>
+
+                <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="../auth/doctor-login.html"><i
+                        class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Doctor Settings</h2>
+                        <p>Manage preferences, notifications and account security.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/doctor.png" alt="">
+                        <div>
+                            <h4>Dr. Rahul Sharma</h4>
+                            <p>Cardiologist</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+                    <h1>Settings & Preferences</h1>
+                    <p>Customize your account, notifications, appearance, privacy and security settings to personalize
+                        your OptiHealth experience.</p>
+                </section>
+
+                <div class="settings-wrapper">
+                    <div class="settings-sidebar">
+
+                        <div class="card">
+
+                            <h3><i class="fa-solid fa-sliders"></i>General Settings</h3>
+
+                            <div class="form-grid">
+
+                                <div class="input-group full-width">
+                                    <label>Hospital Name</label>
+                                    <input type="text" value="OptiHealth Hospital">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Department</label>
+                                    <select>
+                                        <option>Cardiology</option>
+                                        <option>Neurology</option>
+                                        <option>Orthopedics</option>
+                                        <option>Pediatrics</option>
+                                        <option>Dermatology</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Language</label>
+                                    <select>
+                                        <option>English</option>
+                                        <option>Hindi</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group full-width">
+                                    <label>Time Zone</label>
+                                    <select>
+                                        <option>(GMT +5:30) India Standard Time</option>
+                                        <option>UTC</option>
+                                        <option>GMT</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3><i class="fa-solid fa-palette"></i>Appearance</h3>
+
+                            <div class="setting-list">
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Dark Mode</h4>
+                                        <p>Enable dark theme for dashboard.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox" id="darkMode">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Compact Dashboard</h4>
+                                        <p>Show more widgets in less space.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Large Font</h4>
+                                        <p>Increase dashboard font size.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="settings-content">
+
+                        <div class="card">
+
+                            <h3><i class="fa-solid fa-bell"></i>Notification Settings</h3>
+
+                            <div class="setting-list">
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Appointment Notifications</h4>
+                                        <p>Receive alerts for new appointments.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Email Notifications</h4>
+                                        <p>Receive updates through email.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>SMS Notifications</h4>
+                                        <p>Receive appointment reminders by SMS.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Emergency Alerts</h4>
+                                        <p>Notify immediately during emergencies.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3><i class="fa-solid fa-shield-halved"></i>Security & Privacy</h3>
+
+                            <div class="setting-list">
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Two-Factor Authentication</h4>
+                                        <p>Add an extra layer of account security.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Login Alerts</h4>
+                                        <p>Get notified for every login attempt.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Show Email to Patients</h4>
+                                        <p>Allow patients to view your email.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Show Mobile Number</h4>
+                                        <p>Display contact number on profile.</p>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3><i class="fa-solid fa-user-gear"></i>Account Management</h3>
+
+                            <div class="action-buttons">
+
+                                <button type="button" class="save-btn">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    Save Settings
+                                </button>
+
+                                <button type="button" class="reset-btn">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                    Reset
+                                </button>
+
+                                <button type="button" class="logout-btn">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    Logout All Devices
+                                </button>
+
+                                <button type="button" class="delete-btn">
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete Account
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        const saveBtn = document.querySelector(".save-btn");
+        const resetBtn = document.querySelector(".reset-btn");
+        const logoutBtn = document.querySelector(".logout-btn");
+        const deleteBtn = document.querySelector(".delete-btn");
+
+        const darkMode = document.getElementById("darkMode");
+
+        menuBtn.addEventListener("click", () => {
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+
+        });
+
+        document.addEventListener("click", e => {
+
+            if (window.innerWidth <= 900) {
+
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            }
+            else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        darkMode.addEventListener("change", () => {
+
+            if (darkMode.checked) {
+
+                document.body.style.background = "#0f172a";
+                document.querySelector(".content").style.background = "#0f172a";
+
+                document.querySelectorAll(".card").forEach(card => {
+                    card.style.background = "#1e293b";
+                    card.style.color = "#ffffff";
+                });
+
+                document.querySelectorAll(".input-group input,.input-group select").forEach(input => {
+                    input.style.background = "#334155";
+                    input.style.color = "#ffffff";
+                    input.style.borderColor = "#475569";
+                });
+
+            }
+            else {
+
+                document.body.style.background = "#f4f7fb";
+                document.querySelector(".content").style.background = "#f4f7fb";
+
+                document.querySelectorAll(".card").forEach(card => {
+                    card.style.background = "#ffffff";
+                    card.style.color = "#0f172a";
+                });
+
+                document.querySelectorAll(".input-group input,.input-group select").forEach(input => {
+                    input.style.background = "#ffffff";
+                    input.style.color = "#0f172a";
+                    input.style.borderColor = "#e2e8f0";
+                });
+
+            }
+
+        });
+
+        saveBtn.addEventListener("click", () => {
+
+            alert("Settings saved successfully.");
+
+        });
+
+        resetBtn.addEventListener("click", () => {
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+                box.checked = false;
+            });
+
+            document.querySelectorAll("select").forEach(select => {
+                select.selectedIndex = 0;
+            });
+
+            alert("Settings reset successfully.");
+
+        });
+
+        logoutBtn.addEventListener("click", () => {
+
+            const confirmLogout = confirm("Logout from all devices?");
+
+            if (confirmLogout) {
+                alert("Logged out from all devices.");
+            }
+
+        });
+
+        deleteBtn.addEventListener("click", () => {
+
+            const confirmDelete = confirm("Are you sure you want to delete your account?");
+
+            if (confirmDelete) {
+
+                const finalConfirm = confirm("This action cannot be undone. Continue?");
+
+                if (finalConfirm) {
+                    alert("Account deleted successfully.");
+                }
+
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

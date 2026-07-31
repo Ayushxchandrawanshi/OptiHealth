@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fb;
+            --light: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            background: linear-gradient(180deg, #0f172a, #0f766e);
+            padding: 30px 22px;
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            flex: 1;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 46px;
+            height: 46px;
+            background: #ecfeff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .page-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ecfeff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            right: -90px;
+            top: -120px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            left: -60px;
+            bottom: -60px;
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .dashboard-wrapper {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .stats-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .stats-info h3 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .stats-info h2 {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .stats-info p {
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .stats-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .bg1 {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+        }
+
+        .bg2 {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+        }
+
+        .bg3 {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .bg4 {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .table-card,
+        .quick-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title h2 {
+            font-size: 24px;
+        }
+
+        .card-title a {
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            padding: 16px;
+            text-align: left;
+            background: #f8fbff;
+            font-size: 14px;
+        }
+
+        table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            display: inline-block;
+        }
+
+        .completed {
+            background: #16a34a;
+        }
+
+        .pending {
+            background: #f59e0b;
+        }
+
+        .cancelled {
+            background: #dc2626;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            border-radius: 18px;
+            background: #f8fbff;
+            text-decoration: none;
+            color: var(--dark);
+            transition: .3s;
+        }
+
+        .action-btn:hover {
+            background: #ecfeff;
+            transform: translateX(6px);
+        }
+
+        .action-btn i {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 22px;
+        }
+
+        .action-btn h4 {
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+
+        .action-btn p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        @media(max-width:1200px) {
+
+            .dashboard-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .dashboard-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+            .table-card {
+                overflow-x: auto;
+            }
+
+        }
+
+        @media(max-width:500px) {
+
+            .page-title h2 {
+                font-size: 22px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card,
+            .table-card,
+            .quick-card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Doctor Portal</p>
+
+            <nav>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="appointments.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+
+                <a href="patient-details.html">
+                    <i class="fa-solid fa-hospital-user"></i>
+                    <span>Patients</span>
+                </a>
+
+                <a href="prescription.html">
+                    <i class="fa-solid fa-prescription"></i>
+                    <span>Prescriptions</span>
+                </a>
+
+                <a href="medical-history.html">
+                    <i class="fa-solid fa-file-waveform"></i>
+                    <span>Medical History</span>
+                </a>
+
+                <a href="schedule.html">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Schedule</span>
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="../auth/doctor-login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Doctor Dashboard</h2>
+                        <p>Manage appointments, patients and consultations.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>5</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/doctor.png" alt="">
+                        <div>
+                            <h4>Dr. Rahul Sharma</h4>
+                            <p>Cardiologist</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <div>
+                        <h1>Welcome Back, Doctor 👨‍⚕️</h1>
+                        <p>Monitor today's appointments, review patient records, write prescriptions and manage your
+                            daily schedule from one dashboard.</p>
+                    </div>
+
+                </section>
+
+                <div class="dashboard-wrapper">
+
+                    <div class="card stats-card">
+
+                        <div class="stats-info">
+                            <h3>Today's Appointments</h3>
+                            <h2>18</h2>
+                            <p><i class="fa-solid fa-arrow-up"></i> 4 More Than Yesterday</p>
+                        </div>
+
+                        <div class="stats-icon bg1">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="card stats-card">
+
+                        <div class="stats-info">
+                            <h3>Total Patients</h3>
+                            <h2>245</h2>
+                            <p><i class="fa-solid fa-arrow-up"></i> 12 New This Week</p>
+                        </div>
+
+                        <div class="stats-icon bg2">
+                            <i class="fa-solid fa-hospital-user"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="card stats-card">
+
+                        <div class="stats-info">
+                            <h3>Completed Visits</h3>
+                            <h2>163</h2>
+                            <p><i class="fa-solid fa-circle-check"></i> Updated Today</p>
+                        </div>
+
+                        <div class="stats-icon bg3">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="card stats-card">
+
+                        <div class="stats-info">
+                            <h3>Pending Reviews</h3>
+                            <h2>09</h2>
+                            <p><i class="fa-solid fa-clock"></i> Needs Attention</p>
+                        </div>
+
+                        <div class="stats-icon bg4">
+                            <i class="fa-solid fa-notes-medical"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="bottom-section">
+
+                    <div class="table-card">
+
+                        <div class="card-title">
+                            <h2>Today's Appointments</h2>
+                            <a href="appointments.html">View All</a>
+                        </div>
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Time</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Rahul Verma</td>
+                                    <td>09:30 AM</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                    <td><a href="patient-details.html">View</a></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Anjali Sharma</td>
+                                    <td>10:30 AM</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td><a href="patient-details.html">Open</a></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Mohit Patel</td>
+                                    <td>11:15 AM</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                    <td><a href="patient-details.html">View</a></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Priya Singh</td>
+                                    <td>12:30 PM</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="status cancelled">Cancelled</span></td>
+                                    <td><a href="patient-details.html">Details</a></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Aman Gupta</td>
+                                    <td>02:00 PM</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td><a href="patient-details.html">Open</a></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="quick-card">
+
+                        <div class="card-title">
+                            <h2>Quick Actions</h2>
+                        </div>
+
+                        <div class="quick-actions">
+
+                            <a href="appointments.html" class="action-btn">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <div>
+                                    <h4>Appointments</h4>
+                                    <p>Manage today's appointments</p>
+                                </div>
+                            </a>
+
+                            <a href="patient-details.html" class="action-btn">
+                                <i class="fa-solid fa-user-group"></i>
+                                <div>
+                                    <h4>Patients</h4>
+                                    <p>View patient information</p>
+                                </div>
+                            </a>
+
+                            <a href="prescription.html" class="action-btn">
+                                <i class="fa-solid fa-prescription-bottle-medical"></i>
+                                <div>
+                                    <h4>Write Prescription</h4>
+                                    <p>Create medicines and dosage</p>
+                                </div>
+                            </a>
+
+                            <a href="medical-history.html" class="action-btn">
+                                <i class="fa-solid fa-file-waveform"></i>
+                                <div>
+                                    <h4>Medical History</h4>
+                                    <p>Review previous records</p>
+                                </div>
+                            </a>
+
+                            <a href="schedule.html" class="action-btn">
+                                <i class="fa-solid fa-clock"></i>
+                                <div>
+                                    <h4>Schedule</h4>
+                                    <p>Manage available timings</p>
+                                </div>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+        </main>
+
+    </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        const notify = document.querySelector(".notify");
+        const cards = document.querySelectorAll(".stats-card");
+        const actionBtns = document.querySelectorAll(".action-btn");
+        const sidebarLinks = document.querySelectorAll(".sidebar nav a");
+
+        window.onload = () => {
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = "-270px";
+            } else {
+                sidebar.style.left = "0";
+            }
+
+            animateCounters();
+
+        };
+
+        menuBtn.onclick = () => {
+
+            if (window.innerWidth <= 900) {
+
+                sidebar.style.left =
+                    sidebar.style.left === "0px" ? "-270px" : "0";
+
+            }
+
+        };
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        notify.onclick = () => {
+
+            alert("You have 5 new notifications.");
+
+        };
+
+        cards.forEach(card => {
+
+            card.addEventListener("mouseenter", () => {
+
+                card.style.transform = "translateY(-8px)";
+                card.style.transition = ".3s";
+
+            });
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = "translateY(0)";
+
+            });
+
+        });
+
+        actionBtns.forEach(btn => {
+
+            btn.addEventListener("mouseenter", () => {
+
+                btn.style.transform = "translateX(8px)";
+
+            });
+
+            btn.addEventListener("mouseleave", () => {
+
+                btn.style.transform = "translateX(0)";
+
+            });
+
+        });
+
+        sidebarLinks.forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                sidebarLinks.forEach(item => item.classList.remove("active"));
+
+                link.classList.add("active");
+
+            });
+
+        });
+
+        document.querySelector(".profile").onclick = () => {
+
+            location.href = "profile.html";
+
+        };
+
+        document.querySelectorAll("tbody tr").forEach(row => {
+
+            row.addEventListener("mouseenter", () => {
+
+                row.style.background = "#f8fbff";
+
+            });
+
+            row.addEventListener("mouseleave", () => {
+
+                row.style.background = "transparent";
+
+            });
+
+        });
+
+        function animateCounters() {
+
+            const numbers = document.querySelectorAll(".stats-info h2");
+
+            numbers.forEach(number => {
+
+                const target = parseInt(number.innerText);
+
+                let count = 0;
+
+                const speed = Math.ceil(target / 40);
+
+                const timer = setInterval(() => {
+
+                    count += speed;
+
+                    if (count >= target) {
+
+                        count = target;
+                        clearInterval(timer);
+
+                    }
+
+                    number.innerText = count;
+
+                }, 25);
+
+            });
+
+        }
+
+        document.addEventListener("keydown", e => {
+
+            if (e.key === "Escape") {
+
+                if (window.innerWidth <= 900) {
+
+                    sidebar.style.left = "-270px";
+
+                }
+
+            }
+
+        });
+
+        document.addEventListener("click", e => {
+
+            if (window.innerWidth <= 900) {
+
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+
+                    sidebar.style.left = "-270px";
+
+                }
+
+            }
+
+        });
+
+        function loadDashboard() {
+
+            console.log("Future API : Load Dashboard");
+
+        }
+
+        function loadAppointments() {
+
+            console.log("Future API : Load Today's Appointments");
+
+        }
+
+        function loadPatients() {
+
+            console.log("Future API : Load Patients");
+
+        }
+
+        loadDashboard();
+        loadAppointments();
+        loadPatients();
+    </script>
+
+</body>
+
+</html>

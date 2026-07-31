@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointments | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --dark: #0f172a;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fb;
+            --light: #ffffff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            background: linear-gradient(180deg, #0f172a, #0f766e);
+            padding: 30px 22px;
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            flex: 1;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #ecfeff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .page-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            background: #ecfeff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            background: var(--danger);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            right: -90px;
+            top: -120px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            left: -60px;
+            bottom: -60px;
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .appointment-wrapper {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .search-filter {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .search-filter input,
+        .search-filter select {
+            height: 54px;
+            padding: 0 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+            font-size: 15px;
+            background: #fff;
+        }
+
+        .filter-btn {
+            height: 54px;
+            padding: 0 28px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .table-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .table-header h2 {
+            font-size: 24px;
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            display: inline-block;
+        }
+
+        .pending {
+            background: #f59e0b;
+        }
+
+        .accepted {
+            background: #2563eb;
+        }
+
+        .completed {
+            background: #16a34a;
+        }
+
+        .cancelled {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        table th {
+            padding: 16px;
+            background: #f8fbff;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .patient {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .patient img {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .patient img {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .patient img {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .patient img {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .patient img {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .patient img {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .patient img {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .actions button {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: .3s;
+            color: #fff;
+        }
+
+        .accept-btn {
+            background: #16a34a;
+        }
+
+        .reject-btn {
+            background: #dc2626;
+        }
+
+        .start-btn {
+            background: #2563eb;
+        }
+
+        .complete-btn {
+            background: #0f766e;
+        }
+
+        .actions button:hover {
+            transform: translateY(-2px);
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: .3s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card h3 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .summary-card h2 {
+            font-size: 30px;
+        }
+
+        .summary-card i {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+        }
+
+        @media(max-width:1200px) {
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .search-filter {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 270px;
+                width: calc(100% - 270px);
+                overflow: hidden;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .search-filter {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+        }
+
+        @media(max-width:500px) {
+
+            .page-title h2 {
+                font-size: 22px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card,
+            .table-card,
+            .summary-card {
+                padding: 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Doctor Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+
+                <a href="patient-details.html">
+                    <i class="fa-solid fa-hospital-user"></i>
+                    <span>Patients</span>
+                </a>
+
+                <a href="prescription.html">
+                    <i class="fa-solid fa-prescription"></i>
+                    <span>Prescriptions</span>
+                </a>
+
+                <a href="medical-history.html">
+                    <i class="fa-solid fa-file-waveform"></i>
+                    <span>Medical History</span>
+                </a>
+
+                <a href="schedule.html">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Schedule</span>
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="../auth/doctor-login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Appointments</h2>
+                        <p>Manage today's patient appointments.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>4</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/doctor.png" alt="">
+                        <div>
+                            <h4>Dr. Rahul Sharma</h4>
+                            <p>Cardiologist</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <div>
+                        <h1>Appointment Management</h1>
+                        <p>Accept, reject, start consultation and complete patient appointments from one place.</p>
+                    </div>
+
+                </section>
+
+                <div class="appointment-wrapper">
+                    <div class="summary">
+
+                        <div class="summary-card">
+                            <div>
+                                <h3>Total Appointments</h3>
+                                <h2>24</h2>
+                            </div>
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+
+                        <div class="summary-card">
+                            <div>
+                                <h3>Pending</h3>
+                                <h2>08</h2>
+                            </div>
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+
+                        <div class="summary-card">
+                            <div>
+                                <h3>Completed</h3>
+                                <h2>13</h2>
+                            </div>
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                        <div class="summary-card">
+                            <div>
+                                <h3>Cancelled</h3>
+                                <h2>03</h2>
+                            </div>
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="search-filter">
+
+                            <input type="text" id="searchInput" placeholder="Search patient name...">
+
+                            <select id="statusFilter">
+                                <option value="all">All Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Accepted">Accepted</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+
+                            <select>
+                                <option>Today</option>
+                                <option>Tomorrow</option>
+                                <option>This Week</option>
+                            </select>
+
+                            <button class="filter-btn">
+                                <i class="fa-solid fa-filter"></i>
+                                Filter
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-card">
+
+                        <div class="table-header">
+                            <h2>Today's Appointments</h2>
+                            <span>24 Records</span>
+                        </div>
+
+                        <table id="appointmentTable">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Age</th>
+                                    <th>Time</th>
+                                    <th>Problem</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="patient">
+                                            <img src="../assets/profile.png" alt="">
+                                            <div>
+                                                <strong>Rahul Verma</strong><br>
+                                                <small>P1001</small>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>34</td>
+
+                                    <td>09:30 AM</td>
+
+                                    <td>Chest Pain</td>
+
+                                    <td>
+                                        <span class="badge pending">Pending</span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="actions">
+
+                                            <button class="accept-btn">
+                                                Accept
+                                            </button>
+
+                                            <button class="reject-btn">
+                                                Reject
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="patient">
+                                            <img src="../assets/profile.png" alt="">
+                                            <div>
+                                                <strong>Anjali Sharma</strong><br>
+                                                <small>P1002</small>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>29</td>
+
+                                    <td>10:00 AM</td>
+
+                                    <td>Heart Checkup</td>
+
+                                    <td>
+                                        <span class="badge accepted">Accepted</span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="actions">
+
+                                            <button class="start-btn">
+                                                Start
+                                            </button>
+
+                                            <button class="complete-btn">
+                                                Complete
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="patient">
+                                            <img src="../assets/profile.png" alt="">
+                                            <div>
+                                                <strong>Mohit Patel</strong><br>
+                                                <small>P1003</small>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>41</td>
+
+                                    <td>11:15 AM</td>
+
+                                    <td>Blood Pressure</td>
+
+                                    <td>
+                                        <span class="badge completed">Completed</span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="actions">
+
+                                            <button class="complete-btn">
+                                                View
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="patient">
+                                            <img src="../assets/profile.png" alt="">
+                                            <div>
+                                                <strong>Priya Singh</strong><br>
+                                                <small>P1004</small>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>37</td>
+
+                                    <td>12:30 PM</td>
+
+                                    <td>Follow Up</td>
+
+                                    <td>
+                                        <span class="badge cancelled">Cancelled</span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="actions">
+
+                                            <button class="reject-btn">
+                                                Cancelled
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="patient">
+                                            <img src="../assets/profile.png" alt="">
+                                            <div>
+                                                <strong>Aman Gupta</strong><br>
+                                                <small>P1005</small>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>50</td>
+
+                                    <td>02:00 PM</td>
+
+                                    <td>ECG Review</td>
+
+                                    <td>
+                                        <span class="badge pending">Pending</span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="actions">
+
+                                            <button class="accept-btn">
+                                                Accept
+                                            </button>
+
+                                            <button class="reject-btn">
+                                                Reject
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="patient">
+                                            <img src="../assets/profile.png" alt="">
+                                            <div>
+                                                <strong>Neha Joshi</strong><br>
+                                                <small>P1006</small>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>26</td>
+
+                                    <td>03:30 PM</td>
+
+                                    <td>General Consultation</td>
+
+                                    <td>
+                                        <span class="badge accepted">Accepted</span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="actions">
+
+                                            <button class="start-btn">
+                                                Start
+                                            </button>
+
+                                            <button class="complete-btn">
+                                                Complete
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const searchInput = document.getElementById("searchInput");
+        const statusFilter = document.getElementById("statusFilter");
+        const table = document.getElementById("appointmentTable");
+        const rows = table.querySelectorAll("tbody tr");
+
+        window.onload = () => {
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = "-270px";
+            } else {
+                sidebar.style.left = "0";
+            }
+
+        };
+
+        menuBtn.onclick = () => {
+
+            if (window.innerWidth <= 900) {
+
+                sidebar.style.left =
+                    sidebar.style.left === "0px" ? "-270px" : "0";
+
+            }
+
+        };
+
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+
+        });
+
+        document.addEventListener("click", e => {
+
+            if (window.innerWidth <= 900) {
+
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+
+            }
+
+        });
+
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            rows.forEach(row => {
+
+                const patient = row.cells[0].innerText.toLowerCase();
+
+                if (patient.includes(value)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+
+            });
+
+        });
+
+        statusFilter.addEventListener("change", () => {
+
+            const value = statusFilter.value;
+
+            rows.forEach(row => {
+
+                const status = row.querySelector(".badge").innerText;
+
+                if (value === "all" || status === value) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+
+            });
+
+        });
+
+        document.querySelectorAll(".accept-btn").forEach(btn => {
+
+            btn.onclick = () => {
+
+                const badge = btn.closest("tr").querySelector(".badge");
+
+                badge.className = "badge accepted";
+                badge.innerText = "Accepted";
+
+                alert("Appointment Accepted");
+
+            };
+
+        });
+
+        document.querySelectorAll(".reject-btn").forEach(btn => {
+
+            btn.onclick = () => {
+
+                if (btn.innerText === "Cancelled") return;
+
+                const badge = btn.closest("tr").querySelector(".badge");
+
+                badge.className = "badge cancelled";
+                badge.innerText = "Cancelled";
+
+                alert("Appointment Cancelled");
+
+            };
+
+        });
+
+        document.querySelectorAll(".start-btn").forEach(btn => {
+
+            btn.onclick = () => {
+
+                alert("Consultation Started");
+
+                btn.innerText = "Running";
+                btn.style.background = "#f59e0b";
+
+            };
+
+        });
+
+        document.querySelectorAll(".complete-btn").forEach(btn => {
+
+            btn.onclick = () => {
+
+                if (btn.innerText === "View") {
+
+                    alert("Opening Appointment Details...");
+                    return;
+
+                }
+
+                const badge = btn.closest("tr").querySelector(".badge");
+
+                badge.className = "badge completed";
+                badge.innerText = "Completed";
+
+                btn.innerText = "Completed";
+                btn.disabled = true;
+                btn.style.opacity = ".7";
+
+                alert("Appointment Completed");
+
+            };
+
+        });
+
+        rows.forEach(row => {
+
+            row.addEventListener("mouseenter", () => {
+
+                row.style.background = "#f8fbff";
+
+            });
+
+            row.addEventListener("mouseleave", () => {
+
+                row.style.background = "transparent";
+
+            });
+
+        });
+
+        document.querySelectorAll(".summary-card").forEach(card => {
+
+            card.addEventListener("mouseenter", () => {
+
+                card.style.transform = "translateY(-6px)";
+
+            });
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = "translateY(0)";
+
+            });
+
+        });
+
+        function loadAppointments() {
+
+            console.log("Future API : GET /appointments");
+
+        }
+
+        function updateAppointmentStatus(id, status) {
+
+            console.log("Future API : PUT /appointments/" + id, status);
+
+        }
+
+        function startConsultation(id) {
+
+            console.log("Future API : POST /consultation/start/" + id);
+
+        }
+
+        function completeConsultation(id) {
+
+            console.log("Future API : POST /consultation/complete/" + id);
+
+        }
+
+        loadAppointments();
+
+    </script>
+
+</body>
+
+</html>

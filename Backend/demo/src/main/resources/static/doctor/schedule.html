@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Schedule | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --dark: #0f172a;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fb;
+            --white: #fff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #0f766e);
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .85;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            right: -80px;
+            top: -80px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -70px;
+            bottom: -70px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .schedule-wrapper {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+            gap: 25px;
+            width: 100%;
+            align-items: start;
+        }
+
+        .left-panel,
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .doctor-card {
+            text-align: center;
+        }
+
+        .doctor-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+            border: 5px solid #ecfeff;
+            margin-bottom: 18px;
+        }
+
+        .doctor-card h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .doctor-card p {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 18px;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .info-list div {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .info-list div:last-child {
+            border: none;
+        }
+
+        .schedule-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .schedule-table th {
+            background: #0f766e;
+            color: #fff;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .schedule-table td {
+            padding: 16px 14px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            font-size: 14px;
+            vertical-align: middle;
+            word-break: break-word;
+        }
+
+        .schedule-table tr:hover {
+            background: #f8fbff;
+        }
+
+        input[type="time"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #cbd5e1;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            left: 3px;
+            top: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        .switch input:checked+.slider {
+            background: #16a34a;
+        }
+
+        .switch input:checked+.slider:before {
+            transform: translateX(24px);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            max-width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+        }
+
+        .leave-box {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .action-buttons button {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .save-btn {
+            background: #16a34a;
+        }
+
+        .reset-btn {
+            background: #f59e0b;
+        }
+
+        .leave-btn {
+            background: #0f766e;
+        }
+
+        .action-buttons button:hover {
+            transform: translateY(-3px);
+        }
+
+        @media(max-width:1200px) {
+            .schedule-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:900px) {
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width:768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+
+            .schedule-table {
+                overflow-x: auto;
+            }
+
+            .schedule-table table {
+                min-width: 760px;
+            }
+        }
+
+        @media(max-width:500px) {
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .doctor-card img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Doctor Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
+
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+
+                <a href="patient-details.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+
+                <a href="prescription.html"><i class="fa-solid fa-prescription"></i><span>Prescriptions</span></a>
+
+                <a href="medical-history.html"><i class="fa-solid fa-file-waveform"></i><span>Medical History</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-clock"></i><span>Schedule</span></a>
+
+                <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="../auth/doctor-login.html"><i
+                        class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Doctor Schedule</h2>
+                        <p>Manage your consultation timings and availability.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>3</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/doctor.png" alt="">
+                        <div>
+                            <h4>Dr. Rahul Sharma</h4>
+                            <p>Cardiologist</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+                    <h1>Schedule Management</h1>
+                    <p>Configure your weekly consultation timings, availability, break hours, appointment limits and
+                        leave schedule.</p>
+                </section>
+
+                <div class="schedule-wrapper">
+                    <div class="left-panel">
+
+                        <div class="card doctor-card">
+                            <img src="../assets/doctor.png" alt="">
+                            <h2>Dr. Rahul Sharma</h2>
+                            <p>Cardiologist</p>
+
+                            <div class="info-list">
+                                <div><span>Doctor ID</span><strong>D1021</strong></div>
+                                <div><span>Experience</span><strong>12 Years</strong></div>
+                                <div><span>Qualification</span><strong>MBBS, MD</strong></div>
+                                <div><span>Department</span><strong>Cardiology</strong></div>
+                                <div><span>Today's Appointments</span><strong>18</strong></div>
+                                <div><span>Status</span><strong style="color:#16a34a;">Available</strong></div>
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">Schedule Settings</h3>
+
+                            <div class="grid">
+
+                                <div class="input-group">
+                                    <label>Consultation Duration</label>
+                                    <select>
+                                        <option>10 Minutes</option>
+                                        <option selected>15 Minutes</option>
+                                        <option>20 Minutes</option>
+                                        <option>30 Minutes</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Daily Appointment Limit</label>
+                                    <input type="number" value="30">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Break Start</label>
+                                    <input type="time" value="13:00">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Break End</label>
+                                    <input type="time" value="14:00">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">Leave Management</h3>
+
+                            <div class="leave-box">
+
+                                <div class="input-group">
+                                    <label>Leave Date</label>
+                                    <input type="date">
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Reason</label>
+                                    <select>
+                                        <option>Vacation</option>
+                                        <option>Sick Leave</option>
+                                        <option>Emergency</option>
+                                        <option>Conference</option>
+                                        <option>Personal</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Remarks</label>
+                                    <input type="text" placeholder="Enter remarks">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="right-panel">
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">Weekly Availability</h3>
+
+                            <div class="schedule-table">
+
+                                <table>
+
+                                    <thead>
+
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Status</th>
+                                            <th>Morning</th>
+                                            <th>Evening</th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>Monday</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
+                                            <td>09:00 - 01:00</td>
+                                            <td>04:00 - 08:00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Tuesday</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
+                                            <td>09:00 - 01:00</td>
+                                            <td>04:00 - 08:00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Wednesday</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
+                                            <td>09:00 - 01:00</td>
+                                            <td>04:00 - 08:00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Thursday</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
+                                            <td>09:00 - 01:00</td>
+                                            <td>04:00 - 08:00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Friday</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
+                                            <td>09:00 - 01:00</td>
+                                            <td>04:00 - 08:00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Saturday</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
+                                            <td>09:00 - 12:00</td>
+                                            <td>05:00 - 07:00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Sunday</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
+                                            <td>Holiday</td>
+                                            <td>Holiday</td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">Upcoming Leaves & Holidays</h3>
+
+                            <div class="info-list">
+
+                                <div>
+                                    <span>15 Aug 2026</span>
+                                    <strong>Independence Day</strong>
+                                </div>
+
+                                <div>
+                                    <span>22 Aug 2026</span>
+                                    <strong>Medical Conference</strong>
+                                </div>
+
+                                <div>
+                                    <span>02 Sep 2026</span>
+                                    <strong>Personal Leave</strong>
+                                </div>
+
+                                <div>
+                                    <span>15 Sep 2026</span>
+                                    <strong>Hospital Meeting</strong>
+                                </div>
+
+                            </div>
+
+                            <div class="action-buttons">
+
+                                <button class="save-btn">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    Save Schedule
+                                </button>
+
+                                <button class="reset-btn">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                    Reset
+                                </button>
+
+                                <button class="leave-btn">
+                                    <i class="fa-solid fa-calendar-plus"></i>
+                                    Apply Leave
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const saveBtn = document.querySelector(".save-btn");
+        const resetBtn = document.querySelector(".reset-btn");
+        const leaveBtn = document.querySelector(".leave-btn");
+        const switches = document.querySelectorAll(".switch input");
+        const duration = document.querySelector("select");
+        const appointmentLimit = document.querySelector('input[type="number"]');
+        const breakStart = document.querySelectorAll('input[type="time"]')[0];
+        const breakEnd = document.querySelectorAll('input[type="time"]')[1];
+        const leaveDate = document.querySelector('input[type="date"]');
+        const leaveReason = document.querySelectorAll("select")[1];
+        const remarks = document.querySelector('input[type="text"]');
+
+        menuBtn.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+        });
+
+        document.addEventListener("click", e => {
+            if (window.innerWidth <= 900) {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+        });
+
+        switches.forEach(toggle => {
+            toggle.addEventListener("change", () => {
+                const row = toggle.closest("tr");
+                const morning = row.cells[2];
+                const evening = row.cells[3];
+
+                if (toggle.checked) {
+                    if (row.cells[0].innerText === "Saturday") {
+                        morning.innerText = "09:00 - 12:00";
+                        evening.innerText = "05:00 - 07:00";
+                    } else {
+                        morning.innerText = "09:00 - 01:00";
+                        evening.innerText = "04:00 - 08:00";
+                    }
+                } else {
+                    morning.innerText = "Unavailable";
+                    evening.innerText = "Unavailable";
+                }
+            });
+        });
+
+        saveBtn.addEventListener("click", () => {
+            const data = {
+                duration: duration.value,
+                appointmentLimit: appointmentLimit.value,
+                breakStart: breakStart.value,
+                breakEnd: breakEnd.value,
+                availability: []
+            };
+
+            switches.forEach(toggle => {
+                const row = toggle.closest("tr");
+                data.availability.push({
+                    day: row.cells[0].innerText,
+                    available: toggle.checked
+                });
+            });
+
+            console.log(data);
+            alert("Schedule saved successfully.");
+        });
+
+        resetBtn.addEventListener("click", () => {
+            duration.selectedIndex = 1;
+            appointmentLimit.value = 30;
+            breakStart.value = "13:00";
+            breakEnd.value = "14:00";
+            leaveDate.value = "";
+            leaveReason.selectedIndex = 0;
+            remarks.value = "";
+
+            switches.forEach(toggle => {
+                toggle.checked = true;
+            });
+
+            switches[switches.length - 1].checked = false;
+
+            const rows = document.querySelectorAll(".schedule-table tbody tr");
+
+            rows.forEach((row, index) => {
+                if (index === 5) {
+                    row.cells[2].innerText = "09:00 - 12:00";
+                    row.cells[3].innerText = "05:00 - 07:00";
+                } else if (index === 6) {
+                    row.cells[2].innerText = "Holiday";
+                    row.cells[3].innerText = "Holiday";
+                } else {
+                    row.cells[2].innerText = "09:00 - 01:00";
+                    row.cells[3].innerText = "04:00 - 08:00";
+                }
+            });
+
+            alert("Schedule reset successfully.");
+        });
+
+        leaveBtn.addEventListener("click", () => {
+            if (leaveDate.value === "") {
+                alert("Please select a leave date.");
+                return;
+            }
+            alert("Leave request submitted successfully.");
+        });
+
+        /* ---------- Backend Ready Functions ---------- */
+
+        async function loadDoctorSchedule(doctorId) {
+            try {
+                const response = await fetch(`/api/doctors/${doctorId}/schedule`);
+                if (!response.ok) throw new Error("Failed");
+                const data = await response.json();
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        async function saveDoctorSchedule(schedule) {
+            try {
+                const response = await fetch("/api/doctors/schedule", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(schedule)
+                });
+                const data = await response.json();
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        async function applyLeave(payload) {
+            try {
+                const response = await fetch("/api/doctors/leave", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

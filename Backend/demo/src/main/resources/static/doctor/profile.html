@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --dark: #0f172a;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f4f7fb;
+            --white: #fff;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #0f766e);
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .85;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .sidebar nav i {
+            width: 22px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            padding: 35px;
+            border-radius: 24px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .profile-wrapper {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: minmax(300px, 340px) minmax(0, 1fr);
+            gap: 25px;
+            width: 100%;
+            align-items: start;
+        }
+
+        .left-panel,
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .profile-card {
+            text-align: center;
+        }
+
+        .profile-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+            border: 5px solid #ecfeff;
+            margin-bottom: 18px;
+        }
+
+        .profile-card h2 {
+            font-size: 25px;
+            margin-bottom: 6px;
+        }
+
+        .profile-card p {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 18px;
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 22px;
+            background: #0f766e;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .upload-btn input {
+            display: none;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .info-list div {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .info-list div:last-child {
+            border: none;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            max-width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            transition: .3s;
+            resize: none;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #0f766e;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, .15);
+        }
+
+        .input-group textarea {
+            min-height: 120px;
+        }
+
+        .full-width {
+            grid-column: 1/-1;
+        }
+
+        .password-box {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .action-buttons button {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .save-btn {
+            background: #16a34a;
+        }
+
+        .cancel-btn {
+            background: #dc2626;
+        }
+
+        .password-btn {
+            background: #0f766e;
+        }
+
+        .action-buttons button:hover,
+        .upload-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        @media(max-width:1200px) {
+            .profile-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:900px) {
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .form-grid,
+            .password-box,
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button,
+            .upload-btn {
+                width: 100%;
+            }
+        }
+
+        @media(max-width:500px) {
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .profile-card img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Doctor Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
+
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+
+                <a href="patient-details.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+
+                <a href="prescription.html"><i class="fa-solid fa-prescription"></i><span>Prescriptions</span></a>
+
+                <a href="medical-history.html"><i class="fa-solid fa-file-waveform"></i><span>Medical History</span></a>
+
+                <a href="schedule.html"><i class="fa-solid fa-clock"></i><span>Schedule</span></a>
+
+                <a href="#" class="active"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+
+                <a href="../auth/doctor-login.html"><i
+                        class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Doctor Profile</h2>
+                        <p>Manage your professional and personal information.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>3</span>
+                    </div>
+
+                    <div class="profile">
+                        <img src="../assets/doctor.png" alt="">
+                        <div>
+                            <h4>Dr. Rahul Sharma</h4>
+                            <p>Cardiologist</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+                    <h1>Profile Management</h1>
+                    <p>Update your profile, qualifications, specialization, contact details, password and clinic
+                        information from one place.</p>
+                </section>
+
+                <div class="profile-wrapper">
+                    <div class="left-panel">
+
+                        <div class="card profile-card">
+
+                            <img src="../assets/doctor.png" id="profilePreview" alt="Doctor">
+
+                            <h2>Dr. Rahul Sharma</h2>
+                            <p>Senior Cardiologist</p>
+
+                            <label class="upload-btn">
+                                <i class="fa-solid fa-camera"></i>
+                                Change Photo
+                                <input type="file" id="profileImage" accept="image/*">
+                            </label>
+
+                            <div class="info-list">
+                                <div><span>Doctor ID</span><strong>D1021</strong></div>
+                                <div><span>Department</span><strong>Cardiology</strong></div>
+                                <div><span>Experience</span><strong>12 Years</strong></div>
+                                <div><span>Qualification</span><strong>MBBS, MD</strong></div>
+                                <div><span>Registration No.</span><strong>MP-458796</strong></div>
+                                <div><span>Status</span><strong style="color:#16a34a;">Active</strong></div>
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">Professional Information</h3>
+
+                            <div class="info-list">
+                                <div><span>Consultation Fee</span><strong>₹700</strong></div>
+                                <div><span>Patients Served</span><strong>4,520</strong></div>
+                                <div><span>Appointments Today</span><strong>18</strong></div>
+                                <div><span>Rating</span><strong>4.9 ⭐</strong></div>
+                                <div><span>Languages</span><strong>English, Hindi</strong></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <form id="profileForm">
+                        <div class="right-panel">
+
+                            <div class="card">
+
+                                <h3 style="margin-bottom:22px;">Personal Information</h3>
+
+                                <div class="form-grid">
+
+                                    <div class="input-group">
+                                        <label>Full Name</label>
+                                        <input type="text" value="Dr. Rahul Sharma">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Email Address</label>
+                                        <input type="email" value="rahul@gmail.com">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Mobile Number</label>
+                                        <input type="tel" value="+91 9876543210">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Date of Birth</label>
+                                        <input type="date" value="1987-04-15">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Gender</label>
+                                        <select>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Blood Group</label>
+                                        <select>
+                                            <option>O+</option>
+                                            <option>A+</option>
+                                            <option>B+</option>
+                                            <option>AB+</option>
+                                            <option>O-</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Qualification</label>
+                                        <input type="text" value="MBBS, MD (Cardiology)">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Specialization</label>
+                                        <input type="text" value="Cardiology">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Experience</label>
+                                        <input type="number" value="12">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Consultation Fee (₹)</label>
+                                        <input type="number" value="700">
+                                    </div>
+
+                                    <div class="input-group full-width">
+                                        <label>Clinic Address</label>
+                                        <textarea>OptiHealth Hospital, Indore, Madhya Pradesh</textarea>
+                                    </div>
+
+                                    <div class="input-group full-width">
+                                        <label>About Doctor</label>
+                                        <textarea>Experienced Cardiologist with more than 12 years of expertise in preventive cardiology, heart disease diagnosis, ECG interpretation and patient care.</textarea>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3 style="margin-bottom:22px;">Social Links</h3>
+
+                                <div class="social-grid">
+
+                                    <div class="input-group">
+                                        <label>LinkedIn</label>
+                                        <input type="url" placeholder="https://linkedin.com/in/...">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Website</label>
+                                        <input type="url" placeholder="https://yourwebsite.com">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Facebook</label>
+                                        <input type="url" placeholder="https://facebook.com/...">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Instagram</label>
+                                        <input type="url" placeholder="https://instagram.com/...">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3 style="margin-bottom:22px;">Change Password</h3>
+
+                                <div class="password-box">
+
+                                    <div class="input-group">
+                                        <label>Current Password</label>
+                                        <input type="password">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>New Password</label>
+                                        <input type="password">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Confirm Password</label>
+                                        <input type="password">
+                                    </div>
+
+                                </div>
+
+                                <div class="action-buttons">
+
+                                    <button type="button" class="save-btn">
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                        Save Changes
+                                    </button>
+
+                                    <button type="button" class="password-btn">
+                                        <i class="fa-solid fa-key"></i>
+                                        Update Password
+                                    </button>
+
+                                    <button type="button" class="cancel-btn">
+                                        <i class="fa-solid fa-xmark"></i>
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const imageInput = document.getElementById("profileImage");
+        const profilePreview = document.getElementById("profilePreview");
+        const saveBtn = document.querySelector(".save-btn");
+        const passwordBtn = document.querySelector(".password-btn");
+        const cancelBtn = document.querySelector(".cancel-btn");
+
+        menuBtn.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+            }
+        });
+
+        document.addEventListener("click", e => {
+            if (window.innerWidth <= 900) {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.style.left = "-270px";
+                }
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-270px";
+            }
+        });
+
+        imageInput.addEventListener("change", e => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    profilePreview.src = event.target.result;
+                    document.querySelector(".profile img").src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        saveBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const data = {
+                name: document.querySelector('input[type="text"]').value,
+                email: document.querySelector('input[type="email"]').value,
+                mobile: document.querySelector('input[type="tel"]').value,
+                dob: document.querySelector('input[type="date"]').value,
+                gender: document.querySelectorAll("select")[0].value,
+                bloodGroup: document.querySelectorAll("select")[1].value,
+                qualification: document.querySelectorAll('input[type="text"]')[1].value,
+                specialization: document.querySelectorAll('input[type="text"]')[2].value,
+                experience: document.querySelectorAll('input[type="number"]')[0].value,
+                fee: document.querySelectorAll('input[type="number"]')[1].value,
+                address: document.querySelectorAll("textarea")[0].value,
+                about: document.querySelectorAll("textarea")[1].value,
+                linkedin: document.querySelectorAll('input[type="url"]')[0].value,
+                website: document.querySelectorAll('input[type="url"]')[1].value,
+                facebook: document.querySelectorAll('input[type="url"]')[2].value,
+                instagram: document.querySelectorAll('input[type="url"]')[3].value
+            };
+
+            console.log(data);
+            alert("Profile updated successfully.");
+        });
+
+        passwordBtn.addEventListener("click", () => {
+            const current = document.querySelectorAll('input[type="password"]')[0].value;
+            const password = document.querySelectorAll('input[type="password"]')[1].value;
+            const confirm = document.querySelectorAll('input[type="password"]')[2].value;
+
+            if (current === "") {
+                alert("Enter current password.");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password must contain at least 6 characters.");
+                return;
+            }
+
+            if (password !== confirm) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            alert("Password changed successfully.");
+
+            document.querySelectorAll('input[type="password"]').forEach(input => {
+                input.value = "";
+            });
+        });
+
+        cancelBtn.addEventListener("click", () => {
+
+            document.getElementById("profileForm").reset();
+
+            document.querySelectorAll('input[type="password"]').forEach(input => {
+                input.value = "";
+            });
+
+            alert("Changes cancelled.");
+        });
+    </script>
+
+</body>
+
+</html>

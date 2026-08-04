@@ -35,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
         // Skip Login & Register APIs
         String path = request.getServletPath();
 
-        if (path.equals("/api/patients/login")
+        if (path.startsWith("/api/auth/")
                 || path.equals("/api/patients/register")
                 || path.equals("/api/doctors/login")
                 || path.equals("/api/doctors/register")

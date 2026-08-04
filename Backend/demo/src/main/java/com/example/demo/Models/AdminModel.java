@@ -18,17 +18,17 @@ public class AdminModel {
 
     private String password;
 
-    private String phoneNumber;
+    private Long mobileNumber;
 
     public AdminModel() {
     }
 
-    public AdminModel(Long adminId, String fullName, String email, String password, String phoneNumber) {
+    public AdminModel(Long adminId, String fullName, String email, String password, Long mobileNumber) {
         this.adminId = adminId;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.phoneNumber = phoneNumber;
+        this.mobileNumber = mobileNumber;
     }
 
     public Long getAdminId() {
@@ -63,11 +63,11 @@ public class AdminModel {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Long getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMobileNumber(Long mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

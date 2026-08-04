@@ -425,10 +425,10 @@
                     <button type="button" class="role" id="adminRole">Admin</button>
                 </div>
 
-                <form>
+                <form id="loginForm">
                     <div class="input-box">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" placeholder="Email Address" required>
+                        <input type="email" id="email" placeholder="Email Address" required>
                     </div>
 
                     <div class="input-box">
@@ -445,7 +445,7 @@
                         <a href="forgot-password.html">Forgot Password?</a>
                     </div>
 
-                    <button type="submit" class="login-btn">
+                    <button type="submit" class="login-btn" id="loginBtn">
                         Login
                     </button>
                     <div class="register">
@@ -458,65 +458,93 @@
     </div>
 
     <script>
+        let selectedRole = "PATIENT";
         const roles = document.querySelectorAll(".role");
-
+        const eye = document.querySelector(".eye");
+        const password = document.getElementById("password");
+        const form = document.getElementById("loginForm");
+        const loginBtn = document.getElementById("loginBtn");
         roles.forEach(role => {
             role.addEventListener("click", function () {
                 roles.forEach(btn => btn.classList.remove("active"));
                 this.classList.add("active");
+                selectedRole = this.textContent.trim().toUpperCase();
             });
         });
-
-        const eye = document.querySelector(".eye");
-        const password = document.getElementById("password");
-
         eye.addEventListener("click", () => {
             if (password.type === "password") {
                 password.type = "text";
                 eye.classList.remove("fa-eye");
                 eye.classList.add("fa-eye-slash");
-
-            } else {
+            }
+            else {
                 password.type = "password";
                 eye.classList.remove("fa-eye-slash");
                 eye.classList.add("fa-eye");
             }
         });
-
-        const form = document.querySelector("form");
-        form.addEventListener("submit", function (e) {
+        form.addEventListener("submit", async function (e) {
             e.preventDefault();
-
-            const email = document.querySelector('input[type="email"]').value.trim();
+            const email = document.getElementById("email").value.trim();
             const pass = password.value.trim();
-
             if (email === "" || pass === "") {
                 alert("Please fill all fields.");
                 return;
             }
-
-            const activeRole = document.querySelector(".role.active").textContent.trim();
-            if (activeRole === "Patient") {
-                window.location.href = "../patient/dashboard.html";
-            } else if (activeRole === "Doctor") {
-                window.location.href = "../doctor/dashboard.html";
-            } else {
-                window.location.href = "../admin/dashboard.html";
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = "Logging in...";
+            try {
+                const response = await fetch("http://localhost:8080/api/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: pass,
+                        role: selectedRole
+                    })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    localStorage.setItem("token", result.token);
+                    localStorage.setItem("role", result.role);
+                    localStorage.setItem("user", JSON.stringify(result.data));
+                    if (result.role === "PATIENT") {
+                        window.location.href = "../patient/dashboard.html";
+                    }
+                    else if (result.role === "DOCTOR") {
+                        window.location.href = "../doctor/dashboard.html";
+                    }
+                    else if (result.role === "ADMIN") {
+                        window.location.href = "../admin/dashboard.html";
+                    }
+                }
+                else {
+                    alert(result.message);
+                }
+            }
+            catch (error) {
+                console.error(error);
+                alert("Unable to connect to server.");
+            }
+            finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = "Login";
             }
         });
-
         window.addEventListener("load", () => {
             document.querySelector(".login-container").style.opacity = "0";
             document.querySelector(".login-container").style.transform = "translateY(40px)";
-
             setTimeout(() => {
                 document.querySelector(".login-container").style.transition = ".8s";
                 document.querySelector(".login-container").style.opacity = "1";
                 document.querySelector(".login-container").style.transform = "translateY(0)";
             }, 200);
         });
-
     </script>
+
+
 </body>
 
 </html>

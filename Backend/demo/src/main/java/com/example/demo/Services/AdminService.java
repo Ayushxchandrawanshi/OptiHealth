@@ -140,7 +140,7 @@ public class AdminService {
 
             existingPatient.setFullName(patient.getFullName());
             existingPatient.setEmail(patient.getEmail());
-            existingPatient.setPhone(patient.getPhone());
+            existingPatient.setMobileNumber(patient.getMobileNumber());
 
             existingPatient.setPassword(
                     passwordEncoder.encode(patient.getPassword()));

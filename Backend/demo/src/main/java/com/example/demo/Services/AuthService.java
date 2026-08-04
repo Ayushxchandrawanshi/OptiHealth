@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Configuration.JwtUtils;
 import com.example.demo.DTO.AdminDTO;
+import com.example.demo.DTO.AuthResponse;
 import com.example.demo.DTO.DoctorDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.LoginResponse;
 import com.example.demo.DTO.PatientDTO;
+import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.Models.AdminModel;
 import com.example.demo.Models.DoctorModel;
 import com.example.demo.Models.PatientModel;
@@ -18,6 +20,7 @@ import com.example.demo.Repository.DoctorRepo;
 import com.example.demo.Repository.PatientRepo;
 
 @Service
+
 public class AuthService {
 
     @Autowired
@@ -34,6 +37,15 @@ public class AuthService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PatientService patientService;
+
+    @Autowired
+    private DoctorService doctorService;
+
+    @Autowired
+    private AdminService adminService;
 
     // ===========================================
     // PATIENT LOGIN
@@ -58,7 +70,7 @@ public class AuthService {
                 patient.getId(),
                 patient.getFullName(),
                 patient.getEmail(),
-                patient.getPhone(),
+                patient.getMobileNumber(),
                 patient.getGender(),
                 patient.getDob());
 
@@ -131,7 +143,7 @@ public class AuthService {
                 admin.getAdminId(),
                 admin.getFullName(),
                 admin.getEmail(),
-                admin.getPhoneNumber());
+                admin.getMobileNumber());
 
         return new LoginResponse(
                 true,
@@ -142,4 +154,202 @@ public class AuthService {
                 adminDTO);
     }
 
+// ===========================================
+// COMMON LOGIN
+// ===========================================
+    public AuthResponse login(LoginRequest request) {
+
+        if (request.getRole() == null || request.getRole().isBlank()) {
+            return new AuthResponse(
+                    false,
+                    "Role is required",
+                    null,
+                    null,
+                    null,
+                    null);
+        }
+
+        switch (request.getRole().toUpperCase()) {
+
+            case "PATIENT":
+
+                LoginResponse patientResponse = patientLogin(request);
+
+                return new AuthResponse(
+                        patientResponse.isSuccess(),
+                        patientResponse.getMessage(),
+                        patientResponse.getToken(),
+                        patientResponse.getEmail(),
+                        patientResponse.getRole(),
+                        patientResponse.getData());
+
+            case "DOCTOR":
+
+                LoginResponse doctorResponse = doctorLogin(request);
+
+                return new AuthResponse(
+                        doctorResponse.isSuccess(),
+                        doctorResponse.getMessage(),
+                        doctorResponse.getToken(),
+                        doctorResponse.getEmail(),
+                        doctorResponse.getRole(),
+                        doctorResponse.getData());
+
+            case "ADMIN":
+
+                LoginResponse adminResponse = adminLogin(request);
+
+                return new AuthResponse(
+                        adminResponse.isSuccess(),
+                        adminResponse.getMessage(),
+                        adminResponse.getToken(),
+                        adminResponse.getEmail(),
+                        adminResponse.getRole(),
+                        adminResponse.getData());
+
+            default:
+
+                return new AuthResponse(
+                        false,
+                        "Invalid Role",
+                        null,
+                        null,
+                        null,
+                        null);
+
+        }
+    }
+
+    // ===========================================
+// COMMON REGISTER
+// ===========================================
+    public AuthResponse register(RegisterRequest request) {
+
+        if (request.getRole() == null || request.getRole().isBlank()) {
+            return new AuthResponse(false,
+                    "Role is required",
+                    null,
+                    null,
+                    null,
+                    null);
+        }
+
+        switch (request.getRole().toUpperCase()) {
+
+            case "PATIENT":
+
+                PatientModel patient = new PatientModel();
+
+                patient.setFullName(request.getFullName());
+                patient.setEmail(request.getEmail());
+                patient.setPassword(request.getPassword());
+                patient.setMobileNumber(request.getMobileNumber());
+                patient.setGender(request.getGender());
+                patient.setDob(request.getDob());
+
+                patientService.registerPatient(patient);
+
+                return new AuthResponse(
+                        true,
+                        "Patient Registered Successfully",
+                        null,
+                        patient.getEmail(),
+                        "PATIENT",
+                        patient);
+
+            case "DOCTOR":
+
+                DoctorModel doctor = new DoctorModel();
+
+                doctor.setDoctorName(request.getDoctorName());
+                doctor.setEmail(request.getEmail());
+                doctor.setPassword(request.getPassword());
+                doctor.setSpecialization(request.getSpecialization());
+                doctor.setExperience(request.getExperience());
+                doctor.setFee(request.getFee());
+                doctor.setDescription(request.getDescription());
+
+                doctorService.registerDoctor(doctor);
+
+                return new AuthResponse(
+                        true,
+                        "Doctor Registered Successfully",
+                        null,
+                        doctor.getEmail(),
+                        "DOCTOR",
+                        doctor);
+
+            case "ADMIN":
+
+                AdminModel admin = new AdminModel();
+
+                admin.setFullName(request.getFullName());
+                admin.setEmail(request.getEmail());
+                admin.setPassword(request.getPassword());
+                admin.setMobileNumber(request.getMobileNumber());
+
+                adminService.registerAdmin(admin);
+
+                return new AuthResponse(
+                        true,
+                        "Admin Registered Successfully",
+                        null,
+                        admin.getEmail(),
+                        "ADMIN",
+                        admin);
+
+            default:
+
+                return new AuthResponse(
+                        false,
+                        "Invalid Role",
+                        null,
+                        null,
+                        null,
+                        null);
+        }
+
+    }
+
+// ===========================================
+// FORGOT PASSWORD
+// ===========================================
+    public AuthResponse forgotPassword(String email) {
+
+        return new AuthResponse(
+                true,
+                "Forgot Password API is under development.",
+                null,
+                email,
+                null,
+                null);
+    }
+
+// ===========================================
+// VERIFY OTP
+// ===========================================
+    public AuthResponse verifyOtp(String email, String otp) {
+
+        return new AuthResponse(
+                true,
+                "OTP Verification API is under development.",
+                null,
+                email,
+                null,
+                null);
+    }
+
+// ===========================================
+// RESET PASSWORD
+// ===========================================
+    public AuthResponse resetPassword(String email, String newPassword) {
+
+        return new AuthResponse(
+                true,
+                "Reset Password API is under development.",
+                null,
+                email,
+                null,
+                null);
+    }
 }

@@ -14,15 +14,15 @@ public class PatientModel {
 
     String fullName;
     String email;
-    Long phone;
+    Long mobileNumber;
     String password;
     String gender;
     String dob;
 
-    public PatientModel(String fullName, String email, Long phone, String password, String gender, String dob) {
+    public PatientModel(String fullName, String email, Long mobileNumber, String password, String gender, String dob) {
         this.fullName = fullName;
         this.email = email;
-        this.phone = phone;
+        this.mobileNumber = mobileNumber;
         this.password = password;
         this.gender = gender;
         this.dob = dob;
@@ -56,12 +56,12 @@ public class PatientModel {
         this.email = email;
     }
 
-    public Long getPhone() {
-        return this.phone;
+    public Long getMobileNumber() {
+        return this.mobileNumber;
     }
 
-    public void setPhone(Long phone) {
-        this.phone = phone;
+    public void setMobileNumber(Long mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getPassword() {

@@ -453,23 +453,24 @@
 
                         <div class="input-group">
                             <label>Full Name</label>
-                            <input type="text" placeholder="Enter your full name">
+                            <input type="text" id="patientName" placeholder="Enter your full name">
                         </div>
 
                         <div class="input-group">
                             <label>Email Address</label>
-                            <input type="email" placeholder="Enter your email">
+                            <input type="email" id="patientEmail" placeholder="Enter your email">
                         </div>
 
                         <div class="input-group">
                             <label>Phone Number</label>
-                            <input type="tel" placeholder="Enter phone number">
+                            <input type="tel" id="patientMobile" maxlength="10" placeholder="Enter Mobile Number"
+                                required>
                         </div>
 
                         <div class="input-group">
                             <label>Gender</label>
-                            <select>
-                                <option>Select Gender</option>
+                            <select id="patientGender">
+                                <option value="">Select Gender</option>
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Other</option>
@@ -478,18 +479,18 @@
 
                         <div class="input-group">
                             <label>Date of Birth</label>
-                            <input type="date">
+                            <input type="date" id="patientDob">
                         </div>
 
                         <div class="input-group password-group">
                             <label>Password</label>
-                            <input type="password" placeholder="Create password">
+                            <input type="password" id="patientPassword" placeholder="Create password">
                             <i class="fa-solid fa-eye toggle-password"></i>
                         </div>
 
                         <div class="input-group password-group">
                             <label>Confirm Password</label>
-                            <input type="password" placeholder="Confirm password">
+                            <input type="password" id="patientConfirmPassword" placeholder="Confirm password">
                             <i class="fa-solid fa-eye toggle-password"></i>
                         </div>
 
@@ -499,49 +500,49 @@
 
                         <div class="input-group">
                             <label>Doctor Name</label>
-                            <input type="text" placeholder="Enter doctor name">
+                            <input type="text" id="doctorName" placeholder="Enter doctor name">
                         </div>
 
                         <div class="input-group">
                             <label>Email Address</label>
-                            <input type="email" placeholder="Enter email">
+                            <input type="email" id="doctorEmail" placeholder="Enter email">
                         </div>
 
                         <div class="input-group">
                             <label>Specialization</label>
-                            <input type="text" placeholder="Cardiologist, Dentist...">
+                            <input type="text" id="doctorSpecialization" placeholder="Cardiologist, Dentist...">
                         </div>
 
                         <div class="input-group">
                             <label>Experience (Years)</label>
-                            <input type="number" placeholder="Enter experience">
+                            <input type="number" id="doctorExperience" placeholder="Enter experience">
                         </div>
 
                         <div class="input-group">
                             <label>Consultation Fee (₹)</label>
-                            <input type="number" placeholder="Enter fee">
+                            <input type="number" id="doctorFee" placeholder="Enter fee">
                         </div>
 
                         <div class="input-group">
                             <label>Description</label>
-                            <textarea rows="3" placeholder="Write about yourself"></textarea>
+                            <textarea rows="3" id="doctorDescription" placeholder="Write about yourself"></textarea>
                         </div>
 
                         <div class="input-group password-group">
                             <label>Password</label>
-                            <input type="password" placeholder="Create password">
+                            <input type="password" id="doctorPassword" placeholder="Create password">
                             <i class="fa-solid fa-eye toggle-password"></i>
                         </div>
 
                         <div class="input-group password-group">
                             <label>Confirm Password</label>
-                            <input type="password" placeholder="Confirm password">
+                            <input type="password" id="doctorConfirmPassword" placeholder="Confirm password">
                             <i class="fa-solid fa-eye toggle-password"></i>
                         </div>
 
                     </div>
 
-                    <button class="register-btn">
+                    <button type="submit" class="register-btn" id="registerBtn">
                         Create Account
                     </button>
 
@@ -563,7 +564,6 @@
         const doctorFields = document.querySelector(".doctor-fields");
 
         roleButtons.forEach(button => {
-
             button.addEventListener("click", () => {
 
                 roleButtons.forEach(btn => btn.classList.remove("active"));
@@ -572,24 +572,38 @@
                 const role = button.dataset.role;
 
                 if (role === "patient") {
+
                     patientFields.style.display = "block";
                     doctorFields.style.display = "none";
+
+                    patientFields.querySelectorAll("input,select,textarea").forEach(el => {
+                        el.disabled = false;
+                    });
+
+                    doctorFields.querySelectorAll("input,select,textarea").forEach(el => {
+                        el.disabled = true;
+                    });
+
                 }
                 else {
+
                     patientFields.style.display = "none";
                     doctorFields.style.display = "block";
+
+                    patientFields.querySelectorAll("input,select,textarea").forEach(el => {
+                        el.disabled = true;
+                    });
+
+                    doctorFields.querySelectorAll("input,select,textarea").forEach(el => {
+                        el.disabled = false;
+                    });
                 }
-
             });
-
         });
 
         const toggleIcons = document.querySelectorAll(".toggle-password");
-
         toggleIcons.forEach(icon => {
-
             icon.addEventListener("click", () => {
-
                 const input = icon.previousElementSibling;
 
                 if (input.type === "password") {
@@ -602,71 +616,131 @@
                     icon.classList.remove("fa-eye-slash");
                     icon.classList.add("fa-eye");
                 }
-
             });
+        });
 
+        doctorFields.querySelectorAll("input,select,textarea").forEach(el => {
+            el.disabled = true;
         });
 
         const registerForm = document.getElementById("registerForm");
 
-        registerForm.addEventListener("submit", (e) => {
-
+        registerForm.addEventListener("submit", async function (e) {
             e.preventDefault();
-
-            const activeRole = document.querySelector(".role-btn.active").dataset.role;
-
-            const visibleInputs = document.querySelectorAll(
-                activeRole === "patient"
-                    ? ".patient-fields input, .patient-fields select"
-                    : ".doctor-fields input, .doctor-fields textarea"
-            );
-
-            for (let field of visibleInputs) {
-
-                if (field.value.trim() === "") {
-
-                    alert("Please fill all required fields.");
-                    field.focus();
-                    return;
-
-                }
-
-            }
-
-            const registerButton = document.querySelector(".register-btn");
-
+            const role = document.querySelector(".role-btn.active").dataset.role;
+            const registerButton = document.getElementById("registerBtn");
             registerButton.disabled = true;
             registerButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+            let requestData = {};
 
-            setTimeout(() => {
+            if (role === "patient") {
 
-                registerButton.disabled = false;
-                registerButton.innerHTML = "Create Account";
+                const password = document.getElementById("patientPassword").value.trim();
+                const confirmPassword = document.getElementById("patientConfirmPassword").value.trim();
 
-                if (activeRole === "patient") {
-                    window.location.href = "../patient/dashboard.html";
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match.");
+                    registerButton.disabled = false;
+                    registerButton.innerHTML = "Create Account";
+                    return;
+                }
+
+                if (document.getElementById("patientName").value.trim() === ""
+                    || document.getElementById("patientEmail").value.trim() === ""
+                    || document.getElementById("patientMobile").value.trim() === ""
+                    || document.getElementById("patientGender").value === ""
+                    || document.getElementById("patientDob").value === "") {
+                    alert("Please fill all fields.");
+                    registerButton.disabled = false;
+                    registerButton.innerHTML = "Create Account";
+                    return;
+                }
+
+                requestData = {
+                    role: "PATIENT",
+                    fullName: document.getElementById("patientName").value.trim(),
+                    email: document.getElementById("patientEmail").value.trim(),
+                    password: password,
+                    mobileNumber: Number(document.getElementById("patientMobile").value),
+                    gender: document.getElementById("patientGender").value,
+                    dob: document.getElementById("patientDob").value
+                };
+            }
+            else {
+                const password = document.getElementById("doctorPassword").value.trim();
+                const confirmPassword = document.getElementById("doctorConfirmPassword").value.trim();
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match.");
+                    registerButton.disabled = false;
+                    registerButton.innerHTML = "Create Account";
+                    return;
+                }
+
+                if (document.getElementById("doctorName").value.trim() === ""
+                    || document.getElementById("doctorEmail").value.trim() === ""
+                    || document.getElementById("doctorSpecialization").value.trim() === ""
+                    || document.getElementById("doctorExperience").value.trim() === ""
+                    || document.getElementById("doctorFee").value.trim() === ""
+                    || document.getElementById("doctorDescription").value.trim() === "") {
+                    alert("Please fill all fields.");
+                    registerButton.disabled = false;
+                    registerButton.innerHTML = "Create Account";
+                    return;
+                }
+
+                requestData = {
+                    role: "DOCTOR",
+                    doctorName: document.getElementById("doctorName").value.trim(),
+                    email: document.getElementById("doctorEmail").value.trim(),
+                    password: password,
+                    specialization: document.getElementById("doctorSpecialization").value.trim(),
+                    experience: Number(document.getElementById("doctorExperience").value),
+                    fee: Number(document.getElementById("doctorFee").value),
+                    description: document.getElementById("doctorDescription").value.trim()
+                };
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/api/auth/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Server Error");
+                }
+                const result = await response.json();
+                if (result.success) {
+                    alert(result.message + "\n\nPlease login with your registered account.");
+                    window.location.href = "login.html";
                 }
                 else {
-                    window.location.href = "../doctor/dashboard.html";
+                    alert(result.message);
                 }
-
-            }, 1500);
-
+            }
+            catch (error) {
+                console.error(error);
+                alert("Unable to connect to server.");
+            }
+            finally {
+                registerButton.disabled = false;
+                registerButton.innerHTML = "Create Account";
+            }
         });
 
         window.addEventListener("load", () => {
-
             const container = document.querySelector(".register-container");
-
             container.style.opacity = "0";
             container.style.transform = "translateY(40px)";
 
             setTimeout(() => {
-
                 container.style.transition = ".8s ease";
                 container.style.opacity = "1";
                 container.style.transform = "translateY(0)";
-
             }, 100);
 
         });

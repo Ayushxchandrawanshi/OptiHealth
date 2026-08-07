@@ -90,4 +90,13 @@ public class DoctorService {
 
     }
 
+    // ==========================
+// Get Doctor By Id
+// ==========================
+    public DoctorModel getDoctorById(Long doctorId) {
+
+        return doctorRepo.findById(doctorId).orElse(null);
+
+    }
+
 }

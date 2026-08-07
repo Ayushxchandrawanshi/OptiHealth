@@ -726,8 +726,8 @@
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Doctor">
 
                             <div class="doctor-info">
-                                <h3>Dr. Rahul Sharma</h3>
-                                <p>Senior Cardiologist</p>
+                                <h3 id="doctorName"></h3>
+                                <p id="doctorSpecialization"></p>
 
                                 <div class="rating">
                                     <i class="fa-solid fa-star"></i>
@@ -742,17 +742,17 @@
 
                             <div class="form-group">
                                 <label>Patient Name</label>
-                                <input type="text" placeholder="Enter your name">
+                                <input type="text" id="patientName" placeholder="Enter your name">
                             </div>
 
                             <div class="form-group">
                                 <label>Email Address</label>
-                                <input type="email" placeholder="Enter email">
+                                <input type="email" id="patientEmail" placeholder="Enter email">
                             </div>
 
                             <div class="form-group">
                                 <label>Mobile Number</label>
-                                <input type="tel" placeholder="Enter mobile number">
+                                <input type="tel" id="patientMobile" placeholder="Enter mobile number">
                             </div>
 
                             <div class="form-group">
@@ -762,12 +762,12 @@
 
                             <div class="form-group">
                                 <label>Appointment Date</label>
-                                <input type="date">
+                                <input type="date" id="appointmentDate">
                             </div>
 
                             <div class="form-group">
                                 <label>Department</label>
-                                <select>
+                                <select id="department">
                                     <option>Cardiology</option>
                                     <option>Neurology</option>
                                     <option>Orthopedic</option>
@@ -779,7 +779,7 @@
 
                             <div class="form-group full-width">
                                 <label>Reason for Visit</label>
-                                <textarea placeholder="Describe your health problem..."></textarea>
+                                <textarea id="reason" placeholder="Describe your health problem..."></textarea>
                             </div>
 
                         </div>
@@ -843,12 +843,11 @@
 
                         <div class="summary-item">
                             <span>Doctor</span>
-                            <span>Dr. Rahul Sharma</span>
+                            <span id="summaryDoctor"></span>
                         </div>
 
                         <div class="summary-item">
-                            <span>Department</span>
-                            <span>Cardiology</span>
+                            <span id="summaryDepartment"></span>
                         </div>
 
                         <div class="summary-item">
@@ -868,15 +867,15 @@
 
                         <div class="summary-item">
                             <span>Consultation Fee</span>
-                            <span>₹700</span>
+                            <span id="summaryFee"></span>
                         </div>
 
                         <div class="summary-item">
                             <span>Total Amount</span>
-                            <span class="total">₹700</span>
+                            <span class="total" id="summaryTotal"></span>
                         </div>
 
-                        <button class="confirm-btn">
+                        <button class="confirm-btn" id="confirmBtn">
                             <i class="fa-solid fa-check"></i>
                             Confirm Appointment
                         </button>
@@ -897,6 +896,24 @@
     </div>
 
     <script>
+        const patient = JSON.parse(localStorage.getItem("user"));
+        const doctorId = localStorage.getItem("doctorId");
+
+        async function loadDoctor() {
+            try {
+                const response = await fetch("http://localhost:8080/api/doctors/" + doctorId);
+                const doctor = await response.json();
+                document.getElementById("doctorName").innerText = doctor.doctorName;
+                document.getElementById("doctorSpecialization").innerText = doctor.specialization;
+                document.getElementById("summaryDoctor").innerText = doctor.doctorName;
+                document.getElementById("summaryDepartment").innerText = doctor.specialization;
+                document.getElementById("summaryFee").innerText = "₹" + doctor.fee;
+                document.getElementById("summaryTotal").innerText = "₹" + doctor.fee;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
 
@@ -909,6 +926,24 @@
 
         const dateInput = document.querySelector('input[type="date"]');
         const confirmBtn = document.querySelector(".confirm-btn");
+        const patientName = document.getElementById("patientName");
+        const patientEmail = document.getElementById("patientEmail");
+        const patientMobile = document.getElementById("patientMobile");
+
+        document.getElementById("doctorName").innerText = "Loading...";
+        document.getElementById("doctorSpecialization").innerText = "Loading...";
+        document.getElementById("summaryDoctor").innerText = "Loading...";
+        document.getElementById("summaryDepartment").innerText = "Loading...";
+        document.getElementById("summaryFee").innerText = "Loading...";
+        document.getElementById("summaryTotal").innerText = "Loading...";
+
+        if (patient) {
+
+            patientName.value = patient.fullName;
+            patientEmail.value = patient.email;
+            patientMobile.value = patient.mobileNumber ?? "";
+
+        }
 
         if (window.innerWidth <= 900) {
             sidebar.style.left = "-270px";
@@ -984,9 +1019,9 @@
 
         confirmBtn.addEventListener("click", () => {
 
-            const patient = document.querySelector('input[type="text"]').value.trim();
-            const email = document.querySelector('input[type="email"]').value.trim();
-            const phone = document.querySelector('input[type="tel"]').value.trim();
+            const patient = patientName.value.trim();
+            const email = patientEmail.value.trim();
+            const phone = patientMobile.value.trim();
             const age = document.querySelector('input[type="number"]').value.trim();
             const reason = document.querySelector("textarea").value.trim();
 
@@ -1032,6 +1067,7 @@
 
         });
 
+        loadDoctor();
     </script>
 
 </body>

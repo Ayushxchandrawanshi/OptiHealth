@@ -660,37 +660,32 @@
                     <span>Dashboard</span>
                 </a>
 
-                <a href="#">
+                <a href="find-doctor.html">
                     <i class="fa-solid fa-user-doctor"></i>
                     <span>Find Doctors</span>
                 </a>
 
-                <a href="#">
+                <a href="book-appointment.html">
                     <i class="fa-solid fa-calendar-plus"></i>
                     <span>Book Appointment</span>
                 </a>
 
-                <a href="#">
+                <a href="my-appointments.html">
                     <i class="fa-solid fa-calendar-check"></i>
                     <span>My Appointments</span>
                 </a>
 
-                <a href="#">
+                <a href="medical-history.html">
                     <i class="fa-solid fa-file-medical"></i>
                     <span>Medical History</span>
                 </a>
 
-                <a href="#">
-                    <i class="fa-solid fa-prescription"></i>
-                    <span>Prescriptions</span>
-                </a>
-
-                <a href="#">
+                <a href="profile.html">
                     <i class="fa-solid fa-user"></i>
                     <span>My Profile</span>
                 </a>
 
-                <a href="#">
+                <a href="settings.html">
                     <i class="fa-solid fa-gear"></i>
                     <span>Settings</span>
                 </a>
@@ -1098,75 +1093,45 @@
                 if (window.innerWidth <= 992) {
                     sidebar.classList.remove("active");
                 }
-
             });
-
         });
-
         const notificationBtn = document.querySelector(".notification-btn");
-
         notificationBtn.addEventListener("click", () => {
-
             alert("You have 3 new notifications.");
-
         });
 
         const primaryButton = document.querySelector(".primary-btn");
         const secondaryButton = document.querySelector(".secondary-btn");
 
         primaryButton.addEventListener("click", () => {
-
             window.location.href = "book-appointment.html";
-
         });
 
         secondaryButton.addEventListener("click", () => {
-
             window.location.href = "find-doctor.html";
-
         });
 
         const doctorButtons = document.querySelectorAll(".doctor-item button");
-
         doctorButtons.forEach(button => {
-
             button.addEventListener("click", () => {
-
                 window.location.href = "book-appointment.html";
-
             });
-
         });
 
-        const patientData = {
-
-            fullName: "Patient Name",
-            appointments: 8,
-            doctors: 24,
-            reports: 13,
-            prescriptions: 6,
-            nextDoctor: "Dr. Sarah Johnson"
-
-        };
-
+        const patientData = JSON.parse(localStorage.getItem("user"));
         function loadDashboard() {
-
+            if (!patientData) {
+                window.location.href = "../auth/login.html";
+                return;
+            }
             document.getElementById("patientFullName").textContent = patientData.fullName;
-
             document.getElementById("patientName").textContent = patientData.fullName;
-
-            document.getElementById("appointmentCount").textContent = patientData.appointments;
-
-            document.getElementById("doctorCount").textContent = patientData.doctors;
-
-            document.getElementById("reportCount").textContent = patientData.reports;
-
-            document.getElementById("prescriptionCount").textContent = patientData.prescriptions;
-
-            document.getElementById("nextDoctorName").textContent = patientData.nextDoctor;
-
+            document.getElementById("appointmentCount").textContent = "0";
+            document.getElementById("doctorCount").textContent = "0";
+            document.getElementById("reportCount").textContent = "0";
+            document.getElementById("prescriptionCount").textContent = "0";
+            document.getElementById("nextDoctorName").textContent = "Not Assigned";
         }
-
         loadDashboard();
 
         const cards = document.querySelectorAll(".stat-card,.card");

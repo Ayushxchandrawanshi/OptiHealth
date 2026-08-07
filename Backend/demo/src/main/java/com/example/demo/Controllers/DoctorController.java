@@ -102,4 +102,14 @@ public class DoctorController {
 
     }
 
+    // ==========================
+// Get Doctor By Id
+// ==========================
+    @GetMapping("/{doctorId}")
+    public DoctorModel getDoctorById(@PathVariable Long doctorId) {
+
+        return doctorService.getDoctorById(doctorId);
+
+    }
+
 }

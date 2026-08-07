@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.LoginResponse;
+import com.example.demo.DTO.PatientDashboardDTO;
 import com.example.demo.Models.AppointmentModel;
 import com.example.demo.Models.DoctorModel;
 import com.example.demo.Models.PatientModel;
@@ -64,9 +65,7 @@ public class PatientController {
     // ==========================
     @PostMapping("/bookAppointment")
     public ApiResponse bookAppointment(@RequestBody AppointmentModel appointment) {
-
         patientService.bookAppointment(appointment);
-
         return new ApiResponse(
                 true,
                 "Appointment Booked Successfully");
@@ -77,9 +76,15 @@ public class PatientController {
     // ==========================
     @GetMapping("/appointments/{patientId}")
     public List<AppointmentModel> getMyAppointments(@PathVariable Long patientId) {
-
         return patientService.getMyAppointments(patientId);
+    }
 
+    // ==========================
+// Patient Dashboard
+// ==========================
+    @GetMapping("/dashboard/{patientId}")
+    public PatientDashboardDTO getDashboardData(@PathVariable Long patientId) {
+        return patientService.getDashboardData(patientId);
     }
 
 }

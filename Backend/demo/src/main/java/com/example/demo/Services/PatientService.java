@@ -1,11 +1,13 @@
 package com.example.demo.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.PatientDashboardDTO;
 import com.example.demo.Models.AppointmentModel;
 import com.example.demo.Models.DoctorModel;
 import com.example.demo.Models.PatientModel;
@@ -32,10 +34,8 @@ public class PatientService {
     // Register Patient
     // ==========================
     public void registerPatient(PatientModel patient) {
-
         patient.setPassword(
                 passwordEncoder.encode(patient.getPassword()));
-
         patientRepo.save(patient);
     }
 
@@ -43,9 +43,7 @@ public class PatientService {
     // Get All Doctors
     // ==========================
     public List<DoctorModel> getAllDoctors() {
-
         return doctorRepo.findAll();
-
     }
 
     // ==========================
@@ -54,16 +52,49 @@ public class PatientService {
     public void bookAppointment(AppointmentModel appointment) {
         appointment.setStatus("PENDING");
         appointmentRepo.save(appointment);
-
     }
 
     // ==========================
     // View My Appointments
     // ==========================
     public List<AppointmentModel> getMyAppointments(Long patientId) {
-
         return appointmentRepo.findByPatientId(patientId);
+    }
 
+    // ==========================
+// Patient Dashboard
+// ==========================
+    public PatientDashboardDTO getDashboardData(Long patientId) {
+        Optional<PatientModel> optionalPatient = patientRepo.findById(patientId);
+
+        if (optionalPatient.isEmpty()) {
+            return null;
+        }
+
+        PatientModel patient = optionalPatient.get();
+        List<AppointmentModel> appointments = appointmentRepo.findByPatientId(patientId);
+        long totalDoctors = doctorRepo.count();
+        String nextDoctor = "Not Assigned";
+
+        if (!appointments.isEmpty()) {
+            AppointmentModel appointment = appointments.get(0);
+            DoctorModel doctor = doctorRepo.findById(appointment.getDoctorId()).orElse(null);
+
+            if (doctor != null) {
+                nextDoctor = doctor.getDoctorName();
+            }
+        }
+
+        PatientDashboardDTO dashboard = new PatientDashboardDTO();
+        dashboard.setFullName(patient.getFullName());
+        dashboard.setEmail(patient.getEmail());
+        dashboard.setMobileNumber(patient.getMobileNumber());
+        dashboard.setAppointmentCount(appointments.size());
+        dashboard.setDoctorCount((int) totalDoctors);
+        dashboard.setReportCount(0);
+        dashboard.setPrescriptionCount(0);
+        dashboard.setNextDoctorName(nextDoctor);
+        return dashboard;
     }
 
 }

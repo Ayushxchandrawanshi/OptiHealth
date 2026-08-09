@@ -450,6 +450,11 @@
             color: #15803d;
         }
 
+        .accepted {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
         .cancelled {
             background: #fee2e2;
             color: #dc2626;
@@ -727,7 +732,7 @@
                             <i class="fa-solid fa-calendar-check"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>8</h3>
+                            <h3 id="totalAppointments">0</h3>
                             <p>Total Appointments</p>
                         </div>
                     </div>
@@ -737,7 +742,7 @@
                             <i class="fa-solid fa-clock"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>3</h3>
+                            <h3 id="upcomingAppointments">0</h3>
                             <p>Upcoming</p>
                         </div>
                     </div>
@@ -747,7 +752,7 @@
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>4</h3>
+                            <h3 id="completedAppointments">0</h3>
                             <p>Completed</p>
                         </div>
                     </div>
@@ -757,7 +762,7 @@
                             <i class="fa-solid fa-ban"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>1</h3>
+                            <h3 id="cancelledAppointments">0</h3>
                             <p>Cancelled</p>
                         </div>
                     </div>
@@ -798,218 +803,8 @@
                         <a href="book-appointment.html">+ New Appointment</a>
                     </div>
 
-                    <div class="appointment-grid">
+                    <div class="appointment-grid" id="appointmentGrid"></div>
 
-                        <div class="appointment-card">
-
-                            <div class="card-top">
-
-                                <div class="doctor">
-                                    <img src="https://randomuser.me/api/portraits/men/32.jpg">
-                                    <div>
-                                        <h3>Dr. Rahul Sharma</h3>
-                                        <p>Cardiologist</p>
-                                    </div>
-                                </div>
-
-                                <span class="status pending">
-                                    Upcoming
-                                </span>
-
-                            </div>
-
-                            <div class="card-details">
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <h4>18 Aug</h4>
-                                    <p>Appointment Date</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <h4>10:00 AM</h4>
-                                    <p>Time</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-video"></i>
-                                    <h4>Online</h4>
-                                    <p>Consultation</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                                    <h4>₹700</h4>
-                                    <p>Fee</p>
-                                </div>
-
-                            </div>
-
-                            <div class="card-actions">
-                                <button class="reschedule-btn">Reschedule</button>
-                                <button class="cancel-btn">Cancel</button>
-                            </div>
-
-                        </div>
-
-                        <div class="appointment-card">
-
-                            <div class="card-top">
-
-                                <div class="doctor">
-                                    <img src="https://randomuser.me/api/portraits/women/44.jpg">
-                                    <div>
-                                        <h3>Dr. Priya Mehta</h3>
-                                        <p>Dermatologist</p>
-                                    </div>
-                                </div>
-
-                                <span class="status completed">
-                                    Completed
-                                </span>
-
-                            </div>
-
-                            <div class="card-details">
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <h4>10 Aug</h4>
-                                    <p>Appointment Date</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <h4>11:30 AM</h4>
-                                    <p>Time</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-hospital"></i>
-                                    <h4>Offline</h4>
-                                    <p>Consultation</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-prescription"></i>
-                                    <h4>View</h4>
-                                    <p>Prescription</p>
-                                </div>
-
-                            </div>
-
-                            <div class="card-actions">
-                                <button class="view-btn">View Details</button>
-                            </div>
-
-                        </div>
-
-                        <div class="appointment-card">
-
-                            <div class="card-top">
-
-                                <div class="doctor">
-                                    <img src="https://randomuser.me/api/portraits/men/76.jpg">
-                                    <div>
-                                        <h3>Dr. Arjun Singh</h3>
-                                        <p>Orthopedic</p>
-                                    </div>
-                                </div>
-
-                                <span class="status pending">
-                                    Upcoming
-                                </span>
-
-                            </div>
-
-                            <div class="card-details">
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <h4>22 Aug</h4>
-                                    <p>Appointment Date</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <h4>02:30 PM</h4>
-                                    <p>Time</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-hospital"></i>
-                                    <h4>Offline</h4>
-                                    <p>Consultation</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                                    <h4>₹900</h4>
-                                    <p>Fee</p>
-                                </div>
-
-                            </div>
-
-                            <div class="card-actions">
-                                <button class="reschedule-btn">Reschedule</button>
-                                <button class="cancel-btn">Cancel</button>
-                            </div>
-
-                        </div>
-
-                        <div class="appointment-card">
-
-                            <div class="card-top">
-
-                                <div class="doctor">
-                                    <img src="https://randomuser.me/api/portraits/women/25.jpg">
-                                    <div>
-                                        <h3>Dr. Sneha Patel</h3>
-                                        <p>Gynecologist</p>
-                                    </div>
-                                </div>
-
-                                <span class="status cancelled">
-                                    Cancelled
-                                </span>
-
-                            </div>
-
-                            <div class="card-details">
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <h4>02 Aug</h4>
-                                    <p>Appointment Date</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <h4>09:00 AM</h4>
-                                    <p>Time</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-circle-xmark"></i>
-                                    <h4>Cancelled</h4>
-                                    <p>Status</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                                    <h4>₹1000</h4>
-                                    <p>Fee</p>
-                                </div>
-
-                            </div>
-
-                            <div class="card-actions">
-                                <button class="reschedule-btn">Book Again</button>
-                            </div>
-
-                        </div>
-                    </div>
                 </section>
         </div>
         </main>
@@ -1017,151 +812,298 @@
     </div>
 
     <script>
-
+        const patient = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem("token");
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
-
         const searchInput = document.querySelector(".filter-bar input");
         const statusFilter = document.querySelectorAll(".filter-bar select")[0];
         const departmentFilter = document.querySelectorAll(".filter-bar select")[1];
-
-        const cards = document.querySelectorAll(".appointment-card");
-
+        const appointmentGrid = document.getElementById("appointmentGrid");
+        let appointments = [];
+        let doctors = [];
+        if (patient) {
+            const profileName = document.querySelector(".profile h4");
+            if (profileName) {
+                profileName.innerText = patient.fullName;
+            }
+        }
         if (window.innerWidth <= 900) {
             sidebar.style.left = "-270px";
         }
-
         menuBtn.addEventListener("click", () => {
-
             if (window.innerWidth <= 900) {
-
                 if (sidebar.style.left === "0px") {
                     sidebar.style.left = "-270px";
                 } else {
                     sidebar.style.left = "0";
                 }
-
             }
-
         });
-
         window.addEventListener("resize", () => {
-
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
             } else {
                 sidebar.style.left = "-270px";
             }
-
         });
 
-        function filterAppointments() {
+        async function loadAppointments() {
+            if (!patient || !patient.id) {
+                appointmentGrid.innerHTML = "<p>Patient information not found. Please login again.</p>";
+                return;
+            }
+            try {
+                const headers = {};
+                if (token) {
+                    headers["Authorization"] = "Bearer " + token;
+                }
+                const appointmentResponse = await fetch(
+                    "http://localhost:8080/api/patients/appointments/" + patient.id,
+                    {
+                        method: "GET",
+                        headers: headers
+                    }
+                );
+                if (!appointmentResponse.ok) {
+                    throw new Error("Unable to load appointments. Status: " + appointmentResponse.status);
+                }
+                appointments = await appointmentResponse.json();
+                const doctorResponse = await fetch(
+                    "http://localhost:8080/api/patients/doctors"
+                );
+                if (!doctorResponse.ok) {
+                    throw new Error("Unable to load doctors. Status: " + doctorResponse.status);
+                }
+                doctors = await doctorResponse.json();
+                updateStats();
+                renderAppointments();
+            } catch (error) {
+                console.error(error);
+                appointmentGrid.innerHTML = `
+            <div class="appointment-card">
+                <h3>Unable to load appointments</h3>
+                <p>Please try again after checking the backend server.</p>
+            </div>
+        `;
+            }
+        }
+        function getDoctor(doctorId) {
+            return doctors.find(doctor => Number(doctor.id) === Number(doctorId));
+        }
 
-            const search = searchInput.value.toLowerCase();
+        function getStatusClass(status) {
+            const value = (status || "PENDING").toUpperCase();
+
+            if (value === "ACCEPTED") {
+                return "accepted";
+            }
+
+            if (value === "COMPLETED") {
+                return "completed";
+            }
+
+            if (value === "REJECTED" || value === "CANCELLED") {
+                return "cancelled";
+            }
+
+            return "pending";
+        }
+
+        function getStatusText(status) {
+            const value = (status || "PENDING").toUpperCase();
+            if (value === "ACCEPTED") {
+                return "Accepted";
+            }
+            if (value === "COMPLETED") {
+                return "Completed";
+            }
+            if (value === "REJECTED") {
+                return "Rejected";
+            }
+            if (value === "CANCELLED") {
+                return "Cancelled";
+            }
+            return "Pending";
+        }
+        function formatDate(date) {
+            if (!date) {
+                return "Not Scheduled";
+            }
+            const parts = date.split("-");
+            if (parts.length !== 3) {
+                return date;
+            }
+            const dateObject = new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+            );
+            return dateObject.toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short"
+            });
+        }
+        function formatTime(time) {
+            if (!time) {
+                return "Not Scheduled";
+            }
+            const parts = time.split(":");
+            if (parts.length < 2) {
+                return time;
+            }
+            const dateObject = new Date();
+            dateObject.setHours(Number(parts[0]));
+            dateObject.setMinutes(Number(parts[1]));
+            return dateObject.toLocaleTimeString("en-IN", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+        }
+        function updateStats() {
+            const total = appointments.length;
+            const upcoming = appointments.filter(appointment => {
+                const status = (appointment.status || "").toUpperCase();
+                return status === "PENDING" || status === "ACCEPTED";
+            }).length;
+            const completed = appointments.filter(appointment => {
+                return (appointment.status || "").toUpperCase() === "COMPLETED";
+            }).length;
+            const cancelled = appointments.filter(appointment => {
+                const status = (appointment.status || "").toUpperCase();
+                return status === "CANCELLED" || status === "REJECTED";
+            }).length;
+            document.getElementById("totalAppointments").innerText = total;
+            document.getElementById("upcomingAppointments").innerText = upcoming;
+            document.getElementById("completedAppointments").innerText = completed;
+            document.getElementById("cancelledAppointments").innerText = cancelled;
+        }
+        function renderAppointments() {
+            const search = searchInput.value.toLowerCase().trim();
             const status = statusFilter.value.toLowerCase();
             const department = departmentFilter.value.toLowerCase();
-
-            cards.forEach(card => {
-
-                const doctor = card.querySelector(".doctor h3").innerText.toLowerCase();
-                const dept = card.querySelector(".doctor p").innerText.toLowerCase();
-                const currentStatus = card.querySelector(".status").innerText.toLowerCase();
-
-                const matchSearch = doctor.includes(search);
-
+            const filteredAppointments = appointments.filter(appointment => {
+                const doctor = getDoctor(appointment.doctorId);
+                const doctorName = doctor?.doctorName?.toLowerCase() || "";
+                const specialization = doctor?.specialization?.toLowerCase() || "";
+                const currentStatus = getStatusText(appointment.status).toLowerCase();
+                const matchSearch = doctorName.includes(search);
                 const matchStatus =
                     status === "all status" ||
                     currentStatus === status;
-
                 const matchDepartment =
                     department === "all departments" ||
-                    dept.includes(department);
-
-                if (matchSearch && matchStatus && matchDepartment) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-
+                    specialization.includes(department);
+                return matchSearch && matchStatus && matchDepartment;
             });
-
+            appointmentGrid.innerHTML = "";
+            if (filteredAppointments.length === 0) {
+                appointmentGrid.innerHTML = `
+            <div class="appointment-card">
+                <h3>No appointments found</h3>
+                <p>Your matching appointments will appear here.</p>
+            </div>
+        `;
+                return;
+            }
+            filteredAppointments.forEach(appointment => {
+                const doctor = getDoctor(appointment.doctorId);
+                const doctorName = doctor?.doctorName || "Doctor";
+                const specialization = doctor?.specialization || "Specialization not available";
+                const fee = doctor?.fee ?? "N/A";
+                const statusClass = getStatusClass(appointment.status);
+                const statusText = getStatusText(appointment.status);
+                const card = document.createElement("div");
+                card.className = "appointment-card";
+                card.innerHTML = `
+            <div class="card-top">
+                <div class="doctor">
+                    <img src="http://localhost:8080/api/doctors/${appointment.doctorId}/image"
+                        alt="${doctorName}">
+                    <div>
+                        <h3>${doctorName}</h3>
+                        <p>${specialization}</p>
+                    </div>
+                </div>
+                <span class="status ${statusClass}">
+                    ${statusText}
+                </span>
+            </div>
+            <div class="card-details">
+                <div class="detail-box">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <h4>${formatDate(appointment.appointmentDate)}</h4>
+                    <p>Appointment Date</p>
+                </div>
+                <div class="detail-box">
+                    <i class="fa-solid fa-clock"></i>
+                    <h4>${formatTime(appointment.appointmentTime)}</h4>
+                    <p>Time</p>
+                </div>
+                <div class="detail-box">
+                    <i class="fa-solid fa-hospital"></i>
+                    <h4>${appointment.reason || "Consultation"}</h4>
+                    <p>Reason</p>
+                </div>
+                <div class="detail-box">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                    <h4>₹${fee}</h4>
+                    <p>Fee</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                ${statusText === "Pending" || statusText === "Accepted"
+                        ? `<button class="reschedule-btn" onclick="rescheduleAppointment(${appointment.appointmentId})">Reschedule</button>
+                      <button class="cancel-btn" onclick="cancelAppointment(${appointment.appointmentId})">Cancel</button>`
+                        : `<button class="view-btn" onclick="viewAppointment(${appointment.appointmentId})">View Details</button>`
+                    }
+            </div>
+        `;
+                appointmentGrid.appendChild(card);
+            });
         }
 
-        searchInput.addEventListener("keyup", filterAppointments);
-        statusFilter.addEventListener("change", filterAppointments);
-        departmentFilter.addEventListener("change", filterAppointments);
+        function rescheduleAppointment(appointmentId) {
+            const appointment = appointments.find(
+                item => Number(item.appointmentId) === Number(appointmentId)
+            );
+            if (!appointment) {
+                alert("Appointment not found.");
+                return;
+            }
+            localStorage.setItem("doctorId", appointment.doctorId);
+            localStorage.setItem("rescheduleAppointmentId", appointment.appointmentId);
+            window.location.href = "book-appointment.html";
+        }
 
-        document.querySelector(".filter-bar button").addEventListener("click", filterAppointments);
+        function cancelAppointment(appointmentId) {
+            alert("Cancel Appointment backend API is not created yet.");
+        }
 
-        document.querySelectorAll(".cancel-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                const confirmCancel = confirm("Do you want to cancel this appointment?");
-
-                if (confirmCancel) {
-
-                    const card = btn.closest(".appointment-card");
-
-                    const status = card.querySelector(".status");
-
-                    status.innerText = "Cancelled";
-                    status.className = "status cancelled";
-
-                    btn.disabled = true;
-                    btn.innerText = "Cancelled";
-
-                }
-
-            });
-
-        });
-
-        document.querySelectorAll(".reschedule-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                window.location.href = "book-appointment.html";
-
-            });
-
-        });
-
-        document.querySelectorAll(".view-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                alert("Appointment details page will be available soon.");
-
-            });
-
-        });
-
+        function viewAppointment(appointmentId) {
+            const appointment = appointments.find(
+                item => Number(item.appointmentId) === Number(appointmentId)
+            );
+            if (!appointment) {
+                return;
+            }
+            alert(
+                "Appointment ID: " + appointment.appointmentId +
+                "\nStatus: " + getStatusText(appointment.status) +
+                "\nReason: " + (appointment.reason || "Not specified") +
+                "\nRemarks: " + (appointment.remarks || "No remarks")
+            );
+        }
+        searchInput.addEventListener("keyup", renderAppointments);
+        statusFilter.addEventListener("change", renderAppointments);
+        departmentFilter.addEventListener("change", renderAppointments);
+        document.querySelector(".filter-bar button").addEventListener("click", renderAppointments);
         document.querySelector(".notify").addEventListener("click", () => {
-
-            alert("You have 2 new notifications.");
-
+            alert("Notifications will be connected with backend next.");
         });
-
         window.addEventListener("load", () => {
-
-            cards.forEach((card, index) => {
-
-                card.style.opacity = "0";
-                card.style.transform = "translateY(30px)";
-
-                setTimeout(() => {
-
-                    card.style.transition = ".5s";
-                    card.style.opacity = "1";
-                    card.style.transform = "translateY(0)";
-
-                }, index * 120);
-
-            });
-
+            loadAppointments();
         });
-
     </script>
 
 </body>

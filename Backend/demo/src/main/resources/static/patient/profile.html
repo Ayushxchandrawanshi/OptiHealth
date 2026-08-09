@@ -619,7 +619,7 @@
                     <div class="profile">
                         <img src="../assets/profile.png" alt="">
                         <div>
-                            <h4>Ayush</h4>
+                            <h4 id="topPatientName">Patient</h4>
                             <p>Patient</p>
                         </div>
                     </div>
@@ -652,8 +652,8 @@
                             </label>
                         </div>
 
-                        <h2>Ayush Chandrawanshi</h2>
-                        <p class="patient-id">Patient ID : OPT10245</p>
+                        <h2 id="profileFullName">Patient</h2>
+                        <p class="patient-id">Patient ID : <span id="profilePatientId">-</span></p>
 
                         <span class="status">Active Account</span>
 
@@ -661,27 +661,27 @@
 
                             <div class="profile-item">
                                 <span>Blood Group</span>
-                                <strong>B+</strong>
+                                <strong id="profileBloodGroup">-</strong>
                             </div>
 
                             <div class="profile-item">
                                 <span>Age</span>
-                                <strong>22 Years</strong>
+                                <strong id="profileAge">-</strong>
                             </div>
 
                             <div class="profile-item">
                                 <span>Height</span>
-                                <strong>175 cm</strong>
+                                <strong id="profileHeight">-</strong>
                             </div>
 
                             <div class="profile-item">
                                 <span>Weight</span>
-                                <strong>70 Kg</strong>
+                                <strong id="profileWeight">-</strong>
                             </div>
 
                             <div class="profile-item">
                                 <span>Joined</span>
-                                <strong>15 Jan 2026</strong>
+                                <strong id="profileJoined">-</strong>
                             </div>
 
                         </div>
@@ -717,22 +717,22 @@
 
                                 <div class="input-box">
                                     <label>Full Name</label>
-                                    <input type="text" value="Ayush Chandrawanshi" readonly>
+                                    <input type="text" id="fullName" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>Email</label>
-                                    <input type="email" value="ayush@gmail.com" readonly>
+                                    <input type="email" id="email" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>Phone Number</label>
-                                    <input type="text" value="9876543210" readonly>
+                                    <input type="text" id="mobileNumber" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>Gender</label>
-                                    <select disabled>
+                                    <select id="gender" disabled>
                                         <option selected>Male</option>
                                         <option>Female</option>
                                         <option>Other</option>
@@ -741,12 +741,12 @@
 
                                 <div class="input-box">
                                     <label>Date of Birth</label>
-                                    <input type="date" value="2004-01-15" readonly>
+                                    <input type="date" id="dob" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>Blood Group</label>
-                                    <select disabled>
+                                    <select id="bloodGroup" disabled>
                                         <option>A+</option>
                                         <option>A-</option>
                                         <option selected>B+</option>
@@ -760,27 +760,27 @@
 
                                 <div class="input-box full-width">
                                     <label>Address</label>
-                                    <textarea readonly>Near Bus Stand, Bhopal, Madhya Pradesh</textarea>
+                                    <textarea id="address" readonly></textarea>
                                 </div>
 
                                 <div class="input-box">
                                     <label>City</label>
-                                    <input type="text" value="Bhopal" readonly>
+                                    <input type="text" id="city" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>State</label>
-                                    <input type="text" value="Madhya Pradesh" readonly>
+                                    <input type="text" id="state" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>Pincode</label>
-                                    <input type="text" value="462001" readonly>
+                                    <input type="text" id="pincode" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>Emergency Contact</label>
-                                    <input type="text" value="9876500000" readonly>
+                                    <input type="text" id="emergencyContact" value="" readonly>
                                 </div>
 
                             </div>
@@ -791,27 +791,27 @@
 
                                 <div class="input-box">
                                     <label>Height (cm)</label>
-                                    <input type="text" value="175" readonly>
+                                    <input type="text" id="height" value="" readonly>
                                 </div>
 
                                 <div class="input-box">
                                     <label>Weight (kg)</label>
-                                    <input type="text" value="70" readonly>
+                                    <input type="text" id="weight" value="" readonly>
                                 </div>
 
                                 <div class="input-box full-width">
                                     <label>Known Allergies</label>
-                                    <textarea readonly>No Known Allergies</textarea>
+                                    <textarea id="allergies" readonly></textarea>
                                 </div>
 
                                 <div class="input-box full-width">
                                     <label>Existing Diseases</label>
-                                    <textarea readonly>None</textarea>
+                                    <textarea id="existingDiseases" readonly></textarea>
                                 </div>
 
                                 <div class="input-box full-width">
                                     <label>Current Medications</label>
-                                    <textarea readonly>Vitamin D Tablets</textarea>
+                                    <textarea id="currentMedications" readonly></textarea>
                                 </div>
 
                             </div>
@@ -853,260 +853,323 @@
     </div>
 
     <script>
-
+        const patient = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem("token");
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
-
         const editBtn = document.querySelector(".edit-btn");
         const saveBtn = document.querySelector(".save-btn");
         const cancelBtn = document.querySelector(".cancel-btn");
-
         const profileUpload = document.getElementById("profileUpload");
         const profilePreview = document.getElementById("profilePreview");
-
-        const inputs = document.querySelectorAll("input");
-        const textareas = document.querySelectorAll("textarea");
-        const selects = document.querySelectorAll("select");
-
-        let backupData = [];
-
-        window.onload = () => {
-
+        let backupData = {};
+        const fieldIds = [
+            "fullName",
+            "email",
+            "mobileNumber",
+            "gender",
+            "dob",
+            "bloodGroup",
+            "address",
+            "city",
+            "state",
+            "pincode",
+            "emergencyContact",
+            "height",
+            "weight",
+            "allergies",
+            "existingDiseases",
+            "currentMedications"
+        ];
+        if (!patient || !patient.id) {
+            alert("Please login again.");
+        } else {
+            loadProfile();
+        }
+        if (window.innerWidth <= 900) {
+            sidebar.style.left = "-270px";
+        } else {
+            sidebar.style.left = "0";
+        }
+        menuBtn.addEventListener("click", () => {
             if (window.innerWidth <= 900) {
-                sidebar.style.left = "-270px";
-            } else {
-                sidebar.style.left = "0";
+                if (sidebar.style.left === "0px") {
+                    sidebar.style.left = "-270px";
+                } else {
+                    sidebar.style.left = "0";
+                }
             }
-
-            disableForm();
-
-        };
-
-        menuBtn.onclick = () => {
-
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
-            }
-
-        };
-
+        });
         window.addEventListener("resize", () => {
-
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
             } else {
                 sidebar.style.left = "-270px";
             }
-
         });
+        async function loadProfile() {
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/patients/" + patient.id,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token
+                        }
+                    }
+                );
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Profile API Error:", response.status, errorText);
+                    throw new Error("Unable to load profile.");
+                }
+                const data = await response.json();
+                document.getElementById("fullName").value = data.fullName || "";
+                document.getElementById("email").value = data.email || "";
+                document.getElementById("mobileNumber").value = data.mobileNumber || "";
+                document.getElementById("gender").value = data.gender || "";
+                document.getElementById("dob").value = data.dob || "";
+                document.getElementById("bloodGroup").value = data.bloodGroup || "";
+                document.getElementById("address").value = data.address || "";
+                document.getElementById("city").value = data.city || "";
+                document.getElementById("state").value = data.state || "";
+                document.getElementById("pincode").value = data.pincode || "";
+                document.getElementById("emergencyContact").value = data.emergencyContact || "";
+                document.getElementById("height").value = data.height ?? "";
+                document.getElementById("weight").value = data.weight ?? "";
+                document.getElementById("allergies").value = data.allergies || "";
+                document.getElementById("existingDiseases").value = data.existingDiseases || "";
+                document.getElementById("currentMedications").value = data.currentMedications || "";
+                document.getElementById("profileFullName").innerText = data.fullName || "Patient";
+                document.getElementById("profilePatientId").innerText = data.id || "-";
+                document.getElementById("topPatientName").innerText = data.fullName || "Patient";
+                document.getElementById("profileBloodGroup").innerText = data.bloodGroup || "-";
+                document.getElementById("profileHeight").innerText = data.height ? data.height + " cm" : "-";
+                document.getElementById("profileWeight").innerText = data.weight ? data.weight + " Kg" : "-";
 
-        function disableForm() {
+                patient.fullName = data.fullName;
+                patient.email = data.email;
+                patient.mobileNumber = data.mobileNumber;
+                patient.gender = data.gender;
 
-            inputs.forEach(input => {
-
-                if (input.type !== "file") {
-                    input.readOnly = true;
+                if (data.dob) {
+                    const birthDate = new Date(data.dob);
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const month = today.getMonth() - birthDate.getMonth();
+                    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    document.getElementById("profileAge").innerText = age + " Years";
+                } else {
+                    document.getElementById("profileAge").innerText = "-";
                 }
 
-            });
-
-            textareas.forEach(textarea => {
-                textarea.readOnly = true;
-            });
-
-            selects.forEach(select => {
-                select.disabled = true;
-            });
-
+                localStorage.setItem("user", JSON.stringify(patient));
+            } catch (error) {
+                console.error("Profile Load Error:", error);
+                alert("Unable to load profile from server.");
+            }
         }
-
-        function enableForm() {
-
-            inputs.forEach(input => {
-
-                if (input.type !== "file" && input.type !== "password") {
-                    input.readOnly = false;
+        function disableForm() {
+            fieldIds.forEach(id => {
+                const field = document.getElementById(id);
+                if (!field) {
+                    return;
                 }
-
+                if (field.tagName === "SELECT") {
+                    field.disabled = true;
+                } else {
+                    field.readOnly = true;
+                }
             });
-
-            textareas.forEach(textarea => {
-                textarea.readOnly = false;
+            document.getElementById("currentPassword").readOnly = true;
+            document.getElementById("newPassword").readOnly = true;
+            document.getElementById("confirmPassword").readOnly = true;
+        }
+        function enableForm() {
+            fieldIds.forEach(id => {
+                const field = document.getElementById(id);
+                if (!field) {
+                    return;
+                }
+                if (field.tagName === "SELECT") {
+                    field.disabled = false;
+                } else {
+                    field.readOnly = false;
+                }
             });
-
-            selects.forEach(select => {
-                select.disabled = false;
-            });
-
             document.getElementById("currentPassword").readOnly = false;
             document.getElementById("newPassword").readOnly = false;
             document.getElementById("confirmPassword").readOnly = false;
-
         }
-
-        editBtn.onclick = () => {
-
-            backupData = [];
-
-            document.querySelectorAll("input,textarea,select").forEach(field => {
-
-                backupData.push(field.value);
-
+        editBtn.addEventListener("click", () => {
+            backupData = {};
+            fieldIds.forEach(id => {
+                const field = document.getElementById(id);
+                if (field) {
+                    backupData[id] = field.value;
+                }
             });
-
             enableForm();
-
             editBtn.style.display = "none";
             saveBtn.style.display = "block";
             cancelBtn.style.display = "block";
-
-        };
-
-        cancelBtn.onclick = () => {
-
-            const fields = document.querySelectorAll("input,textarea,select");
-
-            fields.forEach((field, index) => {
-
-                field.value = backupData[index];
-
+        });
+        cancelBtn.addEventListener("click", () => {
+            fieldIds.forEach(id => {
+                const field = document.getElementById(id);
+                if (field && backupData[id] !== undefined) {
+                    field.value = backupData[id];
+                }
             });
-
             disableForm();
-
             editBtn.style.display = "block";
             saveBtn.style.display = "none";
             cancelBtn.style.display = "none";
-
-            alert("Changes cancelled.");
-
-        };
-
-        saveBtn.onclick = () => {
-
-            const name = document.querySelector('input[type="text"]').value.trim();
-            const email = document.querySelector('input[type="email"]').value.trim();
-            const phone = document.querySelectorAll('input[type="text"]')[1].value.trim();
-
-            if (name === "") {
+        });
+        saveBtn.addEventListener("click", async () => {
+            const fullName = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const mobileNumber = document.getElementById("mobileNumber").value.trim();
+            if (fullName === "") {
                 alert("Enter full name.");
                 return;
             }
-
             if (email === "") {
                 alert("Enter email.");
                 return;
             }
-
-            if (phone.length !== 10) {
-                alert("Enter valid phone number.");
+            if (mobileNumber.length !== 10) {
+                alert("Enter valid mobile number.");
                 return;
             }
-
-            const newPass = document.getElementById("newPassword").value;
-            const confirmPass = document.getElementById("confirmPassword").value;
-
-            if (newPass !== "" || confirmPass !== "") {
-
-                if (newPass !== confirmPass) {
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            if (newPassword !== "" || confirmPassword !== "") {
+                if (newPassword !== confirmPassword) {
                     alert("Passwords do not match.");
                     return;
                 }
-
             }
-
-            disableForm();
-
-            editBtn.style.display = "block";
-            saveBtn.style.display = "none";
-            cancelBtn.style.display = "none";
-
-            alert("Profile updated successfully.");
-
-        };
-
-        profileUpload.addEventListener("change", function () {
-
-            const file = this.files[0];
-
-            if (file) {
-
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-
-                    profilePreview.src = e.target.result;
-
-                };
-
-                reader.readAsDataURL(file);
-
+            const updatedPatient = {
+                fullName: fullName,
+                email: email,
+                mobileNumber: mobileNumber,
+                gender: document.getElementById("gender").value,
+                dob: document.getElementById("dob").value,
+                bloodGroup: document.getElementById("bloodGroup").value,
+                address: document.getElementById("address").value,
+                city: document.getElementById("city").value,
+                state: document.getElementById("state").value,
+                pincode: document.getElementById("pincode").value,
+                emergencyContact: document.getElementById("emergencyContact").value,
+                height: document.getElementById("height").value
+                    ? Number(document.getElementById("height").value)
+                    : null,
+                weight: document.getElementById("weight").value
+                    ? Number(document.getElementById("weight").value)
+                    : null,
+                allergies: document.getElementById("allergies").value,
+                existingDiseases: document.getElementById("existingDiseases").value,
+                currentMedications: document.getElementById("currentMedications").value
+            };
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/patients/" + patient.id,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify(updatedPatient)
+                    }
+                );
+                const responseText = await response.text();
+                if (!response.ok) {
+                    console.error(
+                        "Profile Update Error:",
+                        response.status,
+                        responseText
+                    );
+                    throw new Error("Profile update failed.");
+                }
+                const updatedData = JSON.parse(responseText);
+                patient.fullName = updatedData.fullName;
+                patient.email = updatedData.email;
+                patient.mobileNumber = updatedData.mobileNumber;
+                patient.gender = updatedData.gender;
+                patient.dob = updatedData.dob;
+                patient.id = updatedData.id;
+                localStorage.setItem("user", JSON.stringify(patient));
+                document.getElementById("profileFullName").innerText =
+                    updatedData.fullName || "Patient";
+                document.getElementById("topPatientName").innerText =
+                    updatedData.fullName || "Patient";
+                disableForm();
+                editBtn.style.display = "block";
+                saveBtn.style.display = "none";
+                cancelBtn.style.display = "none";
+                alert("Profile updated successfully.");
+            } catch (error) {
+                console.error("Profile Update Error:", error);
+                alert("Profile update nahi hua. Please try again.");
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML =
+                    '<i class="fa-solid fa-floppy-disk"></i> Save Changes';
             }
-
         });
-
+        profileUpload.addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    profilePreview.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
         document.querySelectorAll(".toggle-password").forEach(icon => {
-
-            icon.onclick = () => {
-
+            icon.addEventListener("click", () => {
                 const input = icon.previousElementSibling;
-
                 if (input.type === "password") {
-
                     input.type = "text";
                     icon.classList.remove("fa-eye");
                     icon.classList.add("fa-eye-slash");
-
                 } else {
-
                     input.type = "password";
                     icon.classList.remove("fa-eye-slash");
                     icon.classList.add("fa-eye");
-
                 }
-
-            };
-
+            });
         });
-
-        document.querySelector(".notify").onclick = () => {
-
+        document.querySelector(".notify").addEventListener("click", () => {
             alert("No new notifications.");
-
-        };
-
-        document.querySelector(".profile").onclick = () => {
-
-            location.href = "profile.html";
-
-        };
-
-        document.addEventListener("keydown", e => {
-
-            if (e.ctrlKey && e.key === "s") {
-
-                e.preventDefault();
-
+        });
+        document.querySelector(".profile").addEventListener("click", () => {
+            window.location.href = "profile.html";
+        });
+        document.querySelectorAll(".sidebar nav a").forEach(link => {
+            link.addEventListener("click", () => {
+                document.querySelectorAll(".sidebar nav a").forEach(item => {
+                    item.classList.remove("active");
+                });
+                link.classList.add("active");
+            });
+        });
+        document.addEventListener("keydown", event => {
+            if (event.ctrlKey && event.key === "s") {
+                event.preventDefault();
                 if (saveBtn.style.display === "block") {
                     saveBtn.click();
                 }
-
             }
-
         });
-
-        document.querySelectorAll(".sidebar nav a").forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                document.querySelectorAll(".sidebar nav a").forEach(item => item.classList.remove("active"));
-
-                link.classList.add("active");
-
-            });
-
-        });
-
+        disableForm();
     </script>
 
 </body>

@@ -41,7 +41,9 @@ public class WebSecurityConfig {
                         "/api/admin/login",
                         "/api/auth/**"
                 ).permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/patients/doctors").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/patients/doctors",
+                        "/api/doctors/**"
+                ).permitAll()
                 // Swagger
                 .requestMatchers(
                         "/swagger-ui/**",

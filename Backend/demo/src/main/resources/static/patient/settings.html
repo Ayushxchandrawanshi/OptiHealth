@@ -629,7 +629,7 @@
                     <div class="profile">
                         <img src="../assets/profile.png" alt="">
                         <div>
-                            <h4>Ayush</h4>
+                            <h4 id="topPatientName">Patient</h4>
                             <p>Patient</p>
                         </div>
                     </div>
@@ -655,34 +655,34 @@
 
                         <img src="../assets/profile.png" alt="Profile">
 
-                        <h2>Ayush Chandrawanshi</h2>
+                        <h2 id="settingsPatientName">Patient</h2>
                         <p>Patient Account</p>
 
                         <div class="account-info">
 
                             <div class="info-row">
                                 <span>Patient ID</span>
-                                <strong>OPT10245</strong>
+                                <strong id="settingsPatientId">-</strong>
                             </div>
 
                             <div class="info-row">
                                 <span>Email</span>
-                                <strong>ayush@gmail.com</strong>
+                                <strong id="settingsEmail">-</strong>
                             </div>
 
                             <div class="info-row">
                                 <span>Phone</span>
-                                <strong>9876543210</strong>
+                                <strong id="settingsMobileNumber">-</strong>
                             </div>
 
                             <div class="info-row">
                                 <span>Account Status</span>
-                                <strong style="color:#16a34a;">Active</strong>
+                                <strong id="settingsAccountStatus" style="color:#16a34a;">Active</strong>
                             </div>
 
                             <div class="info-row">
                                 <span>Member Since</span>
-                                <strong>Jan 2026</strong>
+                                <strong id="settingsMemberSince">-</strong>
                             </div>
 
                         </div>
@@ -916,6 +916,9 @@
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
 
+        const patient = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem("token");
+
         const saveBtn = document.querySelector(".save-settings");
         const logoutBtn = document.querySelector(".logout-btn");
         const deleteBtn = document.querySelector(".delete-btn");
@@ -984,6 +987,49 @@
             applyTheme(theme);
 
         });
+
+        async function loadPatientProfile() {
+            if (!patient || !patient.id) {
+                console.error("Patient information not found.");
+                return;
+            }
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/patients/" + patient.id,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token
+                        }
+                    }
+                );
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error(
+                        "Profile API Error:",
+                        response.status,
+                        errorText
+                    );
+                    throw new Error("Unable to load patient profile.");
+                }
+                const data = await response.json();
+                document.getElementById("settingsPatientName").innerText =
+                    data.fullName || "Patient";
+                document.getElementById("settingsPatientId").innerText =
+                    data.id || "-";
+                document.getElementById("settingsEmail").innerText =
+                    data.email || "-";
+                document.getElementById("settingsMobileNumber").innerText =
+                    data.mobileNumber || "-";
+                document.getElementById("settingsAccountStatus").innerText =
+                    "Active";
+                document.getElementById("settingsMemberSince").innerText = "-";
+                document.getElementById("topPatientName").innerText =
+                    data.fullName || "Patient";
+            } catch (error) {
+                console.error("Patient Profile Error:", error);
+            }
+        }
 
         function applyTheme(theme) {
 
@@ -1110,6 +1156,7 @@
             }
 
         });
+        loadPatientProfile();
     </script>
 
 </body>

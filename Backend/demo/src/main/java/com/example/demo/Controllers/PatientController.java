@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,6 +86,19 @@ public class PatientController {
     @GetMapping("/dashboard/{patientId}")
     public PatientDashboardDTO getDashboardData(@PathVariable Long patientId) {
         return patientService.getDashboardData(patientId);
+    }
+
+    // Profile
+    @GetMapping("/{patientId}")
+    public PatientModel getPatientProfile(@PathVariable Long patientId) {
+        return patientService.getPatientById(patientId);
+    }
+
+    @PutMapping("/{patientId}")
+    public PatientModel updatePatientProfile(
+            @PathVariable Long patientId,
+            @RequestBody PatientModel patient) {
+        return patientService.updatePatient(patientId, patient);
     }
 
 }

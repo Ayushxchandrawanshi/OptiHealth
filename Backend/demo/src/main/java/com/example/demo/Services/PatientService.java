@@ -97,4 +97,31 @@ public class PatientService {
         return dashboard;
     }
 
+    public PatientModel getPatientById(Long id) {
+        return patientRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+    }
+
+    public PatientModel updatePatient(Long id, PatientModel updatedPatient) {
+        PatientModel patient = patientRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+        patient.setFullName(updatedPatient.getFullName());
+        patient.setEmail(updatedPatient.getEmail());
+        patient.setMobileNumber(updatedPatient.getMobileNumber());
+        patient.setGender(updatedPatient.getGender());
+        patient.setDob(updatedPatient.getDob());
+        patient.setBloodGroup(updatedPatient.getBloodGroup());
+        patient.setAddress(updatedPatient.getAddress());
+        patient.setCity(updatedPatient.getCity());
+        patient.setState(updatedPatient.getState());
+        patient.setPincode(updatedPatient.getPincode());
+        patient.setEmergencyContact(updatedPatient.getEmergencyContact());
+        patient.setHeight(updatedPatient.getHeight());
+        patient.setWeight(updatedPatient.getWeight());
+        patient.setAllergies(updatedPatient.getAllergies());
+        patient.setExistingDiseases(updatedPatient.getExistingDiseases());
+        patient.setCurrentMedications(updatedPatient.getCurrentMedications());
+        return patientRepo.save(patient);
+    }
+
 }

@@ -723,7 +723,7 @@
 
                         <div class="doctor-card">
 
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Doctor">
+                            <img src=".../assets/doctor.png" alt="Doctor">
 
                             <div class="doctor-info">
                                 <h3 id="doctorName"></h3>
@@ -897,11 +897,39 @@
 
     <script>
         const patient = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem("token");
         const doctorId = localStorage.getItem("doctorId");
-
+        const rescheduleAppointmentId = localStorage.getItem("rescheduleAppointmentId");
+        const menuBtn = document.querySelector(".menu-btn");
+        const sidebar = document.querySelector(".sidebar");
+        const slots = document.querySelectorAll(".slot");
+        const typeCards = document.querySelectorAll(".type-card");
+        const summaryTime = document.getElementById("summaryTime");
+        const summaryType = document.getElementById("summaryType");
+        const summaryDate = document.getElementById("summaryDate");
+        const dateInput = document.getElementById("appointmentDate");
+        const confirmBtn = document.getElementById("confirmBtn");
+        const patientName = document.getElementById("patientName");
+        const patientEmail = document.getElementById("patientEmail");
+        const patientMobile = document.getElementById("patientMobile");
+        const reasonInput = document.getElementById("reason");
+        document.getElementById("doctorName").innerText = "Loading...";
+        document.getElementById("doctorSpecialization").innerText = "Loading...";
+        document.getElementById("summaryDoctor").innerText = "Loading...";
+        document.getElementById("summaryDepartment").innerText = "Loading...";
+        document.getElementById("summaryFee").innerText = "Loading...";
+        document.getElementById("summaryTotal").innerText = "Loading...";
         async function loadDoctor() {
+            if (!doctorId) {
+                document.getElementById("doctorName").innerText = "Doctor Not Selected";
+                document.getElementById("doctorSpecialization").innerText = "Please select a doctor first.";
+                return;
+            }
             try {
                 const response = await fetch("http://localhost:8080/api/doctors/" + doctorId);
+                if (!response.ok) {
+                    throw new Error("Doctor API Error: " + response.status);
+                }
                 const doctor = await response.json();
                 document.getElementById("doctorName").innerText = doctor.doctorName;
                 document.getElementById("doctorSpecialization").innerText = doctor.specialization;
@@ -910,163 +938,152 @@
                 document.getElementById("summaryFee").innerText = "₹" + doctor.fee;
                 document.getElementById("summaryTotal").innerText = "₹" + doctor.fee;
             } catch (error) {
-                console.log(error);
+                console.error("Doctor Load Error:", error);
+                document.getElementById("doctorName").innerText = "Unable to Load Doctor";
+                document.getElementById("doctorSpecialization").innerText = "Please try again.";
             }
         }
-
-        const menuBtn = document.querySelector(".menu-btn");
-        const sidebar = document.querySelector(".sidebar");
-
-        const slots = document.querySelectorAll(".slot");
-        const typeCards = document.querySelectorAll(".type-card");
-
-        const summaryTime = document.getElementById("summaryTime");
-        const summaryType = document.getElementById("summaryType");
-        const summaryDate = document.getElementById("summaryDate");
-
-        const dateInput = document.querySelector('input[type="date"]');
-        const confirmBtn = document.querySelector(".confirm-btn");
-        const patientName = document.getElementById("patientName");
-        const patientEmail = document.getElementById("patientEmail");
-        const patientMobile = document.getElementById("patientMobile");
-
-        document.getElementById("doctorName").innerText = "Loading...";
-        document.getElementById("doctorSpecialization").innerText = "Loading...";
-        document.getElementById("summaryDoctor").innerText = "Loading...";
-        document.getElementById("summaryDepartment").innerText = "Loading...";
-        document.getElementById("summaryFee").innerText = "Loading...";
-        document.getElementById("summaryTotal").innerText = "Loading...";
-
         if (patient) {
-
-            patientName.value = patient.fullName;
-            patientEmail.value = patient.email;
-            patientMobile.value = patient.mobileNumber ?? "";
-
+            patientName.value = patient.fullName || "";
+            patientEmail.value = patient.email || "";
+            patientMobile.value = patient.mobileNumber || "";
         }
-
         if (window.innerWidth <= 900) {
             sidebar.style.left = "-270px";
         }
-
         menuBtn.addEventListener("click", () => {
-
             if (window.innerWidth <= 900) {
-
                 if (sidebar.style.left === "0px") {
                     sidebar.style.left = "-270px";
                 } else {
                     sidebar.style.left = "0";
                 }
-
             }
-
         });
-
         window.addEventListener("resize", () => {
-
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
             } else {
                 sidebar.style.left = "-270px";
             }
-
         });
-
         slots.forEach(slot => {
-
             slot.addEventListener("click", () => {
-
                 slots.forEach(item => item.classList.remove("active"));
-
                 slot.classList.add("active");
-
                 summaryTime.innerText = slot.innerText;
-
             });
-
         });
-
         typeCards.forEach(card => {
-
             card.addEventListener("click", () => {
-
                 typeCards.forEach(item => item.classList.remove("active"));
-
                 card.classList.add("active");
-
                 summaryType.innerText = card.querySelector("h4").innerText;
-
             });
-
         });
-
         dateInput.addEventListener("change", () => {
-
             if (dateInput.value) {
-
                 const date = new Date(dateInput.value);
-
                 summaryDate.innerText = date.toLocaleDateString("en-IN", {
                     day: "numeric",
                     month: "short",
                     year: "numeric"
                 });
-
             }
-
         });
-
-        confirmBtn.addEventListener("click", () => {
-
-            const patient = patientName.value.trim();
-            const email = patientEmail.value.trim();
-            const phone = patientMobile.value.trim();
-            const age = document.querySelector('input[type="number"]').value.trim();
-            const reason = document.querySelector("textarea").value.trim();
-
-            if (patient === "") {
-                alert("Please enter patient name.");
+        confirmBtn.addEventListener("click", async () => {
+            if (!patient || !patient.id) {
+                alert("Patient information not found. Please login again.");
                 return;
             }
-
-            if (email === "") {
-                alert("Please enter email.");
+            if (!doctorId) {
+                alert("Doctor information not found. Please select a doctor again.");
                 return;
             }
-
-            if (phone === "") {
-                alert("Please enter mobile number.");
-                return;
-            }
-
-            if (age === "") {
-                alert("Please enter age.");
-                return;
-            }
-
-            if (dateInput.value === "") {
+            if (!dateInput.value) {
                 alert("Please select appointment date.");
                 return;
             }
-
-            if (reason === "") {
+            const activeSlot = document.querySelector(".slot.active");
+            if (!activeSlot) {
+                alert("Please select appointment time.");
+                return;
+            }
+            const reason = reasonInput.value.trim();
+            if (!reason) {
                 alert("Please enter reason for visit.");
                 return;
             }
-
-            alert("Appointment Booked Successfully!");
-
-            window.location.href = "my-appointments.html";
-
+            const timeText = activeSlot.innerText.trim();
+            const timeMatch = timeText.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+            if (!timeMatch) {
+                alert("Invalid appointment time.");
+                return;
+            }
+            let hour = parseInt(timeMatch[1]);
+            const minute = timeMatch[2];
+            const period = timeMatch[3].toUpperCase();
+            if (period === "PM" && hour !== 12) {
+                hour += 12;
+            }
+            if (period === "AM" && hour === 12) {
+                hour = 0;
+            }
+            const appointmentTime = String(hour).padStart(2, "0") + ":" + minute + ":00";
+            const today = new Date();
+            const bookingDate = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+            const appointmentData = {
+                doctorId: Number(doctorId),
+                patientId: Number(patient.id),
+                bookingDate: bookingDate,
+                appointmentDate: dateInput.value,
+                appointmentTime: appointmentTime,
+                status: "PENDING",
+                reason: reason,
+                remarks: ""
+            };
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+            try {
+                let url;
+                let method;
+                if (rescheduleAppointmentId) {
+                    url = "http://localhost:8080/api/appointment/update/" + rescheduleAppointmentId;
+                    method = "PUT";
+                } else {
+                    url = "http://localhost:8080/api/patients/bookAppointment";
+                    method = "POST";
+                }
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + token
+                    },
+                    body: JSON.stringify(appointmentData)
+                });
+                const responseText = await response.text();
+                if (!response.ok) {
+                    console.error("Appointment API Error:", response.status, responseText);
+                    throw new Error("Server returned " + response.status);
+                }
+                if (rescheduleAppointmentId) {
+                    localStorage.removeItem("rescheduleAppointmentId");
+                    alert("Appointment Rescheduled Successfully!");
+                } else {
+                    alert("Appointment Booked Successfully!");
+                }
+                window.location.href = "my-appointments.html";
+            } catch (error) {
+                console.error("Appointment Error:", error);
+                alert("Appointment save nahi hui. Please try again.");
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i class="fa-solid fa-check"></i> Confirm Appointment';
+            }
         });
-
         document.querySelector(".notify").addEventListener("click", () => {
-
             alert("You have 2 new notifications.");
-
         });
-
         loadDoctor();
     </script>
 

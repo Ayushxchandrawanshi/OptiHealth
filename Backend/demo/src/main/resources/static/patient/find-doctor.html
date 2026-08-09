@@ -900,6 +900,7 @@ View Profile
         }
 
         function bookDoctor(id) {
+            localStorage.removeItem("rescheduleAppointmentId");
             localStorage.setItem("doctorId", id);
             window.location.href = "book-appointment.html";
         }

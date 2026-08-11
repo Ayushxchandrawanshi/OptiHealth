@@ -653,8 +653,8 @@
                     <div class="profile">
                         <img src="../assets/doctor.png" alt="">
                         <div>
-                            <h4>Dr. Rahul Sharma</h4>
-                            <p>Cardiologist</p>
+                            <h4 id="doctorName">Loading...</h4>
+                            <p id="doctorSpecialization">Loading...</p>
                         </div>
                     </div>
 
@@ -677,51 +677,48 @@
                     <div class="card patient-card">
 
                         <img src="../assets/profile.png" alt="Patient">
-
-                        <h2>Rahul Verma</h2>
-
-                        <p>Patient ID : P1001</p>
-
+                        <h2 id="patientName">Loading...</h2>
+                        <p>Patient ID : <span id="patientId">-</span></p>
                         <div class="patient-info">
 
                             <div>
                                 <span>Age</span>
-                                <strong>34 Years</strong>
+                                <strong id="patientAge">-</strong>
                             </div>
 
                             <div>
                                 <span>Gender</span>
-                                <strong>Male</strong>
+                                <strong id="patientGender">-</strong>
                             </div>
 
                             <div>
                                 <span>Blood Group</span>
-                                <strong>O+</strong>
+                                <strong id="patientBloodGroup">-</strong>
                             </div>
 
                             <div>
                                 <span>Weight</span>
-                                <strong>72 Kg</strong>
+                                <strong id="patientWeight">-</strong>
                             </div>
 
                             <div>
                                 <span>Height</span>
-                                <strong>175 cm</strong>
+                                <strong id="patientHeight">-</strong>
                             </div>
 
                             <div>
                                 <span>Allergy</span>
-                                <strong>Penicillin</strong>
+                                <strong id="patientAllergies">-</strong>
                             </div>
 
                             <div>
                                 <span>Phone</span>
-                                <strong>+91 9876543210</strong>
+                                <strong id="patientPhone">-</strong>
                             </div>
 
                             <div>
                                 <span>Next Visit</span>
-                                <strong>05 Aug 2026</strong>
+                                <strong id="patientNextVisit">-</strong>
                             </div>
 
                         </div>
@@ -741,197 +738,138 @@
 
                             <div class="input-group">
                                 <label>Follow-up Date</label>
-                                <input type="date">
+                                <input type="date" id="followUpDate">
                             </div>
 
                             <div class="input-group">
                                 <label>Diagnosis</label>
-                                <input type="text" placeholder="Enter diagnosis">
+                                <input type="text" id="diagnosis" placeholder="Enter diagnosis">
                             </div>
 
                             <div class="input-group">
                                 <label>Symptoms</label>
-                                <input type="text" placeholder="Enter symptoms">
+                                <input type="text" id="symptoms" placeholder="Enter symptoms">
                             </div>
 
                             <div class="input-group">
                                 <label>Blood Pressure</label>
-                                <input type="text" placeholder="120 / 80">
+                                <input type="text" id="bloodPressure" placeholder="120 / 80">
                             </div>
 
                             <div class="input-group">
                                 <label>Heart Rate</label>
-                                <input type="text" placeholder="72 BPM">
+                                <input type="text" id="heartRate" placeholder="72 BPM">
                             </div>
 
                         </div>
 
                         <div class="input-group">
-
                             <label>Doctor Advice</label>
-
-                            <textarea placeholder="Write doctor's advice here..."></textarea>
-
+                            <textarea id="doctorAdvice" placeholder="Write doctor's advice here..."></textarea>
                         </div>
 
                         <div class="input-group">
-
                             <label>Recommended Lab Tests</label>
-
-                            <textarea placeholder="Blood Test, ECG, X-Ray etc..."></textarea>
-
+                            <textarea id="labTests" placeholder="Blood Test, ECG, X-Ray etc..."></textarea>
                         </div>
 
                         <h3 style="margin-top:35px;">Medicines</h3>
-
                         <div class="medicine-table">
-
                             <table id="medicineTable">
-
                                 <thead>
-
                                     <tr>
-
                                         <th>Medicine</th>
                                         <th>Dosage</th>
                                         <th>Frequency</th>
                                         <th>Duration</th>
                                         <th>Food</th>
                                         <th>Action</th>
-
                                     </tr>
-
                                 </thead>
-
                                 <tbody>
-
                                     <tr>
-
                                         <td>
                                             <input type="text" placeholder="Medicine Name">
                                         </td>
-
                                         <td>
                                             <input type="text" placeholder="500 mg">
                                         </td>
-
                                         <td>
-
                                             <select>
-
                                                 <option>1-0-1</option>
                                                 <option>1-1-1</option>
                                                 <option>0-1-0</option>
                                                 <option>0-0-1</option>
-
                                             </select>
-
                                         </td>
 
                                         <td>
-
                                             <select>
-
                                                 <option>3 Days</option>
                                                 <option>5 Days</option>
                                                 <option>7 Days</option>
                                                 <option>10 Days</option>
                                                 <option>15 Days</option>
-
                                             </select>
-
                                         </td>
 
                                         <td>
-
                                             <select>
-
                                                 <option>After Food</option>
                                                 <option>Before Food</option>
-
                                             </select>
-
                                         </td>
 
                                         <td>
-
                                             <button class="remove-btn">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
-
                                         </td>
-
                                     </tr>
-
                                 </tbody>
-
                             </table>
-
                         </div>
 
                         <button class="add-btn">
-
                             <i class="fa-solid fa-plus"></i>
-
                             Add Medicine
-
                         </button>
 
                         <div class="input-group" style="margin-top:30px;">
-
                             <label>Special Instructions</label>
-
-                            <textarea placeholder="Additional precautions and instructions..."></textarea>
-
+                            <textarea id="specialInstructions"
+                                placeholder="Additional precautions and instructions..."></textarea>
                         </div>
 
                         <div class="action-buttons">
-
                             <button class="save-btn">
-
                                 <i class="fa-solid fa-floppy-disk"></i>
-
                                 Save Prescription
-
                             </button>
 
                             <button class="print-btn">
-
                                 <i class="fa-solid fa-print"></i>
-
                                 Print
-
                             </button>
 
                             <button class="download-btn">
-
                                 <i class="fa-solid fa-download"></i>
-
                                 Download PDF
-
                             </button>
 
                             <button class="clear-btn">
-
                                 <i class="fa-solid fa-trash"></i>
-
                                 Clear
-
                             </button>
 
                         </div>
-
                     </div>
                 </div>
-
             </main>
-
         </div>
-
     </div>
 
     <script>
-
         const sidebar = document.querySelector(".sidebar");
         const menuBtn = document.querySelector(".menu-btn");
         const addBtn = document.querySelector(".add-btn");
@@ -942,261 +880,527 @@
         const clearBtn = document.querySelector(".clear-btn");
         const dateInput = document.getElementById("prescriptionDate");
 
-        window.onload = () => {
+        const API = "http://localhost:8080/api";
 
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = "-270px";
-            } else {
-                sidebar.style.left = "0";
+        const token = localStorage.getItem("token");
+        const doctor = JSON.parse(localStorage.getItem("user") || "null");
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        let patientId =
+            urlParams.get("patientId");
+
+        let appointmentId =
+            urlParams.get("appointmentId");
+
+        if (!appointmentId) {
+            appointmentId =
+                localStorage.getItem("appointmentId");
+        }
+
+        if (patientId) {
+            localStorage.setItem("patientId", patientId);
+        }
+
+        if (appointmentId) {
+            localStorage.setItem("appointmentId", appointmentId);
+        }
+
+        if (!patientId) {
+            patientId = localStorage.getItem("patientId");
+        }
+
+        function setText(id, value) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.innerText = value ?? "-";
+            }
+        }
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] = "Bearer " + token;
             }
 
-            const today = new Date().toISOString().split("T")[0];
-            dateInput.value = today;
+            return headers;
+        }
 
-            loadDraft();
+        async function loadPatient() {
+            if (!patientId) {
+                alert("Patient ID not found. Please open prescription from an appointment.");
+                return;
+            }
 
+            localStorage.setItem("patientId", patientId);
+
+            try {
+                const response = await fetch(
+                    API + "/patients/" + patientId,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Patient API Error: " + response.status);
+                }
+
+                const patient = await response.json();
+
+                console.log("Patient Data:", patient);
+
+                setText("patientName", patient.fullName);
+                setText("patientId", "P" + patient.id);
+                setText("patientGender", patient.gender);
+                setText("patientBloodGroup", patient.bloodGroup);
+                setText("patientWeight", patient.weight ? patient.weight + " Kg" : "-");
+                setText("patientHeight", patient.height ? patient.height + " cm" : "-");
+                setText("patientAllergies", patient.allergies || "None");
+                setText("patientPhone", patient.mobileNumber || "-");
+
+                if (patient.dob) {
+                    setText("patientAge", calculateAge(patient.dob) + " Years");
+                } else {
+                    setText("patientAge", "-");
+                }
+
+            } catch (error) {
+                console.error("Patient Load Error:", error);
+                alert("Unable to load patient data from backend.");
+            }
+        }
+
+        async function loadDoctor() {
+            if (!doctor || !doctor.id) {
+                console.error("Doctor information not found.");
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    API + "/doctors/" + doctor.id,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Doctor API Error: " + response.status);
+                }
+
+                const data = await response.json();
+
+                console.log("Doctor Data:", data);
+
+                setText(
+                    "doctorName",
+                    data.doctorName || data.fullName || "Doctor"
+                );
+
+                setText(
+                    "doctorSpecialization",
+                    data.specialization || "Specialization"
+                );
+
+            } catch (error) {
+                console.error("Doctor Load Error:", error);
+
+                setText("doctorName", "Doctor");
+                setText("doctorSpecialization", "Specialization");
+            }
+        }
+
+        async function loadAppointmentContext() {
+
+            if (!patientId || !appointmentId) {
+                console.warn("Patient ID or Appointment ID not found.");
+                return;
+            }
+
+            try {
+
+                const response = await fetch(
+                    API + "/patients/appointments/" + patientId,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Appointment API Error: " + response.status
+                    );
+                }
+
+                const appointments = await response.json();
+
+                const currentAppointment = appointments.find(
+                    function (appointment) {
+                        return Number(appointment.appointmentId) ===
+                            Number(appointmentId);
+                    }
+                );
+
+                if (!currentAppointment) {
+                    console.warn(
+                        "Current appointment not found:",
+                        appointmentId
+                    );
+                    return;
+                }
+
+                // Appointment date from backend
+                setText(
+                    "patientNextVisit",
+                    currentAppointment.appointmentDate || "-"
+                );
+
+                // Doctor of this appointment
+                if (currentAppointment.doctorId) {
+
+                    try {
+
+                        const doctorResponse = await fetch(
+                            API + "/doctors/" +
+                            currentAppointment.doctorId,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                        if (doctorResponse.ok) {
+
+                            const appointmentDoctor =
+                                await doctorResponse.json();
+
+                            setText(
+                                "doctorName",
+                                appointmentDoctor.doctorName ||
+                                appointmentDoctor.fullName ||
+                                "Doctor"
+                            );
+
+                            setText(
+                                "doctorSpecialization",
+                                appointmentDoctor.specialization ||
+                                "Specialization"
+                            );
+                        }
+
+                    } catch (doctorError) {
+
+                        console.error(
+                            "Appointment Doctor Error:",
+                            doctorError
+                        );
+                    }
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Appointment Context Error:",
+                    error
+                );
+            }
+        }
+
+        function calculateAge(dob) {
+            const birthDate = new Date(dob);
+            const today = new Date();
+
+            let age = today.getFullYear() - birthDate.getFullYear();
+
+            const monthDifference =
+                today.getMonth() - birthDate.getMonth();
+
+            if (
+                monthDifference < 0 ||
+                (monthDifference === 0 &&
+                    today.getDate() < birthDate.getDate())
+            ) {
+                age--;
+            }
+
+            return age;
+        }
+
+        function addMedicineRow() {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+        <td>
+            <input type="text" placeholder="Medicine Name">
+        </td>
+        <td>
+            <input type="text" placeholder="500 mg">
+        </td>
+        <td>
+            <select>
+                <option>1-0-1</option>
+                <option>1-1-1</option>
+                <option>0-1-0</option>
+                <option>0-0-1</option>
+            </select>
+        </td>
+        <td>
+            <select>
+                <option>3 Days</option>
+                <option>5 Days</option>
+                <option>7 Days</option>
+                <option>10 Days</option>
+                <option>15 Days</option>
+            </select>
+        </td>
+        <td>
+            <select>
+                <option>After Food</option>
+                <option>Before Food</option>
+            </select>
+        </td>
+        <td>
+            <button type="button" class="remove-btn">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </td>
+    `;
+
+            tableBody.appendChild(row);
+            attachDeleteEvents();
+        }
+
+        function attachDeleteEvents() {
+            document.querySelectorAll(".remove-btn").forEach(button => {
+                button.onclick = function () {
+                    if (tableBody.rows.length > 1) {
+                        this.closest("tr").remove();
+                    }
+                };
+            });
+        }
+
+        function getMedicines() {
+            const medicines = [];
+
+            tableBody.querySelectorAll("tr").forEach(row => {
+                const inputs = row.querySelectorAll("input");
+                const selects = row.querySelectorAll("select");
+
+                const medicineName = inputs[0]?.value.trim() || "";
+                const dosage = inputs[1]?.value.trim() || "";
+                const frequency = selects[0]?.value || "";
+                const duration = selects[1]?.value || "";
+                const food = selects[2]?.value || "";
+
+                if (medicineName) {
+                    medicines.push({
+                        medicineName: medicineName,
+                        dosage: dosage,
+                        frequency: frequency,
+                        duration: duration,
+                        food: food
+                    });
+                }
+            });
+
+            return medicines;
+        }
+
+        async function savePrescription() {
+            if (!patientId) {
+                alert("Patient ID not found.");
+                return;
+            }
+
+            if (!doctor || !doctor.id) {
+                alert("Doctor information not found.");
+                return;
+            }
+
+            if (!appointmentId) {
+                alert("Appointment ID not found. Please open prescription from an appointment.");
+                return;
+            }
+
+            const diagnosis =
+                document.getElementById("diagnosis").value.trim();
+
+            if (!diagnosis) {
+                alert("Please enter diagnosis.");
+                return;
+            }
+
+            const prescription = {
+                patientId: Number(patientId),
+                doctorId: Number(doctor.id),
+                appointmentId: Number(appointmentId),
+                diagnosis: diagnosis,
+                symptoms:
+                    document.getElementById("symptoms").value.trim(),
+                bloodPressure:
+                    document.getElementById("bloodPressure").value.trim(),
+                heartRate:
+                    document.getElementById("heartRate").value.trim(),
+                doctorAdvice:
+                    document.getElementById("doctorAdvice").value.trim(),
+                labTests:
+                    document.getElementById("labTests").value.trim(),
+                specialInstructions:
+                    document.getElementById("specialInstructions").value.trim(),
+                prescriptionDate:
+                    document.getElementById("prescriptionDate").value,
+                followUpDate:
+                    document.getElementById("followUpDate").value || null
+            };
+
+            const medicines = getMedicines();
+
+            const requestData = {
+                prescription: prescription,
+                medicines: medicines
+            };
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                const response = await fetch(
+                    API + "/prescriptions",
+                    {
+                        method: "POST",
+                        headers: getHeaders(),
+                        body: JSON.stringify(requestData)
+                    }
+                );
+
+                const responseText = await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Prescription API Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    throw new Error(
+                        "Prescription save failed: " +
+                        response.status
+                    );
+                }
+
+                const result = JSON.parse(responseText);
+
+                console.log(
+                    "Prescription Saved:",
+                    result
+                );
+
+                alert(
+                    "Prescription saved successfully in database."
+                );
+
+                localStorage.removeItem("prescriptionDraft");
+
+            } catch (error) {
+                console.error(
+                    "Prescription Save Error:",
+                    error
+                );
+
+                alert(
+                    "Prescription not saved. Please try again."
+                );
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML =
+                    '<i class="fa-solid fa-floppy-disk"></i> Save Prescription';
+            }
+        }
+
+        addBtn.onclick = addMedicineRow;
+
+        saveBtn.onclick = savePrescription;
+
+        printBtn.onclick = () => {
+            window.print();
+        };
+
+        downloadBtn.onclick = () => {
+            alert("PDF generation will be connected later.");
+        };
+
+        clearBtn.onclick = () => {
+            if (!confirm("Clear complete prescription?")) {
+                return;
+            }
+
+            document.querySelectorAll(
+                "#diagnosis,#symptoms,#bloodPressure,#heartRate"
+            ).forEach(input => {
+                input.value = "";
+            });
+
+            document.querySelectorAll(
+                "#doctorAdvice,#labTests,#specialInstructions"
+            ).forEach(area => {
+                area.value = "";
+            });
+
+            document.getElementById("followUpDate").value = "";
+
+            while (tableBody.rows.length > 1) {
+                tableBody.deleteRow(1);
+            }
+
+            const firstRow = tableBody.rows[0];
+
+            if (firstRow) {
+                firstRow.querySelectorAll("input").forEach(input => {
+                    input.value = "";
+                });
+            }
         };
 
         menuBtn.onclick = () => {
-
             if (window.innerWidth <= 900) {
-
                 sidebar.style.left =
-                    sidebar.style.left === "0px" ? "-270px" : "0";
-
+                    sidebar.style.left === "0px"
+                        ? "-270px"
+                        : "0";
             }
-
         };
 
         window.addEventListener("resize", () => {
-
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
             } else {
                 sidebar.style.left = "-270px";
             }
-
         });
 
-        document.addEventListener("click", e => {
+        window.addEventListener("load", async () => {
+            sidebar.style.left =
+                window.innerWidth <= 900 ? "-270px" : "0";
 
-            if (window.innerWidth <= 900) {
+            dateInput.value =
+                new Date().toISOString().split("T")[0];
 
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
-                }
-
-            }
-
-        });
-
-        addBtn.onclick = () => {
-
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-
-<td>
-<input type="text" placeholder="Medicine Name">
-</td>
-
-<td>
-<input type="text" placeholder="500 mg">
-</td>
-
-<td>
-<select>
-<option>1-0-1</option>
-<option>1-1-1</option>
-<option>0-1-0</option>
-<option>0-0-1</option>
-</select>
-</td>
-
-<td>
-<select>
-<option>3 Days</option>
-<option>5 Days</option>
-<option>7 Days</option>
-<option>10 Days</option>
-<option>15 Days</option>
-</select>
-</td>
-
-<td>
-<select>
-<option>After Food</option>
-<option>Before Food</option>
-</select>
-</td>
-
-<td>
-<button class="remove-btn">
-<i class="fa-solid fa-trash"></i>
-</button>
-</td>
-
-`;
-
-            tableBody.appendChild(row);
+            await loadDoctor();
+            await loadPatient();
+            await loadAppointmentContext();
 
             attachDeleteEvents();
-
-        };
-
-        function attachDeleteEvents() {
-
-            document.querySelectorAll(".remove-btn").forEach(btn => {
-
-                btn.onclick = () => {
-
-                    if (tableBody.rows.length > 1) {
-
-                        btn.closest("tr").remove();
-
-                    }
-
-                };
-
-            });
-
-        }
-
-        attachDeleteEvents();
-
-        saveBtn.onclick = () => {
-
-            saveDraft();
-
-            alert("Prescription saved successfully.");
-
-        };
-
-        printBtn.onclick = () => {
-
-            window.print();
-
-        };
-
-        downloadBtn.onclick = () => {
-
-            alert("PDF generation will be connected with backend.");
-
-        };
-
-        clearBtn.onclick = () => {
-
-            if (confirm("Clear complete prescription?")) {
-
-                document.querySelectorAll("input").forEach(input => {
-
-                    if (input.type !== "date") {
-                        input.value = "";
-                    }
-
-                });
-
-                document.querySelectorAll("textarea").forEach(area => {
-
-                    area.value = "";
-
-                });
-
-                document.querySelectorAll("select").forEach(select => {
-
-                    select.selectedIndex = 0;
-
-                });
-
-                while (tableBody.rows.length > 1) {
-                    tableBody.deleteRow(1);
-                }
-
-                localStorage.removeItem("prescriptionDraft");
-
-            }
-
-        };
-
-        document.querySelectorAll(".card").forEach(card => {
-
-            card.addEventListener("mouseenter", () => {
-
-                card.style.transform = "translateY(-6px)";
-                card.style.transition = ".3s";
-
-            });
-
-            card.addEventListener("mouseleave", () => {
-
-                card.style.transform = "translateY(0)";
-
-            });
-
         });
-
-        function saveDraft() {
-
-            const draft = [];
-
-            document.querySelectorAll("input,textarea,select").forEach(field => {
-
-                draft.push(field.value);
-
-            });
-
-            localStorage.setItem("prescriptionDraft", JSON.stringify(draft));
-
-        }
-
-        function loadDraft() {
-
-            const draft = JSON.parse(localStorage.getItem("prescriptionDraft"));
-
-            if (!draft) return;
-
-            const fields = document.querySelectorAll("input,textarea,select");
-
-            fields.forEach((field, index) => {
-
-                if (draft[index] !== undefined) {
-
-                    field.value = draft[index];
-
-                }
-
-            });
-
-        }
-
-        document.querySelectorAll("input,textarea,select").forEach(field => {
-
-            field.addEventListener("input", saveDraft);
-
-            field.addEventListener("change", saveDraft);
-
-        });
-
-        function savePrescription() {
-
-            console.log("POST /api/prescriptions");
-
-        }
-
-        function loadPatient() {
-
-            console.log("GET /api/patient/1");
-
-        }
-
-        function downloadPrescription() {
-
-            console.log("GET /api/prescriptions/pdf");
-
-        }
-
-        loadPatient();
-
     </script>
 
 </body>

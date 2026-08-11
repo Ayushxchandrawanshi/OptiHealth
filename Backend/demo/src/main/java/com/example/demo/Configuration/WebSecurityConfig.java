@@ -53,6 +53,12 @@ public class WebSecurityConfig {
                         "/api/prescriptions"
                 ).permitAll()
                 .requestMatchers(
+                        HttpMethod.PUT,
+                        "/api/doctors/accept/**",
+                        "/api/doctors/reject/**",
+                        "/api/doctors/complete/**"
+                ).permitAll()
+                .requestMatchers(
                         "/swagger-ui/**",
                         "/v3/api-docs/**"
                 ).permitAll()

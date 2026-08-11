@@ -697,8 +697,8 @@
                     <div class="profile">
                         <img src="../assets/doctor.png" alt="">
                         <div>
-                            <h4>Dr. Rahul Sharma</h4>
-                            <p>Cardiologist</p>
+                            <h4>Doctor</h4>
+                            <p>Specialization</p>
                         </div>
                     </div>
 
@@ -768,10 +768,11 @@
                                 <option value="Cancelled">Cancelled</option>
                             </select>
 
-                            <select>
-                                <option>Today</option>
-                                <option>Tomorrow</option>
-                                <option>This Week</option>
+                            <select id="dateFilter">
+                                <option value="all">All</option>
+                                <option value="today">Today</option>
+                                <option value="tomorrow">Tomorrow</option>
+                                <option value="this week">This Week</option>
                             </select>
 
                             <button class="filter-btn">
@@ -822,26 +823,62 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
         const searchInput = document.getElementById("searchInput");
         const statusFilter = document.getElementById("statusFilter");
+        const dateFilter = document.getElementById("dateFilter");
         const appointmentTableBody = document.getElementById("appointmentTableBody");
         const totalAppointments = document.getElementById("totalAppointments");
         const pendingAppointments = document.getElementById("pendingAppointments");
         const completedAppointments = document.getElementById("completedAppointments");
         const cancelledAppointments = document.getElementById("cancelledAppointments");
         const filterButton = document.querySelector(".filter-btn");
-        const recordCountElement = document.getElementById("recordCount") || document.querySelector(".table-header span");
+        const recordCountElement = document.getElementById("recordCount");
 
         let doctor = null;
         let token = localStorage.getItem("token");
         let appointments = [];
 
         try {
-            doctor = JSON.parse(localStorage.getItem("user"));
+            const storedUser = localStorage.getItem("user");
+            if (storedUser) {
+                doctor = JSON.parse(storedUser);
+            }
         } catch (error) {
+            console.error("Doctor session parse error:", error);
             doctor = null;
+        }
+
+        function getDoctorId() {
+            if (doctor && doctor.id) {
+                return doctor.id;
+            }
+
+            if (doctor && doctor.doctorId) {
+                return doctor.doctorId;
+            }
+
+            const storedDoctorId = localStorage.getItem("doctorId");
+
+            if (storedDoctorId) {
+                return storedDoctorId;
+            }
+
+            return null;
+        }
+
+        function getAuthHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] = "Bearer " + token;
+            }
+
+            return headers;
         }
 
         window.addEventListener("load", function () {
@@ -850,6 +887,7 @@
             } else {
                 sidebar.style.left = "0";
             }
+
             loadDoctorProfile();
             loadAppointments();
         });
@@ -888,23 +926,25 @@
         });
 
         async function loadDoctorProfile() {
-            if (!doctor || !doctor.id) {
+            const doctorId = getDoctorId();
+
+            if (!doctorId) {
+                console.warn("Doctor ID not found.");
                 return;
             }
 
             try {
                 const response = await fetch(
-                    "http://localhost:8080/api/doctors/" + doctor.id,
+                    API_BASE_URL + "/api/doctors/" + doctorId,
                     {
-                        method: "GET"
+                        method: "GET",
+                        headers: getAuthHeaders()
                     }
                 );
 
                 if (!response.ok) {
-                    console.error(
-                        "Doctor Profile API Error:",
-                        response.status
-                    );
+                    console.error("Doctor Profile API Error:", response.status);
+                    setDoctorProfileFromLocalStorage();
                     return;
                 }
 
@@ -916,53 +956,59 @@
                 if (nameElement) {
                     nameElement.innerText =
                         data.doctorName ||
-                        doctor.doctorName ||
+                        data.fullName ||
+                        doctor?.doctorName ||
                         "Doctor";
                 }
 
                 if (specializationElement) {
                     specializationElement.innerText =
                         data.specialization ||
-                        doctor.specialization ||
+                        doctor?.specialization ||
                         "Specialization";
                 }
             } catch (error) {
-                console.error(
-                    "Doctor Profile Error:",
-                    error
-                );
+                console.error("Doctor Profile Error:", error);
+                setDoctorProfileFromLocalStorage();
+            }
+        }
 
-                const nameElement = document.querySelector(".profile h4");
-                const specializationElement = document.querySelector(".profile p");
+        function setDoctorProfileFromLocalStorage() {
+            const nameElement = document.querySelector(".profile h4");
+            const specializationElement = document.querySelector(".profile p");
 
-                if (nameElement) {
-                    nameElement.innerText =
-                        doctor.doctorName ||
-                        doctor.fullName ||
-                        "Doctor";
-                }
+            if (nameElement) {
+                nameElement.innerText =
+                    doctor?.doctorName ||
+                    doctor?.fullName ||
+                    "Doctor";
+            }
 
-                if (specializationElement) {
-                    specializationElement.innerText =
-                        doctor.specialization ||
-                        "Specialization";
-                }
+            if (specializationElement) {
+                specializationElement.innerText =
+                    doctor?.specialization ||
+                    "Specialization";
             }
         }
 
         async function loadAppointments() {
-            if (!doctor || !doctor.id) {
-                showMessage("Doctor session not found. Please login again.");
+            const doctorId = getDoctorId();
+
+            if (!doctorId) {
+                showMessage("Doctor ID not found. Please login again.");
                 return;
             }
 
             showMessage("Loading appointments...");
 
             try {
+                token = localStorage.getItem("token");
+
                 const response = await fetch(
-                    "http://localhost:8080/api/doctors/appointments/" + doctor.id,
+                    API_BASE_URL + "/api/doctors/appointments/" + doctorId,
                     {
-                        method: "GET"
+                        method: "GET",
+                        headers: getAuthHeaders()
                     }
                 );
 
@@ -986,82 +1032,56 @@
                 const data = await response.json();
 
                 if (!Array.isArray(data)) {
-                    console.error(
-                        "Invalid appointment response:",
-                        data
-                    );
-
+                    console.error("Invalid appointment response:", data);
                     showMessage("Invalid data received from backend.");
                     return;
                 }
 
                 appointments = data;
 
-                console.log(
-                    "Appointments From Backend:",
-                    appointments
-                );
+                console.log("Appointments From Backend:", appointments);
 
                 updateSummary();
                 renderAppointments();
             } catch (error) {
-                console.error(
-                    "Appointment Fetch Error:",
-                    error
-                );
-
-                showMessage(
-                    "Unable to connect with backend server."
-                );
+                console.error("Appointment Fetch Error:", error);
+                showMessage("Unable to connect with backend server.");
             }
         }
 
         function renderAppointments() {
             if (!appointmentTableBody) {
-                console.error(
-                    "appointmentTableBody not found."
-                );
+                console.error("appointmentTableBody not found.");
                 return;
             }
 
-            appointmentTableBody.innerHTML = "";
+            const searchValue = searchInput
+                ? searchInput.value.trim().toLowerCase()
+                : "";
 
-            const searchValue =
-                searchInput
-                    ? searchInput.value.trim().toLowerCase()
-                    : "";
+            const selectedStatus = statusFilter
+                ? statusFilter.value.toLowerCase()
+                : "all";
 
-            const selectedStatus =
-                statusFilter
-                    ? statusFilter.value.toLowerCase()
-                    : "all";
+            const selectedDate = dateFilter
+                ? dateFilter.value.toLowerCase()
+                : "all";
 
-            const selectedDate =
-                document.querySelector(".search-filter select:nth-of-type(2)");
+            const filteredAppointments = appointments.filter(function (appointment) {
+                const patientName = (
+                    appointment.patientName ||
+                    "Patient #" + appointment.patientId
+                ).toLowerCase();
 
-            const dateFilter =
-                selectedDate
-                    ? selectedDate.value.toLowerCase()
-                    : "today";
+                const reason = (
+                    appointment.reason ||
+                    ""
+                ).toLowerCase();
 
-            let filteredAppointments = appointments.filter(function (appointment) {
-                const patientName =
-                    (
-                        appointment.patientName ||
-                        "Patient #" + appointment.patientId
-                    ).toLowerCase();
-
-                const reason =
-                    (
-                        appointment.reason ||
-                        ""
-                    ).toLowerCase();
-
-                const status =
-                    (
-                        appointment.status ||
-                        "PENDING"
-                    ).toLowerCase();
+                const status = (
+                    appointment.status ||
+                    "PENDING"
+                ).toLowerCase();
 
                 const searchMatch =
                     patientName.includes(searchValue) ||
@@ -1069,47 +1089,27 @@
 
                 const statusMatch =
                     selectedStatus === "all" ||
-                    status === selectedStatus;
+                    status === selectedStatus.toLowerCase();
 
                 let dateMatch = true;
 
-                if (dateFilter === "today") {
-                    const today =
-                        new Date()
-                            .toISOString()
-                            .split("T")[0];
-
-                    dateMatch =
-                        appointment.appointmentDate === today;
-                } else if (dateFilter === "tomorrow") {
-                    const tomorrow = new Date();
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-
-                    const tomorrowDate =
-                        tomorrow
-                            .toISOString()
-                            .split("T")[0];
-
-                    dateMatch =
-                        appointment.appointmentDate === tomorrowDate;
-                } else if (dateFilter === "this week") {
-                    dateMatch = isThisWeek(
-                        appointment.appointmentDate
-                    );
+                if (selectedDate === "today") {
+                    dateMatch = isToday(appointment.appointmentDate);
+                } else if (selectedDate === "tomorrow") {
+                    dateMatch = isTomorrow(appointment.appointmentDate);
+                } else if (selectedDate === "this week") {
+                    dateMatch = isThisWeek(appointment.appointmentDate);
                 }
 
-                return (
-                    searchMatch &&
-                    statusMatch &&
-                    dateMatch
-                );
+                return searchMatch && statusMatch && dateMatch;
             });
 
             if (recordCountElement) {
                 recordCountElement.innerText =
-                    filteredAppointments.length +
-                    " Records";
+                    filteredAppointments.length + " Records";
             }
+
+            appointmentTableBody.innerHTML = "";
 
             if (filteredAppointments.length === 0) {
                 appointmentTableBody.innerHTML = `
@@ -1133,10 +1133,9 @@
                         ? appointment.age
                         : "-";
 
-                const time =
-                    appointment.appointmentTime
-                        ? formatTime(appointment.appointmentTime)
-                        : "Not Set";
+                const time = appointment.appointmentTime
+                    ? formatTime(appointment.appointmentTime)
+                    : "Not Set";
 
                 const reason =
                     appointment.reason ||
@@ -1149,33 +1148,37 @@
                     ).toUpperCase();
 
                 const patientId =
-                    appointment.patientId ||
-                    "";
+                    appointment.patientId || "";
 
                 appointmentTableBody.innerHTML += `
             <tr>
                 <td>
                     <div class="patient">
                         <img
-                            src="http://localhost:8080/api/patients/${patientId}/image"
+                            src="${API_BASE_URL}/api/patients/${patientId}/image"
                             onerror="this.onerror=null;this.src='../assets/profile.png';"
                             alt="Patient"
                         >
                         <div>
                             <strong>${escapeHtml(patientName)}</strong>
                             <br>
-                            <small>P${patientId}</small>
+                            <small>P${escapeHtml(patientId)}</small>
                         </div>
                     </div>
                 </td>
+
                 <td>${escapeHtml(age)}</td>
+
                 <td>${escapeHtml(time)}</td>
+
                 <td>${escapeHtml(reason)}</td>
+
                 <td>
                     <span class="badge ${getStatusClass(status)}">
                         ${escapeHtml(status)}
                     </span>
                 </td>
+
                 <td>
                     ${getActionButtons(appointment)}
                 </td>
@@ -1185,11 +1188,10 @@
         }
 
         function getActionButtons(appointment) {
-            const status =
-                (
-                    appointment.status ||
-                    "PENDING"
-                ).toUpperCase();
+            const status = (
+                appointment.status ||
+                "PENDING"
+            ).toUpperCase();
 
             if (status === "PENDING") {
                 return `
@@ -1199,6 +1201,7 @@
                     onclick="acceptAppointment(${appointment.appointmentId})">
                     Accept
                 </button>
+
                 <button
                     class="reject-btn"
                     onclick="rejectAppointment(${appointment.appointmentId})">
@@ -1216,6 +1219,7 @@
                     onclick="startConsultation(${appointment.appointmentId})">
                     Start
                 </button>
+
                 <button
                     class="complete-btn"
                     onclick="completeAppointment(${appointment.appointmentId})">
@@ -1256,10 +1260,9 @@
         }
 
         async function acceptAppointment(id) {
-            const appointment =
-                appointments.find(function (item) {
-                    return item.appointmentId === id;
-                });
+            const appointment = appointments.find(function (item) {
+                return item.appointmentId === id;
+            });
 
             if (!appointment) {
                 alert("Appointment not found.");
@@ -1270,46 +1273,32 @@
                 !appointment.appointmentDate ||
                 !appointment.appointmentTime
             ) {
-                alert(
-                    "Appointment date and time are required."
-                );
+                alert("Appointment date and time are required.");
                 return;
             }
 
             if (!token) {
-                alert(
-                    "Login session expired. Please login again."
-                );
+                alert("Login session expired. Please login again.");
                 return;
             }
 
             try {
                 const url =
-                    "http://localhost:8080/api/doctors/accept/" +
+                    API_BASE_URL +
+                    "/api/doctors/accept/" +
                     id +
                     "?appointmentDate=" +
-                    encodeURIComponent(
-                        appointment.appointmentDate
-                    ) +
+                    encodeURIComponent(appointment.appointmentDate) +
                     "&appointmentTime=" +
-                    encodeURIComponent(
-                        appointment.appointmentTime
-                    );
+                    encodeURIComponent(appointment.appointmentTime);
 
-                const response = await fetch(
-                    url,
-                    {
-                        method: "PUT",
-                        headers: {
-                            "Authorization":
-                                "Bearer " + token
-                        }
-                    }
-                );
+                const response = await fetch(url, {
+                    method: "PUT",
+                    headers: getAuthHeaders()
+                });
 
                 if (!response.ok) {
-                    const errorText =
-                        await response.text();
+                    const errorText = await response.text();
 
                     console.error(
                         "Accept Appointment Error:",
@@ -1325,52 +1314,36 @@
                     return;
                 }
 
-                alert(
-                    "Appointment Accepted Successfully."
-                );
+                alert("Appointment Accepted Successfully.");
 
                 await loadAppointments();
             } catch (error) {
-                console.error(
-                    "Accept Appointment Error:",
-                    error
-                );
-
-                alert(
-                    "Unable to connect with backend."
-                );
+                console.error("Accept Appointment Error:", error);
+                alert("Unable to connect with backend.");
             }
         }
 
         async function rejectAppointment(id) {
-            if (!confirm(
-                "Are you sure you want to reject this appointment?"
-            )) {
+            if (!confirm("Are you sure you want to reject this appointment?")) {
                 return;
             }
 
             if (!token) {
-                alert(
-                    "Login session expired. Please login again."
-                );
+                alert("Login session expired. Please login again.");
                 return;
             }
 
             try {
                 const response = await fetch(
-                    "http://localhost:8080/api/doctors/reject/" + id,
+                    API_BASE_URL + "/api/doctors/reject/" + id,
                     {
                         method: "PUT",
-                        headers: {
-                            "Authorization":
-                                "Bearer " + token
-                        }
+                        headers: getAuthHeaders()
                     }
                 );
 
                 if (!response.ok) {
-                    const errorText =
-                        await response.text();
+                    const errorText = await response.text();
 
                     console.error(
                         "Reject Appointment Error:",
@@ -1386,52 +1359,36 @@
                     return;
                 }
 
-                alert(
-                    "Appointment Rejected Successfully."
-                );
+                alert("Appointment Rejected Successfully.");
 
                 await loadAppointments();
             } catch (error) {
-                console.error(
-                    "Reject Appointment Error:",
-                    error
-                );
-
-                alert(
-                    "Unable to connect with backend."
-                );
+                console.error("Reject Appointment Error:", error);
+                alert("Unable to connect with backend.");
             }
         }
 
         async function completeAppointment(id) {
-            if (!confirm(
-                "Mark this appointment as completed?"
-            )) {
+            if (!confirm("Mark this appointment as completed?")) {
                 return;
             }
 
             if (!token) {
-                alert(
-                    "Login session expired. Please login again."
-                );
+                alert("Login session expired. Please login again.");
                 return;
             }
 
             try {
                 const response = await fetch(
-                    "http://localhost:8080/api/doctors/complete/" + id,
+                    API_BASE_URL + "/api/doctors/complete/" + id,
                     {
                         method: "PUT",
-                        headers: {
-                            "Authorization":
-                                "Bearer " + token
-                        }
+                        headers: getAuthHeaders()
                     }
                 );
 
                 if (!response.ok) {
-                    const errorText =
-                        await response.text();
+                    const errorText = await response.text();
 
                     console.error(
                         "Complete Appointment Error:",
@@ -1447,25 +1404,16 @@
                     return;
                 }
 
-                alert(
-                    "Appointment Completed Successfully."
-                );
+                alert("Appointment Completed Successfully.");
 
                 await loadAppointments();
             } catch (error) {
-                console.error(
-                    "Complete Appointment Error:",
-                    error
-                );
-
-                alert(
-                    "Unable to connect with backend."
-                );
+                console.error("Complete Appointment Error:", error);
+                alert("Unable to connect with backend.");
             }
         }
 
         function startConsultation(id) {
-
             const appointment = appointments.find(function (item) {
                 return item.appointmentId === id;
             });
@@ -1485,11 +1433,12 @@
                 String(appointment.patientId)
             );
 
-            window.location.href = "patient-details.html";
+            window.location.href =
+                "patient-details.html?patientId=" +
+                appointment.patientId;
         }
 
         function viewAppointment(id) {
-
             const appointment = appointments.find(function (item) {
                 return item.appointmentId === id;
             });
@@ -1519,73 +1468,30 @@
                 appointment.patientId;
         }
 
-        const appointment = appointments.find(function (item) {
-            return item.appointmentId === id;
-        });
-
-        if (!appointment) {
-            alert("Appointment not found.");
-            return;
-        }
-
-        console.log("Selected Appointment:", appointment);
-
-        console.log(
-            "Saving Patient ID:",
-            appointment.patientId
-        );
-
-        localStorage.setItem(
-            "appointmentId",
-            String(appointment.appointmentId)
-        );
-
-        localStorage.setItem(
-            "patientId",
-            String(appointment.patientId)
-        );
-
-        window.location.href = "patient-details.html";
-        }
-
         function updateSummary() {
             const total = appointments.length;
 
-            const pending =
-                appointments.filter(function (item) {
-                    return (
-                        (item.status || "")
-                            .toUpperCase() === "PENDING"
-                    );
-                }).length;
+            const pending = appointments.filter(function (item) {
+                return (
+                    (item.status || "").toUpperCase() === "PENDING"
+                );
+            }).length;
 
-            const completed =
-                appointments.filter(function (item) {
-                    return (
-                        (item.status || "")
-                            .toUpperCase() === "COMPLETED"
-                    );
-                }).length;
+            const completed = appointments.filter(function (item) {
+                return (
+                    (item.status || "").toUpperCase() === "COMPLETED"
+                );
+            }).length;
 
-            const cancelled =
-                appointments.filter(function (item) {
-                    const status =
-                        (item.status || "")
-                            .toUpperCase();
+            const cancelled = appointments.filter(function (item) {
+                const status =
+                    (item.status || "").toUpperCase();
 
-                    return (
-                        status === "CANCELLED" ||
-                        status === "REJECTED"
-                    );
-                }).length;
-
-            const accepted =
-                appointments.filter(function (item) {
-                    return (
-                        (item.status || "")
-                            .toUpperCase() === "ACCEPTED"
-                    );
-                }).length;
+                return (
+                    status === "CANCELLED" ||
+                    status === "REJECTED"
+                );
+            }).length;
 
             if (totalAppointments) {
                 totalAppointments.innerText = total;
@@ -1632,7 +1538,7 @@
                 return "Not Set";
             }
 
-            const parts = time.split(":");
+            const parts = String(time).split(":");
             let hour = parseInt(parts[0], 10);
             const minute = parts[1] || "00";
             const period = hour >= 12 ? "PM" : "AM";
@@ -1642,31 +1548,78 @@
             return hour + ":" + minute + " " + period;
         }
 
+        function isToday(dateString) {
+            if (!dateString) {
+                return false;
+            }
+
+            const today = new Date();
+            const todayString =
+                today.getFullYear() +
+                "-" +
+                String(today.getMonth() + 1).padStart(2, "0") +
+                "-" +
+                String(today.getDate()).padStart(2, "0");
+
+            return dateString === todayString;
+        }
+
+        function isTomorrow(dateString) {
+            if (!dateString) {
+                return false;
+            }
+
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            const tomorrowString =
+                tomorrow.getFullYear() +
+                "-" +
+                String(tomorrow.getMonth() + 1).padStart(2, "0") +
+                "-" +
+                String(tomorrow.getDate()).padStart(2, "0");
+
+            return dateString === tomorrowString;
+        }
+
         function isThisWeek(dateString) {
             if (!dateString) {
                 return false;
             }
 
-            const date = new Date(dateString + "T00:00:00");
+            const date = new Date(
+                dateString + "T00:00:00"
+            );
+
             const today = new Date();
 
             const day = today.getDay();
+
             const diffToMonday =
                 day === 0
                     ? 6
                     : day - 1;
 
             const monday = new Date(today);
+
             monday.setHours(0, 0, 0, 0);
+
             monday.setDate(
                 today.getDate() - diffToMonday
             );
 
             const sunday = new Date(monday);
+
             sunday.setDate(
                 monday.getDate() + 6
             );
-            sunday.setHours(23, 59, 59, 999);
+
+            sunday.setHours(
+                23,
+                59,
+                59,
+                999
+            );
 
             return (
                 date >= monday &&
@@ -1723,11 +1676,6 @@
                 renderAppointments
             );
         }
-
-        const dateFilter =
-            document.querySelector(
-                ".search-filter select:nth-of-type(2)"
-            );
 
         if (dateFilter) {
             dateFilter.addEventListener(

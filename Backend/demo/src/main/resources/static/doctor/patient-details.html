@@ -1786,22 +1786,33 @@
         }
 
         const prescriptionButton =
-            document.querySelector(
-                ".prescription-btn"
-            );
+            document.querySelector(".prescription-btn");
 
         if (prescriptionButton) {
+            prescriptionButton.addEventListener("click", function () {
 
-            prescriptionButton.addEventListener(
-                "click",
-                function () {
+                const appointmentId =
+                    localStorage.getItem("appointmentId");
 
-                    window.location.href =
-                        "prescription.html";
+                const patientId =
+                    localStorage.getItem("patientId");
 
+                if (!patientId) {
+                    alert("Patient ID not found.");
+                    return;
                 }
-            );
 
+                if (!appointmentId) {
+                    alert("Appointment ID not found. Please open patient details from an appointment.");
+                    return;
+                }
+
+                window.location.href =
+                    "prescription.html?patientId=" +
+                    patientId +
+                    "&appointmentId=" +
+                    appointmentId;
+            });
         }
     </script>
 

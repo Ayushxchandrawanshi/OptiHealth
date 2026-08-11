@@ -624,8 +624,8 @@
                     <div class="profile">
                         <img src="../assets/doctor.png" alt="">
                         <div>
-                            <h4>Dr. Rahul Sharma</h4>
-                            <p>Cardiologist</p>
+                            <h4 id="doctorName">Doctor</h4>
+                            <p id="doctorSpecialization">Specialization</p>
                         </div>
                     </div>
 
@@ -651,7 +651,7 @@
 
                         <div class="stats-info">
                             <h3>Today's Appointments</h3>
-                            <h2>18</h2>
+                            <h2 id="todayAppointments">0</h2>
                             <p><i class="fa-solid fa-arrow-up"></i> 4 More Than Yesterday</p>
                         </div>
 
@@ -665,7 +665,7 @@
 
                         <div class="stats-info">
                             <h3>Total Patients</h3>
-                            <h2>245</h2>
+                            <h2 id="totalPatients">0</h2>
                             <p><i class="fa-solid fa-arrow-up"></i> 12 New This Week</p>
                         </div>
 
@@ -679,7 +679,7 @@
 
                         <div class="stats-info">
                             <h3>Completed Visits</h3>
-                            <h2>163</h2>
+                            <h2 id="completedVisits">0</h2>
                             <p><i class="fa-solid fa-circle-check"></i> Updated Today</p>
                         </div>
 
@@ -693,7 +693,7 @@
 
                         <div class="stats-info">
                             <h3>Pending Reviews</h3>
-                            <h2>09</h2>
+                            <h2 id="pendingReviews">0</h2>
                             <p><i class="fa-solid fa-clock"></i> Needs Attention</p>
                         </div>
 
@@ -721,55 +721,17 @@
                                 <tr>
                                     <th>Patient</th>
                                     <th>Time</th>
-                                    <th>Department</th>
+                                    <th>Appointment Date</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
 
                             </thead>
 
-                            <tbody>
-
+                            <tbody id="appointmentTableBody">
                                 <tr>
-                                    <td>Rahul Verma</td>
-                                    <td>09:30 AM</td>
-                                    <td>Cardiology</td>
-                                    <td><span class="status completed">Completed</span></td>
-                                    <td><a href="patient-details.html">View</a></td>
+                                    <td colspan="5" style="text-align:center;">Loading appointments...</td>
                                 </tr>
-
-                                <tr>
-                                    <td>Anjali Sharma</td>
-                                    <td>10:30 AM</td>
-                                    <td>Cardiology</td>
-                                    <td><span class="status pending">Pending</span></td>
-                                    <td><a href="patient-details.html">Open</a></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Mohit Patel</td>
-                                    <td>11:15 AM</td>
-                                    <td>Cardiology</td>
-                                    <td><span class="status completed">Completed</span></td>
-                                    <td><a href="patient-details.html">View</a></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Priya Singh</td>
-                                    <td>12:30 PM</td>
-                                    <td>Cardiology</td>
-                                    <td><span class="status cancelled">Cancelled</span></td>
-                                    <td><a href="patient-details.html">Details</a></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Aman Gupta</td>
-                                    <td>02:00 PM</td>
-                                    <td>Cardiology</td>
-                                    <td><span class="status pending">Pending</span></td>
-                                    <td><a href="patient-details.html">Open</a></td>
-                                </tr>
-
                             </tbody>
 
                         </table>
@@ -839,200 +801,484 @@
     </div>
 
     <script>
+        const doctor = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem("token");
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
-
         const notify = document.querySelector(".notify");
         const cards = document.querySelectorAll(".stats-card");
         const actionBtns = document.querySelectorAll(".action-btn");
         const sidebarLinks = document.querySelectorAll(".sidebar nav a");
 
-        window.onload = () => {
+        const appointmentTableBody = document.getElementById("appointmentTableBody");
+        const doctorNameElement = document.getElementById("doctorName");
+        const doctorSpecializationElement = document.getElementById("doctorSpecialization");
+        const todayAppointmentsElement = document.getElementById("todayAppointments");
+        const totalPatientsElement = document.getElementById("totalPatients");
+        const completedVisitsElement = document.getElementById("completedVisits");
+        const pendingReviewsElement = document.getElementById("pendingReviews");
 
+        window.addEventListener("load", function () {
             if (window.innerWidth <= 900) {
                 sidebar.style.left = "-270px";
             } else {
                 sidebar.style.left = "0";
             }
+            loadDoctorDashboard();
+        });
 
-            animateCounters();
+        if (menuBtn) {
+            menuBtn.addEventListener("click", function () {
+                if (window.innerWidth <= 900) {
+                    if (sidebar.style.left === "0px") {
+                        sidebar.style.left = "-270px";
+                    } else {
+                        sidebar.style.left = "0";
+                    }
+                }
+            });
+        }
 
-        };
-
-        menuBtn.onclick = () => {
-
-            if (window.innerWidth <= 900) {
-
-                sidebar.style.left =
-                    sidebar.style.left === "0px" ? "-270px" : "0";
-
-            }
-
-        };
-
-        window.addEventListener("resize", () => {
-
+        window.addEventListener("resize", function () {
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
             } else {
                 sidebar.style.left = "-270px";
             }
-
         });
 
-        notify.onclick = () => {
+        if (notify) {
+            notify.addEventListener("click", function () {
+                alert("Notifications will be connected with backend later.");
+            });
+        }
 
-            alert("You have 5 new notifications.");
-
-        };
-
-        cards.forEach(card => {
-
-            card.addEventListener("mouseenter", () => {
-
+        cards.forEach(function (card) {
+            card.addEventListener("mouseenter", function () {
                 card.style.transform = "translateY(-8px)";
                 card.style.transition = ".3s";
-
             });
-
-            card.addEventListener("mouseleave", () => {
-
+            card.addEventListener("mouseleave", function () {
                 card.style.transform = "translateY(0)";
-
             });
-
         });
 
-        actionBtns.forEach(btn => {
-
-            btn.addEventListener("mouseenter", () => {
-
+        actionBtns.forEach(function (btn) {
+            btn.addEventListener("mouseenter", function () {
                 btn.style.transform = "translateX(8px)";
-
             });
-
-            btn.addEventListener("mouseleave", () => {
-
+            btn.addEventListener("mouseleave", function () {
                 btn.style.transform = "translateX(0)";
-
             });
-
         });
 
-        sidebarLinks.forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                sidebarLinks.forEach(item => item.classList.remove("active"));
-
+        sidebarLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+                sidebarLinks.forEach(function (item) {
+                    item.classList.remove("active");
+                });
                 link.classList.add("active");
-
             });
-
         });
 
-        document.querySelector(".profile").onclick = () => {
+        const profileElement = document.querySelector(".profile");
 
-            location.href = "profile.html";
-
-        };
-
-        document.querySelectorAll("tbody tr").forEach(row => {
-
-            row.addEventListener("mouseenter", () => {
-
-                row.style.background = "#f8fbff";
-
+        if (profileElement) {
+            profileElement.addEventListener("click", function () {
+                window.location.href = "profile.html";
             });
+        }
 
-            row.addEventListener("mouseleave", () => {
-
-                row.style.background = "transparent";
-
-            });
-
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                if (window.innerWidth <= 900) {
+                    sidebar.style.left = "-270px";
+                }
+            }
         });
+
+        document.addEventListener("click", function (event) {
+            if (window.innerWidth <= 900) {
+                if (
+                    sidebar &&
+                    !sidebar.contains(event.target) &&
+                    menuBtn &&
+                    !menuBtn.contains(event.target)
+                ) {
+                    sidebar.style.left = "-270px";
+                }
+            }
+        });
+
+        async function loadDoctorDashboard() {
+
+            if (!doctor || !doctor.id) {
+                console.error("Doctor information not found in localStorage.");
+
+                if (appointmentTableBody) {
+                    appointmentTableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center;">
+                        Doctor session not found.
+                    </td>
+                </tr>
+            `;
+                }
+
+                alert("Doctor session not found. Please login again.");
+                return;
+            }
+
+            if (!token) {
+                console.error("JWT token not found.");
+
+                if (appointmentTableBody) {
+                    appointmentTableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center;">
+                        Login session expired.
+                    </td>
+                </tr>
+            `;
+                }
+
+                alert("Login session expired. Please login again.");
+                return;
+            }
+
+            if (doctorNameElement) {
+                doctorNameElement.innerText =
+                    doctor.doctorName ||
+                    doctor.fullName ||
+                    "Doctor";
+            }
+
+            if (doctorSpecializationElement) {
+                doctorSpecializationElement.innerText =
+                    doctor.specialization ||
+                    "Specialization";
+            }
+
+            if (appointmentTableBody) {
+                appointmentTableBody.innerHTML = `
+            <tr>
+                <td colspan="5" style="text-align:center;">
+                    Loading appointments...
+                </td>
+            </tr>
+        `;
+            }
+
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/doctors/appointments/" + doctor.id,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+
+                    console.error(
+                        "Doctor Dashboard API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    if (appointmentTableBody) {
+                        appointmentTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align:center;">
+                            Unable to load appointments.
+                            <br>
+                            API Error: ${response.status}
+                        </td>
+                    </tr>
+                `;
+                    }
+
+                    if (response.status === 401 || response.status === 403) {
+                        alert("Your login session has expired. Please login again.");
+                    } else {
+                        alert("Unable to load doctor dashboard data.");
+                    }
+
+                    return;
+                }
+
+                const appointments = await response.json();
+
+                console.log(
+                    "Doctor Appointments From Backend:",
+                    appointments
+                );
+
+                if (!Array.isArray(appointments)) {
+                    console.error(
+                        "Backend response is not an array:",
+                        appointments
+                    );
+
+                    renderAppointments([]);
+                    return;
+                }
+
+                renderAppointments(appointments);
+                updateDashboardStats(appointments);
+
+            } catch (error) {
+                console.error("Doctor Dashboard Error:", error);
+
+                if (appointmentTableBody) {
+                    appointmentTableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center;">
+                        Unable to connect with backend.
+                    </td>
+                </tr>
+            `;
+                }
+
+                alert("Unable to connect with backend server.");
+            }
+        }
+
+        function renderAppointments(appointments) {
+
+            if (!appointmentTableBody) {
+                console.error("appointmentTableBody not found.");
+                return;
+            }
+
+            appointmentTableBody.innerHTML = "";
+
+            if (!appointments || appointments.length === 0) {
+                appointmentTableBody.innerHTML = `
+            <tr>
+                <td colspan="5" style="text-align:center;">
+                    No appointments found.
+                </td>
+            </tr>
+        `;
+                return;
+            }
+
+            appointments.forEach(function (appointment) {
+
+                const status =
+                    (appointment.status || "PENDING").toUpperCase();
+
+                let statusClass = "pending";
+
+                if (
+                    status === "ACCEPTED" ||
+                    status === "COMPLETED"
+                ) {
+                    statusClass = "completed";
+                }
+
+                if (
+                    status === "REJECTED" ||
+                    status === "CANCELLED"
+                ) {
+                    statusClass = "cancelled";
+                }
+
+                const appointmentTime =
+                    appointment.appointmentTime
+                        ? formatTime(appointment.appointmentTime)
+                        : "Not Set";
+
+                const appointmentDate =
+                    appointment.appointmentDate ||
+                    "Not Scheduled";
+
+                const patientName =
+                    appointment.patientName ||
+                    (
+                        appointment.patientId
+                            ? "Patient #" + appointment.patientId
+                            : "Unknown Patient"
+                    );
+
+                const patientId =
+                    appointment.patientId || "";
+
+                appointmentTableBody.innerHTML += `
+            <tr>
+                <td>
+                    ${escapeHtml(patientName)}
+                </td>
+                <td>
+                    ${appointmentTime}
+                </td>
+                <td>
+                    ${appointmentDate}
+                </td>
+                <td>
+                    <span class="status ${statusClass}">
+                        ${status}
+                    </span>
+                </td>
+                <td>
+                    <a href="patient-details.html?patientId=${patientId}">
+                        View
+                    </a>
+                </td>
+            </tr>
+        `;
+            });
+        }
+
+        function updateDashboardStats(appointments) {
+
+            if (!Array.isArray(appointments)) {
+                return;
+            }
+
+            const today =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+            const todayAppointments =
+                appointments.filter(function (appointment) {
+                    return appointment.appointmentDate === today;
+                });
+
+            const completedVisits =
+                appointments.filter(function (appointment) {
+                    return (
+                        (appointment.status || "")
+                            .toUpperCase() === "COMPLETED"
+                    );
+                });
+
+            const pendingReviews =
+                appointments.filter(function (appointment) {
+                    return (
+                        (appointment.status || "")
+                            .toUpperCase() === "PENDING"
+                    );
+                });
+
+            const uniquePatients =
+                new Set(
+                    appointments
+                        .map(function (appointment) {
+                            return appointment.patientId;
+                        })
+                        .filter(function (id) {
+                            return (
+                                id !== null &&
+                                id !== undefined
+                            );
+                        })
+                );
+
+            if (todayAppointmentsElement) {
+                todayAppointmentsElement.innerText =
+                    todayAppointments.length;
+            }
+
+            if (totalPatientsElement) {
+                totalPatientsElement.innerText =
+                    uniquePatients.size;
+            }
+
+            if (completedVisitsElement) {
+                completedVisitsElement.innerText =
+                    completedVisits.length;
+            }
+
+            if (pendingReviewsElement) {
+                pendingReviewsElement.innerText =
+                    pendingReviews.length;
+            }
+
+            animateCounters();
+        }
+
+        function formatTime(time) {
+
+            if (!time) {
+                return "Not Set";
+            }
+
+            const parts = time.split(":");
+            let hour = parseInt(parts[0], 10);
+            const minute = parts[1] || "00";
+            const ampm = hour >= 12 ? "PM" : "AM";
+
+            hour = hour % 12 || 12;
+
+            return hour + ":" + minute + " " + ampm;
+        }
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
 
         function animateCounters() {
 
-            const numbers = document.querySelectorAll(".stats-info h2");
+            const numbers = [
+                todayAppointmentsElement,
+                totalPatientsElement,
+                completedVisitsElement,
+                pendingReviewsElement
+            ];
 
-            numbers.forEach(number => {
+            numbers.forEach(function (number) {
 
-                const target = parseInt(number.innerText);
+                if (!number) {
+                    return;
+                }
+
+                const target =
+                    parseInt(number.innerText) || 0;
 
                 let count = 0;
 
-                const speed = Math.ceil(target / 40);
+                const speed =
+                    Math.max(
+                        1,
+                        Math.ceil(target / 40)
+                    );
 
-                const timer = setInterval(() => {
+                const timer =
+                    setInterval(function () {
 
-                    count += speed;
+                        count += speed;
 
-                    if (count >= target) {
+                        if (count >= target) {
+                            count = target;
+                            clearInterval(timer);
+                        }
 
-                        count = target;
-                        clearInterval(timer);
+                        number.innerText = count;
 
-                    }
-
-                    number.innerText = count;
-
-                }, 25);
-
+                    }, 25);
             });
-
         }
-
-        document.addEventListener("keydown", e => {
-
-            if (e.key === "Escape") {
-
-                if (window.innerWidth <= 900) {
-
-                    sidebar.style.left = "-270px";
-
-                }
-
-            }
-
-        });
-
-        document.addEventListener("click", e => {
-
-            if (window.innerWidth <= 900) {
-
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-
-                    sidebar.style.left = "-270px";
-
-                }
-
-            }
-
-        });
-
-        function loadDashboard() {
-
-            console.log("Future API : Load Dashboard");
-
-        }
-
-        function loadAppointments() {
-
-            console.log("Future API : Load Today's Appointments");
-
-        }
-
-        function loadPatients() {
-
-            console.log("Future API : Load Patients");
-
-        }
-
-        loadDashboard();
-        loadAppointments();
-        loadPatients();
     </script>
 
 </body>

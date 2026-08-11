@@ -723,7 +723,7 @@
                         <div class="summary-card">
                             <div>
                                 <h3>Total Appointments</h3>
-                                <h2>24</h2>
+                                <h2 id="totalAppointments">0</h2>
                             </div>
                             <i class="fa-solid fa-calendar-check"></i>
                         </div>
@@ -731,7 +731,7 @@
                         <div class="summary-card">
                             <div>
                                 <h3>Pending</h3>
-                                <h2>08</h2>
+                                <h2 id="pendingAppointments">0</h2>
                             </div>
                             <i class="fa-solid fa-hourglass-half"></i>
                         </div>
@@ -739,7 +739,7 @@
                         <div class="summary-card">
                             <div>
                                 <h3>Completed</h3>
-                                <h2>13</h2>
+                                <h2 id="completedAppointments">0</h2>
                             </div>
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
@@ -747,7 +747,7 @@
                         <div class="summary-card">
                             <div>
                                 <h3>Cancelled</h3>
-                                <h2>03</h2>
+                                <h2 id="cancelledAppointments">0</h2>
                             </div>
                             <i class="fa-solid fa-circle-xmark"></i>
                         </div>
@@ -787,7 +787,7 @@
 
                         <div class="table-header">
                             <h2>Today's Appointments</h2>
-                            <span>24 Records</span>
+                            <span id="recordCount">0 Records</span>
                         </div>
 
                         <table id="appointmentTable">
@@ -805,252 +805,12 @@
 
                             </thead>
 
-                            <tbody>
-
+                            <tbody id="appointmentTableBody">
                                 <tr>
-
-                                    <td>
-
-                                        <div class="patient">
-                                            <img src="../assets/profile.png" alt="">
-                                            <div>
-                                                <strong>Rahul Verma</strong><br>
-                                                <small>P1001</small>
-                                            </div>
-                                        </div>
-
+                                    <td colspan="6" style="text-align:center;">
+                                        Loading appointments...
                                     </td>
-
-                                    <td>34</td>
-
-                                    <td>09:30 AM</td>
-
-                                    <td>Chest Pain</td>
-
-                                    <td>
-                                        <span class="badge pending">Pending</span>
-                                    </td>
-
-                                    <td>
-
-                                        <div class="actions">
-
-                                            <button class="accept-btn">
-                                                Accept
-                                            </button>
-
-                                            <button class="reject-btn">
-                                                Reject
-                                            </button>
-
-                                        </div>
-
-                                    </td>
-
                                 </tr>
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="patient">
-                                            <img src="../assets/profile.png" alt="">
-                                            <div>
-                                                <strong>Anjali Sharma</strong><br>
-                                                <small>P1002</small>
-                                            </div>
-                                        </div>
-
-                                    </td>
-
-                                    <td>29</td>
-
-                                    <td>10:00 AM</td>
-
-                                    <td>Heart Checkup</td>
-
-                                    <td>
-                                        <span class="badge accepted">Accepted</span>
-                                    </td>
-
-                                    <td>
-
-                                        <div class="actions">
-
-                                            <button class="start-btn">
-                                                Start
-                                            </button>
-
-                                            <button class="complete-btn">
-                                                Complete
-                                            </button>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="patient">
-                                            <img src="../assets/profile.png" alt="">
-                                            <div>
-                                                <strong>Mohit Patel</strong><br>
-                                                <small>P1003</small>
-                                            </div>
-                                        </div>
-
-                                    </td>
-
-                                    <td>41</td>
-
-                                    <td>11:15 AM</td>
-
-                                    <td>Blood Pressure</td>
-
-                                    <td>
-                                        <span class="badge completed">Completed</span>
-                                    </td>
-
-                                    <td>
-
-                                        <div class="actions">
-
-                                            <button class="complete-btn">
-                                                View
-                                            </button>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="patient">
-                                            <img src="../assets/profile.png" alt="">
-                                            <div>
-                                                <strong>Priya Singh</strong><br>
-                                                <small>P1004</small>
-                                            </div>
-                                        </div>
-
-                                    </td>
-
-                                    <td>37</td>
-
-                                    <td>12:30 PM</td>
-
-                                    <td>Follow Up</td>
-
-                                    <td>
-                                        <span class="badge cancelled">Cancelled</span>
-                                    </td>
-
-                                    <td>
-
-                                        <div class="actions">
-
-                                            <button class="reject-btn">
-                                                Cancelled
-                                            </button>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="patient">
-                                            <img src="../assets/profile.png" alt="">
-                                            <div>
-                                                <strong>Aman Gupta</strong><br>
-                                                <small>P1005</small>
-                                            </div>
-                                        </div>
-
-                                    </td>
-
-                                    <td>50</td>
-
-                                    <td>02:00 PM</td>
-
-                                    <td>ECG Review</td>
-
-                                    <td>
-                                        <span class="badge pending">Pending</span>
-                                    </td>
-
-                                    <td>
-
-                                        <div class="actions">
-
-                                            <button class="accept-btn">
-                                                Accept
-                                            </button>
-
-                                            <button class="reject-btn">
-                                                Reject
-                                            </button>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="patient">
-                                            <img src="../assets/profile.png" alt="">
-                                            <div>
-                                                <strong>Neha Joshi</strong><br>
-                                                <small>P1006</small>
-                                            </div>
-                                        </div>
-
-                                    </td>
-
-                                    <td>26</td>
-
-                                    <td>03:30 PM</td>
-
-                                    <td>General Consultation</td>
-
-                                    <td>
-                                        <span class="badge accepted">Accepted</span>
-                                    </td>
-
-                                    <td>
-
-                                        <div class="actions">
-
-                                            <button class="start-btn">
-                                                Start
-                                            </button>
-
-                                            <button class="complete-btn">
-                                                Complete
-                                            </button>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
                             </tbody>
 
                         </table>
@@ -1062,222 +822,926 @@
     </div>
 
     <script>
-
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
         const searchInput = document.getElementById("searchInput");
         const statusFilter = document.getElementById("statusFilter");
-        const table = document.getElementById("appointmentTable");
-        const rows = table.querySelectorAll("tbody tr");
+        const appointmentTableBody = document.getElementById("appointmentTableBody");
+        const totalAppointments = document.getElementById("totalAppointments");
+        const pendingAppointments = document.getElementById("pendingAppointments");
+        const completedAppointments = document.getElementById("completedAppointments");
+        const cancelledAppointments = document.getElementById("cancelledAppointments");
+        const filterButton = document.querySelector(".filter-btn");
+        const recordCountElement = document.getElementById("recordCount") || document.querySelector(".table-header span");
 
-        window.onload = () => {
+        let doctor = null;
+        let token = localStorage.getItem("token");
+        let appointments = [];
 
+        try {
+            doctor = JSON.parse(localStorage.getItem("user"));
+        } catch (error) {
+            doctor = null;
+        }
+
+        window.addEventListener("load", function () {
             if (window.innerWidth <= 900) {
                 sidebar.style.left = "-270px";
             } else {
                 sidebar.style.left = "0";
             }
+            loadDoctorProfile();
+            loadAppointments();
+        });
 
-        };
+        if (menuBtn) {
+            menuBtn.addEventListener("click", function () {
+                if (window.innerWidth <= 900) {
+                    if (sidebar.style.left === "0px") {
+                        sidebar.style.left = "-270px";
+                    } else {
+                        sidebar.style.left = "0";
+                    }
+                }
+            });
+        }
 
-        menuBtn.onclick = () => {
-
-            if (window.innerWidth <= 900) {
-
-                sidebar.style.left =
-                    sidebar.style.left === "0px" ? "-270px" : "0";
-
-            }
-
-        };
-
-        window.addEventListener("resize", () => {
-
+        window.addEventListener("resize", function () {
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
             } else {
                 sidebar.style.left = "-270px";
             }
-
         });
 
-        document.addEventListener("click", e => {
-
+        document.addEventListener("click", function (event) {
             if (window.innerWidth <= 900) {
-
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                if (
+                    sidebar &&
+                    menuBtn &&
+                    !sidebar.contains(event.target) &&
+                    !menuBtn.contains(event.target)
+                ) {
                     sidebar.style.left = "-270px";
                 }
+            }
+        });
 
+        async function loadDoctorProfile() {
+            if (!doctor || !doctor.id) {
+                return;
             }
 
-        });
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/doctors/" + doctor.id,
+                    {
+                        method: "GET"
+                    }
+                );
 
-        searchInput.addEventListener("keyup", () => {
-
-            const value = searchInput.value.toLowerCase();
-
-            rows.forEach(row => {
-
-                const patient = row.cells[0].innerText.toLowerCase();
-
-                if (patient.includes(value)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-
-            });
-
-        });
-
-        statusFilter.addEventListener("change", () => {
-
-            const value = statusFilter.value;
-
-            rows.forEach(row => {
-
-                const status = row.querySelector(".badge").innerText;
-
-                if (value === "all" || status === value) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-
-            });
-
-        });
-
-        document.querySelectorAll(".accept-btn").forEach(btn => {
-
-            btn.onclick = () => {
-
-                const badge = btn.closest("tr").querySelector(".badge");
-
-                badge.className = "badge accepted";
-                badge.innerText = "Accepted";
-
-                alert("Appointment Accepted");
-
-            };
-
-        });
-
-        document.querySelectorAll(".reject-btn").forEach(btn => {
-
-            btn.onclick = () => {
-
-                if (btn.innerText === "Cancelled") return;
-
-                const badge = btn.closest("tr").querySelector(".badge");
-
-                badge.className = "badge cancelled";
-                badge.innerText = "Cancelled";
-
-                alert("Appointment Cancelled");
-
-            };
-
-        });
-
-        document.querySelectorAll(".start-btn").forEach(btn => {
-
-            btn.onclick = () => {
-
-                alert("Consultation Started");
-
-                btn.innerText = "Running";
-                btn.style.background = "#f59e0b";
-
-            };
-
-        });
-
-        document.querySelectorAll(".complete-btn").forEach(btn => {
-
-            btn.onclick = () => {
-
-                if (btn.innerText === "View") {
-
-                    alert("Opening Appointment Details...");
+                if (!response.ok) {
+                    console.error(
+                        "Doctor Profile API Error:",
+                        response.status
+                    );
                     return;
-
                 }
 
-                const badge = btn.closest("tr").querySelector(".badge");
+                const data = await response.json();
 
-                badge.className = "badge completed";
-                badge.innerText = "Completed";
+                const nameElement = document.querySelector(".profile h4");
+                const specializationElement = document.querySelector(".profile p");
 
-                btn.innerText = "Completed";
-                btn.disabled = true;
-                btn.style.opacity = ".7";
+                if (nameElement) {
+                    nameElement.innerText =
+                        data.doctorName ||
+                        doctor.doctorName ||
+                        "Doctor";
+                }
 
-                alert("Appointment Completed");
+                if (specializationElement) {
+                    specializationElement.innerText =
+                        data.specialization ||
+                        doctor.specialization ||
+                        "Specialization";
+                }
+            } catch (error) {
+                console.error(
+                    "Doctor Profile Error:",
+                    error
+                );
 
-            };
+                const nameElement = document.querySelector(".profile h4");
+                const specializationElement = document.querySelector(".profile p");
 
-        });
+                if (nameElement) {
+                    nameElement.innerText =
+                        doctor.doctorName ||
+                        doctor.fullName ||
+                        "Doctor";
+                }
 
-        rows.forEach(row => {
-
-            row.addEventListener("mouseenter", () => {
-
-                row.style.background = "#f8fbff";
-
-            });
-
-            row.addEventListener("mouseleave", () => {
-
-                row.style.background = "transparent";
-
-            });
-
-        });
-
-        document.querySelectorAll(".summary-card").forEach(card => {
-
-            card.addEventListener("mouseenter", () => {
-
-                card.style.transform = "translateY(-6px)";
-
-            });
-
-            card.addEventListener("mouseleave", () => {
-
-                card.style.transform = "translateY(0)";
-
-            });
-
-        });
-
-        function loadAppointments() {
-
-            console.log("Future API : GET /appointments");
-
+                if (specializationElement) {
+                    specializationElement.innerText =
+                        doctor.specialization ||
+                        "Specialization";
+                }
+            }
         }
 
-        function updateAppointmentStatus(id, status) {
+        async function loadAppointments() {
+            if (!doctor || !doctor.id) {
+                showMessage("Doctor session not found. Please login again.");
+                return;
+            }
 
-            console.log("Future API : PUT /appointments/" + id, status);
+            showMessage("Loading appointments...");
 
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/doctors/appointments/" + doctor.id,
+                    {
+                        method: "GET"
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+
+                    console.error(
+                        "Appointment API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    showMessage(
+                        "Unable to load appointments. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (!Array.isArray(data)) {
+                    console.error(
+                        "Invalid appointment response:",
+                        data
+                    );
+
+                    showMessage("Invalid data received from backend.");
+                    return;
+                }
+
+                appointments = data;
+
+                console.log(
+                    "Appointments From Backend:",
+                    appointments
+                );
+
+                updateSummary();
+                renderAppointments();
+            } catch (error) {
+                console.error(
+                    "Appointment Fetch Error:",
+                    error
+                );
+
+                showMessage(
+                    "Unable to connect with backend server."
+                );
+            }
+        }
+
+        function renderAppointments() {
+            if (!appointmentTableBody) {
+                console.error(
+                    "appointmentTableBody not found."
+                );
+                return;
+            }
+
+            appointmentTableBody.innerHTML = "";
+
+            const searchValue =
+                searchInput
+                    ? searchInput.value.trim().toLowerCase()
+                    : "";
+
+            const selectedStatus =
+                statusFilter
+                    ? statusFilter.value.toLowerCase()
+                    : "all";
+
+            const selectedDate =
+                document.querySelector(".search-filter select:nth-of-type(2)");
+
+            const dateFilter =
+                selectedDate
+                    ? selectedDate.value.toLowerCase()
+                    : "today";
+
+            let filteredAppointments = appointments.filter(function (appointment) {
+                const patientName =
+                    (
+                        appointment.patientName ||
+                        "Patient #" + appointment.patientId
+                    ).toLowerCase();
+
+                const reason =
+                    (
+                        appointment.reason ||
+                        ""
+                    ).toLowerCase();
+
+                const status =
+                    (
+                        appointment.status ||
+                        "PENDING"
+                    ).toLowerCase();
+
+                const searchMatch =
+                    patientName.includes(searchValue) ||
+                    reason.includes(searchValue);
+
+                const statusMatch =
+                    selectedStatus === "all" ||
+                    status === selectedStatus;
+
+                let dateMatch = true;
+
+                if (dateFilter === "today") {
+                    const today =
+                        new Date()
+                            .toISOString()
+                            .split("T")[0];
+
+                    dateMatch =
+                        appointment.appointmentDate === today;
+                } else if (dateFilter === "tomorrow") {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+
+                    const tomorrowDate =
+                        tomorrow
+                            .toISOString()
+                            .split("T")[0];
+
+                    dateMatch =
+                        appointment.appointmentDate === tomorrowDate;
+                } else if (dateFilter === "this week") {
+                    dateMatch = isThisWeek(
+                        appointment.appointmentDate
+                    );
+                }
+
+                return (
+                    searchMatch &&
+                    statusMatch &&
+                    dateMatch
+                );
+            });
+
+            if (recordCountElement) {
+                recordCountElement.innerText =
+                    filteredAppointments.length +
+                    " Records";
+            }
+
+            if (filteredAppointments.length === 0) {
+                appointmentTableBody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;padding:30px;">
+                    No appointments found.
+                </td>
+            </tr>
+        `;
+                return;
+            }
+
+            filteredAppointments.forEach(function (appointment) {
+                const patientName =
+                    appointment.patientName ||
+                    "Patient #" + appointment.patientId;
+
+                const age =
+                    appointment.age !== null &&
+                        appointment.age !== undefined
+                        ? appointment.age
+                        : "-";
+
+                const time =
+                    appointment.appointmentTime
+                        ? formatTime(appointment.appointmentTime)
+                        : "Not Set";
+
+                const reason =
+                    appointment.reason ||
+                    "General Consultation";
+
+                const status =
+                    (
+                        appointment.status ||
+                        "PENDING"
+                    ).toUpperCase();
+
+                const patientId =
+                    appointment.patientId ||
+                    "";
+
+                appointmentTableBody.innerHTML += `
+            <tr>
+                <td>
+                    <div class="patient">
+                        <img
+                            src="http://localhost:8080/api/patients/${patientId}/image"
+                            onerror="this.onerror=null;this.src='../assets/profile.png';"
+                            alt="Patient"
+                        >
+                        <div>
+                            <strong>${escapeHtml(patientName)}</strong>
+                            <br>
+                            <small>P${patientId}</small>
+                        </div>
+                    </div>
+                </td>
+                <td>${escapeHtml(age)}</td>
+                <td>${escapeHtml(time)}</td>
+                <td>${escapeHtml(reason)}</td>
+                <td>
+                    <span class="badge ${getStatusClass(status)}">
+                        ${escapeHtml(status)}
+                    </span>
+                </td>
+                <td>
+                    ${getActionButtons(appointment)}
+                </td>
+            </tr>
+        `;
+            });
+        }
+
+        function getActionButtons(appointment) {
+            const status =
+                (
+                    appointment.status ||
+                    "PENDING"
+                ).toUpperCase();
+
+            if (status === "PENDING") {
+                return `
+            <div class="actions">
+                <button
+                    class="accept-btn"
+                    onclick="acceptAppointment(${appointment.appointmentId})">
+                    Accept
+                </button>
+                <button
+                    class="reject-btn"
+                    onclick="rejectAppointment(${appointment.appointmentId})">
+                    Reject
+                </button>
+            </div>
+        `;
+            }
+
+            if (status === "ACCEPTED") {
+                return `
+            <div class="actions">
+                <button
+                    class="start-btn"
+                    onclick="startConsultation(${appointment.appointmentId})">
+                    Start
+                </button>
+                <button
+                    class="complete-btn"
+                    onclick="completeAppointment(${appointment.appointmentId})">
+                    Complete
+                </button>
+            </div>
+        `;
+            }
+
+            if (status === "COMPLETED") {
+                return `
+            <div class="actions">
+                <button
+                    class="complete-btn"
+                    onclick="viewAppointment(${appointment.appointmentId})">
+                    View
+                </button>
+            </div>
+        `;
+            }
+
+            if (
+                status === "REJECTED" ||
+                status === "CANCELLED"
+            ) {
+                return `
+            <div class="actions">
+                <button
+                    class="reject-btn"
+                    disabled>
+                    ${escapeHtml(status)}
+                </button>
+            </div>
+        `;
+            }
+
+            return "";
+        }
+
+        async function acceptAppointment(id) {
+            const appointment =
+                appointments.find(function (item) {
+                    return item.appointmentId === id;
+                });
+
+            if (!appointment) {
+                alert("Appointment not found.");
+                return;
+            }
+
+            if (
+                !appointment.appointmentDate ||
+                !appointment.appointmentTime
+            ) {
+                alert(
+                    "Appointment date and time are required."
+                );
+                return;
+            }
+
+            if (!token) {
+                alert(
+                    "Login session expired. Please login again."
+                );
+                return;
+            }
+
+            try {
+                const url =
+                    "http://localhost:8080/api/doctors/accept/" +
+                    id +
+                    "?appointmentDate=" +
+                    encodeURIComponent(
+                        appointment.appointmentDate
+                    ) +
+                    "&appointmentTime=" +
+                    encodeURIComponent(
+                        appointment.appointmentTime
+                    );
+
+                const response = await fetch(
+                    url,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Accept Appointment Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    alert(
+                        "Unable to accept appointment. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Appointment Accepted Successfully."
+                );
+
+                await loadAppointments();
+            } catch (error) {
+                console.error(
+                    "Accept Appointment Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        async function rejectAppointment(id) {
+            if (!confirm(
+                "Are you sure you want to reject this appointment?"
+            )) {
+                return;
+            }
+
+            if (!token) {
+                alert(
+                    "Login session expired. Please login again."
+                );
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/doctors/reject/" + id,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Reject Appointment Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    alert(
+                        "Unable to reject appointment. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Appointment Rejected Successfully."
+                );
+
+                await loadAppointments();
+            } catch (error) {
+                console.error(
+                    "Reject Appointment Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        async function completeAppointment(id) {
+            if (!confirm(
+                "Mark this appointment as completed?"
+            )) {
+                return;
+            }
+
+            if (!token) {
+                alert(
+                    "Login session expired. Please login again."
+                );
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/doctors/complete/" + id,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Complete Appointment Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    alert(
+                        "Unable to complete appointment. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Appointment Completed Successfully."
+                );
+
+                await loadAppointments();
+            } catch (error) {
+                console.error(
+                    "Complete Appointment Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
         }
 
         function startConsultation(id) {
 
-            console.log("Future API : POST /consultation/start/" + id);
+            const appointment = appointments.find(function (item) {
+                return item.appointmentId === id;
+            });
 
+            if (!appointment) {
+                alert("Appointment not found.");
+                return;
+            }
+
+            localStorage.setItem(
+                "appointmentId",
+                String(appointment.appointmentId)
+            );
+
+            localStorage.setItem(
+                "patientId",
+                String(appointment.patientId)
+            );
+
+            window.location.href = "patient-details.html";
         }
 
-        function completeConsultation(id) {
+        function viewAppointment(id) {
 
-            console.log("Future API : POST /consultation/complete/" + id);
+            const appointment = appointments.find(function (item) {
+                return item.appointmentId === id;
+            });
 
+            if (!appointment) {
+                alert("Appointment information not found.");
+                return;
+            }
+
+            if (!appointment.patientId) {
+                alert("Patient information not found for this appointment.");
+                return;
+            }
+
+            localStorage.setItem(
+                "patientId",
+                String(appointment.patientId)
+            );
+
+            localStorage.setItem(
+                "appointmentId",
+                String(id)
+            );
+
+            window.location.href =
+                "patient-details.html?patientId=" +
+                appointment.patientId;
         }
 
-        loadAppointments();
+        const appointment = appointments.find(function (item) {
+            return item.appointmentId === id;
+        });
 
+        if (!appointment) {
+            alert("Appointment not found.");
+            return;
+        }
+
+        console.log("Selected Appointment:", appointment);
+
+        console.log(
+            "Saving Patient ID:",
+            appointment.patientId
+        );
+
+        localStorage.setItem(
+            "appointmentId",
+            String(appointment.appointmentId)
+        );
+
+        localStorage.setItem(
+            "patientId",
+            String(appointment.patientId)
+        );
+
+        window.location.href = "patient-details.html";
+        }
+
+        function updateSummary() {
+            const total = appointments.length;
+
+            const pending =
+                appointments.filter(function (item) {
+                    return (
+                        (item.status || "")
+                            .toUpperCase() === "PENDING"
+                    );
+                }).length;
+
+            const completed =
+                appointments.filter(function (item) {
+                    return (
+                        (item.status || "")
+                            .toUpperCase() === "COMPLETED"
+                    );
+                }).length;
+
+            const cancelled =
+                appointments.filter(function (item) {
+                    const status =
+                        (item.status || "")
+                            .toUpperCase();
+
+                    return (
+                        status === "CANCELLED" ||
+                        status === "REJECTED"
+                    );
+                }).length;
+
+            const accepted =
+                appointments.filter(function (item) {
+                    return (
+                        (item.status || "")
+                            .toUpperCase() === "ACCEPTED"
+                    );
+                }).length;
+
+            if (totalAppointments) {
+                totalAppointments.innerText = total;
+            }
+
+            if (pendingAppointments) {
+                pendingAppointments.innerText = pending;
+            }
+
+            if (completedAppointments) {
+                completedAppointments.innerText = completed;
+            }
+
+            if (cancelledAppointments) {
+                cancelledAppointments.innerText = cancelled;
+            }
+        }
+
+        function getStatusClass(status) {
+            if (status === "PENDING") {
+                return "pending";
+            }
+
+            if (status === "ACCEPTED") {
+                return "accepted";
+            }
+
+            if (status === "COMPLETED") {
+                return "completed";
+            }
+
+            if (
+                status === "REJECTED" ||
+                status === "CANCELLED"
+            ) {
+                return "cancelled";
+            }
+
+            return "pending";
+        }
+
+        function formatTime(time) {
+            if (!time) {
+                return "Not Set";
+            }
+
+            const parts = time.split(":");
+            let hour = parseInt(parts[0], 10);
+            const minute = parts[1] || "00";
+            const period = hour >= 12 ? "PM" : "AM";
+
+            hour = hour % 12 || 12;
+
+            return hour + ":" + minute + " " + period;
+        }
+
+        function isThisWeek(dateString) {
+            if (!dateString) {
+                return false;
+            }
+
+            const date = new Date(dateString + "T00:00:00");
+            const today = new Date();
+
+            const day = today.getDay();
+            const diffToMonday =
+                day === 0
+                    ? 6
+                    : day - 1;
+
+            const monday = new Date(today);
+            monday.setHours(0, 0, 0, 0);
+            monday.setDate(
+                today.getDate() - diffToMonday
+            );
+
+            const sunday = new Date(monday);
+            sunday.setDate(
+                monday.getDate() + 6
+            );
+            sunday.setHours(23, 59, 59, 999);
+
+            return (
+                date >= monday &&
+                date <= sunday
+            );
+        }
+
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function showMessage(message) {
+            if (!appointmentTableBody) {
+                return;
+            }
+
+            appointmentTableBody.innerHTML = `
+        <tr>
+            <td
+                colspan="6"
+                style="text-align:center;padding:30px;">
+                ${escapeHtml(message)}
+            </td>
+        </tr>
+    `;
+
+            if (recordCountElement) {
+                recordCountElement.innerText = "0 Records";
+            }
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener(
+                "input",
+                renderAppointments
+            );
+        }
+
+        if (statusFilter) {
+            statusFilter.addEventListener(
+                "change",
+                renderAppointments
+            );
+        }
+
+        const dateFilter =
+            document.querySelector(
+                ".search-filter select:nth-of-type(2)"
+            );
+
+        if (dateFilter) {
+            dateFilter.addEventListener(
+                "change",
+                renderAppointments
+            );
+        }
+
+        if (filterButton) {
+            filterButton.addEventListener(
+                "click",
+                renderAppointments
+            );
+        }
     </script>
 
 </body>

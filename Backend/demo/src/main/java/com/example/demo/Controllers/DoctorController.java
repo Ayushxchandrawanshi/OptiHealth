@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.ApiResponse;
+import com.example.demo.DTO.DoctorAppointmentDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.LoginResponse;
 import com.example.demo.Models.AppointmentModel;
@@ -62,11 +63,9 @@ public class DoctorController {
     // View Doctor Appointments
     // ==========================
     @GetMapping("/appointments/{doctorId}")
-    public List<AppointmentModel> getDoctorAppointments(
+    public List<DoctorAppointmentDTO> getDoctorAppointments(
             @PathVariable Long doctorId) {
-
         return doctorService.getDoctorAppointments(doctorId);
-
     }
 
     // ==========================

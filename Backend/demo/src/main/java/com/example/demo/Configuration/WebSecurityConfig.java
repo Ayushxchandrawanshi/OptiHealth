@@ -1,5 +1,7 @@
 package com.example.demo.Configuration;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class WebSecurityConfig {
@@ -21,17 +26,13 @@ public class WebSecurityConfig {
             throws Exception {
 
         http
-                // Disable CSRF
                 .csrf(csrf -> csrf.disable())
-                // Enable CORS
                 .cors(Customizer.withDefaults())
-                // JWT Session
                 .sessionManagement(session
-                        -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // Authorization
+                        -> session.sessionCreationPolicy(
+                        SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                // Public APIs
-
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(
                         "/api/patients/register",
                         "/api/patients/login",
@@ -41,25 +42,63 @@ public class WebSecurityConfig {
                         "/api/admin/login",
                         "/api/auth/**"
                 ).permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/patients/doctors",
+                .requestMatchers(
+                        HttpMethod.GET,
+                        "/api/patients/doctors",
+                        "/api/patients/**",
                         "/api/doctors/**"
                 ).permitAll()
-                // Swagger
+                .requestMatchers(
+                        HttpMethod.POST,
+                        "/api/prescriptions"
+                ).permitAll()
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/v3/api-docs/**"
                 ).permitAll()
-                // Everything Else
-
-                .anyRequest().authenticated())
+                .anyRequest().authenticated()
+                )
                 // JWT Filter
-
                 .addFilterBefore(
                         jwtFilter,
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-
     }
 
+    // =========================
+    // CORS CONFIGURATION
+    // =========================
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://127.0.0.1:5500",
+                "http://localhost:5500"
+        ));
+
+        configuration.setAllowedMethods(Arrays.asList(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+        ));
+
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source
+                = new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration(
+                "/**",
+                configuration
+        );
+
+        return source;
+    }
 }

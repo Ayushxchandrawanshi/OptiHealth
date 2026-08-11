@@ -696,9 +696,8 @@
 
                             <img src="../assets/profile.png" alt="Patient">
 
-                            <h2>Rahul Verma</h2>
-
-                            <p>Patient ID : P1001</p>
+                            <h2 id="patientName">Loading...</h2>
+                            <p>Patient ID : <span id="patientId">Loading...</span></p>
 
                             <span class="status">
                                 Active Patient
@@ -708,37 +707,39 @@
 
                                 <div class="info-item">
                                     <span>Age</span>
-                                    <span>34 Years</span>
+                                    <span id="patientAge">-</span>
                                 </div>
 
                                 <div class="info-item">
                                     <span>Gender</span>
-                                    <span>Male</span>
+                                    <span id="patientGender">-</span>
                                 </div>
 
                                 <div class="info-item">
                                     <span>Blood Group</span>
-                                    <span>O+</span>
+                                    <span id="patientBloodGroup">-</span>
                                 </div>
 
                                 <div class="info-item">
                                     <span>Phone</span>
-                                    <span>+91 9876543210</span>
+                                    <span id="patientPhone">-</span>
                                 </div>
 
                                 <div class="info-item">
-                                    <span>Email</span>
-                                    <span>rahul@email.com</span>
+                                    <div class="info-item">
+                                        <span>Email</span>
+                                        <span id="patientEmail">-</span>
+                                    </div>
                                 </div>
 
                                 <div class="info-item">
                                     <span>Emergency</span>
-                                    <span>+91 9876500000</span>
+                                    <span id="patientEmergencyContact">-</span>
                                 </div>
 
                                 <div class="info-item">
                                     <span>Address</span>
-                                    <span>Bhopal, Madhya Pradesh</span>
+                                    <span id="patientAddress">-</span>
                                 </div>
 
                             </div>
@@ -796,42 +797,42 @@
 
                                 <div class="detail-box">
                                     <h4>Date of Birth</h4>
-                                    <p>15 March 1992</p>
+                                    <p id="patientDob">-</p>
                                 </div>
 
                                 <div class="detail-box">
                                     <h4>Height</h4>
-                                    <p>175 cm</p>
+                                    <p id="patientHeight">-</p>
                                 </div>
 
                                 <div class="detail-box">
                                     <h4>Weight</h4>
-                                    <p>72 Kg</p>
+                                    <p id="patientWeight">-</p>
                                 </div>
 
                                 <div class="detail-box">
                                     <h4>BMI</h4>
-                                    <p>23.5</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <h4>Occupation</h4>
-                                    <p>Software Engineer</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <h4>Marital Status</h4>
-                                    <p>Married</p>
+                                    <p id="patientBmi">-</p>
                                 </div>
 
                                 <div class="detail-box">
                                     <h4>Allergies</h4>
-                                    <p>Penicillin</p>
+                                    <p id="patientAllergies">-</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <h4>Existing Diseases</h4>
+                                    <p id="patientDiseases">-</p>
                                 </div>
 
                                 <div class="detail-box">
                                     <h4>Current Medication</h4>
-                                    <p>Aspirin 75mg Daily</p>
+                                    <p id="patientMedications">-</p>
+                                </div>
+
+                                <div class="detail-box">
+                                    <h4>Location</h4>
+                                    <p id="patientLocation">-</p>
                                 </div>
 
                             </div>
@@ -849,115 +850,6 @@
 
                         </div>
 
-                        <div class="card">
-
-                            <div class="section-title">
-                                <h2>Medical Timeline</h2>
-                            </div>
-
-                            <div class="timeline">
-
-                                <div class="timeline-item">
-
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-stethoscope"></i>
-                                    </div>
-
-                                    <div class="timeline-content">
-                                        <h4>12 July 2026</h4>
-                                        <p>Routine Heart Checkup completed. ECG and blood pressure examination performed
-                                            successfully.</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="timeline-item">
-
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-pills"></i>
-                                    </div>
-
-                                    <div class="timeline-content">
-                                        <h4>18 June 2026</h4>
-                                        <p>Prescribed Aspirin and lifestyle improvements for mild hypertension.</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="timeline-item">
-
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-heart-pulse"></i>
-                                    </div>
-
-                                    <div class="timeline-content">
-                                        <h4>02 May 2026</h4>
-                                        <p>Patient admitted with chest discomfort. Observation completed and discharged
-                                            on the same day.</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="timeline-item">
-
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-file-waveform"></i>
-                                    </div>
-
-                                    <div class="timeline-content">
-                                        <h4>15 February 2026</h4>
-                                        <p>Annual health checkup completed. All reports normal except slightly elevated
-                                            cholesterol.</p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="card">
-
-                            <div class="section-title">
-                                <h2>Latest Lab Reports</h2>
-                            </div>
-
-                            <div class="detail-grid">
-
-                                <div class="detail-box">
-                                    <h4>Blood Pressure</h4>
-                                    <p>130 / 85 mmHg</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <h4>Heart Rate</h4>
-                                    <p>76 BPM</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <h4>Blood Sugar</h4>
-                                    <p>102 mg/dL</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <h4>Cholesterol</h4>
-                                    <p>205 mg/dL</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <h4>ECG Status</h4>
-                                    <p>Normal</p>
-                                </div>
-
-                                <div class="detail-box">
-                                    <h4>Next Follow-up</h4>
-                                    <p>05 August 2026</p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
                     </div>
 
                 </div>
@@ -968,14 +860,40 @@
 
     </div>
 
+
     <script>
-
-        const sidebar = document.querySelector(".sidebar");
         const menuBtn = document.querySelector(".menu-btn");
-        const editBtn = document.querySelector(".edit-btn");
-        const notes = document.querySelector(".notes");
+        const sidebar = document.querySelector(".sidebar");
+        const notify = document.querySelector(".notify");
 
-        window.onload = () => {
+        const urlParams = new URLSearchParams(
+            window.location.search
+        );
+
+        let patientId =
+            urlParams.get("patientId");
+
+        if (patientId) {
+            patientId = String(patientId);
+        }
+
+        let token = localStorage.getItem("token");
+        let patient = null;
+
+        try {
+            const appointmentId = localStorage.getItem("appointmentId");
+
+            if (!patientId && appointmentId) {
+                console.log(
+                    "Appointment ID found:",
+                    appointmentId
+                );
+            }
+        } catch (error) {
+            console.error(error);
+        }
+
+        window.addEventListener("load", function () {
 
             if (window.innerWidth <= 900) {
                 sidebar.style.left = "-270px";
@@ -983,20 +901,30 @@
                 sidebar.style.left = "0";
             }
 
-        };
+            loadDoctorProfile();
+            loadPatient();
 
-        menuBtn.onclick = () => {
+        });
 
-            if (window.innerWidth <= 900) {
+        if (menuBtn) {
 
-                sidebar.style.left =
-                    sidebar.style.left === "0px" ? "-270px" : "0";
+            menuBtn.addEventListener("click", function () {
 
-            }
+                if (window.innerWidth <= 900) {
 
-        };
+                    if (sidebar.style.left === "0px") {
+                        sidebar.style.left = "-270px";
+                    } else {
+                        sidebar.style.left = "0";
+                    }
 
-        window.addEventListener("resize", () => {
+                }
+
+            });
+
+        }
+
+        window.addEventListener("resize", function () {
 
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
@@ -1006,171 +934,875 @@
 
         });
 
-        document.addEventListener("click", e => {
+        if (notify) {
 
-            if (window.innerWidth <= 900) {
+            notify.addEventListener("click", function () {
+                alert("You have 4 new notifications.");
+            });
 
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+        }
+
+        async function loadPatient() {
+
+            const urlParams = new URLSearchParams(
+                window.location.search
+            );
+
+            const urlPatientId =
+                urlParams.get("patientId");
+
+            const storedPatientId =
+                localStorage.getItem("patientId");
+
+            patientId =
+                urlPatientId ||
+                storedPatientId;
+
+            console.log(
+                "Patient ID:",
+                patientId
+            );
+
+            if (!patientId) {
+
+                showPatientError(
+                    "Patient ID not found."
+                );
+
+                return;
+            }
+
+            localStorage.setItem(
+                "patientId",
+                String(patientId)
+            );
+
+            setLoadingState();
+
+            try {
+
+                const headers = {
+                    "Content-Type": "application/json"
+                };
+
+                if (token) {
+
+                    headers["Authorization"] =
+                        "Bearer " + token;
+
+                }
+
+                const response = await fetch(
+                    "http://localhost:8080/api/patients/" + patientId,
+                    {
+                        method: "GET",
+                        headers: headers
+                    }
+                );
+
+                if (!response.ok) {
+
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Patient API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    showPatientError(
+                        "Unable to load patient. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                console.log(
+                    "Patient Data From Backend:",
+                    data
+                );
+
+                displayPatientData(data);
+
+            } catch (error) {
+
+                console.error(
+                    "Patient Connection Error:",
+                    error
+                );
+
+                showPatientError(
+                    "Unable to connect with backend."
+                );
+
+            }
+        }
+
+        function displayPatientData(patient) {
+
+            const name =
+                patient.fullName ||
+                "-";
+
+            const id =
+                patient.id ||
+                patientId ||
+                "-";
+
+            const gender =
+                patient.gender ||
+                "-";
+
+            const mobile =
+                patient.mobileNumber ||
+                "-";
+
+            const email =
+                patient.email ||
+                "-";
+
+            const dob =
+                patient.dob ||
+                "-";
+
+            const bloodGroup =
+                patient.bloodGroup ||
+                "-";
+
+            const emergencyContact =
+                patient.emergencyContact ||
+                "-";
+
+            const allergies =
+                patient.allergies ||
+                "None";
+
+            const diseases =
+                patient.existingDiseases ||
+                "None";
+
+            const medications =
+                patient.currentMedications ||
+                "None";
+
+            const height =
+                patient.height;
+
+            const weight =
+                patient.weight;
+
+            const age =
+                calculateAge(patient.dob);
+
+            const bmi =
+                calculateBMI(
+                    patient.height,
+                    patient.weight
+                );
+
+            const address =
+                buildAddress(patient);
+
+            setText(
+                "patientName",
+                name
+            );
+
+            setText(
+                "patientId",
+                "P" + id
+            );
+
+            setText(
+                "patientAge",
+                age
+            );
+
+            setText(
+                "patientGender",
+                gender
+            );
+
+            setText(
+                "patientBloodGroup",
+                bloodGroup
+            );
+
+            setText(
+                "patientPhone",
+                mobile
+            );
+
+            setText(
+                "patientEmail",
+                email
+            );
+
+            setText(
+                "patientEmergencyContact",
+                emergencyContact
+            );
+
+            setText(
+                "patientAddress",
+                address
+            );
+
+            setText(
+                "patientDob",
+                dob
+            );
+
+            setText(
+                "patientHeight",
+                height !== null &&
+                    height !== undefined &&
+                    height !== ""
+                    ? height + " cm"
+                    : "-"
+            );
+
+            setText(
+                "patientWeight",
+                weight !== null &&
+                    weight !== undefined &&
+                    weight !== ""
+                    ? weight + " kg"
+                    : "-"
+            );
+
+            setText(
+                "patientBmi",
+                bmi
+            );
+
+            setText(
+                "patientAllergies",
+                allergies
+            );
+
+            setText(
+                "patientDiseases",
+                diseases
+            );
+
+            setText(
+                "patientMedications",
+                medications
+            );
+
+            setText(
+                "patientLocation",
+                buildLocation(patient)
+            );
+
+            loadPatientImage(patient.id);
+
+        }
+
+        function calculateAge(dob) {
+
+            if (!dob) {
+                return "-";
+            }
+
+            let birthDate;
+
+            if (
+                typeof dob === "string" &&
+                dob.includes("-")
+            ) {
+
+                const parts = dob.split("-");
+
+                if (parts.length === 3) {
+
+                    if (parts[0].length === 4) {
+
+                        birthDate = new Date(
+                            Number(parts[0]),
+                            Number(parts[1]) - 1,
+                            Number(parts[2])
+                        );
+
+                    } else {
+
+                        birthDate = new Date(
+                            Number(parts[2]),
+                            Number(parts[1]) - 1,
+                            Number(parts[0])
+                        );
+
+                    }
+
                 }
 
             }
 
-        });
+            if (!birthDate ||
+                Number.isNaN(
+                    birthDate.getTime()
+                )
+            ) {
 
-        document.querySelector(".download-btn").onclick = () => {
+                birthDate = new Date(dob);
 
-            alert("Patient report downloaded successfully.");
-
-        };
-
-        document.querySelector(".print-btn").onclick = () => {
-
-            window.print();
-
-        };
-
-        document.querySelector(".history-btn").onclick = () => {
-
-            alert("Opening patient visit history...");
-
-        };
-
-        document.querySelector(".prescription-btn").onclick = () => {
-
-            location.href = "prescription.html";
-
-        };
-
-        editBtn.onclick = () => {
-
-            const boxes = document.querySelectorAll(".detail-box p");
-
-            boxes.forEach(box => {
-
-                box.contentEditable = true;
-                box.style.background = "#ecfeff";
-                box.style.padding = "4px";
-                box.style.borderRadius = "6px";
-
-            });
-
-            editBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save';
-
-            editBtn.onclick = saveDetails;
-
-        };
-
-        function saveDetails() {
-
-            const boxes = document.querySelectorAll(".detail-box p");
-
-            boxes.forEach(box => {
-
-                box.contentEditable = false;
-                box.style.background = "transparent";
-                box.style.padding = "0";
-
-            });
-
-            editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
-            editBtn.onclick = location.reload.bind(location);
-
-            alert("Patient information updated successfully.");
-
-        }
-
-        notes.addEventListener("keyup", () => {
-
-            localStorage.setItem("doctorNotes", notes.value);
-
-        });
-
-        window.addEventListener("load", () => {
-
-            const savedNotes = localStorage.getItem("doctorNotes");
-
-            if (savedNotes) {
-                notes.value = savedNotes;
             }
 
-        });
+            if (
+                !birthDate ||
+                Number.isNaN(
+                    birthDate.getTime()
+                )
+            ) {
+                return "-";
+            }
 
-        document.querySelectorAll(".card").forEach(card => {
+            const today = new Date();
 
-            card.addEventListener("mouseenter", () => {
+            let age =
+                today.getFullYear() -
+                birthDate.getFullYear();
 
-                card.style.transform = "translateY(-6px)";
-                card.style.transition = ".3s";
+            const monthDifference =
+                today.getMonth() -
+                birthDate.getMonth();
 
-            });
+            if (
+                monthDifference < 0 ||
+                (
+                    monthDifference === 0 &&
+                    today.getDate() < birthDate.getDate()
+                )
+            ) {
 
-            card.addEventListener("mouseleave", () => {
+                age--;
 
-                card.style.transform = "translateY(0)";
+            }
 
-            });
+            if (age < 0) {
+                return "-";
+            }
 
-        });
-
-        document.querySelectorAll(".timeline-item").forEach(item => {
-
-            item.addEventListener("mouseenter", () => {
-
-                item.querySelector(".timeline-content").style.background = "#ecfeff";
-
-            });
-
-            item.addEventListener("mouseleave", () => {
-
-                item.querySelector(".timeline-content").style.background = "#f8fbff";
-
-            });
-
-        });
-
-        document.querySelectorAll(".action-buttons button").forEach(btn => {
-
-            btn.addEventListener("mouseenter", () => {
-
-                btn.style.transform = "translateY(-3px)";
-
-            });
-
-            btn.addEventListener("mouseleave", () => {
-
-                btn.style.transform = "translateY(0)";
-
-            });
-
-        });
-
-        function loadPatient(id) {
-
-            console.log("Future API : GET /patients/" + id);
+            return age + " Years";
 
         }
 
-        function updatePatient(id) {
+        function calculateBMI(height, weight) {
 
-            console.log("Future API : PUT /patients/" + id);
+            if (
+                height === null ||
+                height === undefined ||
+                weight === null ||
+                weight === undefined
+            ) {
+                return "-";
+            }
+
+            const heightValue =
+                Number(height);
+
+            const weightValue =
+                Number(weight);
+
+            if (
+                heightValue <= 0 ||
+                weightValue <= 0 ||
+                Number.isNaN(heightValue) ||
+                Number.isNaN(weightValue)
+            ) {
+                return "-";
+            }
+
+            const heightInMeter =
+                heightValue / 100;
+
+            const bmi =
+                weightValue /
+                (
+                    heightInMeter *
+                    heightInMeter
+                );
+
+            return bmi.toFixed(2);
 
         }
 
-        function saveDoctorNotes(id) {
+        function buildAddress(patient) {
 
-            console.log("Future API : POST /doctor-notes/" + id);
+            const parts = [];
+
+            if (patient.address) {
+                parts.push(patient.address);
+            }
+
+            if (patient.city) {
+                parts.push(patient.city);
+            }
+
+            if (patient.state) {
+                parts.push(patient.state);
+            }
+
+            if (patient.pincode) {
+                parts.push(patient.pincode);
+            }
+
+            if (parts.length === 0) {
+                return "-";
+            }
+
+            return parts.join(", ");
 
         }
 
-        function downloadMedicalReport(id) {
+        function buildLocation(patient) {
 
-            console.log("Future API : GET /reports/" + id);
+            const parts = [];
+
+            if (patient.city) {
+                parts.push(patient.city);
+            }
+
+            if (patient.state) {
+                parts.push(patient.state);
+            }
+
+            if (patient.pincode) {
+                parts.push(patient.pincode);
+            }
+
+            if (parts.length === 0) {
+                return "-";
+            }
+
+            return parts.join(", ");
 
         }
 
-        loadPatient(1);
+        function setText(id, value) {
 
+            const element =
+                document.getElementById(id);
+
+            if (element) {
+                element.innerText =
+                    value !== null &&
+                        value !== undefined &&
+                        value !== ""
+                        ? value
+                        : "-";
+            }
+
+        }
+
+        function setLoadingState() {
+
+            setText(
+                "patientName",
+                "Loading..."
+            );
+
+            setText(
+                "patientId",
+                "Loading..."
+            );
+
+            setText(
+                "patientAge",
+                "Loading..."
+            );
+
+            setText(
+                "patientGender",
+                "Loading..."
+            );
+
+            setText(
+                "patientBloodGroup",
+                "Loading..."
+            );
+
+            setText(
+                "patientPhone",
+                "Loading..."
+            );
+
+            setText(
+                "patientEmail",
+                "Loading..."
+            );
+
+            setText(
+                "patientEmergencyContact",
+                "Loading..."
+            );
+
+            setText(
+                "patientAddress",
+                "Loading..."
+            );
+
+            setText(
+                "patientDob",
+                "Loading..."
+            );
+
+            setText(
+                "patientHeight",
+                "Loading..."
+            );
+
+            setText(
+                "patientWeight",
+                "Loading..."
+            );
+
+            setText(
+                "patientBmi",
+                "Loading..."
+            );
+
+            setText(
+                "patientAllergies",
+                "Loading..."
+            );
+
+            setText(
+                "patientDiseases",
+                "Loading..."
+            );
+
+            setText(
+                "patientMedications",
+                "Loading..."
+            );
+
+            setText(
+                "patientLocation",
+                "Loading..."
+            );
+
+        }
+
+        function showPatientError(message) {
+
+            setText(
+                "patientName",
+                "Error"
+            );
+
+            setText(
+                "patientId",
+                "-"
+            );
+
+            setText(
+                "patientAge",
+                "-"
+            );
+
+            setText(
+                "patientGender",
+                "-"
+            );
+
+            setText(
+                "patientBloodGroup",
+                "-"
+            );
+
+            setText(
+                "patientPhone",
+                "-"
+            );
+
+            setText(
+                "patientEmail",
+                "-"
+            );
+
+            setText(
+                "patientEmergencyContact",
+                "-"
+            );
+
+            setText(
+                "patientAddress",
+                "-"
+            );
+
+            setText(
+                "patientDob",
+                "-"
+            );
+
+            setText(
+                "patientHeight",
+                "-"
+            );
+
+            setText(
+                "patientWeight",
+                "-"
+            );
+
+            setText(
+                "patientBmi",
+                "-"
+            );
+
+            setText(
+                "patientAllergies",
+                "-"
+            );
+
+            setText(
+                "patientDiseases",
+                "-"
+            );
+
+            setText(
+                "patientMedications",
+                "-"
+            );
+
+            setText(
+                "patientLocation",
+                "-"
+            );
+
+            console.error(
+                "Patient Details:",
+                message
+            );
+
+        }
+
+        function loadPatientImage(id) {
+
+            const image =
+                document.querySelector(
+                    ".profile-card img"
+                );
+
+            if (!image || !id) {
+                return;
+            }
+
+            image.src =
+                "http://localhost:8080/api/patients/" +
+                id +
+                "/image";
+
+            image.onerror = function () {
+
+                this.onerror = null;
+
+                this.src = "../assets/profile.png";
+
+            };
+
+        }
+
+        async function loadDoctorProfile() {
+
+            let doctor = null;
+
+            try {
+
+                const storedUser =
+                    localStorage.getItem("user");
+
+                if (storedUser) {
+                    doctor =
+                        JSON.parse(storedUser);
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Doctor localStorage error:",
+                    error
+                );
+
+            }
+
+            if (!doctor) {
+
+                return;
+            }
+
+            const doctorName =
+                doctor.doctorName ||
+                doctor.fullName ||
+                "Doctor";
+
+            const specialization =
+                doctor.specialization ||
+                "Doctor";
+
+            const nameElement =
+                document.querySelector(
+                    ".profile h4"
+                );
+
+            const specializationElement =
+                document.querySelector(
+                    ".profile p"
+                );
+
+            if (nameElement) {
+
+                nameElement.innerText =
+                    doctorName;
+
+            }
+
+            if (specializationElement) {
+
+                specializationElement.innerText =
+                    specialization;
+
+            }
+
+            if (doctor.id) {
+
+                try {
+
+                    const response = await fetch(
+                        "http://localhost:8080/api/doctors/" + doctor.id,
+                        {
+                            method: "GET"
+                        }
+                    );
+
+                    if (response.ok) {
+
+                        const data =
+                            await response.json();
+
+                        if (nameElement) {
+
+                            nameElement.innerText =
+                                data.doctorName ||
+                                doctorName;
+
+                        }
+
+                        if (specializationElement) {
+
+                            specializationElement.innerText =
+                                data.specialization ||
+                                specialization;
+
+                        }
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Doctor Profile Error:",
+                        error
+                    );
+
+                }
+
+            }
+
+        }
+
+        const editButton =
+            document.querySelector(".edit-btn");
+
+        if (editButton) {
+
+            editButton.addEventListener(
+                "click",
+                function () {
+
+                    alert(
+                        "Patient editing will be connected next."
+                    );
+
+                }
+            );
+
+        }
+
+        const downloadButton =
+            document.querySelector(".download-btn");
+
+        if (downloadButton) {
+
+            downloadButton.addEventListener(
+                "click",
+                function () {
+
+                    window.print();
+
+                }
+            );
+
+        }
+
+        const printButton =
+            document.querySelector(".print-btn");
+
+        if (printButton) {
+
+            printButton.addEventListener(
+                "click",
+                function () {
+
+                    window.print();
+
+                }
+            );
+
+        }
+
+        const historyButton =
+            document.querySelector(".history-btn");
+
+        if (historyButton) {
+
+            historyButton.addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "medical-history.html";
+
+                }
+            );
+
+        }
+
+        const prescriptionButton =
+            document.querySelector(
+                ".prescription-btn"
+            );
+
+        if (prescriptionButton) {
+
+            prescriptionButton.addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "prescription.html";
+
+                }
+            );
+
+        }
     </script>
 
 </body>

@@ -19,7 +19,6 @@ import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.DoctorAppointmentDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.LoginResponse;
-import com.example.demo.Models.AppointmentModel;
 import com.example.demo.Models.DoctorModel;
 import com.example.demo.Services.AuthService;
 import com.example.demo.Services.DoctorService;
@@ -98,12 +97,22 @@ public class DoctorController {
         return new ApiResponse(
                 true,
                 "Appointment Rejected Successfully");
+    }
 
+    @PutMapping("/complete/{appointmentId}")
+    public ApiResponse completeAppointment(
+            @PathVariable Long appointmentId) {
+
+        doctorService.completeAppointment(appointmentId);
+
+        return new ApiResponse(
+                true,
+                "Appointment Completed Successfully");
     }
 
     // ==========================
-// Get Doctor By Id
-// ==========================
+    // Get Doctor By Id
+    // ==========================
     @GetMapping("/{doctorId}")
     public DoctorModel getDoctorById(@PathVariable Long doctorId) {
 

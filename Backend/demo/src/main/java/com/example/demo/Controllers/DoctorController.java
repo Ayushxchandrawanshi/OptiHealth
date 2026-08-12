@@ -34,42 +34,34 @@ public class DoctorController {
     @Autowired
     private AuthService authService;
 
-    // ==========================
-    // Register Doctor
-    // ==========================
     @PostMapping("/register")
-    public ApiResponse registerDoctor(@RequestBody DoctorModel doctor) {
+    public ApiResponse registerDoctor(
+            @RequestBody DoctorModel doctor) {
 
         doctorService.registerDoctor(doctor);
 
         return new ApiResponse(
                 true,
-                "Doctor Registered Successfully");
-
+                "Doctor Registered Successfully"
+        );
     }
 
-    // ==========================
-    // Doctor Login
-    // ==========================
     @PostMapping("/login")
-    public LoginResponse loginDoctor(@RequestBody LoginRequest request) {
+    public LoginResponse loginDoctor(
+            @RequestBody LoginRequest request) {
 
         return authService.doctorLogin(request);
-
     }
 
-    // ==========================
-    // View Doctor Appointments
-    // ==========================
     @GetMapping("/appointments/{doctorId}")
     public List<DoctorAppointmentDTO> getDoctorAppointments(
             @PathVariable Long doctorId) {
-        return doctorService.getDoctorAppointments(doctorId);
+
+        return doctorService.getDoctorAppointments(
+                doctorId
+        );
     }
 
-    // ==========================
-    // Accept Appointment
-    // ==========================
     @PutMapping("/accept/{appointmentId}")
     public ApiResponse acceptAppointment(
             @PathVariable Long appointmentId,
@@ -79,45 +71,60 @@ public class DoctorController {
         doctorService.acceptAppointment(
                 appointmentId,
                 appointmentDate,
-                appointmentTime);
+                appointmentTime
+        );
 
         return new ApiResponse(
                 true,
-                "Appointment Accepted Successfully");
+                "Appointment Accepted Successfully"
+        );
     }
 
-    // ==========================
-    // Reject Appointment
-    // ==========================
     @PutMapping("/reject/{appointmentId}")
-    public ApiResponse rejectAppointment(@PathVariable Long appointmentId) {
+    public ApiResponse rejectAppointment(
+            @PathVariable Long appointmentId) {
 
-        doctorService.rejectAppointment(appointmentId);
+        doctorService.rejectAppointment(
+                appointmentId
+        );
 
         return new ApiResponse(
                 true,
-                "Appointment Rejected Successfully");
+                "Appointment Rejected Successfully"
+        );
     }
 
     @PutMapping("/complete/{appointmentId}")
     public ApiResponse completeAppointment(
             @PathVariable Long appointmentId) {
 
-        doctorService.completeAppointment(appointmentId);
+        doctorService.completeAppointment(
+                appointmentId
+        );
 
         return new ApiResponse(
                 true,
-                "Appointment Completed Successfully");
+                "Appointment Completed Successfully"
+        );
     }
 
-    // ==========================
-    // Get Doctor By Id
-    // ==========================
     @GetMapping("/{doctorId}")
-    public DoctorModel getDoctorById(@PathVariable Long doctorId) {
+    public DoctorModel getDoctorById(
+            @PathVariable Long doctorId) {
 
-        return doctorService.getDoctorById(doctorId);
-
+        return doctorService.getDoctorById(
+                doctorId
+        );
     }
 
+    @PutMapping("/{doctorId}")
+    public DoctorModel updateDoctorProfile(
+            @PathVariable Long doctorId,
+            @RequestBody DoctorModel doctor) {
+
+        return doctorService.updateDoctorProfile(
+                doctorId,
+                doctor
+        );
+    }
 }

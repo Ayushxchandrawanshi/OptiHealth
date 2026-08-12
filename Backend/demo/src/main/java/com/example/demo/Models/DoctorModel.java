@@ -20,12 +20,24 @@ public class DoctorModel {
     private float fee;
     private String description;
 
+    private Long mobileNumber;
+    private String dob;
+    private String gender;
+    private String bloodGroup;
+    private String qualification;
+    private String registrationNo;
+    private String clinicAddress;
+    private String languages;
+    private String linkedin;
+    private String website;
+    private String facebook;
+    private String instagram;
+
     public DoctorModel() {
     }
 
-    public DoctorModel(String doctorName, String email, String password,
-            String specialization, int experience,
-            float fee, String description) {
+    public DoctorModel(String doctorName, String email, String password, String specialization, int experience, float fee, String description, Long mobileNumber, String dob, String gender, String bloodGroup, String qualification, String registrationNo, String clinicAddress, String languages, String linkedin, String website, String facebook, String instagram) {
+
         this.doctorName = doctorName;
         this.email = email;
         this.password = password;
@@ -33,9 +45,20 @@ public class DoctorModel {
         this.experience = experience;
         this.fee = fee;
         this.description = description;
+        this.mobileNumber = mobileNumber;
+        this.dob = dob;
+        this.gender = gender;
+        this.bloodGroup = bloodGroup;
+        this.qualification = qualification;
+        this.registrationNo = registrationNo;
+        this.clinicAddress = clinicAddress;
+        this.languages = languages;
+        this.linkedin = linkedin;
+        this.website = website;
+        this.facebook = facebook;
+        this.instagram = instagram;
     }
 
-    // Getter & Setter
     public Long getId() {
         return id;
     }
@@ -98,5 +121,101 @@ public class DoctorModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(Long mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getRegistrationNo() {
+        return registrationNo;
+    }
+
+    public void setRegistrationNo(String registrationNo) {
+        this.registrationNo = registrationNo;
+    }
+
+    public String getClinicAddress() {
+        return clinicAddress;
+    }
+
+    public void setClinicAddress(String clinicAddress) {
+        this.clinicAddress = clinicAddress;
+    }
+
+    public String getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String languages) {
+        this.languages = languages;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
     }
 }

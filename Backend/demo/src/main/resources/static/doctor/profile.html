@@ -581,8 +581,8 @@
                     <div class="profile">
                         <img src="../assets/doctor.png" alt="">
                         <div>
-                            <h4>Dr. Rahul Sharma</h4>
-                            <p>Cardiologist</p>
+                            <h4 id="topDoctorName">--</h4>
+                            <p id="topDoctorSpecialization">--</p>
                         </div>
                     </div>
 
@@ -605,8 +605,8 @@
 
                             <img src="../assets/doctor.png" id="profilePreview" alt="Doctor">
 
-                            <h2>Dr. Rahul Sharma</h2>
-                            <p>Senior Cardiologist</p>
+                            <h2 id="doctorName">--</h2>
+                            <p id="doctorSpecialization">--</p>
 
                             <label class="upload-btn">
                                 <i class="fa-solid fa-camera"></i>
@@ -615,12 +615,12 @@
                             </label>
 
                             <div class="info-list">
-                                <div><span>Doctor ID</span><strong>D1021</strong></div>
-                                <div><span>Department</span><strong>Cardiology</strong></div>
-                                <div><span>Experience</span><strong>12 Years</strong></div>
-                                <div><span>Qualification</span><strong>MBBS, MD</strong></div>
-                                <div><span>Registration No.</span><strong>MP-458796</strong></div>
-                                <div><span>Status</span><strong style="color:#16a34a;">Active</strong></div>
+                                <div><span>Doctor ID</span><strong id="doctorId">--</strong></div>
+                                <div><span>Department</span><strong id="doctorDepartment">--</strong></div>
+                                <div><span>Experience</span><strong id="doctorExperience">--</strong></div>
+                                <div><span>Qualification</span><strong id="doctorQualification">--</strong></div>
+                                <div><span>Registration No.</span><strong id="doctorRegistration">--</strong></div>
+                                <div><span>Status</span><strong id="doctorStatus">--</strong></div>
                             </div>
 
                         </div>
@@ -630,11 +630,11 @@
                             <h3 style="margin-bottom:20px;">Professional Information</h3>
 
                             <div class="info-list">
-                                <div><span>Consultation Fee</span><strong>₹700</strong></div>
-                                <div><span>Patients Served</span><strong>4,520</strong></div>
-                                <div><span>Appointments Today</span><strong>18</strong></div>
-                                <div><span>Rating</span><strong>4.9 ⭐</strong></div>
-                                <div><span>Languages</span><strong>English, Hindi</strong></div>
+                                <div><span>Consultation Fee</span><strong id="doctorFee">--</strong></div>
+                                <div><span>Patients Served</span><strong id="patientsServed">--</strong></div>
+                                <div><span>Appointments Today</span><strong id="appointmentsToday">--</strong></div>
+                                <div><span>Rating</span><strong id="doctorRating">--</strong></div>
+                                <div><span>Languages</span><strong id="doctorLanguages">--</strong></div>
                             </div>
 
                         </div>
@@ -652,27 +652,27 @@
 
                                     <div class="input-group">
                                         <label>Full Name</label>
-                                        <input type="text" value="Dr. Rahul Sharma">
+                                        <input type="text" id="doctorFullName">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Email Address</label>
-                                        <input type="email" value="rahul@gmail.com">
+                                        <input type="email" id="doctorEmail">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Mobile Number</label>
-                                        <input type="tel" value="+91 9876543210">
+                                        <input type="tel" id="doctorMobile">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Date of Birth</label>
-                                        <input type="date" value="1987-04-15">
+                                        <input type="date" id="doctorDob">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Gender</label>
-                                        <select>
+                                        <select id="doctorGender">
                                             <option>Male</option>
                                             <option>Female</option>
                                             <option>Other</option>
@@ -681,7 +681,7 @@
 
                                     <div class="input-group">
                                         <label>Blood Group</label>
-                                        <select>
+                                        <select id="doctorBloodGroup">
                                             <option>O+</option>
                                             <option>A+</option>
                                             <option>B+</option>
@@ -692,32 +692,32 @@
 
                                     <div class="input-group">
                                         <label>Qualification</label>
-                                        <input type="text" value="MBBS, MD (Cardiology)">
+                                        <input type="text" id="doctorQualificationInput">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Specialization</label>
-                                        <input type="text" value="Cardiology">
+                                        <input type="text" id="doctorSpecializationInput">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Experience</label>
-                                        <input type="number" value="12">
+                                        <input type="number" id="doctorExperienceInput">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Consultation Fee (₹)</label>
-                                        <input type="number" value="700">
+                                        <input type="number" id="doctorFeeInput">
                                     </div>
 
                                     <div class="input-group full-width">
                                         <label>Clinic Address</label>
-                                        <textarea>OptiHealth Hospital, Indore, Madhya Pradesh</textarea>
+                                        <textarea id="doctorAddress"></textarea>
                                     </div>
 
                                     <div class="input-group full-width">
                                         <label>About Doctor</label>
-                                        <textarea>Experienced Cardiologist with more than 12 years of expertise in preventive cardiology, heart disease diagnosis, ECG interpretation and patient care.</textarea>
+                                        <textarea id="doctorDescription"></textarea>
                                     </div>
 
                                 </div>
@@ -732,22 +732,22 @@
 
                                     <div class="input-group">
                                         <label>LinkedIn</label>
-                                        <input type="url" placeholder="https://linkedin.com/in/...">
+                                        <input type="url" id="doctorLinkedin">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Website</label>
-                                        <input type="url" placeholder="https://yourwebsite.com">
+                                        <input type="url" id="doctorWebsite">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Facebook</label>
-                                        <input type="url" placeholder="https://facebook.com/...">
+                                        <input type="url" id="doctorFacebook">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Instagram</label>
-                                        <input type="url" placeholder="https://instagram.com/...">
+                                        <input type="url" id="doctorInstagram">
                                     </div>
 
                                 </div>

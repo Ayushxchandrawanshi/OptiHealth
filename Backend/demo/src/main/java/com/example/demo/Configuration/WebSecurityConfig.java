@@ -46,11 +46,14 @@ public class WebSecurityConfig {
                         HttpMethod.GET,
                         "/api/patients/doctors",
                         "/api/patients/**",
-                        "/api/doctors/**"
+                        "/api/doctors/**",
+                        "/api/medical-history/patient/**"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.POST,
-                        "/api/prescriptions"
+                        "/api/prescriptions",
+                        "/api/doctors/schedule",
+                        "/api/doctors/leave"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.PUT,

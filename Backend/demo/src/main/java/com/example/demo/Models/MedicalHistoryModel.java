@@ -15,6 +15,7 @@ public class MedicalHistoryModel {
     private Long id;
     private Long patientId;
     private Long doctorId;
+    private Long appointmentId;
     private LocalDate visitDate;
     private String diagnosis;
     private String prescription;
@@ -46,6 +47,14 @@ public class MedicalHistoryModel {
 
     public void setDoctorId(Long doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public Long getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public LocalDate getVisitDate() {

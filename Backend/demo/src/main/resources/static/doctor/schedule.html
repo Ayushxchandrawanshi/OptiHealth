@@ -625,8 +625,8 @@
                     <div class="profile">
                         <img src="../assets/doctor.png" alt="">
                         <div>
-                            <h4>Dr. Rahul Sharma</h4>
-                            <p>Cardiologist</p>
+                            <h4 id="topDoctorName">--</h4>
+                            <p id="topDoctorSpecialization">--</p>
                         </div>
                     </div>
 
@@ -647,16 +647,16 @@
 
                         <div class="card doctor-card">
                             <img src="../assets/doctor.png" alt="">
-                            <h2>Dr. Rahul Sharma</h2>
-                            <p>Cardiologist</p>
+                            <h2 id="doctorName">--</h2>
+                            <p id="doctorSpecialization">--</p>
 
                             <div class="info-list">
-                                <div><span>Doctor ID</span><strong>D1021</strong></div>
-                                <div><span>Experience</span><strong>12 Years</strong></div>
-                                <div><span>Qualification</span><strong>MBBS, MD</strong></div>
-                                <div><span>Department</span><strong>Cardiology</strong></div>
-                                <div><span>Today's Appointments</span><strong>18</strong></div>
-                                <div><span>Status</span><strong style="color:#16a34a;">Available</strong></div>
+                                <div><span>Doctor ID</span><strong id="doctorId">--</strong></div>
+                                <div><span>Experience</span><strong id="doctorExperience">--</strong></div>
+                                <div><span>Description</span><strong id="doctorQualification">--</strong></div>
+                                <div><span>Department</span><strong id="doctorDepartment">--</strong></div>
+                                <div><span>Today's Appointments</span><strong id="todayAppointments">0</strong></div>
+                                <div><span>Status</span><strong id="doctorStatus">--</strong></div>
                             </div>
 
                         </div>
@@ -669,27 +669,27 @@
 
                                 <div class="input-group">
                                     <label>Consultation Duration</label>
-                                    <select>
-                                        <option>10 Minutes</option>
-                                        <option selected>15 Minutes</option>
-                                        <option>20 Minutes</option>
-                                        <option>30 Minutes</option>
+                                    <select id="consultationDuration">
+                                        <option value="10">10 Minutes</option>
+                                        <option value="15">15 Minutes</option>
+                                        <option value="20">20 Minutes</option>
+                                        <option value="30">30 Minutes</option>
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Daily Appointment Limit</label>
-                                    <input type="number" value="30">
+                                    <input type="number" id="appointmentLimit">
                                 </div>
 
                                 <div class="input-group">
                                     <label>Break Start</label>
-                                    <input type="time" value="13:00">
+                                    <input type="time" id="breakStart">
                                 </div>
 
                                 <div class="input-group">
                                     <label>Break End</label>
-                                    <input type="time" value="14:00">
+                                    <input type="time" id="breakEnd">
                                 </div>
 
                             </div>
@@ -704,12 +704,12 @@
 
                                 <div class="input-group">
                                     <label>Leave Date</label>
-                                    <input type="date">
+                                    <input type="date" id="leaveDate">
                                 </div>
 
                                 <div class="input-group">
                                     <label>Reason</label>
-                                    <select>
+                                    <select id="leaveReason">
                                         <option>Vacation</option>
                                         <option>Sick Leave</option>
                                         <option>Emergency</option>
@@ -720,7 +720,7 @@
 
                                 <div class="input-group">
                                     <label>Remarks</label>
-                                    <input type="text" placeholder="Enter remarks">
+                                    <input type="text" id="leaveRemarks" placeholder="Enter remarks">
                                 </div>
 
                             </div>
@@ -750,78 +750,77 @@
 
                                     </thead>
 
-                                    <tbody>
-
+                                    <tbody id="scheduleBody">
                                         <tr>
                                             <td>Monday</td>
                                             <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" checked>
+                                                    <input type="checkbox">
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>09:00 - 01:00</td>
-                                            <td>04:00 - 08:00</td>
+                                            <td class="morning-time">--</td>
+                                            <td class="evening-time">--</td>
                                         </tr>
 
                                         <tr>
                                             <td>Tuesday</td>
                                             <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" checked>
+                                                    <input type="checkbox">
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>09:00 - 01:00</td>
-                                            <td>04:00 - 08:00</td>
+                                            <td class="morning-time">--</td>
+                                            <td class="evening-time">--</td>
                                         </tr>
 
                                         <tr>
                                             <td>Wednesday</td>
                                             <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" checked>
+                                                    <input type="checkbox">
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>09:00 - 01:00</td>
-                                            <td>04:00 - 08:00</td>
+                                            <td class="morning-time">--</td>
+                                            <td class="evening-time">--</td>
                                         </tr>
 
                                         <tr>
                                             <td>Thursday</td>
                                             <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" checked>
+                                                    <input type="checkbox">
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>09:00 - 01:00</td>
-                                            <td>04:00 - 08:00</td>
+                                            <td class="morning-time">--</td>
+                                            <td class="evening-time">--</td>
                                         </tr>
 
                                         <tr>
                                             <td>Friday</td>
                                             <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" checked>
+                                                    <input type="checkbox">
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>09:00 - 01:00</td>
-                                            <td>04:00 - 08:00</td>
+                                            <td class="morning-time">--</td>
+                                            <td class="evening-time">--</td>
                                         </tr>
 
                                         <tr>
                                             <td>Saturday</td>
                                             <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" checked>
+                                                    <input type="checkbox">
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>09:00 - 12:00</td>
-                                            <td>05:00 - 07:00</td>
+                                            <td class="morning-time">--</td>
+                                            <td class="evening-time">--</td>
                                         </tr>
 
                                         <tr>
@@ -832,10 +831,9 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>Holiday</td>
-                                            <td>Holiday</td>
+                                            <td class="morning-time">--</td>
+                                            <td class="evening-time">--</td>
                                         </tr>
-
                                     </tbody>
 
                                 </table>
@@ -848,43 +846,26 @@
 
                             <h3 style="margin-bottom:20px;">Upcoming Leaves & Holidays</h3>
 
-                            <div class="info-list">
-
+                            <div class="info-list" id="leaveList">
                                 <div>
-                                    <span>15 Aug 2026</span>
-                                    <strong>Independence Day</strong>
+                                    <span>No leaves found</span>
+                                    <strong>--</strong>
                                 </div>
-
-                                <div>
-                                    <span>22 Aug 2026</span>
-                                    <strong>Medical Conference</strong>
-                                </div>
-
-                                <div>
-                                    <span>02 Sep 2026</span>
-                                    <strong>Personal Leave</strong>
-                                </div>
-
-                                <div>
-                                    <span>15 Sep 2026</span>
-                                    <strong>Hospital Meeting</strong>
-                                </div>
-
                             </div>
 
                             <div class="action-buttons">
 
-                                <button class="save-btn">
+                                <button class="save-btn" id="saveScheduleBtn">
                                     <i class="fa-solid fa-floppy-disk"></i>
                                     Save Schedule
                                 </button>
 
-                                <button class="reset-btn">
+                                <button class="reset-btn" id="resetScheduleBtn">
                                     <i class="fa-solid fa-rotate-left"></i>
                                     Reset
                                 </button>
 
-                                <button class="leave-btn">
+                                <button class="leave-btn" id="applyLeaveBtn">
                                     <i class="fa-solid fa-calendar-plus"></i>
                                     Apply Leave
                                 </button>
@@ -903,170 +884,1200 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
-        const saveBtn = document.querySelector(".save-btn");
-        const resetBtn = document.querySelector(".reset-btn");
-        const leaveBtn = document.querySelector(".leave-btn");
-        const switches = document.querySelectorAll(".switch input");
-        const duration = document.querySelector("select");
-        const appointmentLimit = document.querySelector('input[type="number"]');
-        const breakStart = document.querySelectorAll('input[type="time"]')[0];
-        const breakEnd = document.querySelectorAll('input[type="time"]')[1];
-        const leaveDate = document.querySelector('input[type="date"]');
-        const leaveReason = document.querySelectorAll("select")[1];
-        const remarks = document.querySelector('input[type="text"]');
+        const saveBtn = document.getElementById("saveScheduleBtn") || document.querySelector(".save-btn");
+        const resetBtn = document.getElementById("resetScheduleBtn") || document.querySelector(".reset-btn");
+        const leaveBtn = document.getElementById("applyLeaveBtn") || document.querySelector(".leave-btn");
 
-        menuBtn.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const duration = document.getElementById("consultationDuration");
+        const appointmentLimit = document.getElementById("appointmentLimit");
+        const breakStart = document.getElementById("breakStart");
+        const breakEnd = document.getElementById("breakEnd");
+
+        const leaveDate = document.getElementById("leaveDate");
+        const leaveReason = document.getElementById("leaveReason");
+        const leaveRemarks = document.getElementById("leaveRemarks");
+
+        const scheduleBody =
+            document.getElementById("scheduleBody") ||
+            document.querySelector(".schedule-table tbody");
+
+        const leaveList =
+            document.getElementById("leaveList") ||
+            document.querySelector(".info-list");
+
+        const token = localStorage.getItem("token");
+
+        let doctorId = null;
+        let doctorSchedules = [];
+        let doctorLeaves = [];
+
+        const DAYS = [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        ];
+
+        function getDoctorId() {
+            const storedDoctorId = localStorage.getItem("doctorId");
+
+            if (storedDoctorId) {
+                return storedDoctorId;
             }
-        });
 
-        document.addEventListener("click", e => {
-            if (window.innerWidth <= 900) {
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+            try {
+                const user = JSON.parse(localStorage.getItem("user"));
+
+                if (user) {
+                    return (
+                        user.id ||
+                        user.doctorId ||
+                        user.data?.id ||
+                        user.data?.doctorId
+                    );
                 }
+            } catch (error) {
+                console.error("User data error:", error);
             }
-        });
 
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            } else {
-                sidebar.style.left = "-270px";
-            }
-        });
+            try {
+                const doctor = JSON.parse(localStorage.getItem("doctor"));
 
-        switches.forEach(toggle => {
-            toggle.addEventListener("change", () => {
-                const row = toggle.closest("tr");
-                const morning = row.cells[2];
-                const evening = row.cells[3];
-
-                if (toggle.checked) {
-                    if (row.cells[0].innerText === "Saturday") {
-                        morning.innerText = "09:00 - 12:00";
-                        evening.innerText = "05:00 - 07:00";
-                    } else {
-                        morning.innerText = "09:00 - 01:00";
-                        evening.innerText = "04:00 - 08:00";
-                    }
-                } else {
-                    morning.innerText = "Unavailable";
-                    evening.innerText = "Unavailable";
+                if (doctor) {
+                    return (
+                        doctor.id ||
+                        doctor.doctorId
+                    );
                 }
-            });
-        });
+            } catch (error) {
+                console.error("Doctor data error:", error);
+            }
 
-        saveBtn.addEventListener("click", () => {
-            const data = {
-                duration: duration.value,
-                appointmentLimit: appointmentLimit.value,
-                breakStart: breakStart.value,
-                breakEnd: breakEnd.value,
-                availability: []
+            return null;
+        }
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
             };
 
-            switches.forEach(toggle => {
-                const row = toggle.closest("tr");
-                data.availability.push({
-                    day: row.cells[0].innerText,
-                    available: toggle.checked
-                });
+            if (token) {
+                headers["Authorization"] = "Bearer " + token;
+            }
+
+            return headers;
+        }
+
+        function setText(id, value, fallback = "--") {
+            const element = document.getElementById(id);
+
+            if (!element) {
+                return;
+            }
+
+            element.textContent =
+                value !== null &&
+                    value !== undefined &&
+                    String(value).trim() !== ""
+                    ? value
+                    : fallback;
+        }
+
+        function formatDate(dateValue) {
+            if (!dateValue) {
+                return "--";
+            }
+
+            const date = new Date(dateValue);
+
+            if (Number.isNaN(date.getTime())) {
+                return dateValue;
+            }
+
+            return date.toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
             });
+        }
 
-            console.log(data);
-            alert("Schedule saved successfully.");
-        });
+        function formatTime(timeValue) {
+            if (!timeValue) {
+                return "--";
+            }
 
-        resetBtn.addEventListener("click", () => {
-            duration.selectedIndex = 1;
-            appointmentLimit.value = 30;
-            breakStart.value = "13:00";
-            breakEnd.value = "14:00";
-            leaveDate.value = "";
-            leaveReason.selectedIndex = 0;
-            remarks.value = "";
+            const parts = String(timeValue).split(":");
 
-            switches.forEach(toggle => {
-                toggle.checked = true;
+            if (parts.length < 2) {
+                return timeValue;
+            }
+
+            let hours = Number(parts[0]);
+            const minutes = parts[1];
+
+            if (Number.isNaN(hours)) {
+                return timeValue;
+            }
+
+            const period = hours >= 12 ? "PM" : "AM";
+
+            hours = hours % 12;
+
+            if (hours === 0) {
+                hours = 12;
+            }
+
+            return `${String(hours).padStart(2, "0")}:${minutes} ${period}`;
+        }
+
+        async function loadDoctor() {
+            if (!doctorId) {
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/api/doctors/${doctorId}`,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    console.error(
+                        "Doctor API Error:",
+                        response.status
+                    );
+                    return;
+                }
+
+                const doctor = await response.json();
+
+                setText(
+                    "doctorName",
+                    doctor.doctorName
+                );
+
+                setText(
+                    "topDoctorName",
+                    doctor.doctorName
+                );
+
+                setText(
+                    "doctorSpecialization",
+                    doctor.specialization
+                );
+
+                setText(
+                    "topDoctorSpecialization",
+                    doctor.specialization
+                );
+
+                setText(
+                    "doctorId",
+                    doctor.id
+                );
+
+                setText(
+                    "doctorExperience",
+                    doctor.experience !== null &&
+                        doctor.experience !== undefined
+                        ? doctor.experience + " Years"
+                        : "--"
+                );
+
+                setText(
+                    "doctorQualification",
+                    doctor.qualification ||
+                    doctor.description
+                );
+
+                setText(
+                    "doctorDepartment",
+                    doctor.specialization
+                );
+            } catch (error) {
+                console.error(
+                    "Doctor Load Error:",
+                    error
+                );
+            }
+        }
+
+        async function loadTodayAppointments() {
+            if (!doctorId) {
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/api/doctors/appointments/${doctorId}`,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    console.error(
+                        "Appointments API Error:",
+                        response.status
+                    );
+                    return;
+                }
+
+                const appointments = await response.json();
+
+                const today = new Date();
+                const todayString =
+                    today.toISOString().split("T")[0];
+
+                const todayCount = Array.isArray(appointments)
+                    ? appointments.filter(appointment => {
+                        const appointmentDate =
+                            appointment.appointmentDate;
+
+                        return appointmentDate === todayString;
+                    }).length
+                    : 0;
+
+                setText(
+                    "todayAppointments",
+                    todayCount,
+                    "0"
+                );
+            } catch (error) {
+                console.error(
+                    "Appointments Load Error:",
+                    error
+                );
+            }
+        }
+
+        async function loadSchedule() {
+            if (!doctorId) {
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/api/doctors/${doctorId}/schedule`,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    console.error(
+                        "Schedule API Error:",
+                        response.status
+                    );
+                    showEmptySchedule();
+                    return;
+                }
+
+                const schedules = await response.json();
+
+                doctorSchedules =
+                    Array.isArray(schedules)
+                        ? schedules
+                        : [];
+
+                loadScheduleSettings();
+                renderWeeklySchedule();
+                updateDoctorStatus();
+            } catch (error) {
+                console.error(
+                    "Schedule Load Error:",
+                    error
+                );
+
+                showEmptySchedule();
+            }
+        }
+
+        function loadScheduleSettings() {
+            if (!doctorSchedules.length) {
+                if (duration) {
+                    duration.value = "";
+                }
+
+                if (appointmentLimit) {
+                    appointmentLimit.value = "";
+                }
+
+                if (breakStart) {
+                    breakStart.value = "";
+                }
+
+                if (breakEnd) {
+                    breakEnd.value = "";
+                }
+
+                return;
+            }
+
+            const firstSchedule =
+                doctorSchedules[0];
+
+            if (duration) {
+                duration.value =
+                    firstSchedule.consultationDuration || "";
+            }
+
+            if (appointmentLimit) {
+                appointmentLimit.value =
+                    firstSchedule.appointmentLimit || "";
+            }
+
+            if (breakStart) {
+                breakStart.value =
+                    firstSchedule.breakStart || "";
+            }
+
+            if (breakEnd) {
+                breakEnd.value =
+                    firstSchedule.breakEnd || "";
+            }
+        }
+
+        function renderWeeklySchedule() {
+            if (!scheduleBody) {
+                return;
+            }
+
+            const rows =
+                scheduleBody.querySelectorAll("tr");
+
+            rows.forEach(row => {
+                const dayCell =
+                    row.querySelector("td");
+
+                if (!dayCell) {
+                    return;
+                }
+
+                const day =
+                    dayCell.textContent.trim();
+
+                const schedule =
+                    doctorSchedules.find(
+                        item =>
+                            String(item.day).toLowerCase() ===
+                            day.toLowerCase()
+                    );
+
+                const toggle =
+                    row.querySelector(
+                        'input[type="checkbox"]'
+                    );
+
+                const morningCell =
+                    row.querySelector(
+                        ".morning-time"
+                    ) ||
+                    row.cells[2];
+
+                const eveningCell =
+                    row.querySelector(
+                        ".evening-time"
+                    ) ||
+                    row.cells[3];
+
+                if (!schedule) {
+                    if (toggle) {
+                        toggle.checked = false;
+                    }
+
+                    if (morningCell) {
+                        morningCell.textContent =
+                            "Unavailable";
+                    }
+
+                    if (eveningCell) {
+                        eveningCell.textContent =
+                            "Unavailable";
+                    }
+
+                    return;
+                }
+
+                if (toggle) {
+                    toggle.checked =
+                        Boolean(schedule.available);
+                }
+
+                if (!schedule.available) {
+                    if (morningCell) {
+                        morningCell.textContent =
+                            "Unavailable";
+                    }
+
+                    if (eveningCell) {
+                        eveningCell.textContent =
+                            "Unavailable";
+                    }
+
+                    return;
+                }
+
+                if (morningCell) {
+                    morningCell.textContent =
+                        schedule.morningStart &&
+                            schedule.morningEnd
+                            ? `${formatTime(schedule.morningStart)} - ${formatTime(schedule.morningEnd)}`
+                            : "--";
+                }
+
+                if (eveningCell) {
+                    eveningCell.textContent =
+                        schedule.eveningStart &&
+                            schedule.eveningEnd
+                            ? `${formatTime(schedule.eveningStart)} - ${formatTime(schedule.eveningEnd)}`
+                            : "--";
+                }
             });
+        }
 
-            switches[switches.length - 1].checked = false;
+        function updateDoctorStatus() {
+            const statusElement =
+                document.getElementById(
+                    "doctorStatus"
+                );
 
-            const rows = document.querySelectorAll(".schedule-table tbody tr");
+            if (!statusElement) {
+                return;
+            }
 
-            rows.forEach((row, index) => {
-                if (index === 5) {
-                    row.cells[2].innerText = "09:00 - 12:00";
-                    row.cells[3].innerText = "05:00 - 07:00";
-                } else if (index === 6) {
-                    row.cells[2].innerText = "Holiday";
-                    row.cells[3].innerText = "Holiday";
-                } else {
-                    row.cells[2].innerText = "09:00 - 01:00";
-                    row.cells[3].innerText = "04:00 - 08:00";
+            const todayName =
+                new Date().toLocaleDateString(
+                    "en-US",
+                    {
+                        weekday: "long"
+                    }
+                );
+
+            const todaySchedule =
+                doctorSchedules.find(
+                    item =>
+                        String(item.day).toLowerCase() ===
+                        todayName.toLowerCase()
+                );
+
+            if (
+                todaySchedule &&
+                todaySchedule.available
+            ) {
+                statusElement.textContent =
+                    "Available";
+
+                statusElement.style.color =
+                    "#16a34a";
+            } else {
+                statusElement.textContent =
+                    "Unavailable";
+
+                statusElement.style.color =
+                    "#dc2626";
+            }
+        }
+
+        function showEmptySchedule() {
+            if (!scheduleBody) {
+                return;
+            }
+
+            const rows =
+                scheduleBody.querySelectorAll("tr");
+
+            rows.forEach(row => {
+                const toggle =
+                    row.querySelector(
+                        'input[type="checkbox"]'
+                    );
+
+                if (toggle) {
+                    toggle.checked = false;
+                }
+
+                if (row.cells[2]) {
+                    row.cells[2].textContent =
+                        "Unavailable";
+                }
+
+                if (row.cells[3]) {
+                    row.cells[3].textContent =
+                        "Unavailable";
                 }
             });
 
-            alert("Schedule reset successfully.");
-        });
+            setText(
+                "doctorStatus",
+                "Unavailable"
+            );
+        }
 
-        leaveBtn.addEventListener("click", () => {
-            if (leaveDate.value === "") {
-                alert("Please select a leave date.");
+        function buildSchedulePayload() {
+            const schedules = [];
+
+            if (!scheduleBody) {
+                return schedules;
+            }
+
+            const rows =
+                scheduleBody.querySelectorAll("tr");
+
+            rows.forEach(row => {
+                const dayCell =
+                    row.querySelector("td");
+
+                if (!dayCell) {
+                    return;
+                }
+
+                const day =
+                    dayCell.textContent.trim();
+
+                const toggle =
+                    row.querySelector(
+                        'input[type="checkbox"]'
+                    );
+
+                const available =
+                    toggle
+                        ? toggle.checked
+                        : false;
+
+                const morningCell =
+                    row.querySelector(
+                        ".morning-time"
+                    ) ||
+                    row.cells[2];
+
+                const eveningCell =
+                    row.querySelector(
+                        ".evening-time"
+                    ) ||
+                    row.cells[3];
+
+                let morningStart = null;
+                let morningEnd = null;
+                let eveningStart = null;
+                let eveningEnd = null;
+
+                if (available) {
+                    const currentSchedule =
+                        doctorSchedules.find(
+                            item =>
+                                String(item.day).toLowerCase() ===
+                                day.toLowerCase()
+                        );
+
+                    if (currentSchedule) {
+                        morningStart =
+                            currentSchedule.morningStart || null;
+
+                        morningEnd =
+                            currentSchedule.morningEnd || null;
+
+                        eveningStart =
+                            currentSchedule.eveningStart || null;
+
+                        eveningEnd =
+                            currentSchedule.eveningEnd || null;
+                    } else {
+                        const morningText =
+                            morningCell
+                                ? morningCell.textContent.trim()
+                                : "";
+
+                        const eveningText =
+                            eveningCell
+                                ? eveningCell.textContent.trim()
+                                : "";
+
+                        const morningParts =
+                            morningText.split("-");
+
+                        const eveningParts =
+                            eveningText.split("-");
+
+                        if (morningParts.length === 2) {
+                            morningStart =
+                                convertDisplayTime(
+                                    morningParts[0].trim()
+                                );
+
+                            morningEnd =
+                                convertDisplayTime(
+                                    morningParts[1].trim()
+                                );
+                        }
+
+                        if (eveningParts.length === 2) {
+                            eveningStart =
+                                convertDisplayTime(
+                                    eveningParts[0].trim()
+                                );
+
+                            eveningEnd =
+                                convertDisplayTime(
+                                    eveningParts[1].trim()
+                                );
+                        }
+                    }
+                }
+
+                schedules.push({
+                    doctorId: Number(doctorId),
+                    day: day,
+                    available: available,
+                    morningStart: morningStart,
+                    morningEnd: morningEnd,
+                    eveningStart: eveningStart,
+                    eveningEnd: eveningEnd,
+                    consultationDuration:
+                        duration &&
+                            duration.value
+                            ? Number(duration.value)
+                            : null,
+                    appointmentLimit:
+                        appointmentLimit &&
+                            appointmentLimit.value
+                            ? Number(appointmentLimit.value)
+                            : null,
+                    breakStart:
+                        breakStart &&
+                            breakStart.value
+                            ? breakStart.value
+                            : null,
+                    breakEnd:
+                        breakEnd &&
+                            breakEnd.value
+                            ? breakEnd.value
+                            : null
+                });
+            });
+
+            return schedules;
+        }
+
+        function convertDisplayTime(value) {
+            if (!value) {
+                return null;
+            }
+
+            const match =
+                value.match(
+                    /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
+                );
+
+            if (!match) {
+                return value;
+            }
+
+            let hours =
+                Number(match[1]);
+
+            const minutes =
+                match[2];
+
+            const period =
+                match[3].toUpperCase();
+
+            if (period === "AM" && hours === 12) {
+                hours = 0;
+            }
+
+            if (period === "PM" && hours !== 12) {
+                hours += 12;
+            }
+
+            return (
+                String(hours).padStart(2, "0") +
+                ":" +
+                minutes
+            );
+        }
+
+        async function saveSchedule() {
+            if (!doctorId) {
+                alert(
+                    "Doctor ID not found. Please login again."
+                );
                 return;
             }
-            alert("Leave request submitted successfully.");
-        });
 
-        /* ---------- Backend Ready Functions ---------- */
+            const schedules =
+                buildSchedulePayload();
 
-        async function loadDoctorSchedule(doctorId) {
+            if (!schedules.length) {
+                alert(
+                    "No schedule data found."
+                );
+                return;
+            }
+
             try {
-                const response = await fetch(`/api/doctors/${doctorId}/schedule`);
-                if (!response.ok) throw new Error("Failed");
-                const data = await response.json();
-                console.log(data);
-            } catch (err) {
-                console.log(err);
+                saveBtn.disabled = true;
+
+                const response = await fetch(
+                    `${API_BASE_URL}/api/doctors/schedule`,
+                    {
+                        method: "POST",
+                        headers: getHeaders(),
+                        body: JSON.stringify({
+                            doctorId: Number(doctorId),
+                            schedules: schedules
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Save Schedule Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    alert(
+                        "Unable to save schedule. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                const savedData =
+                    await response.json();
+
+                doctorSchedules =
+                    Array.isArray(savedData)
+                        ? savedData
+                        : schedules;
+
+                renderWeeklySchedule();
+                loadScheduleSettings();
+                updateDoctorStatus();
+
+                alert(
+                    "Schedule saved successfully."
+                );
+            } catch (error) {
+                console.error(
+                    "Save Schedule Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            } finally {
+                saveBtn.disabled = false;
             }
         }
 
-        async function saveDoctorSchedule(schedule) {
+        async function loadLeaves() {
+            if (!doctorId) {
+                return;
+            }
+
             try {
-                const response = await fetch("/api/doctors/schedule", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(schedule)
-                });
-                const data = await response.json();
-                console.log(data);
-            } catch (err) {
-                console.log(err);
+                const response = await fetch(
+                    `${API_BASE_URL}/api/doctors/${doctorId}/leaves`,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    console.error(
+                        "Leaves API Error:",
+                        response.status
+                    );
+
+                    renderLeaves([]);
+                    return;
+                }
+
+                const leaves =
+                    await response.json();
+
+                doctorLeaves =
+                    Array.isArray(leaves)
+                        ? leaves
+                        : [];
+
+                renderLeaves(
+                    doctorLeaves
+                );
+            } catch (error) {
+                console.error(
+                    "Leave Load Error:",
+                    error
+                );
+
+                renderLeaves([]);
             }
         }
 
-        async function applyLeave(payload) {
+        function renderLeaves(leaves) {
+            if (!leaveList) {
+                return;
+            }
+
+            leaveList.innerHTML = "";
+
+            if (!leaves.length) {
+                leaveList.innerHTML = `
+            <div>
+                <span>No leaves found</span>
+                <strong>--</strong>
+            </div>
+        `;
+
+                return;
+            }
+
+            const sortedLeaves =
+                [...leaves].sort(
+                    (a, b) =>
+                        new Date(a.leaveDate || 0) -
+                        new Date(b.leaveDate || 0)
+                );
+
+            sortedLeaves.forEach(
+                leave => {
+                    const item =
+                        document.createElement("div");
+
+                    item.innerHTML = `
+                <span>
+                    ${formatDate(leave.leaveDate)}
+                </span>
+                <strong>
+                    ${escapeHtml(
+                        leave.reason || "Leave"
+                    )}
+                </strong>
+            `;
+
+                    leaveList.appendChild(item);
+                }
+            );
+        }
+
+        async function applyLeave() {
+            if (!doctorId) {
+                alert(
+                    "Doctor ID not found. Please login again."
+                );
+                return;
+            }
+
+            if (!leaveDate || !leaveDate.value) {
+                alert(
+                    "Please select a leave date."
+                );
+                return;
+            }
+
+            const payload = {
+                doctorId: Number(doctorId),
+                leave: {
+                    doctorId: Number(doctorId),
+                    leaveDate: leaveDate.value,
+                    reason:
+                        leaveReason &&
+                            leaveReason.value
+                            ? leaveReason.value
+                            : "",
+                    remarks:
+                        leaveRemarks
+                            ? leaveRemarks.value.trim()
+                            : ""
+                }
+            };
+
             try {
-                const response = await fetch("/api/doctors/leave", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json();
-                console.log(data);
-            } catch (err) {
-                console.log(err);
+                leaveBtn.disabled = true;
+
+                const response = await fetch(
+                    `${API_BASE_URL}/api/doctors/leave`,
+                    {
+                        method: "POST",
+                        headers: getHeaders(),
+                        body: JSON.stringify(payload)
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Save Leave Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    alert(
+                        "Unable to apply leave. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                const savedLeave =
+                    await response.json();
+
+                doctorLeaves.push(
+                    savedLeave
+                );
+
+                renderLeaves(
+                    doctorLeaves
+                );
+
+                if (leaveDate) {
+                    leaveDate.value = "";
+                }
+
+                if (leaveRemarks) {
+                    leaveRemarks.value = "";
+                }
+
+                alert(
+                    "Leave applied successfully."
+                );
+            } catch (error) {
+                console.error(
+                    "Apply Leave Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            } finally {
+                leaveBtn.disabled = false;
             }
         }
 
+        function resetSchedule() {
+            if (duration) {
+                duration.value = "";
+            }
+
+            if (appointmentLimit) {
+                appointmentLimit.value = "";
+            }
+
+            if (breakStart) {
+                breakStart.value = "";
+            }
+
+            if (breakEnd) {
+                breakEnd.value = "";
+            }
+
+            if (scheduleBody) {
+                scheduleBody
+                    .querySelectorAll(
+                        'input[type="checkbox"]'
+                    )
+                    .forEach(
+                        toggle => {
+                            toggle.checked = false;
+                        }
+                    );
+
+                scheduleBody
+                    .querySelectorAll(
+                        ".morning-time, .evening-time"
+                    )
+                    .forEach(
+                        cell => {
+                            cell.textContent =
+                                "Unavailable";
+                        }
+                    );
+
+                scheduleBody
+                    .querySelectorAll(
+                        "tr"
+                    )
+                    .forEach(
+                        row => {
+                            if (row.cells[2]) {
+                                row.cells[2].textContent =
+                                    "Unavailable";
+                            }
+
+                            if (row.cells[3]) {
+                                row.cells[3].textContent =
+                                    "Unavailable";
+                            }
+                        }
+                    );
+            }
+
+            alert(
+                "Schedule form reset."
+            );
+        }
+
+        if (saveBtn) {
+            saveBtn.addEventListener(
+                "click",
+                saveSchedule
+            );
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener(
+                "click",
+                resetSchedule
+            );
+        }
+
+        if (leaveBtn) {
+            leaveBtn.addEventListener(
+                "click",
+                applyLeave
+            );
+        }
+
+        if (scheduleBody) {
+            scheduleBody
+                .querySelectorAll(
+                    'input[type="checkbox"]'
+                )
+                .forEach(
+                    toggle => {
+                        toggle.addEventListener(
+                            "change",
+                            () => {
+                                const row =
+                                    toggle.closest("tr");
+
+                                if (!row) {
+                                    return;
+                                }
+
+                                const morningCell =
+                                    row.querySelector(
+                                        ".morning-time"
+                                    ) ||
+                                    row.cells[2];
+
+                                const eveningCell =
+                                    row.querySelector(
+                                        ".evening-time"
+                                    ) ||
+                                    row.cells[3];
+
+                                if (!toggle.checked) {
+                                    if (morningCell) {
+                                        morningCell.textContent =
+                                            "Unavailable";
+                                    }
+
+                                    if (eveningCell) {
+                                        eveningCell.textContent =
+                                            "Unavailable";
+                                    }
+                                }
+                            }
+                        );
+                    }
+                );
+        }
+
+        document.addEventListener(
+            "click",
+            event => {
+                if (
+                    window.innerWidth <= 900 &&
+                    sidebar &&
+                    menuBtn &&
+                    !sidebar.contains(event.target) &&
+                    !menuBtn.contains(event.target)
+                ) {
+                    sidebar.style.left =
+                        "-270px";
+                }
+            }
+        );
+
+        window.addEventListener(
+            "resize",
+            () => {
+                if (!sidebar) {
+                    return;
+                }
+
+                sidebar.style.left =
+                    window.innerWidth > 900
+                        ? "0"
+                        : "-270px";
+            }
+        );
+
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        async function initializeSchedule() {
+            doctorId = getDoctorId();
+
+            if (!doctorId) {
+                alert(
+                    "Doctor ID not found. Please login again."
+                );
+                return;
+            }
+
+            localStorage.setItem(
+                "doctorId",
+                String(doctorId)
+            );
+
+            await Promise.all([
+                loadDoctor(),
+                loadTodayAppointments(),
+                loadSchedule(),
+                loadLeaves()
+            ]);
+        }
+
+        initializeSchedule();
     </script>
 
 </body>

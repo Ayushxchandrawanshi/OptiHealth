@@ -645,8 +645,8 @@
                     <div class="profile">
                         <img src="../assets/doctor.png" alt="">
                         <div>
-                            <h4>Dr. Rahul Sharma</h4>
-                            <p>Cardiologist</p>
+                            <h2 id="patientName">--</h2>
+                            <p id="patientId">Patient ID : --</p>
                         </div>
                     </div>
 
@@ -667,19 +667,37 @@
 
                         <div class="card patient-card">
                             <img src="../assets/profile.png" alt="">
-                            <h2>Rahul Verma</h2>
-                            <p>Patient ID : P1001</p>
+                            <h2 id="patientName">--</h2>
+                            <p id="patientId">Patient ID : --</p>
 
                             <div class="info-list">
-                                <div><span>Age</span><strong>34 Years</strong></div>
-                                <div><span>Gender</span><strong>Male</strong></div>
-                                <div><span>Blood Group</span><strong>O+</strong></div>
-                                <div><span>Height</span><strong>175 cm</strong></div>
-                                <div><span>Weight</span><strong>72 Kg</strong></div>
-                                <div><span>BMI</span><strong>23.5</strong></div>
-                                <div><span>Allergies</span><strong>Penicillin</strong></div>
-                                <div><span>Chronic Disease</span><strong>Hypertension</strong></div>
-                                <div><span>Emergency</span><strong>+91 9876543210</strong></div>
+                                <div><span>Age</span>
+                                    <strong id="patientAge">--</strong>
+                                </div>
+                                <div><span>Gender</span>
+                                    <strong id="patientGender">--</strong>
+                                </div>
+                                <div><span>Blood Group</span>
+                                    <strong id="patientBloodGroup">--</strong>
+                                </div>
+                                <div><span>Height</span>
+                                    <strong id="patientHeight">--</strong>
+                                </div>
+                                <div><span>Weight</span>
+                                    <strong id="patientWeight">--</strong>
+                                </div>
+                                <div><span>BMI</span>
+                                    <strong id="patientBmi">--</strong>
+                                </div>
+                                <div><span>Allergies</span>
+                                    <strong id="patientAllergies">--</strong>
+                                </div>
+                                <div><span>Chronic Disease</span>
+                                    <strong id="patientChronic">--</strong>
+                                </div>
+                                <div><span>Emergency</span>
+                                    <strong id="patientEmergency">--</strong>
+                                </div>
                             </div>
 
                         </div>
@@ -692,22 +710,22 @@
 
                                 <div class="box">
                                     <h5>Total Visits</h5>
-                                    <p>18</p>
+                                    <p id="totalVisits">0</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Prescriptions</h5>
-                                    <p>14</p>
+                                    <p id="totalPrescriptions">0</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Lab Reports</h5>
-                                    <p>9</p>
+                                    <p id="totalReports">0</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Surgeries</h5>
-                                    <p>1</p>
+                                    <p id="totalSurgeries">0</p>
                                 </div>
 
                             </div>
@@ -729,32 +747,32 @@
 
                                 <div class="box">
                                     <h5>Current Diagnosis</h5>
-                                    <p>Stage-1 Hypertension</p>
+                                    <p id="currentDiagnosis">--</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Current Medication</h5>
-                                    <p>Aspirin 75mg Daily</p>
+                                    <p id="currentMedication">--</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Last Blood Pressure</h5>
-                                    <p>130 / 85 mmHg</p>
+                                    <p id="latestVisit">--</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Heart Rate</h5>
-                                    <p>76 BPM</p>
+                                    <p id="latestDoctor">--</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Blood Sugar</h5>
-                                    <p>102 mg/dL</p>
+                                    <p id="latestReport">--</p>
                                 </div>
 
                                 <div class="box">
                                     <h5>Cholesterol</h5>
-                                    <p>205 mg/dL</p>
+                                    <p id="latestRemarks">--</p>
                                 </div>
 
                             </div>
@@ -765,135 +783,48 @@
 
                             <h3 style="margin-bottom:20px;">Medical Timeline</h3>
 
-                            <div class="timeline">
-
-                                <div class="timeline-item">
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-heart-pulse"></i>
-                                    </div>
-                                    <div class="timeline-content">
-                                        <h4>12 July 2026</h4>
-                                        <p>Routine cardiac examination completed. ECG normal. Blood pressure slightly
-                                            elevated. Continue current medicines.</p>
-                                    </div>
-                                </div>
-
-                                <div class="timeline-item">
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-prescription"></i>
-                                    </div>
-                                    <div class="timeline-content">
-                                        <h4>18 June 2026</h4>
-                                        <p>Prescription updated. Aspirin 75mg once daily and low-salt diet recommended.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="timeline-item">
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-flask"></i>
-                                    </div>
-                                    <div class="timeline-content">
-                                        <h4>05 April 2026</h4>
-                                        <p>Blood tests performed. Cholesterol slightly high. ECG and Sugar level normal.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="timeline-item">
-                                    <div class="timeline-icon">
-                                        <i class="fa-solid fa-hospital"></i>
-                                    </div>
-                                    <div class="timeline-content">
-                                        <h4>15 January 2026</h4>
-                                        <p>Patient admitted due to chest discomfort. Observation completed. Discharged
-                                            after one day.</p>
-                                    </div>
-                                </div>
-
+                            <div class="timeline" id="timeline">
+                                <!-- Backend data -->
                             </div>
-
                         </div>
 
-                        <div class="card">
+                    </div>
 
-                            <h3 style="margin-bottom:20px;">Medical Documents</h3>
+                    <div class="card">
 
-                            <div class="report-list">
+                        <h3 style="margin-bottom:20px;">Medical Documents</h3>
 
-                                <div class="report">
-                                    <div class="report-left">
-                                        <i class="fa-solid fa-file-pdf"></i>
-                                        <div>
-                                            <h4>ECG Report</h4>
-                                            <p>12 July 2026</p>
-                                        </div>
-                                    </div>
-                                    <button class="download-btn">Download</button>
-                                </div>
+                        <div class="report-list" id="reportList">
+                            <!-- Backend reports will come here -->
+                        </div>
 
-                                <div class="report">
-                                    <div class="report-left">
-                                        <i class="fa-solid fa-file-medical"></i>
-                                        <div>
-                                            <h4>Blood Test Report</h4>
-                                            <p>05 April 2026</p>
-                                        </div>
-                                    </div>
-                                    <button class="download-btn">Download</button>
-                                </div>
+                        <div class="action-buttons">
 
-                                <div class="report">
-                                    <div class="report-left">
-                                        <i class="fa-solid fa-x-ray"></i>
-                                        <div>
-                                            <h4>Chest X-Ray</h4>
-                                            <p>22 February 2026</p>
-                                        </div>
-                                    </div>
-                                    <button class="download-btn">Download</button>
-                                </div>
+                            <button class="print-btn">
+                                <i class="fa-solid fa-print"></i>
+                                Print History
+                            </button>
 
-                                <div class="report">
-                                    <div class="report-left">
-                                        <i class="fa-solid fa-notes-medical"></i>
-                                        <div>
-                                            <h4>Discharge Summary</h4>
-                                            <p>16 January 2026</p>
-                                        </div>
-                                    </div>
-                                    <button class="download-btn">Download</button>
-                                </div>
+                            <button class="pdf-btn">
+                                <i class="fa-solid fa-file-pdf"></i>
+                                Download PDF
+                            </button>
 
-                            </div>
-
-                            <div class="action-buttons">
-
-                                <button class="print-btn">
-                                    <i class="fa-solid fa-print"></i>
-                                    Print History
-                                </button>
-
-                                <button class="pdf-btn">
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                    Download PDF
-                                </button>
-
-                                <button class="back-btn">
-                                    <i class="fa-solid fa-arrow-left"></i>
-                                    Back
-                                </button>
-
-                            </div>
+                            <button class="back-btn">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Back
+                            </button>
 
                         </div>
 
                     </div>
+
                 </div>
-
-            </main>
-
         </div>
+
+        </main>
+
+    </div>
 
     </div>
 
@@ -901,99 +832,701 @@
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
         const searchInput = document.getElementById("searchHistory");
-        const timelineItems = document.querySelectorAll(".timeline-item");
-        const reports = document.querySelectorAll(".report");
         const printBtn = document.querySelector(".print-btn");
         const pdfBtn = document.querySelector(".pdf-btn");
         const backBtn = document.querySelector(".back-btn");
-        const downloadBtns = document.querySelectorAll(".download-btn");
+        const timeline = document.getElementById("timeline");
+        const reportList = document.getElementById("reportList");
 
-        menuBtn.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
-            }
-        });
+        const API_BASE_URL = "http://localhost:8080";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const patientId =
+            urlParams.get("patientId") ||
+            localStorage.getItem("patientId");
+
+        console.log("Medical History Patient ID:", patientId);
+
+        if (menuBtn) {
+            menuBtn.addEventListener("click", () => {
+                if (window.innerWidth <= 900) {
+                    sidebar.style.left =
+                        sidebar.style.left === "0px" ? "-270px" : "0";
+                }
+            });
+        }
 
         document.addEventListener("click", e => {
-            if (window.innerWidth <= 900) {
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
-                }
-            }
-        });
-
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            } else {
+            if (
+                window.innerWidth <= 900 &&
+                sidebar &&
+                menuBtn &&
+                !sidebar.contains(e.target) &&
+                !menuBtn.contains(e.target)
+            ) {
                 sidebar.style.left = "-270px";
             }
         });
 
-        searchInput.addEventListener("keyup", function () {
-            const value = this.value.toLowerCase();
+        window.addEventListener("resize", () => {
+            if (!sidebar) return;
+            sidebar.style.left =
+                window.innerWidth > 900 ? "0" : "-270px";
+        });
 
-            timelineItems.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                item.style.display = text.includes(value) ? "flex" : "none";
+        function safeValue(value) {
+            return value === null ||
+                value === undefined ||
+                value === ""
+                ? "--"
+                : value;
+        }
+
+        function calculateAge(dob) {
+            if (!dob) return "--";
+
+            const birthDate = new Date(dob);
+            const today = new Date();
+
+            let age =
+                today.getFullYear() -
+                birthDate.getFullYear();
+
+            const monthDifference =
+                today.getMonth() -
+                birthDate.getMonth();
+
+            if (
+                monthDifference < 0 ||
+                (
+                    monthDifference === 0 &&
+                    today.getDate() < birthDate.getDate()
+                )
+            ) {
+                age--;
+            }
+
+            return age >= 0 ? age + " Years" : "--";
+        }
+
+        function calculateBMI(height, weight) {
+            if (!height || !weight) return "--";
+
+            let heightInMeters = Number(height);
+            const weightInKg = Number(weight);
+
+            if (
+                Number.isNaN(heightInMeters) ||
+                Number.isNaN(weightInKg) ||
+                heightInMeters <= 0 ||
+                weightInKg <= 0
+            ) {
+                return "--";
+            }
+
+            if (heightInMeters > 3) {
+                heightInMeters /= 100;
+            }
+
+            const bmi =
+                weightInKg /
+                (heightInMeters * heightInMeters);
+
+            return bmi.toFixed(1);
+        }
+
+        function formatDate(dateValue) {
+            if (!dateValue) return "--";
+
+            const date = new Date(dateValue);
+
+            if (Number.isNaN(date.getTime())) {
+                return dateValue;
+            }
+
+            return date.toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
             });
+        }
+
+        async function loadPatient(patientId) {
+            try {
+                const token = localStorage.getItem("token");
+
+                const response = await fetch(
+                    `${API_BASE_URL}/api/patients/${patientId}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token
+                        }
+                    }
+                );
+
+                console.log("Patient API Status:", response.status);
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Patient API Error: ${response.status}`
+                    );
+                }
+
+                const data = await response.json();
+
+                console.log("Patient Data:", data);
+
+                const patient = Array.isArray(data)
+                    ? data[0]
+                    : data;
+
+                if (!patient) {
+                    console.error("Patient data not found");
+                    return;
+                }
+
+                const name =
+                    patient.fullName ||
+                    patient.name ||
+                    "--";
+
+                document
+                    .querySelectorAll("#patientName")
+                    .forEach(element => {
+                        element.textContent = name;
+                    });
+
+                document
+                    .querySelectorAll("#patientId")
+                    .forEach(element => {
+                        element.textContent =
+                            "Patient ID : " +
+                            safeValue(patient.id || patientId);
+                    });
+
+                const ageElement =
+                    document.getElementById("patientAge");
+
+                if (ageElement) {
+                    ageElement.textContent =
+                        calculateAge(patient.dob);
+                }
+
+                const genderElement =
+                    document.getElementById("patientGender");
+
+                if (genderElement) {
+                    genderElement.textContent =
+                        safeValue(patient.gender);
+                }
+
+                const bloodElement =
+                    document.getElementById("patientBloodGroup");
+
+                if (bloodElement) {
+                    bloodElement.textContent =
+                        safeValue(patient.bloodGroup);
+                }
+
+                const heightElement =
+                    document.getElementById("patientHeight");
+
+                if (heightElement) {
+                    heightElement.textContent =
+                        patient.height
+                            ? patient.height + " cm"
+                            : "--";
+                }
+
+                const weightElement =
+                    document.getElementById("patientWeight");
+
+                if (weightElement) {
+                    weightElement.textContent =
+                        patient.weight
+                            ? patient.weight + " Kg"
+                            : "--";
+                }
+
+                const bmiElement =
+                    document.getElementById("patientBmi");
+
+                if (bmiElement) {
+                    bmiElement.textContent =
+                        calculateBMI(
+                            patient.height,
+                            patient.weight
+                        );
+                }
+
+                const allergiesElement =
+                    document.getElementById("patientAllergies");
+
+                if (allergiesElement) {
+                    allergiesElement.textContent =
+                        safeValue(patient.allergies);
+                }
+
+                const chronicElement =
+                    document.getElementById("patientChronic");
+
+                if (chronicElement) {
+                    chronicElement.textContent =
+                        safeValue(
+                            patient.chronicDisease ||
+                            patient.existingDiseases
+                        );
+                }
+
+                const emergencyElement =
+                    document.getElementById("patientEmergency");
+
+                if (emergencyElement) {
+                    emergencyElement.textContent =
+                        safeValue(
+                            patient.emergencyContact ||
+                            patient.emergencyPhone ||
+                            patient.phone
+                        );
+                }
+            } catch (error) {
+                console.error(
+                    "Patient Loading Error:",
+                    error
+                );
+            }
+        }
+
+        async function loadMedicalHistory(patientId) {
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/api/medical-history/patient/${patientId}`
+                );
+
+                console.log(
+                    "Medical History API Status:",
+                    response.status
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Medical History API Error: ${response.status}`
+                    );
+                }
+
+                const history = await response.json();
+
+                console.log(
+                    "Medical History Data:",
+                    history
+                );
+
+                if (!Array.isArray(history)) {
+                    throw new Error(
+                        "Backend did not return an array."
+                    );
+                }
+
+                history.sort(
+                    (a, b) =>
+                        new Date(b.visitDate || 0) -
+                        new Date(a.visitDate || 0)
+                );
+
+                if (history.length === 0) {
+                    timeline.innerHTML = `
+                <div style="
+                    padding:25px;
+                    text-align:center;
+                    color:#64748b;
+                ">
+                    No medical history found for this patient.
+                </div>
+            `;
+
+                    reportList.innerHTML = `
+                <div style="
+                    padding:25px;
+                    text-align:center;
+                    color:#64748b;
+                ">
+                    No medical reports found.
+                </div>
+            `;
+
+                    updateSummary([]);
+                    return;
+                }
+
+                const latest = history[0];
+
+                const diagnosisElement =
+                    document.getElementById("currentDiagnosis");
+
+                if (diagnosisElement) {
+                    diagnosisElement.textContent =
+                        safeValue(latest.diagnosis);
+                }
+
+                const medicationElement =
+                    document.getElementById("currentMedication");
+
+                if (medicationElement) {
+                    medicationElement.textContent =
+                        safeValue(latest.prescription);
+                }
+
+                const latestVisitElement =
+                    document.getElementById("latestVisit");
+
+                if (latestVisitElement) {
+                    latestVisitElement.parentElement
+                        .querySelector("h5")
+                        .textContent = "Last Visit";
+
+                    latestVisitElement.textContent =
+                        formatDate(latest.visitDate);
+                }
+
+                const latestDoctorElement =
+                    document.getElementById("latestDoctor");
+
+                if (latestDoctorElement) {
+                    latestDoctorElement.parentElement
+                        .querySelector("h5")
+                        .textContent = "Doctor ID";
+
+                    latestDoctorElement.textContent =
+                        safeValue(latest.doctorId);
+                }
+
+                const latestReportElement =
+                    document.getElementById("latestReport");
+
+                if (latestReportElement) {
+                    latestReportElement.parentElement
+                        .querySelector("h5")
+                        .textContent = "Latest Report";
+
+                    latestReportElement.textContent =
+                        safeValue(latest.report);
+                }
+
+                const latestRemarksElement =
+                    document.getElementById("latestRemarks");
+
+                if (latestRemarksElement) {
+                    latestRemarksElement.parentElement
+                        .querySelector("h5")
+                        .textContent = "Remarks";
+
+                    latestRemarksElement.textContent =
+                        safeValue(latest.remarks);
+                }
+
+                updateSummary(history);
+                renderTimeline(history);
+                renderReports(history);
+
+            } catch (error) {
+                console.error(
+                    "Medical History Loading Error:",
+                    error
+                );
+
+                timeline.innerHTML = `
+            <div style="
+                padding:25px;
+                text-align:center;
+            ">
+                Unable to load medical history
+            </div>
+        `;
+            }
+        }
+
+        function updateSummary(history) {
+            const totalVisits =
+                document.getElementById("totalVisits");
+
+            const totalPrescriptions =
+                document.getElementById("totalPrescriptions");
+
+            const totalReports =
+                document.getElementById("totalReports");
+
+            const totalSurgeries =
+                document.getElementById("totalSurgeries");
+
+            if (totalVisits) {
+                totalVisits.textContent =
+                    history.length;
+            }
+
+            if (totalPrescriptions) {
+                totalPrescriptions.textContent =
+                    history.filter(
+                        item =>
+                            item.prescription &&
+                            item.prescription.trim() !== ""
+                    ).length;
+            }
+
+            if (totalReports) {
+                totalReports.textContent =
+                    history.filter(
+                        item =>
+                            item.report &&
+                            item.report.trim() !== ""
+                    ).length;
+            }
+
+            if (totalSurgeries) {
+                totalSurgeries.textContent = "N/A";
+            }
+        }
+
+        function renderTimeline(history) {
+            timeline.innerHTML = "";
+
+            history.forEach(item => {
+                const timelineItem =
+                    document.createElement("div");
+
+                timelineItem.className =
+                    "timeline-item";
+
+                const descriptionParts = [];
+
+                if (item.diagnosis) {
+                    descriptionParts.push(
+                        "Diagnosis: " +
+                        item.diagnosis
+                    );
+                }
+
+                if (item.prescription) {
+                    descriptionParts.push(
+                        "Prescription: " +
+                        item.prescription
+                    );
+                }
+
+                if (item.report) {
+                    descriptionParts.push(
+                        "Report: " +
+                        item.report
+                    );
+                }
+
+                if (item.remarks) {
+                    descriptionParts.push(
+                        "Remarks: " +
+                        item.remarks
+                    );
+                }
+
+                timelineItem.innerHTML = `
+            <div class="timeline-icon">
+                <i class="fa-solid fa-notes-medical"></i>
+            </div>
+            <div class="timeline-content">
+                <h4>
+                    ${formatDate(item.visitDate)}
+                </h4>
+                <p>
+                    ${descriptionParts.length
+                        ? descriptionParts.join(" | ")
+                        : "No additional details available."
+                    }
+                </p>
+            </div>
+        `;
+
+                timeline.appendChild(
+                    timelineItem
+                );
+            });
+        }
+
+        function renderReports(history) {
+            reportList.innerHTML = "";
+
+            const reports =
+                history.filter(
+                    item =>
+                        item.report &&
+                        item.report.trim() !== ""
+                );
+
+            if (reports.length === 0) {
+                reportList.innerHTML = `
+            <div style="
+                padding:25px;
+                text-align:center;
+                color:#64748b;
+            ">
+                No medical reports available.
+            </div>
+        `;
+                return;
+            }
 
             reports.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                item.style.display = text.includes(value) ? "flex" : "none";
+                const report =
+                    document.createElement("div");
+
+                report.className = "report";
+
+                report.innerHTML = `
+            <div class="report-left">
+                <i class="fa-solid fa-file-medical"></i>
+                <div>
+                    <h4>
+                        ${escapeHtml(item.report)}
+                    </h4>
+                    <p>
+                        ${formatDate(item.visitDate)}
+                    </p>
+                </div>
+            </div>
+            <button
+                class="download-btn"
+                type="button"
+                onclick="viewReport(${item.id})"
+            >
+                View
+            </button>
+        `;
+
+                reportList.appendChild(report);
             });
-        });
-
-        downloadBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                const report = btn.parentElement.querySelector("h4").innerText;
-                alert(report + " download will be available after backend integration.");
-            });
-        });
-
-        printBtn.addEventListener("click", () => {
-            window.print();
-        });
-
-        pdfBtn.addEventListener("click", () => {
-            alert("PDF generation will be available after backend integration.");
-        });
-
-        backBtn.addEventListener("click", () => {
-            history.back();
-        });
-
-        /* ---------- Backend Ready Functions ---------- */
-
-        async function loadPatientHistory(patientId) {
-            try {
-                const response = await fetch(`/api/patients/${patientId}/medical-history`);
-                if (!response.ok) throw new Error("Failed");
-                const data = await response.json();
-                console.log(data);
-            } catch (err) {
-                console.log(err);
-            }
         }
 
-        async function loadReports(patientId) {
-            try {
-                const response = await fetch(`/api/patients/${patientId}/reports`);
-                if (!response.ok) throw new Error("Failed");
-                const data = await response.json();
-                console.log(data);
-            } catch (err) {
-                console.log(err);
-            }
+        function viewReport(historyId) {
+            alert(
+                "Report ID: " +
+                historyId +
+                "\n\nThe report is currently stored as text in the medical history database."
+            );
         }
 
-        async function downloadReport(reportId) {
-            try {
-                window.location.href = `/api/reports/download/${reportId}`;
-            } catch (err) {
-                console.log(err);
-            }
+        if (searchInput) {
+            searchInput.addEventListener(
+                "input",
+                function () {
+                    const searchValue =
+                        this.value
+                            .toLowerCase()
+                            .trim();
+
+                    document
+                        .querySelectorAll(
+                            "#timeline .timeline-item"
+                        )
+                        .forEach(item => {
+                            const text =
+                                item.innerText
+                                    .toLowerCase();
+
+                            item.style.display =
+                                text.includes(searchValue)
+                                    ? "flex"
+                                    : "none";
+                        });
+
+                    document
+                        .querySelectorAll(
+                            "#reportList .report"
+                        )
+                        .forEach(item => {
+                            const text =
+                                item.innerText
+                                    .toLowerCase();
+
+                            item.style.display =
+                                text.includes(searchValue)
+                                    ? "flex"
+                                    : "none";
+                        });
+                }
+            );
         }
+
+        if (printBtn) {
+            printBtn.addEventListener(
+                "click",
+                () => {
+                    window.print();
+                }
+            );
+        }
+
+        if (pdfBtn) {
+            pdfBtn.addEventListener(
+                "click",
+                () => {
+                    alert(
+                        "PDF generation is not connected to a backend PDF service yet."
+                    );
+                }
+            );
+        }
+
+        if (backBtn) {
+            backBtn.addEventListener(
+                "click",
+                () => {
+                    history.back();
+                }
+            );
+        }
+
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        async function initializeMedicalHistory() {
+            if (!patientId) {
+                console.error(
+                    "Patient ID not found."
+                );
+
+                alert(
+                    "Patient ID not found. Please open Medical History from a patient or appointment."
+                );
+
+                return;
+            }
+
+            localStorage.setItem(
+                "patientId",
+                patientId
+            );
+
+            console.log(
+                "Loading Medical History for Patient:",
+                patientId
+            );
+
+            await loadPatient(patientId);
+            await loadMedicalHistory(patientId);
+        }
+
+        initializeMedicalHistory();
     </script>
 
 </body>

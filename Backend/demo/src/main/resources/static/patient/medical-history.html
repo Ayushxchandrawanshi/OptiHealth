@@ -716,263 +716,862 @@
     </div>
 
     <script>
-        const patient = JSON.parse(localStorage.getItem("user"));
-        const token = localStorage.getItem("token");
+        const API_BASE_URL = "http://localhost:8080";
+
+        let patient = null;
+        let token = localStorage.getItem("token");
+        let medicalRecords = [];
+        let doctors = [];
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
         const searchInput = document.querySelector(".search-box input");
         const yearFilter = document.querySelector(".search-box select");
+        const searchButton = document.querySelector(".search-box button");
         const timeline = document.getElementById("medicalTimeline");
-        const patientName = document.getElementById("patientName");
-        const historyPatientName = document.getElementById("historyPatientName");
-        const patientId = document.getElementById("patientId");
+        const patientNameElement = document.getElementById("patientName");
+        const historyPatientNameElement = document.getElementById("historyPatientName");
+        const patientIdElement = document.getElementById("patientId");
+        const patientAgeElement = document.getElementById("patientAge");
+        const patientBloodGroupElement = document.getElementById("patientBloodGroup");
+        const patientHeightElement = document.getElementById("patientHeight");
+        const patientWeightElement = document.getElementById("patientWeight");
+        const patientAllergiesElement = document.getElementById("patientAllergies");
+        const lastCheckupElement = document.getElementById("lastCheckup");
         const downloadBtn = document.querySelector(".download-btn");
-        let medicalRecords = [];
-        let doctors = [];
-        if (patient) {
-            if (patientName) {
-                patientName.innerText = patient.fullName || "Patient";
+
+        function getPatientId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlPatientId = urlParams.get("patientId");
+
+            if (urlPatientId) {
+                return urlPatientId;
             }
-            if (historyPatientName) {
-                historyPatientName.innerText = patient.fullName || "Patient";
+
+            if (patient && patient.id) {
+                return patient.id;
             }
-            if (patientId) {
-                patientId.innerText = patient.id || "-";
+
+            const storedPatientId = localStorage.getItem("patientId");
+
+            if (storedPatientId) {
+                return storedPatientId;
+            }
+
+            return null;
+        }
+
+        function getAuthHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] = "Bearer " + token;
+            }
+
+            return headers;
+        }
+
+        function loadPatientFromStorage() {
+            try {
+                const storedUser = localStorage.getItem("user");
+
+                if (storedUser) {
+                    patient = JSON.parse(storedUser);
+                }
+            } catch (error) {
+                console.error("Patient session error:", error);
+                patient = null;
             }
         }
-        if (window.innerWidth <= 900) {
-            sidebar.style.left = "-270px";
-        }
-        menuBtn.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-                if (sidebar.style.left === "0px") {
-                    sidebar.style.left = "-270px";
+
+        function updatePatientBasicInfo(data) {
+            if (patientNameElement) {
+                patientNameElement.innerText =
+                    data.fullName || "Patient";
+            }
+
+            if (historyPatientNameElement) {
+                historyPatientNameElement.innerText =
+                    data.fullName || "Patient";
+            }
+
+            if (patientIdElement) {
+                patientIdElement.innerText =
+                    data.id || "-";
+            }
+
+            if (patientBloodGroupElement) {
+                patientBloodGroupElement.innerText =
+                    data.bloodGroup || "-";
+            }
+
+            if (patientHeightElement) {
+                patientHeightElement.innerText =
+                    data.height !== null &&
+                        data.height !== undefined
+                        ? data.height + " cm"
+                        : "-";
+            }
+
+            if (patientWeightElement) {
+                patientWeightElement.innerText =
+                    data.weight !== null &&
+                        data.weight !== undefined
+                        ? data.weight + " Kg"
+                        : "-";
+            }
+
+            if (patientAllergiesElement) {
+                patientAllergiesElement.innerText =
+                    data.allergies || "None";
+            }
+
+            if (patientAgeElement) {
+                if (data.dob) {
+                    patientAgeElement.innerText =
+                        calculateAge(data.dob) + " Years";
                 } else {
-                    sidebar.style.left = "0";
+                    patientAgeElement.innerText = "-";
                 }
             }
-        });
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            } else {
-                sidebar.style.left = "-270px";
-            }
-        });
-        async function loadMedicalHistory() {
-            if (!patient || !patient.id) {
-                timeline.innerHTML = `
-            <div class="timeline-item">
-                <h2 class="timeline-title">Patient Login Required</h2>
-                <p class="timeline-text">
-                    Please login again to view your medical history.
-                </p>
-            </div>
-        `;
+        }
+
+        async function loadPatientProfile() {
+            const patientId = getPatientId();
+
+            if (!patientId) {
+                console.error("Patient ID not found.");
+                showPatientError("Patient ID not found. Please login again.");
                 return;
             }
+
             try {
-                const historyResponse = await fetch(
-                    "http://localhost:8080/api/medical-history/patient/" + patient.id,
+                const response = await fetch(
+                    API_BASE_URL + "/api/patients/" + patientId,
                     {
                         method: "GET",
-                        headers: {
-                            "Authorization": "Bearer " + token
-                        }
+                        headers: getAuthHeaders()
                     }
                 );
-                if (!historyResponse.ok) {
-                    const errorText = await historyResponse.text();
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+
                     console.error(
-                        "Medical History API Error:",
-                        historyResponse.status,
+                        "Patient API Error:",
+                        response.status,
                         errorText
                     );
-                    throw new Error(
-                        "Medical History API returned " + historyResponse.status
+
+                    showPatientError(
+                        "Unable to load patient information. Error: " +
+                        response.status
                     );
+
+                    return;
                 }
-                medicalRecords = await historyResponse.json();
-                try {
-                    const doctorResponse = await fetch(
-                        "http://localhost:8080/api/patients/doctors"
-                    );
-                    if (doctorResponse.ok) {
-                        doctors = await doctorResponse.json();
+
+                const data = await response.json();
+
+                console.log("Patient Data:", data);
+
+                patient = data;
+
+                localStorage.setItem(
+                    "patientId",
+                    String(data.id)
+                );
+
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data)
+                );
+
+                updatePatientBasicInfo(data);
+            } catch (error) {
+                console.error(
+                    "Patient Connection Error:",
+                    error
+                );
+
+                showPatientError(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        async function loadDoctors() {
+            try {
+                const response = await fetch(
+                    API_BASE_URL + "/api/patients/doctors",
+                    {
+                        method: "GET",
+                        headers: getAuthHeaders()
                     }
-                } catch (error) {
-                    console.error("Doctor Load Error:", error);
+                );
+
+                if (!response.ok) {
+                    console.error(
+                        "Doctor API Error:",
+                        response.status
+                    );
+                    return;
                 }
+
+                const data = await response.json();
+
+                if (Array.isArray(data)) {
+                    doctors = data;
+                }
+            } catch (error) {
+                console.error(
+                    "Doctor Load Error:",
+                    error
+                );
+            }
+        }
+
+        async function loadMedicalHistory() {
+            const patientId = getPatientId();
+
+            if (!patientId) {
+                showHistoryMessage(
+                    "Patient Login Required",
+                    "Please login again to view your medical history."
+                );
+                return;
+            }
+
+            showHistoryLoading();
+
+            try {
+                token = localStorage.getItem("token");
+
+                const response = await fetch(
+                    API_BASE_URL +
+                    "/api/medical-history/patient/" +
+                    patientId,
+                    {
+                        method: "GET",
+                        headers: getAuthHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+
+                    console.error(
+                        "Medical History API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    showHistoryMessage(
+                        "Unable to Load Medical History",
+                        "Backend returned error " +
+                        response.status +
+                        "."
+                    );
+
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (!Array.isArray(data)) {
+                    console.error(
+                        "Invalid Medical History Response:",
+                        data
+                    );
+
+                    showHistoryMessage(
+                        "Invalid Medical History",
+                        "The backend returned invalid data."
+                    );
+
+                    return;
+                }
+
+                medicalRecords = data;
+
+                console.log(
+                    "Medical History From Backend:",
+                    medicalRecords
+                );
+
+                updateLastCheckup();
                 renderMedicalHistory();
             } catch (error) {
-                console.error("Medical History Error:", error);
-                timeline.innerHTML = `
-            <div class="timeline-item">
-                <h2 class="timeline-title">
-                    Unable to Load Medical History
-                </h2>
-                <p class="timeline-text">
-                    Please check the backend server and try again.
-                </p>
+                console.error(
+                    "Medical History Connection Error:",
+                    error
+                );
+
+                showHistoryMessage(
+                    "Unable to Load Medical History",
+                    "Please check the backend server and try again."
+                );
+            }
+        }
+
+        function renderMedicalHistory() {
+            if (!timeline) {
+                return;
+            }
+
+            timeline.innerHTML = "";
+
+            if (medicalRecords.length === 0) {
+                showHistoryMessage(
+                    "No Medical History",
+                    "No medical records are available for your account."
+                );
+                return;
+            }
+
+            const sortedRecords = [...medicalRecords].sort(
+                function (a, b) {
+                    return (
+                        new Date(b.visitDate || "1900-01-01") -
+                        new Date(a.visitDate || "1900-01-01")
+                    );
+                }
+            );
+
+            sortedRecords.forEach(function (record) {
+                const doctorName =
+                    getDoctorName(record.doctorId);
+
+                const doctorSpecialization =
+                    getDoctorSpecialization(record.doctorId);
+
+                const item =
+                    document.createElement("div");
+
+                item.className = "timeline-item";
+
+                item.dataset.year =
+                    getYear(record.visitDate);
+
+                item.innerHTML = `
+            <p class="timeline-date">
+                ${escapeHtml(formatDate(record.visitDate))}
+            </p>
+
+            <h2 class="timeline-title">
+                ${escapeHtml(
+                    record.diagnosis ||
+                    "Medical Consultation"
+                )}
+            </h2>
+
+            <p class="timeline-text">
+                ${escapeHtml(
+                    record.remarks ||
+                    "No additional remarks available."
+                )}
+            </p>
+
+            <div class="info-grid">
+
+                <div class="info-box">
+                    <h4>
+                        ${escapeHtml(doctorName)}
+                    </h4>
+                    <p>Doctor</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>
+                        ${escapeHtml(
+                    doctorSpecialization ||
+                    "N/A"
+                )}
+                    </h4>
+                    <p>Specialization</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>
+                        ${escapeHtml(
+                    record.report ||
+                    "N/A"
+                )}
+                    </h4>
+                    <p>Report</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>
+                        ${escapeHtml(
+                    record.prescription ||
+                    "N/A"
+                )}
+                    </h4>
+                    <p>Prescription</p>
+                </div>
+
             </div>
         `;
-            }
+
+                timeline.appendChild(item);
+            });
+
+            applyFilters();
         }
+
         function getDoctor(doctorId) {
+            if (!doctorId) {
+                return null;
+            }
+
             return doctors.find(
-                doctor => Number(doctor.id) === Number(doctorId)
+                function (doctor) {
+                    return Number(doctor.id) === Number(doctorId);
+                }
             );
         }
+
         function getDoctorName(doctorId) {
             const doctor = getDoctor(doctorId);
+
             if (doctor) {
-                return doctor.doctorName;
+                return (
+                    doctor.doctorName ||
+                    doctor.fullName ||
+                    "Doctor"
+                );
             }
-            return "Doctor ID: " + doctorId;
+
+            if (doctorId) {
+                return "Doctor ID: " + doctorId;
+            }
+
+            return "Doctor";
         }
+
         function getDoctorSpecialization(doctorId) {
             const doctor = getDoctor(doctorId);
+
             if (doctor) {
                 return doctor.specialization || "";
             }
+
             return "";
         }
+
+        function calculateAge(dob) {
+            if (!dob) {
+                return "-";
+            }
+
+            const birthDate = new Date(
+                dob + "T00:00:00"
+            );
+
+            const today = new Date();
+
+            let age =
+                today.getFullYear() -
+                birthDate.getFullYear();
+
+            const monthDifference =
+                today.getMonth() -
+                birthDate.getMonth();
+
+            if (
+                monthDifference < 0 ||
+                (
+                    monthDifference === 0 &&
+                    today.getDate() < birthDate.getDate()
+                )
+            ) {
+                age--;
+            }
+
+            return age >= 0 ? age : "-";
+        }
+
         function formatDate(date) {
             if (!date) {
                 return "Date Not Available";
             }
-            const parts = date.split("-");
+
+            const parts =
+                String(date).split("-");
+
             if (parts.length !== 3) {
-                return date;
+                return String(date);
             }
+
             const dateObject = new Date(
                 Number(parts[0]),
                 Number(parts[1]) - 1,
                 Number(parts[2])
             );
-            return dateObject.toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric"
-            });
+
+            return dateObject.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
         }
+
         function getYear(date) {
             if (!date) {
                 return "";
             }
-            return date.substring(0, 4);
+
+            return String(date).substring(0, 4);
         }
-        function renderMedicalHistory() {
-            timeline.innerHTML = "";
-            if (medicalRecords.length === 0) {
-                timeline.innerHTML = `
-            <div class="timeline-item">
-                <h2 class="timeline-title">No Medical History</h2>
-                <p class="timeline-text">
-                    No medical records are available for your account.
-                </p>
-            </div>
-        `;
+
+        function updateLastCheckup() {
+            if (!lastCheckupElement) {
                 return;
             }
-            medicalRecords.forEach(record => {
-                const doctorName = getDoctorName(record.doctorId);
-                const doctorSpecialization = getDoctorSpecialization(record.doctorId);
-                const item = document.createElement("div");
-                item.className = "timeline-item";
-                item.dataset.year = getYear(record.visitDate);
-                item.innerHTML = `
-            <p class="timeline-date">
-                ${formatDate(record.visitDate)}
-            </p>
+
+            if (
+                !medicalRecords ||
+                medicalRecords.length === 0
+            ) {
+                lastCheckupElement.innerText = "-";
+                return;
+            }
+
+            let latestRecord = null;
+
+            medicalRecords.forEach(
+                function (record) {
+                    if (!record.visitDate) {
+                        return;
+                    }
+
+                    if (
+                        !latestRecord ||
+                        new Date(record.visitDate) >
+                        new Date(latestRecord.visitDate)
+                    ) {
+                        latestRecord = record;
+                    }
+                }
+            );
+
+            if (latestRecord) {
+                lastCheckupElement.innerText =
+                    formatDate(
+                        latestRecord.visitDate
+                    );
+            } else {
+                lastCheckupElement.innerText = "-";
+            }
+        }
+
+        function applyFilters() {
+            if (!timeline) {
+                return;
+            }
+
+            const searchValue =
+                searchInput
+                    ? searchInput.value
+                        .toLowerCase()
+                        .trim()
+                    : "";
+
+            const selectedYear =
+                yearFilter
+                    ? yearFilter.value
+                    : "All Records";
+
+            document
+                .querySelectorAll(".timeline-item")
+                .forEach(
+                    function (item) {
+
+                        const text =
+                            item.innerText
+                                .toLowerCase();
+
+                        const recordYear =
+                            item.dataset.year || "";
+
+                        const matchesSearch =
+                            text.includes(searchValue);
+
+                        const matchesYear =
+                            selectedYear ===
+                            "All Records" ||
+                            recordYear === selectedYear;
+
+                        item.style.display =
+                            matchesSearch &&
+                                matchesYear
+                                ? "block"
+                                : "none";
+                    }
+                );
+        }
+
+        function showHistoryLoading() {
+            if (!timeline) {
+                return;
+            }
+
+            timeline.innerHTML = `
+        <div class="timeline-item">
             <h2 class="timeline-title">
-                ${record.diagnosis || "Medical Consultation"}
+                Loading Medical History...
             </h2>
             <p class="timeline-text">
-                ${record.remarks || "No additional remarks available."}
+                Please wait while your records are loaded from the server.
             </p>
-            <div class="info-grid">
-                <div class="info-box">
-                    <h4>${doctorName}</h4>
-                    <p>Doctor</p>
-                </div>
-                <div class="info-box">
-                    <h4>${doctorSpecialization || "N/A"}</h4>
-                    <p>Specialization</p>
-                </div>
-                <div class="info-box">
-                    <h4>${record.report || "N/A"}</h4>
-                    <p>Report</p>
-                </div>
-                <div class="info-box">
-                    <h4>${record.prescription || "N/A"}</h4>
-                    <p>Prescription</p>
-                </div>
-            </div>
-        `;
-                timeline.appendChild(item);
-            });
-            applyFilters();
+        </div>
+    `;
         }
-        function applyFilters() {
-            const searchValue = searchInput.value.toLowerCase().trim();
-            const selectedYear = yearFilter.value;
-            document.querySelectorAll(".timeline-item").forEach(item => {
-                const text = item.innerText.toLowerCase();
-                const recordYear = item.dataset.year;
-                const matchesSearch = text.includes(searchValue);
-                const matchesYear =
-                    selectedYear === "All Records" ||
-                    recordYear === selectedYear;
-                item.style.display =
-                    matchesSearch && matchesYear ? "block" : "none";
-            });
-        }
-        searchInput.addEventListener("input", applyFilters);
-        yearFilter.addEventListener("change", applyFilters);
-        document.querySelector(".search-box button").addEventListener(
-            "click",
-            applyFilters
-        );
-        if (downloadBtn) {
-            downloadBtn.addEventListener("click", () => {
-                alert(
-                    "Medical report download will be connected after report generation is added."
-                );
-            });
-        }
-        const notification = document.querySelector(".notify");
-        if (notification) {
-            notification.addEventListener("click", () => {
-                alert("No new medical notifications.");
-            });
-        }
-        const profile = document.querySelector(".profile");
-        if (profile) {
-            profile.addEventListener("click", () => {
-                window.location.href = "profile.html";
-            });
-        }
-        document.querySelectorAll(".sidebar nav a").forEach(link => {
-            link.addEventListener("click", () => {
-                document.querySelectorAll(".sidebar nav a").forEach(item => {
-                    item.classList.remove("active");
-                });
-                link.classList.add("active");
-            });
-        });
-        document.addEventListener("keydown", event => {
-            if (
-                event.key === "/" &&
-                !["INPUT", "TEXTAREA"].includes(
-                    document.activeElement.tagName
-                )
-            ) {
-                event.preventDefault();
-                searchInput.focus();
+
+        function showHistoryMessage(title, message) {
+            if (!timeline) {
+                return;
             }
-        });
-        loadMedicalHistory();
+
+            timeline.innerHTML = `
+        <div class="timeline-item">
+            <h2 class="timeline-title">
+                ${escapeHtml(title)}
+            </h2>
+
+            <p class="timeline-text">
+                ${escapeHtml(message)}
+            </p>
+        </div>
+    `;
+        }
+
+        function showPatientError(message) {
+            if (patientNameElement) {
+                patientNameElement.innerText = "Patient";
+            }
+
+            if (historyPatientNameElement) {
+                historyPatientNameElement.innerText =
+                    "Patient";
+            }
+
+            if (patientIdElement) {
+                patientIdElement.innerText = "-";
+            }
+
+            console.error(
+                "Patient Details:",
+                message
+            );
+        }
+
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        if (menuBtn) {
+            menuBtn.addEventListener(
+                "click",
+                function () {
+
+                    if (window.innerWidth <= 900) {
+
+                        if (
+                            sidebar.style.left ===
+                            "0px"
+                        ) {
+                            sidebar.style.left =
+                                "-270px";
+                        } else {
+                            sidebar.style.left =
+                                "0";
+                        }
+                    }
+                }
+            );
+        }
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                if (window.innerWidth > 900) {
+                    sidebar.style.left = "0";
+                } else {
+                    sidebar.style.left = "-270px";
+                }
+            }
+        );
+
+        if (searchInput) {
+            searchInput.addEventListener(
+                "input",
+                applyFilters
+            );
+        }
+
+        if (yearFilter) {
+            yearFilter.addEventListener(
+                "change",
+                applyFilters
+            );
+        }
+
+        if (searchButton) {
+            searchButton.addEventListener(
+                "click",
+                function (event) {
+                    event.preventDefault();
+                    applyFilters();
+                }
+            );
+        }
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        !medicalRecords ||
+                        medicalRecords.length === 0
+                    ) {
+                        alert(
+                            "No medical records available to download."
+                        );
+                        return;
+                    }
+
+                    alert(
+                        "Medical report PDF generation is not connected to the backend yet."
+                    );
+                }
+            );
+        }
+
+        const notification =
+            document.querySelector(".notify");
+
+        if (notification) {
+            notification.addEventListener(
+                "click",
+                function () {
+                    alert(
+                        "No new medical notifications."
+                    );
+                }
+            );
+        }
+
+        const profile =
+            document.querySelector(".profile");
+
+        if (profile) {
+            profile.addEventListener(
+                "click",
+                function () {
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        document
+            .querySelectorAll(".sidebar nav a")
+            .forEach(
+                function (link) {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            document
+                                .querySelectorAll(
+                                    ".sidebar nav a"
+                                )
+                                .forEach(
+                                    function (item) {
+                                        item.classList.remove(
+                                            "active"
+                                        );
+                                    }
+                                );
+
+                            link.classList.add(
+                                "active"
+                            );
+                        }
+                    );
+                }
+            );
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "/" &&
+                    ![
+                        "INPUT",
+                        "TEXTAREA"
+                    ].includes(
+                        document.activeElement.tagName
+                    )
+                ) {
+                    event.preventDefault();
+
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }
+            }
+        );
+
+        async function initializePage() {
+            loadPatientFromStorage();
+
+            const patientId = getPatientId();
+
+            if (!patientId) {
+                showPatientError(
+                    "Patient ID not found. Please login again."
+                );
+
+                showHistoryMessage(
+                    "Patient Login Required",
+                    "Please login again to view your medical history."
+                );
+
+                return;
+            }
+
+            await Promise.all([
+                loadPatientProfile(),
+                loadDoctors(),
+                loadMedicalHistory()
+            ]);
+        }
+
+        initializePage();
     </script>
 
 </body>

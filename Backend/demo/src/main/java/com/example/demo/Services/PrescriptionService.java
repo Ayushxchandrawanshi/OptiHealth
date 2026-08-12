@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.Models.MedicalHistoryModel;
 import com.example.demo.Models.PrescriptionMedicineModel;
 import com.example.demo.Models.PrescriptionModel;
 import com.example.demo.Repository.PrescriptionMedicineRepo;
@@ -20,6 +21,9 @@ public class PrescriptionService {
 
     @Autowired
     private PrescriptionMedicineRepo prescriptionMedicineRepo;
+
+    @Autowired
+    private MedicalHistoryService medicalHistoryService;
 
     @Transactional
     public PrescriptionModel createPrescription(
@@ -38,12 +42,41 @@ public class PrescriptionService {
             for (PrescriptionMedicineModel medicine : medicines) {
 
                 medicine.setPrescriptionId(
-                        savedPrescription.getId()
-                );
+                        savedPrescription.getId());
 
                 prescriptionMedicineRepo.save(medicine);
             }
         }
+
+        MedicalHistoryModel history
+                = new MedicalHistoryModel();
+
+        history.setPatientId(
+                savedPrescription.getPatientId());
+
+        history.setDoctorId(
+                savedPrescription.getDoctorId());
+
+        history.setAppointmentId(
+                savedPrescription.getAppointmentId());
+
+        history.setVisitDate(
+                savedPrescription.getPrescriptionDate());
+
+        history.setDiagnosis(
+                savedPrescription.getDiagnosis());
+
+        history.setPrescription(
+                "Prescription ID: "
+                + savedPrescription.getId());
+
+        history.setReport(
+                savedPrescription.getLabTests());
+
+        history.setRemarks(
+                savedPrescription.getSpecialInstructions());
+
+        medicalHistoryService.saveMedicalHistory(history);
 
         return savedPrescription;
     }
@@ -71,8 +104,7 @@ public class PrescriptionService {
             Long appointmentId) {
 
         return prescriptionRepo.findByAppointmentId(
-                appointmentId
-        );
+                appointmentId);
     }
 
     public List<PrescriptionMedicineModel> getMedicines(
@@ -86,11 +118,9 @@ public class PrescriptionService {
     public void deletePrescription(Long prescriptionId) {
 
         prescriptionMedicineRepo.deleteByPrescriptionId(
-                prescriptionId
-        );
+                prescriptionId);
 
         prescriptionRepo.deleteById(
-                prescriptionId
-        );
+                prescriptionId);
     }
 }

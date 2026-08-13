@@ -554,8 +554,7 @@
 
                 <a href="#" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
 
-                <a href="../auth/doctor-login.html"><i
-                        class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
 
             </nav>
 
@@ -588,8 +587,8 @@
                     <div class="profile">
                         <img src="../assets/doctor.png" alt="">
                         <div>
-                            <h4>Dr. Rahul Sharma</h4>
-                            <p>Cardiologist</p>
+                            <h4 id="topDoctorName">--</h4>
+                            <p id="topDoctorSpecialization">--</p>
                         </div>
                     </div>
 
@@ -616,12 +615,12 @@
 
                                 <div class="input-group full-width">
                                     <label>Hospital Name</label>
-                                    <input type="text" value="OptiHealth Hospital">
+                                    <input type="text" id="hospitalName" value="OptiHealth Hospital">
                                 </div>
 
                                 <div class="input-group">
                                     <label>Department</label>
-                                    <select>
+                                    <select id="department">
                                         <option>Cardiology</option>
                                         <option>Neurology</option>
                                         <option>Orthopedics</option>
@@ -632,7 +631,7 @@
 
                                 <div class="input-group">
                                     <label>Language</label>
-                                    <select>
+                                    <select id="language">
                                         <option>English</option>
                                         <option>Hindi</option>
                                     </select>
@@ -640,7 +639,7 @@
 
                                 <div class="input-group full-width">
                                     <label>Time Zone</label>
-                                    <select>
+                                    <select id="timeZone">
                                         <option>(GMT +5:30) India Standard Time</option>
                                         <option>UTC</option>
                                         <option>GMT</option>
@@ -677,7 +676,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="compactDashboard">
                                         <span class="slider"></span>
                                     </label>
 
@@ -690,7 +689,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="largeFont">
                                         <span class="slider"></span>
                                     </label>
 
@@ -717,7 +716,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" id="appointmentNotifications">
                                         <span class="slider"></span>
                                     </label>
 
@@ -730,7 +729,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" id="emailNotifications">
                                         <span class="slider"></span>
                                     </label>
 
@@ -743,7 +742,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="smsNotifications">
                                         <span class="slider"></span>
                                     </label>
 
@@ -756,7 +755,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" id="emergencyAlerts">
                                         <span class="slider"></span>
                                     </label>
 
@@ -779,7 +778,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="twoFactorAuthentication">
                                         <span class="slider"></span>
                                     </label>
 
@@ -792,7 +791,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" id="loginAlerts">
                                         <span class="slider"></span>
                                     </label>
 
@@ -805,7 +804,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="showEmailToPatients">
                                         <span class="slider"></span>
                                     </label>
 
@@ -818,7 +817,7 @@
                                     </div>
 
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="showMobileNumber">
                                         <span class="slider"></span>
                                     </label>
 
@@ -834,22 +833,22 @@
 
                             <div class="action-buttons">
 
-                                <button type="button" class="save-btn">
+                                <button type="button" class="save-btn" id="saveSettingsBtn">
                                     <i class="fa-solid fa-floppy-disk"></i>
                                     Save Settings
                                 </button>
 
-                                <button type="button" class="reset-btn">
+                                <button type="button" class="reset-btn" id="resetSettingsBtn">
                                     <i class="fa-solid fa-rotate-left"></i>
                                     Reset
                                 </button>
 
-                                <button type="button" class="logout-btn">
+                                <button type="button" class="logout-btn" id="logoutAllBtn">
                                     <i class="fa-solid fa-right-from-bracket"></i>
                                     Logout All Devices
                                 </button>
 
-                                <button type="button" class="delete-btn">
+                                <button type="button" class="delete-btn" id="deleteAccountBtn">
                                     <i class="fa-solid fa-trash"></i>
                                     Delete Account
                                 </button>
@@ -868,131 +867,645 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
 
-        const saveBtn = document.querySelector(".save-btn");
-        const resetBtn = document.querySelector(".reset-btn");
-        const logoutBtn = document.querySelector(".logout-btn");
-        const deleteBtn = document.querySelector(".delete-btn");
+        const saveBtn = document.getElementById("saveSettingsBtn");
+        const resetBtn = document.getElementById("resetSettingsBtn");
+        const logoutBtn = document.getElementById("logoutAllBtn");
+        const deleteBtn = document.getElementById("deleteAccountBtn");
 
         const darkMode = document.getElementById("darkMode");
+        const compactDashboard = document.getElementById("compactDashboard");
+        const largeFont = document.getElementById("largeFont");
 
-        menuBtn.addEventListener("click", () => {
+        const appointmentNotifications =
+            document.getElementById("appointmentNotifications");
 
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const emailNotifications =
+            document.getElementById("emailNotifications");
+
+        const smsNotifications =
+            document.getElementById("smsNotifications");
+
+        const emergencyAlerts =
+            document.getElementById("emergencyAlerts");
+
+        const twoFactorAuthentication =
+            document.getElementById("twoFactorAuthentication");
+
+        const loginAlerts =
+            document.getElementById("loginAlerts");
+
+        const showEmailToPatients =
+            document.getElementById("showEmailToPatients");
+
+        const showMobileNumber =
+            document.getElementById("showMobileNumber");
+
+        const department =
+            document.getElementById("department");
+
+        const language =
+            document.getElementById("language");
+
+        const timeZone =
+            document.getElementById("timeZone");
+
+        const hospitalName =
+            document.getElementById("hospitalName");
+
+        const token =
+            localStorage.getItem("token");
+
+        let doctorId =
+            localStorage.getItem("doctorId");
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
-        });
+            return headers;
+        }
 
-        document.addEventListener("click", e => {
+        async function loadDoctorData() {
+            if (!doctorId) {
+                return;
+            }
 
-            if (window.innerWidth <= 900) {
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/api/doctors/${doctorId}`,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
+                );
 
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+                if (!response.ok) {
+                    console.error(
+                        "Doctor API Error:",
+                        response.status
+                    );
+                    return;
                 }
 
-            }
+                const data =
+                    await response.json();
 
-        });
+                const doctor =
+                    Array.isArray(data)
+                        ? data[0]
+                        : data;
 
-        window.addEventListener("resize", () => {
-
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            }
-            else {
-                sidebar.style.left = "-270px";
-            }
-
-        });
-
-        darkMode.addEventListener("change", () => {
-
-            if (darkMode.checked) {
-
-                document.body.style.background = "#0f172a";
-                document.querySelector(".content").style.background = "#0f172a";
-
-                document.querySelectorAll(".card").forEach(card => {
-                    card.style.background = "#1e293b";
-                    card.style.color = "#ffffff";
-                });
-
-                document.querySelectorAll(".input-group input,.input-group select").forEach(input => {
-                    input.style.background = "#334155";
-                    input.style.color = "#ffffff";
-                    input.style.borderColor = "#475569";
-                });
-
-            }
-            else {
-
-                document.body.style.background = "#f4f7fb";
-                document.querySelector(".content").style.background = "#f4f7fb";
-
-                document.querySelectorAll(".card").forEach(card => {
-                    card.style.background = "#ffffff";
-                    card.style.color = "#0f172a";
-                });
-
-                document.querySelectorAll(".input-group input,.input-group select").forEach(input => {
-                    input.style.background = "#ffffff";
-                    input.style.color = "#0f172a";
-                    input.style.borderColor = "#e2e8f0";
-                });
-
-            }
-
-        });
-
-        saveBtn.addEventListener("click", () => {
-
-            alert("Settings saved successfully.");
-
-        });
-
-        resetBtn.addEventListener("click", () => {
-
-            document.querySelectorAll('input[type="checkbox"]').forEach(box => {
-                box.checked = false;
-            });
-
-            document.querySelectorAll("select").forEach(select => {
-                select.selectedIndex = 0;
-            });
-
-            alert("Settings reset successfully.");
-
-        });
-
-        logoutBtn.addEventListener("click", () => {
-
-            const confirmLogout = confirm("Logout from all devices?");
-
-            if (confirmLogout) {
-                alert("Logged out from all devices.");
-            }
-
-        });
-
-        deleteBtn.addEventListener("click", () => {
-
-            const confirmDelete = confirm("Are you sure you want to delete your account?");
-
-            if (confirmDelete) {
-
-                const finalConfirm = confirm("This action cannot be undone. Continue?");
-
-                if (finalConfirm) {
-                    alert("Account deleted successfully.");
+                if (!doctor) {
+                    return;
                 }
 
+                document.getElementById(
+                    "topDoctorName"
+                ).textContent =
+                    doctor.doctorName || "--";
+
+                document.getElementById(
+                    "topDoctorSpecialization"
+                ).textContent =
+                    doctor.specialization || "--";
+
+                if (department) {
+                    const specialization =
+                        doctor.specialization || "";
+
+                    const optionExists =
+                        [...department.options].some(
+                            option =>
+                                option.value.toLowerCase() ===
+                                specialization.toLowerCase()
+                        );
+
+                    if (optionExists) {
+                        department.value =
+                            [...department.options]
+                                .find(
+                                    option =>
+                                        option.value.toLowerCase() ===
+                                        specialization.toLowerCase()
+                                )
+                                .value;
+                    }
+                }
+
+                if (
+                    language &&
+                    doctor.languages
+                ) {
+                    const optionExists =
+                        [...language.options].some(
+                            option =>
+                                option.value.toLowerCase() ===
+                                doctor.languages.toLowerCase()
+                        );
+
+                    if (optionExists) {
+                        language.value =
+                            [...language.options]
+                                .find(
+                                    option =>
+                                        option.value.toLowerCase() ===
+                                        doctor.languages.toLowerCase()
+                                )
+                                .value;
+                    }
+                }
+
+            } catch (error) {
+                console.error(
+                    "Doctor Load Error:",
+                    error
+                );
+            }
+        }
+
+        function getSettings() {
+            return {
+                hospitalName:
+                    hospitalName
+                        ? hospitalName.value
+                        : "OptiHealth Hospital",
+
+                department:
+                    department
+                        ? department.value
+                        : "",
+
+                language:
+                    language
+                        ? language.value
+                        : "",
+
+                timeZone:
+                    timeZone
+                        ? timeZone.value
+                        : "",
+
+                darkMode:
+                    darkMode
+                        ? darkMode.checked
+                        : false,
+
+                compactDashboard:
+                    compactDashboard
+                        ? compactDashboard.checked
+                        : false,
+
+                largeFont:
+                    largeFont
+                        ? largeFont.checked
+                        : false,
+
+                appointmentNotifications:
+                    appointmentNotifications
+                        ? appointmentNotifications.checked
+                        : false,
+
+                emailNotifications:
+                    emailNotifications
+                        ? emailNotifications.checked
+                        : false,
+
+                smsNotifications:
+                    smsNotifications
+                        ? smsNotifications.checked
+                        : false,
+
+                emergencyAlerts:
+                    emergencyAlerts
+                        ? emergencyAlerts.checked
+                        : false,
+
+                twoFactorAuthentication:
+                    twoFactorAuthentication
+                        ? twoFactorAuthentication.checked
+                        : false,
+
+                loginAlerts:
+                    loginAlerts
+                        ? loginAlerts.checked
+                        : false,
+
+                showEmailToPatients:
+                    showEmailToPatients
+                        ? showEmailToPatients.checked
+                        : false,
+
+                showMobileNumber:
+                    showMobileNumber
+                        ? showMobileNumber.checked
+                        : false
+            };
+        }
+
+        function applySettings(settings) {
+            if (hospitalName) {
+                hospitalName.value =
+                    settings.hospitalName ||
+                    "OptiHealth Hospital";
             }
 
-        });
+            if (department) {
+                department.value =
+                    settings.department ||
+                    department.options[0]?.value;
+            }
+
+            if (language) {
+                language.value =
+                    settings.language ||
+                    language.options[0]?.value;
+            }
+
+            if (timeZone) {
+                timeZone.value =
+                    settings.timeZone ||
+                    timeZone.options[0]?.value;
+            }
+
+            if (darkMode) {
+                darkMode.checked =
+                    Boolean(settings.darkMode);
+            }
+
+            if (compactDashboard) {
+                compactDashboard.checked =
+                    Boolean(settings.compactDashboard);
+            }
+
+            if (largeFont) {
+                largeFont.checked =
+                    Boolean(settings.largeFont);
+            }
+
+            if (appointmentNotifications) {
+                appointmentNotifications.checked =
+                    Boolean(
+                        settings.appointmentNotifications
+                    );
+            }
+
+            if (emailNotifications) {
+                emailNotifications.checked =
+                    Boolean(
+                        settings.emailNotifications
+                    );
+            }
+
+            if (smsNotifications) {
+                smsNotifications.checked =
+                    Boolean(
+                        settings.smsNotifications
+                    );
+            }
+
+            if (emergencyAlerts) {
+                emergencyAlerts.checked =
+                    Boolean(
+                        settings.emergencyAlerts
+                    );
+            }
+
+            if (twoFactorAuthentication) {
+                twoFactorAuthentication.checked =
+                    Boolean(
+                        settings.twoFactorAuthentication
+                    );
+            }
+
+            if (loginAlerts) {
+                loginAlerts.checked =
+                    Boolean(
+                        settings.loginAlerts
+                    );
+            }
+
+            if (showEmailToPatients) {
+                showEmailToPatients.checked =
+                    Boolean(
+                        settings.showEmailToPatients
+                    );
+            }
+
+            if (showMobileNumber) {
+                showMobileNumber.checked =
+                    Boolean(
+                        settings.showMobileNumber
+                    );
+            }
+
+            applyDarkMode(
+                Boolean(settings.darkMode)
+            );
+
+            applyCompactDashboard(
+                Boolean(settings.compactDashboard)
+            );
+
+            applyLargeFont(
+                Boolean(settings.largeFont)
+            );
+        }
+
+        function saveSettings() {
+            const settings =
+                getSettings();
+
+            localStorage.setItem(
+                "doctorSettings",
+                JSON.stringify(settings)
+            );
+
+            alert(
+                "Settings saved successfully."
+            );
+        }
+
+        function loadSavedSettings() {
+            try {
+                const saved =
+                    localStorage.getItem(
+                        "doctorSettings"
+                    );
+
+                if (!saved) {
+                    return;
+                }
+
+                const settings =
+                    JSON.parse(saved);
+
+                applySettings(settings);
+
+            } catch (error) {
+                console.error(
+                    "Settings Load Error:",
+                    error
+                );
+            }
+        }
+
+        function resetSettings() {
+            const defaultSettings = {
+                hospitalName:
+                    "OptiHealth Hospital",
+
+                department:
+                    department?.options[0]?.value || "",
+
+                language:
+                    language?.options[0]?.value || "",
+
+                timeZone:
+                    timeZone?.options[0]?.value || "",
+
+                darkMode: false,
+                compactDashboard: false,
+                largeFont: false,
+                appointmentNotifications: false,
+                emailNotifications: false,
+                smsNotifications: false,
+                emergencyAlerts: false,
+                twoFactorAuthentication: false,
+                loginAlerts: false,
+                showEmailToPatients: false,
+                showMobileNumber: false
+            };
+
+            applySettings(
+                defaultSettings
+            );
+
+            localStorage.setItem(
+                "doctorSettings",
+                JSON.stringify(
+                    defaultSettings
+                )
+            );
+
+            alert(
+                "Settings reset successfully."
+            );
+        }
+
+        function applyDarkMode(enabled) {
+            if (!enabled) {
+                document.body.style.background =
+                    "#f4f7fb";
+
+                document
+                    .querySelector(".content")
+                    .style.background =
+                    "#f4f7fb";
+
+                document
+                    .querySelectorAll(".card")
+                    .forEach(card => {
+                        card.style.background =
+                            "#ffffff";
+                        card.style.color =
+                            "#0f172a";
+                    });
+
+                return;
+            }
+
+            document.body.style.background =
+                "#0f172a";
+
+            document
+                .querySelector(".content")
+                .style.background =
+                "#0f172a";
+
+            document
+                .querySelectorAll(".card")
+                .forEach(card => {
+                    card.style.background =
+                        "#1e293b";
+                    card.style.color =
+                        "#ffffff";
+                });
+        }
+
+        function applyCompactDashboard(enabled) {
+            document
+                .querySelectorAll(".card")
+                .forEach(card => {
+                    card.style.padding =
+                        enabled
+                            ? "18px"
+                            : "25px";
+                });
+        }
+
+        function applyLargeFont(enabled) {
+            document.body.style.fontSize =
+                enabled
+                    ? "17px"
+                    : "";
+        }
+
+        if (menuBtn) {
+            menuBtn.addEventListener(
+                "click",
+                () => {
+                    if (window.innerWidth <= 900) {
+                        sidebar.style.left =
+                            sidebar.style.left === "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+        }
+
+        document.addEventListener(
+            "click",
+            event => {
+                if (
+                    window.innerWidth <= 900 &&
+                    sidebar &&
+                    menuBtn &&
+                    !sidebar.contains(
+                        event.target
+                    ) &&
+                    !menuBtn.contains(
+                        event.target
+                    )
+                ) {
+                    sidebar.style.left =
+                        "-270px";
+                }
+            }
+        );
+
+        window.addEventListener(
+            "resize",
+            () => {
+                if (!sidebar) {
+                    return;
+                }
+
+                sidebar.style.left =
+                    window.innerWidth > 900
+                        ? "0"
+                        : "-270px";
+            }
+        );
+
+        if (darkMode) {
+            darkMode.addEventListener(
+                "change",
+                () => {
+                    applyDarkMode(
+                        darkMode.checked
+                    );
+                }
+            );
+        }
+
+        if (compactDashboard) {
+            compactDashboard.addEventListener(
+                "change",
+                () => {
+                    applyCompactDashboard(
+                        compactDashboard.checked
+                    );
+                }
+            );
+        }
+
+        if (largeFont) {
+            largeFont.addEventListener(
+                "change",
+                () => {
+                    applyLargeFont(
+                        largeFont.checked
+                    );
+                }
+            );
+        }
+
+        if (saveBtn) {
+            saveBtn.addEventListener(
+                "click",
+                saveSettings
+            );
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener(
+                "click",
+                resetSettings
+            );
+        }
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener(
+                "click",
+                () => {
+                    const confirmed =
+                        confirm(
+                            "Logout from this device?"
+                        );
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    localStorage.removeItem(
+                        "token"
+                    );
+
+                    localStorage.removeItem(
+                        "doctorId"
+                    );
+
+                    localStorage.removeItem(
+                        "doctor"
+                    );
+
+                    sessionStorage.clear();
+
+                    window.location.href =
+                        "../auth/login.html";
+                }
+            );
+        }
+
+        if (deleteBtn) {
+            deleteBtn.addEventListener(
+                "click",
+                () => {
+                    alert(
+                        "Account deletion is not connected to the backend yet."
+                    );
+                }
+            );
+        }
+
+        async function initializeSettings() {
+            await loadDoctorData();
+            loadSavedSettings();
+        }
+
+        initializeSettings();
     </script>
 
 </body>

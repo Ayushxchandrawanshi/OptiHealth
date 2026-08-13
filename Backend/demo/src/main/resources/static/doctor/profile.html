@@ -547,8 +547,7 @@
 
                 <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
 
-                <a href="../auth/doctor-login.html"><i
-                        class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
 
             </nav>
 
@@ -809,6 +808,8 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
         const imageInput = document.getElementById("profileImage");
@@ -816,103 +817,865 @@
         const saveBtn = document.querySelector(".save-btn");
         const passwordBtn = document.querySelector(".password-btn");
         const cancelBtn = document.querySelector(".cancel-btn");
+        const profileForm = document.getElementById("profileForm");
 
-        menuBtn.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
-            }
-        });
+        const token = localStorage.getItem("token");
 
-        document.addEventListener("click", e => {
-            if (window.innerWidth <= 900) {
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
-                }
-            }
-        });
+        let doctorId = null;
+        let doctorData = null;
 
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            } else {
-                sidebar.style.left = "-270px";
-            }
-        });
+        const fullNameInput =
+            document.getElementById("doctorFullName") ||
+            document.querySelector('input[type="text"]');
 
-        imageInput.addEventListener("change", e => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    profilePreview.src = event.target.result;
-                    document.querySelector(".profile img").src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        const emailInput =
+            document.getElementById("doctorEmail") ||
+            document.querySelector('input[type="email"]');
 
-        saveBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            const data = {
-                name: document.querySelector('input[type="text"]').value,
-                email: document.querySelector('input[type="email"]').value,
-                mobile: document.querySelector('input[type="tel"]').value,
-                dob: document.querySelector('input[type="date"]').value,
-                gender: document.querySelectorAll("select")[0].value,
-                bloodGroup: document.querySelectorAll("select")[1].value,
-                qualification: document.querySelectorAll('input[type="text"]')[1].value,
-                specialization: document.querySelectorAll('input[type="text"]')[2].value,
-                experience: document.querySelectorAll('input[type="number"]')[0].value,
-                fee: document.querySelectorAll('input[type="number"]')[1].value,
-                address: document.querySelectorAll("textarea")[0].value,
-                about: document.querySelectorAll("textarea")[1].value,
-                linkedin: document.querySelectorAll('input[type="url"]')[0].value,
-                website: document.querySelectorAll('input[type="url"]')[1].value,
-                facebook: document.querySelectorAll('input[type="url"]')[2].value,
-                instagram: document.querySelectorAll('input[type="url"]')[3].value
+        const mobileInput =
+            document.getElementById("doctorMobile") ||
+            document.querySelector('input[type="tel"]');
+
+        const dobInput =
+            document.getElementById("doctorDob") ||
+            document.querySelector('input[type="date"]');
+
+        const genderInput =
+            document.getElementById("doctorGender") ||
+            document.querySelectorAll("select")[0];
+
+        const bloodGroupInput =
+            document.getElementById("doctorBloodGroup") ||
+            document.querySelectorAll("select")[1];
+
+        const qualificationInput =
+            document.getElementById("doctorQualificationInput") ||
+            document.querySelectorAll('input[type="text"]')[1];
+
+        const specializationInput =
+            document.getElementById("doctorSpecializationInput") ||
+            document.querySelectorAll('input[type="text"]')[2];
+
+        const experienceInput =
+            document.getElementById("doctorExperienceInput") ||
+            document.querySelectorAll('input[type="number"]')[0];
+
+        const feeInput =
+            document.getElementById("doctorFeeInput") ||
+            document.querySelectorAll('input[type="number"]')[1];
+
+        const addressInput =
+            document.getElementById("doctorAddress") ||
+            document.querySelectorAll("textarea")[0];
+
+        const descriptionInput =
+            document.getElementById("doctorDescription") ||
+            document.querySelectorAll("textarea")[1];
+
+        const linkedinInput =
+            document.getElementById("doctorLinkedin") ||
+            document.querySelectorAll('input[type="url"]')[0];
+
+        const websiteInput =
+            document.getElementById("doctorWebsite") ||
+            document.querySelectorAll('input[type="url"]')[1];
+
+        const facebookInput =
+            document.getElementById("doctorFacebook") ||
+            document.querySelectorAll('input[type="url"]')[2];
+
+        const instagramInput =
+            document.getElementById("doctorInstagram") ||
+            document.querySelectorAll('input[type="url"]')[3];
+
+        const currentPasswordInput =
+            document.querySelectorAll('input[type="password"]')[0];
+
+        const newPasswordInput =
+            document.querySelectorAll('input[type="password"]')[1];
+
+        const confirmPasswordInput =
+            document.querySelectorAll('input[type="password"]')[2];
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
             };
 
-            console.log(data);
-            alert("Profile updated successfully.");
-        });
+            if (token) {
+                headers["Authorization"] = "Bearer " + token;
+            }
 
-        passwordBtn.addEventListener("click", () => {
-            const current = document.querySelectorAll('input[type="password"]')[0].value;
-            const password = document.querySelectorAll('input[type="password"]')[1].value;
-            const confirm = document.querySelectorAll('input[type="password"]')[2].value;
+            return headers;
+        }
 
-            if (current === "") {
-                alert("Enter current password.");
+        function getDoctorId() {
+            const storedDoctorId =
+                localStorage.getItem("doctorId");
+
+            if (storedDoctorId) {
+                return storedDoctorId;
+            }
+
+            try {
+                const user =
+                    JSON.parse(localStorage.getItem("user"));
+
+                if (user) {
+                    return (
+                        user.id ||
+                        user.doctorId ||
+                        user.data?.id ||
+                        user.data?.doctorId
+                    );
+                }
+            } catch (error) {
+                console.error(
+                    "User data error:",
+                    error
+                );
+            }
+
+            try {
+                const doctor =
+                    JSON.parse(localStorage.getItem("doctor"));
+
+                if (doctor) {
+                    return (
+                        doctor.id ||
+                        doctor.doctorId
+                    );
+                }
+            } catch (error) {
+                console.error(
+                    "Doctor data error:",
+                    error
+                );
+            }
+
+            return null;
+        }
+
+        function setElementValue(element, value) {
+            if (!element) {
+                return;
+            }
+
+            element.value =
+                value !== null &&
+                    value !== undefined
+                    ? value
+                    : "";
+        }
+
+        function setText(id, value, fallback = "--") {
+            const element =
+                document.getElementById(id);
+
+            if (!element) {
+                return;
+            }
+
+            element.textContent =
+                value !== null &&
+                    value !== undefined &&
+                    String(value).trim() !== ""
+                    ? value
+                    : fallback;
+        }
+
+        function sanitizeMobile(value) {
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return null;
+            }
+
+            const digits =
+                String(value).replace(/\D/g, "");
+
+            if (!digits) {
+                return null;
+            }
+
+            const lastTen =
+                digits.length > 10
+                    ? digits.slice(-10)
+                    : digits;
+
+            return Number(lastTen);
+        }
+
+        function showDoctorData(doctor) {
+            doctorData = doctor;
+
+            setText(
+                "topDoctorName",
+                doctor.doctorName,
+                "Doctor"
+            );
+
+            setText(
+                "topDoctorSpecialization",
+                doctor.specialization,
+                "Doctor"
+            );
+
+            setText(
+                "doctorName",
+                doctor.doctorName,
+                "Doctor"
+            );
+
+            setText(
+                "doctorSpecialization",
+                doctor.specialization,
+                "Doctor"
+            );
+
+            setText(
+                "doctorId",
+                doctor.id
+            );
+
+            setText(
+                "doctorDepartment",
+                doctor.specialization
+            );
+
+            setText(
+                "doctorExperience",
+                doctor.experience !== null &&
+                    doctor.experience !== undefined
+                    ? doctor.experience + " Years"
+                    : "--"
+            );
+
+            setText(
+                "doctorQualification",
+                doctor.qualification
+            );
+
+            setText(
+                "doctorRegistration",
+                doctor.registrationNo
+            );
+
+            setText(
+                "doctorStatus",
+                "Active"
+            );
+
+            const feeText =
+                doctor.fee !== null &&
+                    doctor.fee !== undefined
+                    ? "₹" + doctor.fee
+                    : "--";
+
+            setText(
+                "doctorFee",
+                feeText
+            );
+
+            setText(
+                "patientsServed",
+                "N/A"
+            );
+
+            setText(
+                "appointmentsToday",
+                "N/A"
+            );
+
+            setText(
+                "doctorRating",
+                "N/A"
+            );
+
+            setText(
+                "doctorLanguages",
+                doctor.languages
+            );
+
+            setElementValue(
+                fullNameInput,
+                doctor.doctorName
+            );
+
+            setElementValue(
+                emailInput,
+                doctor.email
+            );
+
+            setElementValue(
+                mobileInput,
+                doctor.mobileNumber
+            );
+
+            setElementValue(
+                dobInput,
+                doctor.dob
+            );
+
+            setElementValue(
+                genderInput,
+                doctor.gender
+            );
+
+            setElementValue(
+                bloodGroupInput,
+                doctor.bloodGroup
+            );
+
+            setElementValue(
+                qualificationInput,
+                doctor.qualification
+            );
+
+            setElementValue(
+                specializationInput,
+                doctor.specialization
+            );
+
+            setElementValue(
+                experienceInput,
+                doctor.experience
+            );
+
+            setElementValue(
+                feeInput,
+                doctor.fee
+            );
+
+            setElementValue(
+                addressInput,
+                doctor.clinicAddress
+            );
+
+            setElementValue(
+                descriptionInput,
+                doctor.description
+            );
+
+            setElementValue(
+                linkedinInput,
+                doctor.linkedin
+            );
+
+            setElementValue(
+                websiteInput,
+                doctor.website
+            );
+
+            setElementValue(
+                facebookInput,
+                doctor.facebook
+            );
+
+            setElementValue(
+                instagramInput,
+                doctor.instagram
+            );
+        }
+
+        async function loadDoctorProfile() {
+            if (!doctorId) {
+                alert(
+                    "Doctor ID not found. Please login again."
+                );
+                return;
+            }
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/${doctorId}`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Doctor Profile API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    alert(
+                        "Unable to load doctor profile. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                console.log(
+                    "Doctor Profile Data:",
+                    data
+                );
+
+                const doctor =
+                    Array.isArray(data)
+                        ? data[0]
+                        : data;
+
+                if (!doctor) {
+                    alert(
+                        "Doctor profile not found."
+                    );
+                    return;
+                }
+
+                showDoctorData(doctor);
+
+            } catch (error) {
+                console.error(
+                    "Doctor Profile Load Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        function buildProfilePayload() {
+            return {
+                doctorName:
+                    fullNameInput
+                        ? fullNameInput.value.trim()
+                        : "",
+
+                email:
+                    emailInput
+                        ? emailInput.value.trim()
+                        : "",
+
+                mobileNumber:
+                    sanitizeMobile(
+                        mobileInput
+                            ? mobileInput.value
+                            : ""
+                    ),
+
+                dob:
+                    dobInput
+                        ? dobInput.value
+                        : "",
+
+                gender:
+                    genderInput
+                        ? genderInput.value
+                        : "",
+
+                bloodGroup:
+                    bloodGroupInput
+                        ? bloodGroupInput.value
+                        : "",
+
+                qualification:
+                    qualificationInput
+                        ? qualificationInput.value.trim()
+                        : "",
+
+                specialization:
+                    specializationInput
+                        ? specializationInput.value.trim()
+                        : "",
+
+                experience:
+                    experienceInput &&
+                        experienceInput.value !== ""
+                        ? Number(
+                            experienceInput.value
+                        )
+                        : 0,
+
+                fee:
+                    feeInput &&
+                        feeInput.value !== ""
+                        ? Number(
+                            feeInput.value
+                        )
+                        : 0,
+
+                clinicAddress:
+                    addressInput
+                        ? addressInput.value.trim()
+                        : "",
+
+                description:
+                    descriptionInput
+                        ? descriptionInput.value.trim()
+                        : "",
+
+                registrationNo:
+                    doctorData?.registrationNo ||
+                    "",
+
+                languages:
+                    doctorData?.languages ||
+                    "",
+
+                linkedin:
+                    linkedinInput
+                        ? linkedinInput.value.trim()
+                        : "",
+
+                website:
+                    websiteInput
+                        ? websiteInput.value.trim()
+                        : "",
+
+                facebook:
+                    facebookInput
+                        ? facebookInput.value.trim()
+                        : "",
+
+                instagram:
+                    instagramInput
+                        ? instagramInput.value.trim()
+                        : ""
+            };
+        }
+
+        async function saveDoctorProfile(event) {
+            if (event) {
+                event.preventDefault();
+            }
+
+            if (!doctorId) {
+                alert(
+                    "Doctor ID not found. Please login again."
+                );
+                return;
+            }
+
+            const payload =
+                buildProfilePayload();
+
+            if (!payload.doctorName) {
+                alert(
+                    "Please enter doctor name."
+                );
+                return;
+            }
+
+            if (!payload.email) {
+                alert(
+                    "Please enter email address."
+                );
+                return;
+            }
+
+            if (!payload.specialization) {
+                alert(
+                    "Please enter specialization."
+                );
+                return;
+            }
+
+            try {
+                saveBtn.disabled = true;
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/${doctorId}`,
+                        {
+                            method: "PUT",
+                            headers: getHeaders(),
+                            body: JSON.stringify(
+                                payload
+                            )
+                        }
+                    );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Update Profile Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    alert(
+                        "Unable to save profile. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                const updatedDoctor =
+                    await response.json();
+
+                doctorData =
+                    Array.isArray(updatedDoctor)
+                        ? updatedDoctor[0]
+                        : updatedDoctor;
+
+                showDoctorData(
+                    doctorData
+                );
+
+                try {
+                    localStorage.setItem(
+                        "doctor",
+                        JSON.stringify(
+                            doctorData
+                        )
+                    );
+
+                    localStorage.setItem(
+                        "doctorId",
+                        String(
+                            doctorData.id ||
+                            doctorId
+                        )
+                    );
+                } catch (error) {
+                    console.error(
+                        "Local storage update error:",
+                        error
+                    );
+                }
+
+                alert(
+                    "Profile updated successfully."
+                );
+
+            } catch (error) {
+                console.error(
+                    "Update Profile Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+
+            } finally {
+                saveBtn.disabled = false;
+            }
+        }
+
+        function updatePassword() {
+            const current =
+                currentPasswordInput
+                    ? currentPasswordInput.value
+                    : "";
+
+            const password =
+                newPasswordInput
+                    ? newPasswordInput.value
+                    : "";
+
+            const confirm =
+                confirmPasswordInput
+                    ? confirmPasswordInput.value
+                    : "";
+
+            if (!current) {
+                alert(
+                    "Enter current password."
+                );
                 return;
             }
 
             if (password.length < 6) {
-                alert("Password must contain at least 6 characters.");
+                alert(
+                    "Password must contain at least 6 characters."
+                );
                 return;
             }
 
             if (password !== confirm) {
-                alert("Passwords do not match.");
+                alert(
+                    "Passwords do not match."
+                );
                 return;
             }
 
-            alert("Password changed successfully.");
+            alert(
+                "Password change backend endpoint is not implemented yet."
+            );
+        }
 
-            document.querySelectorAll('input[type="password"]').forEach(input => {
-                input.value = "";
-            });
-        });
+        function resetProfileForm() {
+            if (doctorData) {
+                showDoctorData(
+                    doctorData
+                );
+            }
 
-        cancelBtn.addEventListener("click", () => {
+            if (currentPasswordInput) {
+                currentPasswordInput.value = "";
+            }
 
-            document.getElementById("profileForm").reset();
+            if (newPasswordInput) {
+                newPasswordInput.value = "";
+            }
 
-            document.querySelectorAll('input[type="password"]').forEach(input => {
-                input.value = "";
-            });
+            if (confirmPasswordInput) {
+                confirmPasswordInput.value = "";
+            }
+        }
 
-            alert("Changes cancelled.");
-        });
+        if (menuBtn) {
+            menuBtn.addEventListener(
+                "click",
+                () => {
+                    if (window.innerWidth <= 900) {
+                        sidebar.style.left =
+                            sidebar.style.left === "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+        }
+
+        document.addEventListener(
+            "click",
+            event => {
+                if (
+                    window.innerWidth <= 900 &&
+                    sidebar &&
+                    menuBtn &&
+                    !sidebar.contains(
+                        event.target
+                    ) &&
+                    !menuBtn.contains(
+                        event.target
+                    )
+                ) {
+                    sidebar.style.left =
+                        "-270px";
+                }
+            }
+        );
+
+        window.addEventListener(
+            "resize",
+            () => {
+                if (!sidebar) {
+                    return;
+                }
+
+                sidebar.style.left =
+                    window.innerWidth > 900
+                        ? "0"
+                        : "-270px";
+            }
+        );
+
+        if (imageInput) {
+            imageInput.addEventListener(
+                "change",
+                event => {
+                    const file =
+                        event.target.files[0];
+
+                    if (!file) {
+                        return;
+                    }
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+                        alert(
+                            "Please select an image file."
+                        );
+
+                        imageInput.value = "";
+                        return;
+                    }
+
+                    const reader =
+                        new FileReader();
+
+                    reader.onload =
+                        function (readerEvent) {
+
+                            if (profilePreview) {
+                                profilePreview.src =
+                                    readerEvent.target.result;
+                            }
+
+                            const topProfileImage =
+                                document.querySelector(
+                                    ".profile img"
+                                );
+
+                            if (topProfileImage) {
+                                topProfileImage.src =
+                                    readerEvent.target.result;
+                            }
+                        };
+
+                    reader.readAsDataURL(
+                        file
+                    );
+                }
+            );
+        }
+
+        if (saveBtn) {
+            saveBtn.addEventListener(
+                "click",
+                saveDoctorProfile
+            );
+        }
+
+        if (passwordBtn) {
+            passwordBtn.addEventListener(
+                "click",
+                updatePassword
+            );
+        }
+
+        if (cancelBtn) {
+            cancelBtn.addEventListener(
+                "click",
+                resetProfileForm
+            );
+        }
+
+        async function initializeProfile() {
+            doctorId =
+                getDoctorId();
+
+            if (!doctorId) {
+                alert(
+                    "Doctor ID not found. Please login again."
+                );
+                return;
+            }
+
+            localStorage.setItem(
+                "doctorId",
+                String(doctorId)
+            );
+
+            await loadDoctorProfile();
+        }
+
+        initializeProfile();
     </script>
 
 </body>

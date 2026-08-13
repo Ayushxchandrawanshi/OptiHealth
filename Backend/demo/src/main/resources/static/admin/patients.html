@@ -715,14 +715,14 @@
 
                     <div class="notify">
                         <i class="fa-regular fa-bell"></i>
-                        <span>6</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
                         <img src="../assets/admin.png" alt="">
                         <div>
-                            <h4>Admin</h4>
-                            <p>System Administrator</p>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
                         </div>
                     </div>
 
@@ -803,201 +803,7 @@
 
                                 </thead>
 
-                                <tbody id="patientTable">
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="patient-info">
-
-                                                <img src="../assets/patient.png">
-
-                                                <div>
-
-                                                    <b>Rahul Verma</b><br>
-
-                                                    <small>PAT101</small>
-
-                                                </div>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>28</td>
-
-                                        <td>Male</td>
-
-                                        <td>O+</td>
-
-                                        <td>Dr. Rahul Sharma</td>
-
-                                        <td>9876543210</td>
-
-                                        <td>rahul@gmail.com</td>
-
-                                        <td><span class="status active">Active</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="history-btn">
-                                                    <i class="fa-solid fa-file-waveform"></i>
-                                                </button>
-
-                                                <button class="appointment-btn">
-                                                    <i class="fa-solid fa-calendar-check"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="patient-info">
-
-                                                <img src="../assets/patient.png">
-
-                                                <div>
-
-                                                    <b>Priya Sharma</b><br>
-
-                                                    <small>PAT102</small>
-
-                                                </div>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>34</td>
-
-                                        <td>Female</td>
-
-                                        <td>A+</td>
-
-                                        <td>Dr. Neha Gupta</td>
-
-                                        <td>9988776655</td>
-
-                                        <td>priya@gmail.com</td>
-
-                                        <td><span class="status active">Active</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="history-btn">
-                                                    <i class="fa-solid fa-file-waveform"></i>
-                                                </button>
-
-                                                <button class="appointment-btn">
-                                                    <i class="fa-solid fa-calendar-check"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="patient-info">
-
-                                                <img src="../assets/patient.png">
-
-                                                <div>
-
-                                                    <b>Amit Patel</b><br>
-
-                                                    <small>PAT103</small>
-
-                                                </div>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>45</td>
-
-                                        <td>Male</td>
-
-                                        <td>B+</td>
-
-                                        <td>Dr. Raj Patel</td>
-
-                                        <td>9123456789</td>
-
-                                        <td>amit@gmail.com</td>
-
-                                        <td><span class="status inactive">Inactive</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="history-btn">
-                                                    <i class="fa-solid fa-file-waveform"></i>
-                                                </button>
-
-                                                <button class="appointment-btn">
-                                                    <i class="fa-solid fa-calendar-check"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
+                                <tbody id="patientTable"></tbody>
 
                             </table>
 
@@ -1062,9 +868,7 @@
                                 <div class="input-group">
                                     <label>Assigned Doctor</label>
                                     <select id="patientDoctor">
-                                        <option>Dr. Rahul Sharma</option>
-                                        <option>Dr. Neha Gupta</option>
-                                        <option>Dr. Raj Patel</option>
+                                        <option value="">Select Doctor</option>
                                     </select>
                                 </div>
 
@@ -1108,42 +912,40 @@
                             <h2 class="modal-title">Patient Information</h2>
 
                             <div class="form-grid">
-
                                 <div class="input-group">
                                     <label>Name</label>
-                                    <input type="text" value="Rahul Verma" readonly>
+                                    <input type="text" id="viewPatientName" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Patient ID</label>
-                                    <input type="text" value="PAT101" readonly>
+                                    <input type="text" id="viewPatientId" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Doctor</label>
-                                    <input type="text" value="Dr. Rahul Sharma" readonly>
+                                    <input type="text" id="viewPatientDoctor" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Blood Group</label>
-                                    <input type="text" value="O+" readonly>
+                                    <input type="text" id="viewPatientBlood" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Total Appointments</label>
-                                    <input type="text" value="14" readonly>
+                                    <input type="text" id="viewPatientAppointments" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Total Prescriptions</label>
-                                    <input type="text" value="9" readonly>
+                                    <input type="text" id="viewPatientPrescriptions" readonly>
                                 </div>
 
                                 <div class="input-group full-width">
                                     <label>Address</label>
-                                    <textarea readonly>Indore, Madhya Pradesh</textarea>
+                                    <textarea id="viewPatientAddress" readonly></textarea>
                                 </div>
-
                             </div>
 
                             <div class="modal-actions">
@@ -1166,219 +968,1534 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
+        const token = localStorage.getItem("token");
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
+        const profile = document.querySelector(".profile");
 
-        const addPatientBtn = document.getElementById("addPatientBtn");
-        const patientModal = document.getElementById("patientModal");
-        const viewModal = document.getElementById("viewModal");
+        const searchInput =
+            document.querySelector(".search-box input");
 
-        const saveBtn = document.querySelector(".save-btn");
-        const cancelBtn = document.querySelector(".cancel-btn");
+        const patientTable =
+            document.getElementById("patientTable");
 
-        const genderFilter = document.getElementById("genderFilter");
-        const bloodFilter = document.getElementById("bloodFilter");
-        const statusFilter = document.getElementById("statusFilter");
+        const addPatientBtn =
+            document.getElementById("addPatientBtn");
 
-        const searchInput = document.querySelector(".search-box input");
-        const patientRows = document.querySelectorAll("#patientTable tr");
+        const patientModal =
+            document.getElementById("patientModal");
 
-        menuBtn.addEventListener("click", () => {
+        const viewModal =
+            document.getElementById("viewModal");
 
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const saveBtn =
+            patientModal.querySelector(".save-btn");
+
+        const cancelBtn =
+            patientModal.querySelector(".cancel-btn");
+
+        const closeViewBtn =
+            document.querySelector(".closeView");
+
+        const genderFilter =
+            document.getElementById("genderFilter");
+
+        const bloodFilter =
+            document.getElementById("bloodFilter");
+
+        const statusFilter =
+            document.getElementById("statusFilter");
+
+        const patientName =
+            document.getElementById("patientName");
+
+        const patientEmail =
+            document.getElementById("patientEmail");
+
+        const patientPhone =
+            document.getElementById("patientPhone");
+
+        const patientDob =
+            document.getElementById("patientDob");
+
+        const patientGender =
+            document.getElementById("patientGender");
+
+        const patientBlood =
+            document.getElementById("patientBlood");
+
+        const patientDoctor =
+            document.getElementById("patientDoctor");
+
+        const patientPassword =
+            document.getElementById("patientPassword");
+
+        const patientAddress =
+            document.getElementById("patientAddress");
+
+        const viewPatientName =
+            document.getElementById("viewPatientName");
+
+        const viewPatientId =
+            document.getElementById("viewPatientId");
+
+        const viewPatientDoctor =
+            document.getElementById("viewPatientDoctor");
+
+        const viewPatientBlood =
+            document.getElementById("viewPatientBlood");
+
+        const viewPatientAppointments =
+            document.getElementById(
+                "viewPatientAppointments"
+            );
+
+        const viewPatientPrescriptions =
+            document.getElementById(
+                "viewPatientPrescriptions"
+            );
+
+        const viewPatientAddress =
+            document.getElementById(
+                "viewPatientAddress"
+            );
+
+        const adminName =
+            document.getElementById("adminName");
+
+        const adminRole =
+            document.getElementById("adminRole");
+
+        const notificationCount =
+            document.getElementById(
+                "notificationCount"
+            );
+
+        let patients = [];
+        let doctors = [];
+        let editingPatientId = null;
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
-        });
-
-        document.addEventListener("click", e => {
-
-            if (window.innerWidth <= 900) {
-
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
-                }
-
-            }
-
-        });
-
-        window.addEventListener("resize", () => {
-
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            } else {
-                sidebar.style.left = "-270px";
-            }
-
-        });
-
-        addPatientBtn.addEventListener("click", () => {
-
-            document.querySelector("#patientModal .modal-title").innerText = "Add Patient";
-
-            document.getElementById("patientName").value = "";
-            document.getElementById("patientEmail").value = "";
-            document.getElementById("patientPhone").value = "";
-            document.getElementById("patientDob").value = "";
-            document.getElementById("patientPassword").value = "";
-            document.getElementById("patientAddress").value = "";
-
-            patientModal.style.display = "flex";
-
-        });
-
-        document.querySelectorAll(".edit-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                const row = btn.closest("tr");
-
-                document.querySelector("#patientModal .modal-title").innerText = "Edit Patient";
-
-                document.getElementById("patientName").value = row.querySelector("b").innerText;
-                document.getElementById("patientEmail").value = row.cells[6].innerText;
-                document.getElementById("patientPhone").value = row.cells[5].innerText;
-                document.getElementById("patientDoctor").value = row.cells[4].innerText;
-                document.getElementById("patientBlood").value = row.cells[3].innerText;
-                document.getElementById("patientGender").value = row.cells[2].innerText;
-
-                patientModal.style.display = "flex";
-
-            });
-
-        });
-
-        document.querySelectorAll(".view-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                viewModal.style.display = "flex";
-
-            });
-
-        });
-
-        document.querySelectorAll(".delete-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                if (confirm("Delete this patient?")) {
-                    btn.closest("tr").remove();
-                }
-
-            });
-
-        });
-
-        document.querySelectorAll(".history-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                alert("Open Patient Medical History");
-
-            });
-
-        });
-
-        document.querySelectorAll(".appointment-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                alert("Open Patient Appointment History");
-
-            });
-
-        });
-
-        saveBtn.addEventListener("click", () => {
-
-            alert("Patient information saved successfully.");
-
-            patientModal.style.display = "none";
-
-        });
-
-        cancelBtn.addEventListener("click", () => {
-
-            patientModal.style.display = "none";
-
-        });
-
-        document.querySelector(".closeView").addEventListener("click", () => {
-
-            viewModal.style.display = "none";
-
-        });
-
-        document.querySelectorAll(".close-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                patientModal.style.display = "none";
-                viewModal.style.display = "none";
-
-            });
-
-        });
-
-        window.addEventListener("click", e => {
-
-            if (e.target === patientModal) {
-                patientModal.style.display = "none";
-            }
-
-            if (e.target === viewModal) {
-                viewModal.style.display = "none";
-            }
-
-        });
-
-        searchInput.addEventListener("keyup", () => {
-
-            const value = searchInput.value.toLowerCase();
-
-            patientRows.forEach(row => {
-
-                const text = row.innerText.toLowerCase();
-
-                row.style.display = text.includes(value) ? "" : "none";
-
-            });
-
-        });
-
-        genderFilter.addEventListener("change", filterPatients);
-        bloodFilter.addEventListener("change", filterPatients);
-        statusFilter.addEventListener("change", filterPatients);
-
-        function filterPatients() {
-
-            const gender = genderFilter.value.toLowerCase();
-            const blood = bloodFilter.value.toLowerCase();
-            const status = statusFilter.value.toLowerCase();
-
-            patientRows.forEach(row => {
-
-                const rowGender = row.cells[2].innerText.toLowerCase();
-                const rowBlood = row.cells[3].innerText.toLowerCase();
-                const rowStatus = row.cells[7].innerText.toLowerCase();
-
-                const genderMatch = gender === "all" || rowGender === gender;
-                const bloodMatch = blood === "all" || rowBlood === blood;
-                const statusMatch = status === "all" || rowStatus === status;
-
-                row.style.display = (genderMatch && bloodMatch && statusMatch) ? "" : "none";
-
-            });
-
+            return headers;
         }
 
-        document.querySelector(".profile").addEventListener("click", () => {
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
 
-            window.location.href = "profile.html";
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
 
-        });
+        function getAdminData() {
+            try {
+                const savedAdmin =
+                    localStorage.getItem("admin");
+
+                if (!savedAdmin) {
+                    return null;
+                }
+
+                return JSON.parse(
+                    savedAdmin
+                );
+            } catch (error) {
+                console.error(
+                    "Admin data error:",
+                    error
+                );
+
+                return null;
+            }
+        }
+
+        function loadAdminProfile() {
+            const admin =
+                getAdminData();
+
+            if (adminName) {
+                adminName.textContent =
+                    admin?.fullName ||
+                    admin?.name ||
+                    "Admin";
+            }
+
+            if (adminRole) {
+                adminRole.textContent =
+                    admin?.role ||
+                    "System Administrator";
+            }
+        }
+
+        function setNotificationCount() {
+            if (notificationCount) {
+                notificationCount.textContent =
+                    "0";
+            }
+        }
+
+        function calculateAge(dob) {
+            if (!dob) {
+                return "--";
+            }
+
+            const birthDate =
+                new Date(dob);
+
+            if (
+                Number.isNaN(
+                    birthDate.getTime()
+                )
+            ) {
+                return "--";
+            }
+
+            const today =
+                new Date();
+
+            let age =
+                today.getFullYear() -
+                birthDate.getFullYear();
+
+            const monthDifference =
+                today.getMonth() -
+                birthDate.getMonth();
+
+            if (
+                monthDifference < 0 ||
+                (
+                    monthDifference === 0 &&
+                    today.getDate() <
+                    birthDate.getDate()
+                )
+            ) {
+                age--;
+            }
+
+            return age >= 0
+                ? age
+                : "--";
+        }
+
+        function formatDate(date) {
+            if (!date) {
+                return "--";
+            }
+
+            const value =
+                new Date(date);
+
+            if (
+                Number.isNaN(
+                    value.getTime()
+                )
+            ) {
+                return date;
+            }
+
+            return value.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+        }
+
+        function showLoading() {
+            patientTable.innerHTML = `
+        <tr>
+            <td
+                colspan="9"
+                style="
+                    text-align:center;
+                    padding:30px;
+                "
+            >
+                Loading patients...
+            </td>
+        </tr>
+    `;
+        }
+
+        function showNoPatients() {
+            patientTable.innerHTML = `
+        <tr>
+            <td
+                colspan="9"
+                style="
+                    text-align:center;
+                    padding:30px;
+                    color:#64748b;
+                "
+            >
+                No patients found.
+            </td>
+        </tr>
+    `;
+        }
+
+        function setStatusFilter() {
+            statusFilter.innerHTML = `
+        <option value="all">
+            All Status
+        </option>
+        <option value="na">
+            N/A
+        </option>
+    `;
+        }
+
+        async function loadDoctors() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients/doctors`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Doctors API Error:",
+                        response.status
+                    );
+
+                    doctors = [];
+                    populateDoctorDropdown();
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                doctors =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                populateDoctorDropdown();
+
+            } catch (error) {
+                console.error(
+                    "Doctor Load Error:",
+                    error
+                );
+
+                doctors = [];
+                populateDoctorDropdown();
+            }
+        }
+
+        function populateDoctorDropdown() {
+            if (!patientDoctor) {
+                return;
+            }
+
+            patientDoctor.innerHTML = `
+        <option value="">
+            No doctor selected
+        </option>
+    `;
+
+            doctors.forEach(
+                doctor => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        doctor.id;
+
+                    option.textContent =
+                        doctor.doctorName ||
+                        `Doctor ${doctor.id}`;
+
+                    patientDoctor.appendChild(
+                        option
+                    );
+                }
+            );
+        }
+
+        function findDoctorById(doctorId) {
+            return doctors.find(
+                doctor =>
+                    Number(doctor.id) ===
+                    Number(doctorId)
+            );
+        }
+
+        async function loadPatients() {
+            showLoading();
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                console.log(
+                    "Patients API Status:",
+                    response.status
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Patients API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    patientTable.innerHTML = `
+                <tr>
+                    <td
+                        colspan="9"
+                        style="
+                            text-align:center;
+                            padding:30px;
+                            color:#dc2626;
+                        "
+                    >
+                        Unable to load patients.
+                        Error: ${response.status}
+                    </td>
+                </tr>
+            `;
+
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                patients =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                renderPatients();
+
+            } catch (error) {
+                console.error(
+                    "Patient Load Error:",
+                    error
+                );
+
+                patientTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="9"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#dc2626;
+                    "
+                >
+                    Unable to connect with backend.
+                </td>
+            </tr>
+        `;
+            }
+        }
+
+        function renderPatients() {
+            const searchInput =
+                document.querySelector(
+                    ".search-box input"
+                );
+
+            const search =
+                searchInput
+                    ? searchInput.value
+                        .toLowerCase()
+                        .trim()
+                    : "";
+
+            const selectedGender =
+                genderFilter.value
+                    .toLowerCase();
+
+            const selectedBlood =
+                bloodFilter.value
+                    .toLowerCase();
+
+            const selectedStatus =
+                statusFilter.value
+                    .toLowerCase();
+
+            const filteredPatients =
+                patients.filter(
+                    patient => {
+
+                        const name =
+                            (
+                                patient.fullName ||
+                                ""
+                            ).toLowerCase();
+
+                        const email =
+                            (
+                                patient.email ||
+                                ""
+                            ).toLowerCase();
+
+                        const mobile =
+                            String(
+                                patient.mobileNumber ||
+                                ""
+                            ).toLowerCase();
+
+                        const gender =
+                            (
+                                patient.gender ||
+                                ""
+                            ).toLowerCase();
+
+                        const blood =
+                            (
+                                patient.bloodGroup ||
+                                ""
+                            ).toLowerCase();
+
+                        const searchMatch =
+                            !search ||
+                            name.includes(search) ||
+                            email.includes(search) ||
+                            mobile.includes(search);
+
+                        const genderMatch =
+                            selectedGender ===
+                            "all" ||
+                            gender ===
+                            selectedGender;
+
+                        const bloodMatch =
+                            selectedBlood ===
+                            "all" ||
+                            blood ===
+                            selectedBlood;
+
+                        const statusMatch =
+                            selectedStatus ===
+                            "all" ||
+                            selectedStatus ===
+                            "na";
+
+                        return (
+                            searchMatch &&
+                            genderMatch &&
+                            bloodMatch &&
+                            statusMatch
+                        );
+                    }
+                );
+
+            patientTable.innerHTML =
+                "";
+
+            if (
+                filteredPatients.length === 0
+            ) {
+                showNoPatients();
+                return;
+            }
+
+            filteredPatients.forEach(
+                patient => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    row.dataset.id =
+                        patient.id;
+
+                    row.innerHTML = `
+                <td>
+                    <div class="patient-info">
+
+                        <img
+                            src="../assets/patient.png"
+                            alt="Patient"
+                            onerror="
+                                this.style.display='none'
+                            "
+                        >
+
+                        <div>
+                            <b>
+                                ${escapeHtml(
+                        patient.fullName ||
+                        "--"
+                    )}
+                            </b>
+                            <br>
+                            <small>
+                                ID:
+                                ${escapeHtml(
+                        patient.id
+                    )}
+                            </small>
+                        </div>
+
+                    </div>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        calculateAge(
+                            patient.dob
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        patient.gender ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        patient.bloodGroup ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    --
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        patient.mobileNumber ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        patient.email ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    <span
+                        class="status"
+                        style="
+                            background:#64748b;
+                        "
+                    >
+                        N/A
+                    </span>
+                </td>
+
+                <td>
+                    <div class="action-buttons">
+
+                        <button
+                            class="view-btn"
+                            data-id="${patient.id}"
+                            title="View"
+                        >
+                            <i
+                                class="fa-solid fa-eye"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="edit-btn"
+                            data-id="${patient.id}"
+                            title="Edit"
+                        >
+                            <i
+                                class="fa-solid fa-pen"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="history-btn"
+                            data-id="${patient.id}"
+                            title="Medical History"
+                        >
+                            <i
+                                class="fa-solid fa-file-waveform"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="appointment-btn"
+                            data-id="${patient.id}"
+                            title="Appointments"
+                        >
+                            <i
+                                class="fa-solid fa-calendar-check"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            data-id="${patient.id}"
+                            title="Delete"
+                        >
+                            <i
+                                class="fa-solid fa-trash"
+                            ></i>
+                        </button>
+
+                    </div>
+                </td>
+            `;
+
+                    patientTable.appendChild(
+                        row
+                    );
+                }
+            );
+
+            attachPatientActions();
+        }
+
+        function attachPatientActions() {
+            document
+                .querySelectorAll(
+                    ".view-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                viewPatient(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".edit-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                editPatient(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".history-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    button.dataset.id;
+
+                                window.location.href =
+                                    `../patient/medical-history.html?patientId=${id}`;
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".appointment-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    button.dataset.id;
+
+                                window.location.href =
+                                    `appointments.html?patientId=${id}`;
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".delete-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                deletePatient(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+        function openPatientModal() {
+            patientModal.style.display =
+                "flex";
+        }
+
+        function closePatientModal() {
+            patientModal.style.display =
+                "none";
+        }
+
+        function closeViewPatientModal() {
+            viewModal.style.display =
+                "none";
+        }
+
+        function clearPatientForm() {
+            patientName.value = "";
+            patientEmail.value = "";
+            patientPhone.value = "";
+            patientDob.value = "";
+            patientGender.value = "";
+            patientBlood.value = "";
+            patientDoctor.value = "";
+            patientPassword.value = "";
+            patientAddress.value = "";
+        }
+
+        function fillPatientForm(patient) {
+            patientName.value =
+                patient.fullName ||
+                "";
+
+            patientEmail.value =
+                patient.email ||
+                "";
+
+            patientPhone.value =
+                patient.mobileNumber ||
+                "";
+
+            patientDob.value =
+                patient.dob ||
+                "";
+
+            patientGender.value =
+                patient.gender ||
+                "";
+
+            patientBlood.value =
+                patient.bloodGroup ||
+                "";
+
+            patientAddress.value =
+                patient.address ||
+                "";
+
+            patientPassword.value =
+                "";
+
+            patientDoctor.value =
+                "";
+        }
+
+        function fillViewPatient(patient) {
+            viewPatientName.value =
+                patient.fullName ||
+                "--";
+
+            viewPatientId.value =
+                patient.id ??
+                "--";
+
+            viewPatientDoctor.value =
+                "--";
+
+            viewPatientBlood.value =
+                patient.bloodGroup ||
+                "--";
+
+            viewPatientAppointments.value =
+                "N/A";
+
+            viewPatientPrescriptions.value =
+                "N/A";
+
+            viewPatientAddress.value =
+                patient.address ||
+                "--";
+        }
+
+        function viewPatient(id) {
+            const patient =
+                patients.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(id)
+                );
+
+            if (!patient) {
+                alert(
+                    "Patient data not found."
+                );
+                return;
+            }
+
+            fillViewPatient(
+                patient
+            );
+
+            viewModal.style.display =
+                "flex";
+        }
+
+        function openAddPatientModal() {
+            editingPatientId =
+                null;
+
+            patientModal.querySelector(
+                ".modal-title"
+            ).textContent =
+                "Add Patient";
+
+            clearPatientForm();
+
+            patientPassword.required =
+                true;
+
+            openPatientModal();
+        }
+
+        function editPatient(id) {
+            const patient =
+                patients.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(id)
+                );
+
+            if (!patient) {
+                alert(
+                    "Patient data not found."
+                );
+                return;
+            }
+
+            editingPatientId =
+                Number(id);
+
+            patientModal.querySelector(
+                ".modal-title"
+            ).textContent =
+                "Edit Patient";
+
+            fillPatientForm(
+                patient
+            );
+
+            patientPassword.required =
+                false;
+
+            patientModal.style.display =
+                "flex";
+        }
+
+        async function savePatient() {
+            const fullName =
+                patientName.value.trim();
+
+            const email =
+                patientEmail.value.trim();
+
+            const phone =
+                patientPhone.value.trim();
+
+            const dob =
+                patientDob.value;
+
+            const gender =
+                patientGender.value;
+
+            const bloodGroup =
+                patientBlood.value;
+
+            const address =
+                patientAddress.value.trim();
+
+            if (!fullName) {
+                alert(
+                    "Please enter patient name."
+                );
+                return;
+            }
+
+            if (!email) {
+                alert(
+                    "Please enter patient email."
+                );
+                return;
+            }
+
+            if (
+                phone &&
+                phone.replace(/\D/g, "").length <
+                10
+            ) {
+                alert(
+                    "Please enter a valid mobile number."
+                );
+                return;
+            }
+
+            if (!editingPatientId) {
+
+                const password =
+                    patientPassword.value;
+
+                if (!password) {
+                    alert(
+                        "Please enter patient password."
+                    );
+                    return;
+                }
+
+                const payload = {
+                    fullName: fullName,
+                    email: email,
+                    password: password,
+                    mobileNumber:
+                        phone
+                            ? Number(
+                                phone
+                                    .replace(
+                                        /\D/g,
+                                        ""
+                                    )
+                            )
+                            : null,
+                    gender:
+                        gender || null,
+                    dob:
+                        dob || null,
+                    bloodGroup:
+                        bloodGroup || null,
+                    address:
+                        address || null
+                };
+
+                try {
+
+                    saveBtn.disabled =
+                        true;
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/patients/register`,
+                            {
+                                method: "POST",
+                                headers:
+                                    getHeaders(),
+                                body:
+                                    JSON.stringify(
+                                        payload
+                                    )
+                            }
+                        );
+
+                    const responseText =
+                        await response.text();
+
+                    if (!response.ok) {
+
+                        console.error(
+                            "Add Patient Error:",
+                            response.status,
+                            responseText
+                        );
+
+                        alert(
+                            "Unable to add patient. Error: " +
+                            response.status
+                        );
+
+                        return;
+                    }
+
+                    alert(
+                        "Patient added successfully."
+                    );
+
+                    closePatientModal();
+
+                    await loadPatients();
+
+                } catch (error) {
+
+                    console.error(
+                        "Add Patient Error:",
+                        error
+                    );
+
+                    alert(
+                        "Unable to connect with backend."
+                    );
+
+                } finally {
+
+                    saveBtn.disabled =
+                        false;
+                }
+
+                return;
+            }
+
+            const payload = {
+                fullName:
+                    fullName,
+
+                email:
+                    email,
+
+                mobileNumber:
+                    phone
+                        ? Number(
+                            phone.replace(
+                                /\D/g,
+                                ""
+                            )
+                        )
+                        : null,
+
+                gender:
+                    gender || null,
+
+                dob:
+                    dob || null,
+
+                bloodGroup:
+                    bloodGroup || null,
+
+                address:
+                    address || null
+            };
+
+            try {
+
+                saveBtn.disabled =
+                    true;
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients/${editingPatientId}`,
+                        {
+                            method: "PUT",
+                            headers:
+                                getHeaders(),
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+
+                    console.error(
+                        "Update Patient Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to update patient. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Patient updated successfully."
+                );
+
+                closePatientModal();
+
+                await loadPatients();
+
+            } catch (error) {
+
+                console.error(
+                    "Update Patient Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+
+            } finally {
+
+                saveBtn.disabled =
+                    false;
+            }
+        }
+
+        async function deletePatient(id) {
+            const patient =
+                patients.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(id)
+                );
+
+            if (!patient) {
+                alert(
+                    "Patient data not found."
+                );
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    `Delete ${patient.fullName || "this patient"}?`
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients/${id}`,
+                        {
+                            method: "DELETE",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+
+                    console.error(
+                        "Delete Patient Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to delete patient. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Patient deleted successfully."
+                );
+
+                await loadPatients();
+
+            } catch (error) {
+
+                console.error(
+                    "Delete Patient Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        function setupSearch() {
+            const input =
+                document.querySelector(
+                    ".search-box input"
+                );
+
+            if (!input) {
+                return;
+            }
+
+            input.addEventListener(
+                "input",
+                renderPatients
+            );
+        }
+
+        function setupFilters() {
+            genderFilter.addEventListener(
+                "change",
+                renderPatients
+            );
+
+            bloodFilter.addEventListener(
+                "change",
+                renderPatients
+            );
+
+            statusFilter.addEventListener(
+                "change",
+                renderPatients
+            );
+        }
+
+        function setupModals() {
+            addPatientBtn.addEventListener(
+                "click",
+                openAddPatientModal
+            );
+
+            saveBtn.addEventListener(
+                "click",
+                savePatient
+            );
+
+            cancelBtn.addEventListener(
+                "click",
+                closePatientModal
+            );
+
+            closeViewBtn.addEventListener(
+                "click",
+                closeViewPatientModal
+            );
+
+            document
+                .querySelectorAll(
+                    ".close-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+                                closePatientModal();
+                                closeViewPatientModal();
+                            }
+                        );
+                    }
+                );
+
+            window.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        patientModal
+                    ) {
+                        closePatientModal();
+                    }
+
+                    if (
+                        event.target ===
+                        viewModal
+                    ) {
+                        closeViewPatientModal();
+                    }
+                }
+            );
+        }
+
+        function setupSidebar() {
+            menuBtn.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        window.innerWidth <=
+                        900
+                    ) {
+
+                        sidebar.style.left =
+                            sidebar.style.left ===
+                                "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        !sidebar.contains(
+                            event.target
+                        ) &&
+                        !menuBtn.contains(
+                            event.target
+                        )
+                    ) {
+
+                        sidebar.style.left =
+                            "-270px";
+                    }
+                }
+            );
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    sidebar.style.left =
+                        window.innerWidth > 900
+                            ? "0"
+                            : "-270px";
+                }
+            );
+        }
+
+        function setupProfile() {
+            if (!profile) {
+                return;
+            }
+
+            profile.addEventListener(
+                "click",
+                () => {
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        function setupNotification() {
+            const notify =
+                document.querySelector(
+                    ".notify"
+                );
+
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                () => {
+                    alert(
+                        "No new notifications."
+                    );
+                }
+            );
+        }
+
+        async function initialize() {
+            if (
+                window.innerWidth <=
+                900
+            ) {
+                sidebar.style.left =
+                    "-270px";
+            } else {
+                sidebar.style.left =
+                    "0";
+            }
+
+            loadAdminProfile();
+            setNotificationCount();
+
+            setStatusFilter();
+
+            setupSidebar();
+            setupProfile();
+            setupNotification();
+            setupSearch();
+            setupFilters();
+            setupModals();
+
+            await loadDoctors();
+            await loadPatients();
+        }
+
+        initialize();
     </script>
 
 </body>

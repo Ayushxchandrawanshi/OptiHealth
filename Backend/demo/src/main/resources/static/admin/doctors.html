@@ -713,8 +713,8 @@
                     <div class="profile">
                         <img src="../assets/admin.png" alt="">
                         <div>
-                            <h4>Admin</h4>
-                            <p>System Administrator</p>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
                         </div>
                     </div>
 
@@ -782,138 +782,7 @@
 
                                 </thead>
 
-                                <tbody id="doctorTable">
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="doctor-info">
-                                                <img src="../assets/doctor.png" alt="">
-                                                <div>
-                                                    <b>Dr. Rahul Sharma</b><br>
-                                                    <small>DOC101</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Cardiology</td>
-                                        <td>12 Years</td>
-                                        <td>₹700</td>
-                                        <td>9876543210</td>
-                                        <td>rahul@gmail.com</td>
-                                        <td><span class="status active">Active</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="doctor-info">
-                                                <img src="../assets/doctor.png" alt="">
-                                                <div>
-                                                    <b>Dr. Neha Gupta</b><br>
-                                                    <small>DOC102</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Neurology</td>
-                                        <td>8 Years</td>
-                                        <td>₹900</td>
-                                        <td>9988776655</td>
-                                        <td>neha@gmail.com</td>
-                                        <td><span class="status active">Active</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="doctor-info">
-                                                <img src="../assets/doctor.png" alt="">
-                                                <div>
-                                                    <b>Dr. Raj Patel</b><br>
-                                                    <small>DOC103</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Orthopedics</td>
-                                        <td>15 Years</td>
-                                        <td>₹1000</td>
-                                        <td>9123456789</td>
-                                        <td>raj@gmail.com</td>
-                                        <td><span class="status inactive">Inactive</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
+                                <tbody id="doctorTable"></tbody>
 
                             </table>
 
@@ -950,13 +819,8 @@
 
                                 <div class="input-group">
                                     <label>Department</label>
-                                    <select id="doctorDepartment">
-                                        <option>Cardiology</option>
-                                        <option>Neurology</option>
-                                        <option>Orthopedics</option>
-                                        <option>Pediatrics</option>
-                                        <option>Dermatology</option>
-                                    </select>
+                                    <input type="text" id="doctorDepartment"
+                                        placeholder="Enter specialization / department">
                                 </div>
 
                                 <div class="input-group">
@@ -1007,37 +871,37 @@
 
                                 <div class="input-group">
                                     <label>Name</label>
-                                    <input type="text" value="Dr. Rahul Sharma" readonly>
+                                    <input type="text" id="viewDoctorName" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Email</label>
-                                    <input type="text" value="rahul@gmail.com" readonly>
+                                    <input type="text" id="viewDoctorEmail" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Department</label>
-                                    <input type="text" value="Cardiology" readonly>
+                                    <input type="text" id="viewDoctorDepartment" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Experience</label>
-                                    <input type="text" value="12 Years" readonly>
+                                    <input type="text" id="viewDoctorExperience" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Consultation Fee</label>
-                                    <input type="text" value="₹700" readonly>
+                                    <input type="text" id="viewDoctorFee" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Status</label>
-                                    <input type="text" value="Active" readonly>
+                                    <input type="text" id="viewDoctorStatus" readonly>
                                 </div>
 
                                 <div class="input-group full-width">
                                     <label>Address</label>
-                                    <textarea readonly>Indore, Madhya Pradesh</textarea>
+                                    <textarea id="viewDoctorAddress" readonly></textarea>
                                 </div>
 
                             </div>
@@ -1062,186 +926,1411 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
+        const token = localStorage.getItem("token");
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
-        const searchInput = document.querySelector(".search-box input");
+        const profile = document.querySelector(".profile");
 
-        const addDoctorBtn = document.getElementById("addDoctorBtn");
-        const doctorModal = document.getElementById("doctorModal");
-        const viewModal = document.getElementById("viewModal");
+        const searchInput =
+            document.querySelector(".search-box input");
 
-        const saveBtn = document.querySelector(".save-btn");
-        const cancelBtn = document.querySelector(".cancel-btn");
+        const departmentFilter =
+            document.getElementById("departmentFilter");
 
-        const departmentFilter = document.getElementById("departmentFilter");
-        const statusFilter = document.getElementById("statusFilter");
+        const statusFilter =
+            document.getElementById("statusFilter");
 
-        const doctorRows = document.querySelectorAll("#doctorTable tr");
+        const doctorTable =
+            document.getElementById("doctorTable");
 
-        document.querySelectorAll(".view-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                viewModal.style.display = "flex";
-            });
-        });
+        const addDoctorBtn =
+            document.getElementById("addDoctorBtn");
 
-        document.querySelector(".closeView").addEventListener("click", () => {
-            viewModal.style.display = "none";
-        });
+        const doctorModal =
+            document.getElementById("doctorModal");
 
-        addDoctorBtn.addEventListener("click", () => {
+        const viewModal =
+            document.getElementById("viewModal");
 
-            document.querySelector(".modal-title").innerText = "Add Doctor";
+        const saveBtn =
+            doctorModal.querySelector(".save-btn");
 
-            document.getElementById("doctorName").value = "";
-            document.getElementById("doctorEmail").value = "";
-            document.getElementById("doctorPhone").value = "";
-            document.getElementById("doctorExperience").value = "";
-            document.getElementById("doctorFee").value = "";
-            document.getElementById("doctorAddress").value = "";
+        const cancelBtn =
+            doctorModal.querySelector(".cancel-btn");
 
-            doctorModal.style.display = "flex";
+        const closeButtons =
+            document.querySelectorAll(".close-btn");
 
-        });
+        const closeViewBtn =
+            document.querySelector(".closeView");
 
-        document.querySelectorAll(".edit-btn").forEach(btn => {
+        const adminName =
+            document.getElementById("adminName");
 
-            btn.addEventListener("click", () => {
+        const adminRole =
+            document.getElementById("adminRole");
 
-                const row = btn.closest("tr");
+        const notificationCount =
+            document.querySelector(".notify span");
 
-                document.querySelector(".modal-title").innerText = "Edit Doctor";
+        const doctorName =
+            document.getElementById("doctorName");
 
-                document.getElementById("doctorName").value = row.cells[0].querySelector("b").innerText;
-                document.getElementById("doctorDepartment").value = row.cells[1].innerText;
-                document.getElementById("doctorExperience").value = parseInt(row.cells[2].innerText);
-                document.getElementById("doctorFee").value = row.cells[3].innerText.replace("₹", "");
+        const doctorEmail =
+            document.getElementById("doctorEmail");
 
-                doctorModal.style.display = "flex";
+        const doctorPhone =
+            document.getElementById("doctorPhone");
 
-            });
+        const doctorDepartment =
+            document.getElementById("doctorDepartment");
 
-        });
+        const doctorExperience =
+            document.getElementById("doctorExperience");
 
-        document.querySelectorAll(".delete-btn").forEach(btn => {
+        const doctorFee =
+            document.getElementById("doctorFee");
 
-            btn.addEventListener("click", () => {
+        const doctorAddress =
+            document.getElementById("doctorAddress");
 
-                if (confirm("Delete this doctor?")) {
-                    btn.closest("tr").remove();
-                }
+        const viewDoctorName =
+            document.getElementById("viewDoctorName");
 
-            });
+        const viewDoctorEmail =
+            document.getElementById("viewDoctorEmail");
 
-        });
+        const viewDoctorDepartment =
+            document.getElementById("viewDoctorDepartment");
 
-        saveBtn.addEventListener("click", () => {
+        const viewDoctorExperience =
+            document.getElementById("viewDoctorExperience");
 
-            alert("Doctor information saved successfully.");
+        const viewDoctorFee =
+            document.getElementById("viewDoctorFee");
 
-            doctorModal.style.display = "none";
+        const viewDoctorStatus =
+            document.getElementById("viewDoctorStatus");
 
-        });
+        const viewDoctorAddress =
+            document.getElementById("viewDoctorAddress");
 
-        cancelBtn.addEventListener("click", () => {
+        let doctors = [];
+        let editingDoctorId = null;
 
-            doctorModal.style.display = "none";
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
 
-        });
-
-        document.querySelectorAll(".close-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                doctorModal.style.display = "none";
-                viewModal.style.display = "none";
-
-            });
-
-        });
-
-        window.addEventListener("click", e => {
-
-            if (e.target === doctorModal) {
-                doctorModal.style.display = "none";
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
-            if (e.target === viewModal) {
-                viewModal.style.display = "none";
-            }
-
-        });
-
-        searchInput.addEventListener("keyup", () => {
-
-            const value = searchInput.value.toLowerCase();
-
-            doctorRows.forEach(row => {
-
-                const text = row.innerText.toLowerCase();
-
-                row.style.display = text.includes(value) ? "" : "none";
-
-            });
-
-        });
-
-        departmentFilter.addEventListener("change", filterDoctors);
-        statusFilter.addEventListener("change", filterDoctors);
-
-        function filterDoctors() {
-
-            const dept = departmentFilter.value.toLowerCase();
-            const status = statusFilter.value.toLowerCase();
-
-            doctorRows.forEach(row => {
-
-                const rowDept = row.cells[1].innerText.toLowerCase();
-                const rowStatus = row.cells[6].innerText.toLowerCase();
-
-                const deptMatch = dept === "all" || rowDept === dept;
-                const statusMatch = status === "all" || rowStatus === status;
-
-                row.style.display = (deptMatch && statusMatch) ? "" : "none";
-
-            });
-
+            return headers;
         }
 
-        menuBtn.addEventListener("click", () => {
-
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
             }
 
-        });
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
 
-        document.addEventListener("click", e => {
+        function getAdminData() {
+            try {
+                const storedAdmin =
+                    localStorage.getItem("admin");
 
-            if (window.innerWidth <= 900) {
-
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+                if (!storedAdmin) {
+                    return null;
                 }
 
+                return JSON.parse(storedAdmin);
+
+            } catch (error) {
+                console.error(
+                    "Admin data error:",
+                    error
+                );
+
+                return null;
+            }
+        }
+
+        function loadAdminProfile() {
+            const admin =
+                getAdminData();
+
+            if (adminName) {
+                adminName.textContent =
+                    admin?.fullName ||
+                    admin?.name ||
+                    "Admin";
             }
 
-        });
+            if (adminRole) {
+                adminRole.textContent =
+                    admin?.role ||
+                    "System Administrator";
+            }
+        }
 
-        window.addEventListener("resize", () => {
+        function setNotificationCount() {
+            if (notificationCount) {
+                notificationCount.textContent = "0";
+            }
+        }
 
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
+        function formatExperience(value) {
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return "--";
+            }
+
+            return `${value} Years`;
+        }
+
+        function formatFee(value) {
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return "--";
+            }
+
+            return `₹${value}`;
+        }
+
+        function getDoctorStatus(doctor) {
+            return "Active";
+        }
+
+        function addPasswordField() {
+            const formGrid =
+                doctorModal.querySelector(".form-grid");
+
+            if (!formGrid) {
+                return;
+            }
+
+            if (
+                document.getElementById(
+                    "doctorPassword"
+                )
+            ) {
+                return;
+            }
+
+            const wrapper =
+                document.createElement("div");
+
+            wrapper.className =
+                "input-group";
+
+            wrapper.id =
+                "doctorPasswordWrapper";
+
+            wrapper.innerHTML = `
+        <label>Password</label>
+        <input
+            type="password"
+            id="doctorPassword"
+            autocomplete="new-password"
+        >
+    `;
+
+            formGrid.insertBefore(
+                wrapper,
+                doctorAddress.parentElement
+            );
+        }
+
+        function removePasswordForEdit() {
+            const wrapper =
+                document.getElementById(
+                    "doctorPasswordWrapper"
+                );
+
+            if (wrapper) {
+                wrapper.style.display =
+                    editingDoctorId
+                        ? "none"
+                        : "flex";
+            }
+        }
+
+        function populateDepartmentFilters() {
+            const departments = [
+                ...new Set(
+                    doctors
+                        .map(doctor => doctor.specialization)
+                        .filter(Boolean)
+                )
+            ].sort();
+
+            departmentFilter.innerHTML = `
+        <option value="all">All Departments</option>
+    `;
+
+            departments.forEach(department => {
+                const option = document.createElement("option");
+
+                option.value = department;
+                option.textContent = department;
+
+                departmentFilter.appendChild(option);
+            });
+
+            statusFilter.innerHTML = `
+        <option value="all">All Status</option>
+        <option value="active">Active</option>
+    `;
+        }
+
+        async function loadDoctors() {
+            try {
+                doctorTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                    "
+                >
+                    Loading doctors...
+                </td>
+            </tr>
+        `;
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                console.log(
+                    "Doctors API Status:",
+                    response.status
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Doctors API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    doctorTable.innerHTML = `
+                <tr>
+                    <td
+                        colspan="8"
+                        style="
+                            text-align:center;
+                            padding:30px;
+                            color:#dc2626;
+                        "
+                    >
+                        Unable to load doctors.
+                        Error: ${response.status}
+                    </td>
+                </tr>
+            `;
+
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                doctors =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                populateDepartmentFilters();
+                renderDoctors();
+
+            } catch (error) {
+                console.error(
+                    "Load Doctors Error:",
+                    error
+                );
+
+                doctorTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#dc2626;
+                    "
+                >
+                    Unable to connect with backend.
+                </td>
+            </tr>
+        `;
+            }
+        }
+
+        function renderDoctors() {
+            const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            const department =
+                departmentFilter.value
+                    .toLowerCase();
+
+            const status =
+                statusFilter.value
+                    .toLowerCase();
+
+            const filteredDoctors =
+                doctors.filter(
+                    doctor => {
+
+                        const name =
+                            (
+                                doctor.doctorName ||
+                                ""
+                            ).toLowerCase();
+
+                        const email =
+                            (
+                                doctor.email ||
+                                ""
+                            ).toLowerCase();
+
+                        const specialization =
+                            (
+                                doctor.specialization ||
+                                ""
+                            ).toLowerCase();
+
+                        const doctorStatus =
+                            getDoctorStatus(
+                                doctor
+                            ).toLowerCase();
+
+                        const searchMatch =
+                            !search ||
+                            name.includes(search) ||
+                            email.includes(search) ||
+                            specialization.includes(search);
+
+                        const departmentMatch =
+                            department === "all" ||
+                            specialization === department;
+
+                        const statusMatch =
+                            status === "all" ||
+                            doctorStatus === status;
+
+                        return (
+                            searchMatch &&
+                            departmentMatch &&
+                            statusMatch
+                        );
+                    }
+                );
+
+            doctorTable.innerHTML = "";
+
+            if (!filteredDoctors.length) {
+                doctorTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#64748b;
+                    "
+                >
+                    No doctors found.
+                </td>
+            </tr>
+        `;
+
+                return;
+            }
+
+            filteredDoctors.forEach(
+                doctor => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    const status =
+                        getDoctorStatus(
+                            doctor
+                        );
+
+                    row.innerHTML = `
+                <td>
+                    <div class="doctor-info">
+                        <img
+                            src="../assets/doctor.png"
+                            alt="Doctor"
+                            onerror="
+                                this.style.display='none'
+                            "
+                        >
+
+                        <div>
+                            <b>
+                                ${escapeHtml(
+                        doctor.doctorName ||
+                        "--"
+                    )}
+                            </b>
+                            <br>
+                            <small>
+                                ID:
+                                ${escapeHtml(
+                        doctor.id
+                    )}
+                            </small>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        doctor.specialization ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        formatExperience(
+                            doctor.experience
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        formatFee(
+                            doctor.fee
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        doctor.mobileNumber ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        doctor.email ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    <span class="status active">
+                        ${status}
+                    </span>
+                </td>
+
+                <td>
+                    <div class="action-buttons">
+
+                        <button
+                            class="view-btn"
+                            data-id="${doctor.id}"
+                            title="View"
+                        >
+                            <i
+                                class="fa-solid fa-eye"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="edit-btn"
+                            data-id="${doctor.id}"
+                            title="Edit"
+                        >
+                            <i
+                                class="fa-solid fa-pen"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            data-id="${doctor.id}"
+                            title="Delete"
+                        >
+                            <i
+                                class="fa-solid fa-trash"
+                            ></i>
+                        </button>
+
+                    </div>
+                </td>
+            `;
+
+                    doctorTable.appendChild(row);
+                }
+            );
+
+            attachRowEvents();
+        }
+
+        function attachRowEvents() {
+            document
+                .querySelectorAll(
+                    ".view-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                viewDoctor(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".edit-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                editDoctor(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".delete-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                deleteDoctor(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+        function openModal() {
+            doctorModal.style.display =
+                "flex";
+        }
+
+        function closeDoctorModal() {
+            doctorModal.style.display =
+                "none";
+        }
+
+        function closeViewModal() {
+            viewModal.style.display =
+                "none";
+        }
+
+        function clearDoctorForm() {
+            doctorName.value = "";
+            doctorEmail.value = "";
+            doctorPhone.value = "";
+            doctorExperience.value = "";
+            doctorFee.value = "";
+            doctorAddress.value = "";
+            doctorDepartment.value = "";
+        }
+
+        function fillDoctorForm(doctor) {
+            doctorName.value =
+                doctor.doctorName ||
+                "";
+
+            doctorEmail.value =
+                doctor.email ||
+                "";
+
+            doctorPhone.value =
+                doctor.mobileNumber ||
+                "";
+
+            doctorDepartment.value =
+                doctor.specialization ||
+                "";
+
+            doctorExperience.value =
+                doctor.experience ??
+                "";
+
+            doctorFee.value =
+                doctor.fee ??
+                "";
+
+            doctorAddress.value =
+                doctor.clinicAddress ||
+                "";
+        }
+
+        function fillViewModal(doctor) {
+            viewDoctorName.value =
+                doctor.doctorName ||
+                "--";
+
+            viewDoctorEmail.value =
+                doctor.email ||
+                "--";
+
+            viewDoctorDepartment.value =
+                doctor.specialization ||
+                "--";
+
+            viewDoctorExperience.value =
+                formatExperience(
+                    doctor.experience
+                );
+
+            viewDoctorFee.value =
+                formatFee(
+                    doctor.fee
+                );
+
+            viewDoctorStatus.value =
+                getDoctorStatus(
+                    doctor
+                );
+
+            viewDoctorAddress.value =
+                doctor.clinicAddress ||
+                "--";
+        }
+
+        function viewDoctor(id) {
+            const doctor =
+                doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(id)
+                );
+
+            if (!doctor) {
+                alert(
+                    "Doctor data not found."
+                );
+                return;
+            }
+
+            fillViewModal(
+                doctor
+            );
+
+            viewModal.style.display =
+                "flex";
+        }
+
+        function editDoctor(id) {
+            const doctor =
+                doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(id)
+                );
+
+            if (!doctor) {
+                alert(
+                    "Doctor data not found."
+                );
+                return;
+            }
+
+            editingDoctorId =
+                Number(id);
+
+            doctorModal.querySelector(
+                ".modal-title"
+            ).textContent =
+                "Edit Doctor";
+
+            fillDoctorForm(
+                doctor
+            );
+
+            removePasswordForEdit();
+
+            openModal();
+        }
+
+        function openAddDoctorModal() {
+            editingDoctorId =
+                null;
+
+            doctorModal.querySelector(
+                ".modal-title"
+            ).textContent =
+                "Add Doctor";
+
+            clearDoctorForm();
+
+            addPasswordField();
+
+            removePasswordForEdit();
+
+            const passwordInput =
+                document.getElementById(
+                    "doctorPassword"
+                );
+
+            if (passwordInput) {
+                passwordInput.value =
+                    "";
+            }
+
+            openModal();
+        }
+
+        async function saveDoctor() {
+            const name =
+                doctorName.value.trim();
+
+            const email =
+                doctorEmail.value.trim();
+
+            const phone =
+                doctorPhone.value.trim();
+
+            const specialization =
+                doctorDepartment.value.trim();
+
+            const experienceValue =
+                doctorExperience.value.trim();
+
+            const feeValue =
+                doctorFee.value.trim();
+
+            const address =
+                doctorAddress.value.trim();
+
+            if (!name) {
+                alert(
+                    "Please enter doctor name."
+                );
+                return;
+            }
+
+            if (!email) {
+                alert(
+                    "Please enter doctor email."
+                );
+                return;
+            }
+
+            if (!specialization) {
+                alert(
+                    "Please select doctor department."
+                );
+                return;
+            }
+
+            if (
+                experienceValue === "" ||
+                Number(experienceValue) < 0
+            ) {
+                alert(
+                    "Please enter valid experience."
+                );
+                return;
+            }
+
+            if (
+                feeValue === "" ||
+                Number(feeValue) < 0
+            ) {
+                alert(
+                    "Please enter valid consultation fee."
+                );
+                return;
+            }
+
+            if (!editingDoctorId) {
+                const passwordInput =
+                    document.getElementById(
+                        "doctorPassword"
+                    );
+
+                const password =
+                    passwordInput
+                        ? passwordInput.value
+                        : "";
+
+                if (!password) {
+                    alert(
+                        "Please enter a password for the doctor."
+                    );
+                    return;
+                }
+
+                const payload = {
+                    doctorName: name,
+                    email: email,
+                    password: password,
+                    specialization: specialization,
+                    experience:
+                        Number(
+                            experienceValue
+                        ),
+                    fee:
+                        Number(
+                            feeValue
+                        ),
+                    description: "",
+                    mobileNumber:
+                        phone
+                            ? Number(phone)
+                            : null,
+                    clinicAddress:
+                        address || null
+                };
+
+                try {
+
+                    saveBtn.disabled =
+                        true;
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/doctors/register`,
+                            {
+                                method: "POST",
+                                headers:
+                                    getHeaders(),
+                                body:
+                                    JSON.stringify(
+                                        payload
+                                    )
+                            }
+                        );
+
+                    const responseText =
+                        await response.text();
+
+                    if (!response.ok) {
+
+                        console.error(
+                            "Add Doctor Error:",
+                            response.status,
+                            responseText
+                        );
+
+                        alert(
+                            "Unable to add doctor. Error: " +
+                            response.status
+                        );
+
+                        return;
+                    }
+
+                    alert(
+                        "Doctor added successfully."
+                    );
+
+                    closeDoctorModal();
+
+                    await loadDoctors();
+
+                } catch (error) {
+
+                    console.error(
+                        "Add Doctor Error:",
+                        error
+                    );
+
+                    alert(
+                        "Unable to connect with backend."
+                    );
+
+                } finally {
+
+                    saveBtn.disabled =
+                        false;
+                }
+
+                return;
+            }
+
+            const existingDoctor =
+                doctors.find(
+                    doctor =>
+                        Number(doctor.id) ===
+                        Number(
+                            editingDoctorId
+                        )
+                );
+
+            if (!existingDoctor) {
+                alert(
+                    "Doctor data not found."
+                );
+                return;
+            }
+
+            const payload = {
+                doctorName: name,
+                email: email,
+                specialization:
+                    specialization,
+                experience:
+                    Number(
+                        experienceValue
+                    ),
+                fee:
+                    Number(
+                        feeValue
+                    ),
+                description:
+                    existingDoctor.description ||
+                    "",
+                mobileNumber:
+                    phone
+                        ? Number(phone)
+                        : null,
+                clinicAddress:
+                    address ||
+                    null,
+                qualification:
+                    existingDoctor.qualification ||
+                    null,
+                dob:
+                    existingDoctor.dob ||
+                    null,
+                gender:
+                    existingDoctor.gender ||
+                    null,
+                bloodGroup:
+                    existingDoctor.bloodGroup ||
+                    null,
+                registrationNo:
+                    existingDoctor.registrationNo ||
+                    null,
+                languages:
+                    existingDoctor.languages ||
+                    null,
+                linkedin:
+                    existingDoctor.linkedin ||
+                    null,
+                website:
+                    existingDoctor.website ||
+                    null,
+                facebook:
+                    existingDoctor.facebook ||
+                    null,
+                instagram:
+                    existingDoctor.instagram ||
+                    null
+            };
+
+            try {
+
+                saveBtn.disabled =
+                    true;
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/${editingDoctorId}`,
+                        {
+                            method: "PUT",
+                            headers:
+                                getHeaders(),
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+
+                    console.error(
+                        "Update Doctor Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to update doctor. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Doctor updated successfully."
+                );
+
+                closeDoctorModal();
+
+                await loadDoctors();
+
+            } catch (error) {
+
+                console.error(
+                    "Update Doctor Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+
+            } finally {
+
+                saveBtn.disabled =
+                    false;
+            }
+        }
+
+        async function deleteDoctor(id) {
+            const doctor =
+                doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(id)
+                );
+
+            if (!doctor) {
+                alert(
+                    "Doctor data not found."
+                );
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    `Delete ${doctor.doctorName || "this doctor"}?`
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/${id}`,
+                        {
+                            method: "DELETE",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+
+                    console.error(
+                        "Delete Doctor Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to delete doctor. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Doctor deleted successfully."
+                );
+
+                await loadDoctors();
+
+            } catch (error) {
+
+                console.error(
+                    "Delete Doctor Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        function setupSearch() {
+            if (!searchInput) {
+                return;
+            }
+
+            searchInput.addEventListener(
+                "input",
+                renderDoctors
+            );
+        }
+
+        function setupFilters() {
+            departmentFilter.addEventListener(
+                "change",
+                renderDoctors
+            );
+
+            statusFilter.addEventListener(
+                "change",
+                renderDoctors
+            );
+        }
+
+        function setupModals() {
+            addDoctorBtn.addEventListener(
+                "click",
+                openAddDoctorModal
+            );
+
+            saveBtn.addEventListener(
+                "click",
+                saveDoctor
+            );
+
+            cancelBtn.addEventListener(
+                "click",
+                closeDoctorModal
+            );
+
+            closeViewBtn.addEventListener(
+                "click",
+                closeViewModal
+            );
+
+            closeButtons.forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+                            closeDoctorModal();
+                            closeViewModal();
+                        }
+                    );
+                }
+            );
+
+            window.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        doctorModal
+                    ) {
+                        closeDoctorModal();
+                    }
+
+                    if (
+                        event.target ===
+                        viewModal
+                    ) {
+                        closeViewModal();
+                    }
+                }
+            );
+        }
+
+        function setupSidebar() {
+            if (menuBtn) {
+
+                menuBtn.addEventListener(
+                    "click",
+                    () => {
+
+                        if (
+                            window.innerWidth <=
+                            900
+                        ) {
+
+                            sidebar.style.left =
+                                sidebar.style.left ===
+                                    "0px"
+                                    ? "-270px"
+                                    : "0";
+                        }
+                    }
+                );
+            }
+
+            document.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        sidebar &&
+                        menuBtn &&
+                        !sidebar.contains(
+                            event.target
+                        ) &&
+                        !menuBtn.contains(
+                            event.target
+                        )
+                    ) {
+
+                        sidebar.style.left =
+                            "-270px";
+                    }
+                }
+            );
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    sidebar.style.left =
+                        window.innerWidth > 900
+                            ? "0"
+                            : "-270px";
+                }
+            );
+        }
+
+        function setupProfile() {
+            if (!profile) {
+                return;
+            }
+
+            profile.addEventListener(
+                "click",
+                () => {
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        function setupNotification() {
+            const notify =
+                document.querySelector(
+                    ".notify"
+                );
+
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                () => {
+                    alert(
+                        "No new notifications."
+                    );
+                }
+            );
+        }
+
+        async function initialize() {
+            addPasswordField();
+
+            if (
+                window.innerWidth <=
+                900
+            ) {
+                sidebar.style.left =
+                    "-270px";
             } else {
-                sidebar.style.left = "-270px";
+                sidebar.style.left =
+                    "0";
             }
 
-        });
+            loadAdminProfile();
+            setNotificationCount();
 
-        document.querySelector(".profile").addEventListener("click", () => {
+            setupSidebar();
+            setupProfile();
+            setupNotification();
+            setupSearch();
+            setupFilters();
+            setupModals();
 
-            window.location.href = "profile.html";
+            await loadDoctors();
+        }
 
-        });
+        initialize();
     </script>
 
 </body>

@@ -506,20 +506,68 @@
                     })
                 });
                 const result = await response.json();
+
                 if (result.success) {
-                    localStorage.setItem("token", result.token);
-                    localStorage.setItem("role", result.role);
-                    localStorage.setItem("user", JSON.stringify(result.data));
+
+                    localStorage.setItem(
+                        "token",
+                        result.token
+                    );
+
+                    localStorage.setItem(
+                        "role",
+                        result.role
+                    );
+
                     if (result.role === "PATIENT") {
-                        window.location.href = "../patient/dashboard.html";
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(result.data)
+                        );
+
+                        window.location.href =
+                            "../patient/dashboard.html";
                     }
+
                     else if (result.role === "DOCTOR") {
-                        window.location.href = "../doctor/dashboard.html";
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(result.data)
+                        );
+
+                        localStorage.setItem(
+                            "doctor",
+                            JSON.stringify(result.data)
+                        );
+
+                        localStorage.setItem(
+                            "doctorId",
+                            String(result.data.id)
+                        );
+
+                        window.location.href =
+                            "../doctor/dashboard.html";
                     }
+
                     else if (result.role === "ADMIN") {
-                        window.location.href = "../admin/dashboard.html";
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(result.data)
+                        );
+
+                        localStorage.setItem(
+                            "adminId",
+                            String(result.data.adminId)
+                        );
+
+                        window.location.href =
+                            "../admin/dashboard.html";
                     }
                 }
+
                 else {
                     alert(result.message);
                 }

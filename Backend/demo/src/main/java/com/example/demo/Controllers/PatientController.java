@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,72 +34,100 @@ public class PatientController {
     @Autowired
     private AuthService authService;
 
-    // ==========================
-    // Register Patient
-    // ==========================
     @PostMapping("/register")
-    public ApiResponse registerPatient(@RequestBody PatientModel patient) {
+    public ApiResponse registerPatient(
+            @RequestBody PatientModel patient) {
+
         patientService.registerPatient(patient);
+
         return new ApiResponse(
                 true,
-                "Patient Registered Successfully");
-
+                "Patient Registered Successfully"
+        );
     }
 
-    // ==========================
-    // Patient Login
-    // ==========================
     @PostMapping("/login")
-    public LoginResponse loginPatient(@RequestBody LoginRequest request) {
+    public LoginResponse loginPatient(
+            @RequestBody LoginRequest request) {
+
         return authService.patientLogin(request);
     }
 
-    // ==========================
-    // View All Doctors
-    // ==========================
     @GetMapping("/doctors")
     public List<DoctorModel> getAllDoctors() {
+
         return patientService.getAllDoctors();
     }
 
-    // ==========================
-    // Book Appointment
-    // ==========================
     @PostMapping("/bookAppointment")
-    public ApiResponse bookAppointment(@RequestBody AppointmentModel appointment) {
-        patientService.bookAppointment(appointment);
+    public ApiResponse bookAppointment(
+            @RequestBody AppointmentModel appointment) {
+
+        patientService.bookAppointment(
+                appointment
+        );
+
         return new ApiResponse(
                 true,
-                "Appointment Booked Successfully");
+                "Appointment Booked Successfully"
+        );
     }
 
-    // ==========================
-    // View My Appointments
-    // ==========================
     @GetMapping("/appointments/{patientId}")
-    public List<AppointmentModel> getMyAppointments(@PathVariable Long patientId) {
-        return patientService.getMyAppointments(patientId);
+    public List<AppointmentModel> getMyAppointments(
+            @PathVariable Long patientId) {
+
+        return patientService.getMyAppointments(
+                patientId
+        );
     }
 
-    // ==========================
-// Patient Dashboard
-// ==========================
     @GetMapping("/dashboard/{patientId}")
-    public PatientDashboardDTO getDashboardData(@PathVariable Long patientId) {
-        return patientService.getDashboardData(patientId);
+    public PatientDashboardDTO getDashboardData(
+            @PathVariable Long patientId) {
+
+        return patientService.getDashboardData(
+                patientId
+        );
     }
 
-    // Profile
     @GetMapping("/{patientId}")
-    public PatientModel getPatientProfile(@PathVariable Long patientId) {
-        return patientService.getPatientById(patientId);
+    public PatientModel getPatientProfile(
+            @PathVariable Long patientId) {
+
+        return patientService.getPatientById(
+                patientId
+        );
     }
 
     @PutMapping("/{patientId}")
-    public PatientModel updatePatientProfile(
+    public PatientModel updatePatient(
             @PathVariable Long patientId,
             @RequestBody PatientModel patient) {
-        return patientService.updatePatient(patientId, patient);
+
+        return patientService.updatePatient(
+                patientId,
+                patient
+        );
     }
 
+    @GetMapping
+    public List<PatientModel> getAllPatients() {
+
+        return patientService.getAllPatients();
+    }
+
+    @DeleteMapping("/{patientId}")
+    public ApiResponse deletePatient(
+            @PathVariable Long patientId) {
+
+        patientService.deletePatient(
+                patientId
+        );
+
+        return new ApiResponse(
+                true,
+                "Patient Deleted Successfully"
+        );
+    }
 }

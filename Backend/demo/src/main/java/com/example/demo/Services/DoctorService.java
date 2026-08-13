@@ -164,6 +164,16 @@ public class DoctorService {
         }
     }
 
+    public List<DoctorModel> getAllDoctors() {
+        return doctorRepo.findAll();
+    }
+
+    public void deleteDoctor(Long doctorId) {
+        if (doctorRepo.existsById(doctorId)) {
+            doctorRepo.deleteById(doctorId);
+        }
+    }
+
     public DoctorModel getDoctorById(
             Long doctorId) {
 

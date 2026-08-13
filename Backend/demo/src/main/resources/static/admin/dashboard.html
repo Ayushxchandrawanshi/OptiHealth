@@ -630,21 +630,21 @@
 
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search doctors, patients...">
+                    <input type="text" id="dashboardSearch" placeholder="Search doctors, patients...">
                 </div>
 
                 <div class="right-top">
 
                     <div class="notify">
                         <i class="fa-regular fa-bell"></i>
-                        <span>8</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
                         <img src="../assets/admin.png" alt="">
                         <div>
-                            <h4>Admin</h4>
-                            <p>System Administrator</p>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
                         </div>
                     </div>
 
@@ -669,8 +669,8 @@
                         <div class="card stats-card">
                             <div class="stats-info">
                                 <h3>Total Doctors</h3>
-                                <h2>52</h2>
-                                <p><i class="fa-solid fa-arrow-up"></i> 5 New This Month</p>
+                                <h2 id="totalDoctors">0</h2>
+                                <p id="doctorsSubtitle">--</p>
                             </div>
                             <div class="stats-icon bg1">
                                 <i class="fa-solid fa-user-doctor"></i>
@@ -680,8 +680,8 @@
                         <div class="card stats-card">
                             <div class="stats-info">
                                 <h3>Total Patients</h3>
-                                <h2>1248</h2>
-                                <p><i class="fa-solid fa-arrow-up"></i> 62 New This Week</p>
+                                <h2 id="totalPatients">0</h2>
+                                <p id="patientsSubtitle">--</p>
                             </div>
                             <div class="stats-icon bg2">
                                 <i class="fa-solid fa-hospital-user"></i>
@@ -691,8 +691,8 @@
                         <div class="card stats-card">
                             <div class="stats-info">
                                 <h3>Appointments</h3>
-                                <h2>186</h2>
-                                <p><i class="fa-solid fa-calendar-check"></i> Today</p>
+                                <h2 id="totalAppointments">0</h2>
+                                <p id="appointmentsSubtitle">--</p>
                             </div>
                             <div class="stats-icon bg3">
                                 <i class="fa-solid fa-calendar-days"></i>
@@ -702,8 +702,8 @@
                         <div class="card stats-card">
                             <div class="stats-info">
                                 <h3>Departments</h3>
-                                <h2>14</h2>
-                                <p><i class="fa-solid fa-building"></i> Active</p>
+                                <h2 id="totalDepartments">--</h2>
+                                <p id="departmentsSubtitle">--</p>
                             </div>
                             <div class="stats-icon bg4">
                                 <i class="fa-solid fa-building"></i>
@@ -713,8 +713,8 @@
                         <div class="card stats-card">
                             <div class="stats-info">
                                 <h3>Today's Revenue</h3>
-                                <h2>₹78K</h2>
-                                <p><i class="fa-solid fa-arrow-up"></i> +18%</p>
+                                <h2 id="todayRevenue">--</h2>
+                                <p id="revenueSubtitle">--</p>
                             </div>
                             <div class="stats-icon bg5">
                                 <i class="fa-solid fa-sack-dollar"></i>
@@ -724,8 +724,8 @@
                         <div class="card stats-card">
                             <div class="stats-info">
                                 <h3>Pending Bills</h3>
-                                <h2>21</h2>
-                                <p><i class="fa-solid fa-clock"></i> Need Review</p>
+                                <h2 id="pendingBills">--</h2>
+                                <p id="billsSubtitle">--</p>
                             </div>
                             <div class="stats-icon bg6">
                                 <i class="fa-solid fa-file-invoice-dollar"></i>
@@ -759,48 +759,7 @@
 
                                     </thead>
 
-                                    <tbody>
-
-                                        <tr>
-                                            <td>Rahul Verma</td>
-                                            <td>Dr. Amit Sharma</td>
-                                            <td>Cardiology</td>
-                                            <td>09:30 AM</td>
-                                            <td><span class="status completed">Completed</span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Priya Singh</td>
-                                            <td>Dr. Neha Gupta</td>
-                                            <td>Neurology</td>
-                                            <td>10:00 AM</td>
-                                            <td><span class="status pending">Pending</span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Aman Patel</td>
-                                            <td>Dr. Raj Mehta</td>
-                                            <td>Orthopedics</td>
-                                            <td>11:20 AM</td>
-                                            <td><span class="status completed">Completed</span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Riya Sharma</td>
-                                            <td>Dr. Pooja Jain</td>
-                                            <td>Dermatology</td>
-                                            <td>12:15 PM</td>
-                                            <td><span class="status cancelled">Cancelled</span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Mohit Yadav</td>
-                                            <td>Dr. Rahul Verma</td>
-                                            <td>Pediatrics</td>
-                                            <td>02:40 PM</td>
-                                            <td><span class="status pending">Pending</span></td>
-                                        </tr>
-
+                                    <tbody id="recentAppointmentsBody">
                                     </tbody>
 
                                 </table>
@@ -879,168 +838,864 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
         const notify = document.querySelector(".notify");
+        const searchInput =
+            document.getElementById("dashboardSearch") ||
+            document.querySelector(".search-box input");
 
-        const statsCards = document.querySelectorAll(".stats-card");
-        const actionBtns = document.querySelectorAll(".action-btn");
-        const searchInput = document.querySelector(".search-box input");
+        const token = localStorage.getItem("token");
 
-        window.onload = () => {
+        const totalDoctors =
+            document.getElementById("totalDoctors");
 
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = "-270px";
-            } else {
-                sidebar.style.left = "0";
+        const totalPatients =
+            document.getElementById("totalPatients");
+
+        const totalAppointments =
+            document.getElementById("totalAppointments");
+
+        const totalDepartments =
+            document.getElementById("totalDepartments");
+
+        const todayRevenue =
+            document.getElementById("todayRevenue");
+
+        const pendingBills =
+            document.getElementById("pendingBills");
+
+        const doctorsSubtitle =
+            document.getElementById("doctorsSubtitle");
+
+        const patientsSubtitle =
+            document.getElementById("patientsSubtitle");
+
+        const appointmentsSubtitle =
+            document.getElementById("appointmentsSubtitle");
+
+        const departmentsSubtitle =
+            document.getElementById("departmentsSubtitle");
+
+        const revenueSubtitle =
+            document.getElementById("revenueSubtitle");
+
+        const billsSubtitle =
+            document.getElementById("billsSubtitle");
+
+        const recentAppointmentsBody =
+            document.getElementById(
+                "recentAppointmentsBody"
+            );
+
+        const notificationCount =
+            document.getElementById(
+                "notificationCount"
+            );
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
-            animateCounters();
+            return headers;
+        }
 
-        };
-
-        menuBtn.addEventListener("click", () => {
-
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        function setText(
+            element,
+            value,
+            fallback = "--"
+        ) {
+            if (!element) {
+                return;
             }
 
-        });
+            element.textContent =
+                value !== null &&
+                    value !== undefined &&
+                    String(value).trim() !== ""
+                    ? value
+                    : fallback;
+        }
 
-        window.addEventListener("resize", () => {
-
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            } else {
-                sidebar.style.left = "-270px";
+        function formatDate(dateValue) {
+            if (!dateValue) {
+                return "--";
             }
 
-        });
+            const date =
+                new Date(dateValue);
 
-        document.addEventListener("click", e => {
+            if (Number.isNaN(date.getTime())) {
+                return dateValue;
+            }
 
-            if (window.innerWidth <= 900) {
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+        }
 
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+        function formatTime(timeValue) {
+            if (!timeValue) {
+                return "--";
+            }
+
+            const parts =
+                String(timeValue).split(":");
+
+            if (parts.length < 2) {
+                return timeValue;
+            }
+
+            let hours =
+                Number(parts[0]);
+
+            const minutes =
+                parts[1];
+
+            if (Number.isNaN(hours)) {
+                return timeValue;
+            }
+
+            const period =
+                hours >= 12
+                    ? "PM"
+                    : "AM";
+
+            hours =
+                hours % 12;
+
+            if (hours === 0) {
+                hours = 12;
+            }
+
+            return (
+                String(hours).padStart(2, "0") +
+                ":" +
+                minutes +
+                " " +
+                period
+            );
+        }
+
+        function getStatusClass(status) {
+            if (!status) {
+                return "pending";
+            }
+
+            const normalized =
+                String(status)
+                    .toUpperCase();
+
+            if (
+                normalized === "COMPLETED"
+            ) {
+                return "completed";
+            }
+
+            if (
+                normalized === "REJECTED" ||
+                normalized === "CANCELLED"
+            ) {
+                return "cancelled";
+            }
+
+            return "pending";
+        }
+
+        function getStatusText(status) {
+            if (!status) {
+                return "PENDING";
+            }
+
+            return String(status)
+                .replaceAll("_", " ")
+                .toUpperCase();
+        }
+
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
+        }
+
+        function getAdminData() {
+            try {
+                const storedAdmin =
+                    localStorage.getItem(
+                        "admin"
+                    );
+
+                if (storedAdmin) {
+                    return JSON.parse(
+                        storedAdmin
+                    );
+                }
+            } catch (error) {
+                console.error(
+                    "Admin storage error:",
+                    error
+                );
+            }
+
+            return null;
+        }
+
+        function loadAdminProfile() {
+            const admin =
+                getAdminData();
+
+            const adminName =
+                document.getElementById(
+                    "adminName"
+                );
+
+            const adminRole =
+                document.getElementById(
+                    "adminRole"
+                );
+
+            if (adminName) {
+                adminName.textContent =
+                    admin?.fullName ||
+                    admin?.name ||
+                    "Admin";
+            }
+
+            if (adminRole) {
+                adminRole.textContent =
+                    admin?.role ||
+                    "System Administrator";
+            }
+        }
+
+        async function loadDashboard() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/admin/dashboard`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                console.log(
+                    "Admin Dashboard Status:",
+                    response.status
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Admin Dashboard API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    showDashboardError(
+                        response.status
+                    );
+
+                    return;
                 }
 
+                const data =
+                    await response.json();
+
+                console.log(
+                    "Admin Dashboard Data:",
+                    data
+                );
+
+                updateDashboardStats(
+                    data
+                );
+
+                renderRecentAppointments(
+                    data.recentAppointments
+                );
+
+            } catch (error) {
+                console.error(
+                    "Dashboard Load Error:",
+                    error
+                );
+
+                showDashboardError();
+            }
+        }
+
+        function updateDashboardStats(data) {
+            setText(
+                totalDoctors,
+                data.totalDoctors,
+                "0"
+            );
+
+            setText(
+                totalPatients,
+                data.totalPatients,
+                "0"
+            );
+
+            setText(
+                totalAppointments,
+                data.totalAppointments,
+                "0"
+            );
+
+            if (
+                data.departments !== null &&
+                data.departments !== undefined
+            ) {
+                setText(
+                    totalDepartments,
+                    data.departments,
+                    "0"
+                );
+
+                setText(
+                    departmentsSubtitle,
+                    "Active",
+                    ""
+                );
+            } else {
+                setText(
+                    totalDepartments,
+                    "N/A"
+                );
+
+                setText(
+                    departmentsSubtitle,
+                    "Department module not connected"
+                );
             }
 
-        });
+            if (
+                data.todayRevenue !== null &&
+                data.todayRevenue !== undefined
+            ) {
+                setText(
+                    todayRevenue,
+                    "₹" + data.todayRevenue
+                );
 
-        notify.addEventListener("click", () => {
+                setText(
+                    revenueSubtitle,
+                    "Today"
+                );
+            } else {
+                setText(
+                    todayRevenue,
+                    "N/A"
+                );
 
-            alert("You have 8 new notifications.");
+                setText(
+                    revenueSubtitle,
+                    "Billing module not connected"
+                );
+            }
 
-        });
+            if (
+                data.pendingBills !== null &&
+                data.pendingBills !== undefined
+            ) {
+                setText(
+                    pendingBills,
+                    data.pendingBills,
+                    "0"
+                );
 
-        statsCards.forEach(card => {
+                setText(
+                    billsSubtitle,
+                    "Need Review"
+                );
+            } else {
+                setText(
+                    pendingBills,
+                    "N/A"
+                );
 
-            card.addEventListener("mouseenter", () => {
+                setText(
+                    billsSubtitle,
+                    "Billing module not connected"
+                );
+            }
 
-                card.style.transform = "translateY(-8px)";
+            setText(
+                doctorsSubtitle,
+                "Registered doctors"
+            );
 
-            });
+            setText(
+                patientsSubtitle,
+                "Registered patients"
+            );
 
-            card.addEventListener("mouseleave", () => {
+            setText(
+                appointmentsSubtitle,
+                `${data.todayAppointments || 0} Today`
+            );
 
-                card.style.transform = "translateY(0)";
+            if (notificationCount) {
+                notificationCount.textContent =
+                    data.pendingAppointments || 0;
+            }
+        }
 
-            });
+        function renderRecentAppointments(
+            appointments
+        ) {
+            if (!recentAppointmentsBody) {
+                return;
+            }
 
-        });
+            recentAppointmentsBody.innerHTML =
+                "";
 
-        actionBtns.forEach(btn => {
+            if (
+                !Array.isArray(appointments) ||
+                appointments.length === 0
+            ) {
+                recentAppointmentsBody.innerHTML = `
+            <tr>
+                <td colspan="5"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#64748b;
+                    ">
+                    No recent appointments found.
+                </td>
+            </tr>
+        `;
 
-            btn.addEventListener("mouseenter", () => {
+                return;
+            }
 
-                btn.style.transform = "translateX(8px)";
+            appointments.forEach(
+                appointment => {
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
 
-            });
+                    const patientName =
+                        appointment.patientName ||
+                        "Patient Not Found";
 
-            btn.addEventListener("mouseleave", () => {
+                    const doctorName =
+                        appointment.doctorName ||
+                        "Doctor Not Found";
 
-                btn.style.transform = "translateX(0)";
+                    const department =
+                        appointment.department ||
+                        "--";
 
-            });
+                    const date =
+                        formatDate(
+                            appointment.appointmentDate
+                        );
 
-        });
+                    const time =
+                        formatTime(
+                            appointment.appointmentTime
+                        );
 
-        document.querySelector(".profile").addEventListener("click", () => {
+                    const status =
+                        appointment.status ||
+                        "PENDING";
 
-            window.location.href = "profile.html";
+                    const statusClass =
+                        getStatusClass(
+                            status
+                        );
 
-        });
+                    row.innerHTML = `
+                <td>
+                    ${escapeHtml(
+                        patientName
+                    )}
+                </td>
 
-        document.querySelectorAll("tbody tr").forEach(row => {
+                <td>
+                    ${escapeHtml(
+                        doctorName
+                    )}
+                </td>
 
-            row.addEventListener("mouseenter", () => {
+                <td>
+                    ${escapeHtml(
+                        department
+                    )}
+                </td>
 
-                row.style.background = "#f8fbff";
+                <td>
+                    ${escapeHtml(
+                        date
+                    )}
+                    ${time !== "--"
+                            ? " - " +
+                            escapeHtml(
+                                time
+                            )
+                            : ""
+                        }
+                </td>
 
-            });
+                <td>
+                    <span class="status ${statusClass}">
+                        ${escapeHtml(
+                            getStatusText(
+                                status
+                            )
+                        )}
+                    </span>
+                </td>
+            `;
 
-            row.addEventListener("mouseleave", () => {
+                    recentAppointmentsBody.appendChild(
+                        row
+                    );
+                }
+            );
 
-                row.style.background = "transparent";
+            addTableHover();
+        }
 
-            });
+        function showDashboardError(
+            status = null
+        ) {
+            setText(
+                totalDoctors,
+                "--"
+            );
 
-        });
+            setText(
+                totalPatients,
+                "--"
+            );
 
-        searchInput.addEventListener("keyup", () => {
+            setText(
+                totalAppointments,
+                "--"
+            );
 
-            const value = searchInput.value.toLowerCase();
+            setText(
+                totalDepartments,
+                "N/A"
+            );
 
-            document.querySelectorAll("tbody tr").forEach(row => {
+            setText(
+                todayRevenue,
+                "N/A"
+            );
 
-                const text = row.innerText.toLowerCase();
+            setText(
+                pendingBills,
+                "N/A"
+            );
 
-                row.style.display = text.includes(value) ? "table-row" : "none";
+            if (recentAppointmentsBody) {
+                recentAppointmentsBody.innerHTML = `
+            <tr>
+                <td colspan="5"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#dc2626;
+                    ">
+                    ${status === 403
+                        ? "Access denied. Please login again."
+                        : "Unable to load dashboard data."
+                    }
+                </td>
+            </tr>
+        `;
+            }
+        }
 
-            });
+        function addTableHover() {
+            document
+                .querySelectorAll(
+                    "#recentAppointmentsBody tr"
+                )
+                .forEach(row => {
 
-        });
+                    row.addEventListener(
+                        "mouseenter",
+                        () => {
+                            row.style.background =
+                                "#f8fbff";
+                        }
+                    );
 
-        function animateCounters() {
+                    row.addEventListener(
+                        "mouseleave",
+                        () => {
+                            row.style.background =
+                                "transparent";
+                        }
+                    );
+                });
+        }
 
-            const counters = document.querySelectorAll(".stats-info h2");
+        function filterAppointments() {
+            if (!searchInput) {
+                return;
+            }
 
-            counters.forEach(counter => {
+            const value =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
 
-                const text = counter.innerText.replace(/[^0-9]/g, "");
+            document
+                .querySelectorAll(
+                    "#recentAppointmentsBody tr"
+                )
+                .forEach(row => {
 
-                const target = parseInt(text);
+                    const text =
+                        row.innerText
+                            .toLowerCase();
 
-                if (isNaN(target)) return;
+                    row.style.display =
+                        text.includes(value)
+                            ? "table-row"
+                            : "none";
+                });
+        }
 
-                const prefix = counter.innerText.includes("₹") ? "₹" : "";
-                const suffix = counter.innerText.includes("K") ? "K" : "";
+        function setupSearch() {
+            if (!searchInput) {
+                return;
+            }
 
-                let current = 0;
+            searchInput.addEventListener(
+                "input",
+                filterAppointments
+            );
+        }
 
-                const step = Math.ceil(target / 40);
+        function setupSidebar() {
+            if (menuBtn) {
+                menuBtn.addEventListener(
+                    "click",
+                    () => {
+                        if (
+                            window.innerWidth <=
+                            900
+                        ) {
+                            sidebar.style.left =
+                                sidebar.style.left ===
+                                    "0px"
+                                    ? "-270px"
+                                    : "0";
+                        }
+                    }
+                );
+            }
 
-                const timer = setInterval(() => {
-
-                    current += step;
-
-                    if (current >= target) {
-
-                        current = target;
-
-                        clearInterval(timer);
-
+            window.addEventListener(
+                "resize",
+                () => {
+                    if (!sidebar) {
+                        return;
                     }
 
-                    counter.innerText = prefix + current + suffix;
+                    sidebar.style.left =
+                        window.innerWidth > 900
+                            ? "0"
+                            : "-270px";
+                }
+            );
 
-                }, 25);
-
-            });
-
+            document.addEventListener(
+                "click",
+                event => {
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        sidebar &&
+                        menuBtn &&
+                        !sidebar.contains(
+                            event.target
+                        ) &&
+                        !menuBtn.contains(
+                            event.target
+                        )
+                    ) {
+                        sidebar.style.left =
+                            "-270px";
+                    }
+                }
+            );
         }
+
+        function setupNotifications() {
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                () => {
+                    const count =
+                        notificationCount
+                            ? notificationCount.textContent
+                            : "0";
+
+                    if (
+                        count === "0" ||
+                        count === "N/A"
+                    ) {
+                        alert(
+                            "No pending appointment notifications."
+                        );
+                    } else {
+                        alert(
+                            `You have ${count} pending appointment(s).`
+                        );
+                    }
+                }
+            );
+        }
+
+        function setupStatsCards() {
+            document
+                .querySelectorAll(
+                    ".stats-card"
+                )
+                .forEach(card => {
+
+                    card.addEventListener(
+                        "mouseenter",
+                        () => {
+                            card.style.transform =
+                                "translateY(-8px)";
+                        }
+                    );
+
+                    card.addEventListener(
+                        "mouseleave",
+                        () => {
+                            card.style.transform =
+                                "translateY(0)";
+                        }
+                    );
+                });
+        }
+
+        function setupQuickActions() {
+            document
+                .querySelectorAll(
+                    ".action-btn"
+                )
+                .forEach(button => {
+
+                    button.addEventListener(
+                        "mouseenter",
+                        () => {
+                            button.style.transform =
+                                "translateX(8px)";
+                        }
+                    );
+
+                    button.addEventListener(
+                        "mouseleave",
+                        () => {
+                            button.style.transform =
+                                "translateX(0)";
+                        }
+                    );
+                });
+        }
+
+        function setupProfile() {
+            const profile =
+                document.querySelector(
+                    ".profile"
+                );
+
+            if (!profile) {
+                return;
+            }
+
+            profile.addEventListener(
+                "click",
+                () => {
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        async function initializeDashboard() {
+            if (
+                window.innerWidth <=
+                900
+            ) {
+                sidebar.style.left =
+                    "-270px";
+            } else {
+                sidebar.style.left =
+                    "0";
+            }
+
+            loadAdminProfile();
+
+            setupSidebar();
+            setupNotifications();
+            setupStatsCards();
+            setupQuickActions();
+            setupProfile();
+            setupSearch();
+
+            await loadDashboard();
+        }
+
+        initializeDashboard();
     </script>
 
 </body>

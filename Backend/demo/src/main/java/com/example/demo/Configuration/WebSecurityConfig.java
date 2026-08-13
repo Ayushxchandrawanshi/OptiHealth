@@ -47,19 +47,31 @@ public class WebSecurityConfig {
                         "/api/patients/doctors",
                         "/api/patients/**",
                         "/api/doctors/**",
-                        "/api/medical-history/patient/**"
+                        "/api/medical-history/**",
+                        "/api/admin/dashboard",
+                        "/api/prescriptions/**"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.POST,
                         "/api/prescriptions",
                         "/api/doctors/schedule",
-                        "/api/doctors/leave"
+                        "/api/doctors/leave",
+                        "/api/medical-history"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.PUT,
                         "/api/doctors/accept/**",
                         "/api/doctors/reject/**",
-                        "/api/doctors/complete/**"
+                        "/api/doctors/complete/**",
+                        "/api/doctors/**",
+                        "/api/patients/**"
+                ).permitAll()
+                .requestMatchers(
+                        HttpMethod.DELETE,
+                        "/api/doctors/**",
+                        "/api/patients/**",
+                        "/api/prescriptions/**",
+                        "/api/medical-history/**"
                 ).permitAll()
                 .requestMatchers(
                         "/swagger-ui/**",

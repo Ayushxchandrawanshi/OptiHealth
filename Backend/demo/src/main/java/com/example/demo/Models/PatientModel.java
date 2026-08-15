@@ -1,5 +1,7 @@
 package com.example.demo.Models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +20,9 @@ public class PatientModel {
     String password;
     String gender;
     String dob;
+
+    private LocalDate registrationDate;
+
     private String bloodGroup;
     private String address;
     private String city;
@@ -30,7 +35,14 @@ public class PatientModel {
     private String existingDiseases;
     private String currentMedications;
 
-    public PatientModel(String fullName, String email, Long mobileNumber, String password, String gender, String dob) {
+    public PatientModel(
+            String fullName,
+            String email,
+            Long mobileNumber,
+            String password,
+            String gender,
+            String dob) {
+
         this.fullName = fullName;
         this.email = email;
         this.mobileNumber = mobileNumber;
@@ -40,7 +52,6 @@ public class PatientModel {
     }
 
     public PatientModel() {
-
     }
 
     public Long getId() {
@@ -99,6 +110,15 @@ public class PatientModel {
         this.dob = dob;
     }
 
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(
+            LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
     public String getBloodGroup() {
         return bloodGroup;
     }
@@ -143,7 +163,8 @@ public class PatientModel {
         return emergencyContact;
     }
 
-    public void setEmergencyContact(String emergencyContact) {
+    public void setEmergencyContact(
+            String emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
 
@@ -175,7 +196,8 @@ public class PatientModel {
         return existingDiseases;
     }
 
-    public void setExistingDiseases(String existingDiseases) {
+    public void setExistingDiseases(
+            String existingDiseases) {
         this.existingDiseases = existingDiseases;
     }
 
@@ -183,8 +205,8 @@ public class PatientModel {
         return currentMedications;
     }
 
-    public void setCurrentMedications(String currentMedications) {
+    public void setCurrentMedications(
+            String currentMedications) {
         this.currentMedications = currentMedications;
     }
-
 }

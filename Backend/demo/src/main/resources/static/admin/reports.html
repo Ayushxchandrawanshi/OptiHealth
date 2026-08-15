@@ -33,6 +33,7 @@
             --danger: #dc2626;
             --warning: #f59e0b;
             --info: #2563eb;
+            --purple: #7c3aed;
             --bg: #f5f7fb;
             --text: #64748b;
             --border: #e2e8f0;
@@ -226,6 +227,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
         }
 
         .profile img {
@@ -268,6 +270,7 @@
             height: 240px;
             border-radius: 50%;
             background: rgba(255, 255, 255, .08);
+            animation: floatShape 7s ease-in-out infinite;
         }
 
         .hero::after {
@@ -279,6 +282,19 @@
             height: 180px;
             border-radius: 50%;
             background: rgba(255, 255, 255, .08);
+            animation: floatShape 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatShape {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-16px) scale(1.05);
+            }
         }
 
         .hero * {
@@ -297,11 +313,69 @@
             max-width: 760px;
         }
 
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            background: rgba(255, 255, 255, .12);
+            padding: 9px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .live-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulseDot 1.6s infinite;
+        }
+
+        @keyframes pulseDot {
+            0% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, .6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 9px rgba(74, 222, 128, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+            }
+        }
+
+        .hero-meta .updated {
+            font-size: 13px;
+            opacity: .85;
+        }
+
         .report-wrapper {
             margin-top: 30px;
             display: flex;
             flex-direction: column;
             gap: 24px;
+        }
+
+        /* ===================== REVEAL ANIMATION ===================== */
+        .reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .cards {
@@ -318,11 +392,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: .3s;
+            transition: transform .3s, box-shadow .3s;
         }
 
         .report-card:hover {
             transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, .12);
         }
 
         .card-content h4 {
@@ -345,6 +420,29 @@
             font-weight: 600;
         }
 
+        .card-content p.neg {
+            color: var(--danger);
+        }
+
+        .spark {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .spark-line {
+            fill: none;
+            stroke-width: 2.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 220;
+            stroke-dashoffset: 220;
+            transition: stroke-dashoffset 1.3s ease .3s;
+        }
+
+        .visible .spark-line {
+            stroke-dashoffset: 0;
+        }
+
         .card-icon {
             width: 70px;
             height: 70px;
@@ -354,6 +452,12 @@
             justify-content: center;
             font-size: 28px;
             color: #fff;
+            flex-shrink: 0;
+            transition: transform .3s;
+        }
+
+        .report-card:hover .card-icon {
+            transform: scale(1.08) rotate(-4deg);
         }
 
         .revenue {
@@ -370,6 +474,50 @@
 
         .doctor {
             background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+        }
+
+        .occupancy {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        .satisfaction {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        /* ===================== INSIGHT BANNER ===================== */
+        .insight-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: #fff;
+            border-left: 4px solid var(--primary);
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .insight-banner .ico {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #ecfeff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .insight-banner h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .insight-banner p {
+            font-size: 13.5px;
+            color: var(--text);
+            line-height: 1.7;
         }
 
         .tools-bar {
@@ -395,6 +543,12 @@
             background: #fff;
             font-size: 14px;
             min-width: 180px;
+            transition: border-color .3s;
+        }
+
+        .filters select:focus,
+        .filters input:focus {
+            border-color: var(--primary);
         }
 
         .export-buttons {
@@ -411,6 +565,7 @@
             cursor: pointer;
             font-weight: 600;
             transition: .3s;
+            position: relative;
         }
 
         .pdf-btn {
@@ -423,6 +578,53 @@
 
         .export-buttons button:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, .18);
+        }
+
+        .export-buttons button.loading {
+            opacity: .8;
+            pointer-events: none;
+        }
+
+        .export-buttons button.loading i {
+            animation: spin .7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===================== CHART TABS ===================== */
+        .chart-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: #fff;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 10px 22px rgba(15, 118, 110, .25);
         }
 
         .chart-grid {
@@ -437,16 +639,129 @@
             border-radius: 20px;
             box-shadow: var(--shadow);
             overflow: hidden;
+            transition: opacity .35s ease, transform .35s ease, box-shadow .3s;
         }
 
-        .chart-card h3 {
+        .chart-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, .12);
+        }
+
+        .chart-card.fade-out {
+            opacity: 0;
+            transform: scale(.95);
+        }
+
+        .chart-card.gone {
+            display: none;
+        }
+
+        .chart-card.wide {
+            grid-column: 1 / -1;
+        }
+
+        .chart-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chart-card-head h3 {
             font-size: 20px;
+        }
+
+        .chart-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 13px;
+            border-radius: 20px;
+            background: #ecfeff;
+            color: var(--primary);
+            white-space: nowrap;
         }
 
         .chart-card canvas {
             width: 100% !important;
             height: 320px !important;
+        }
+
+        /* ===================== GOALS ===================== */
+        .goals-card {
+            background: #fff;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .goals-card h3 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        .goals-card>p {
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .goal-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 28px;
+            margin-top: 14px;
+        }
+
+        .goal-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .goal-top span:first-child {
+            color: var(--dark2);
+            font-weight: 500;
+        }
+
+        .goal-top span:last-child {
+            font-weight: 700;
+        }
+
+        .goal-bar {
+            height: 10px;
+            background: #eef2f7;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .goal-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 20px;
+            transition: width 1.4s cubic-bezier(.22, 1, .36, 1) .15s;
+        }
+
+        .visible .goal-fill {
+            width: var(--target);
+        }
+
+        .goal-fill.c1 {
+            background: linear-gradient(90deg, #0f766e, #14b8a6);
+        }
+
+        .goal-fill.c2 {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+        }
+
+        .goal-fill.c3 {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+
+        .goal-fill.c4 {
+            background: linear-gradient(90deg, #16a34a, #22c55e);
         }
 
         .table-card {
@@ -480,11 +795,33 @@
             white-space: nowrap;
         }
 
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th.sortable i {
+            margin-left: 6px;
+            font-size: 11px;
+            opacity: .45;
+            transition: .3s;
+        }
+
+        th.sortable.asc i,
+        th.sortable.desc i {
+            opacity: 1;
+            color: var(--primary);
+        }
+
         td {
             padding: 15px;
             border-bottom: 1px solid var(--border);
             font-size: 14px;
             white-space: nowrap;
+        }
+
+        tbody tr {
+            transition: background .25s;
         }
 
         .status {
@@ -506,6 +843,76 @@
 
         .low {
             background: #dc2626;
+        }
+
+        /* ===================== TOASTS ===================== */
+        #toastContainer {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 9999;
+            max-width: 320px;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            padding: 14px 20px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, .2);
+            font-size: 13.5px;
+            font-weight: 500;
+            border-left: 4px solid var(--success);
+            animation: toastIn .4s ease;
+        }
+
+        .toast.info {
+            border-left-color: var(--info);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+
+        .toast i {
+            font-size: 18px;
+            color: var(--success);
+        }
+
+        .toast.info i {
+            color: var(--info);
+        }
+
+        .toast.warning i {
+            color: var(--warning);
+        }
+
+        .toast.hide {
+            animation: toastOut .4s ease forwards;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(50px);
+            }
         }
 
         @media(max-width:1200px) {
@@ -567,6 +974,12 @@
             .profile div {
                 display: none;
             }
+
+            #toastContainer {
+                left: 16px;
+                right: 16px;
+                max-width: none;
+            }
         }
 
         @media(max-width:500px) {
@@ -584,6 +997,14 @@
                 gap: 15px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -591,6 +1012,9 @@
 </head>
 
 <body>
+
+
+    <div id="toastContainer"></div>
 
     <div class="page">
 
@@ -655,14 +1079,14 @@
 
                     <div class="notify">
                         <i class="fa-regular fa-bell"></i>
-                        <span>3</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img src="../assets/admin.png" alt="Admin">
                         <div>
-                            <h4>Admin</h4>
-                            <p>System Administrator</p>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
                         </div>
                     </div>
 
@@ -676,55 +1100,159 @@
                     <h1>Reports & Analytics 📊</h1>
                     <p>Analyze hospital revenue, appointments, doctors, departments and patient statistics using
                         interactive dashboards.</p>
+                    <div class="hero-meta">
+                        <span class="live-badge"><span class="dot"></span> Live Data</span>
+                        <span class="updated" id="lastUpdated">Last updated: --:--:--</span>
+                    </div>
                 </section>
 
                 <div class="report-wrapper">
+
                     <div class="cards">
 
-                        <div class="report-card">
+                        <div class="report-card reveal">
                             <div class="card-content">
                                 <h4>Total Revenue</h4>
-                                <h2>₹24.8L</h2>
-                                <p><i class="fa-solid fa-arrow-trend-up"></i> +12.6% This Month</p>
+                                <h2 id="totalRevenue">₹0</h2>
+
+                                <p>
+                                    <i class="fa-solid fa-database"></i>
+                                    From billing records
+                                </p>
+
+                                <svg class="spark" viewBox="0 0 90 24" width="90" height="24">
+                                    <polyline class="spark-line" style="stroke:var(--primary)"
+                                        points="0,20 15,16 30,18 45,10 60,13 75,6 90,9" />
+                                </svg>
                             </div>
-                            <div class="card-icon revenue">
-                                <i class="fa-solid fa-sack-dollar"></i>
-                            </div>
+                            <div class="card-icon revenue"><i class="fa-solid fa-sack-dollar"></i></div>
                         </div>
 
-                        <div class="report-card">
+                        <div class="report-card reveal">
                             <div class="card-content">
                                 <h4>Total Patients</h4>
-                                <h2>2,486</h2>
-                                <p><i class="fa-solid fa-arrow-trend-up"></i> +8.3% This Month</p>
+                                <h2 id="totalPatients">0</h2>
+
+                                <p>
+                                    <i class="fa-solid fa-database"></i>
+                                    From patient records
+                                </p>
+
+                                <svg class="spark" viewBox="0 0 90 24" width="90" height="24">
+                                    <polyline class="spark-line" style="stroke:var(--info)"
+                                        points="0,19 15,17 30,14 45,15 60,9 75,11 90,4" />
+                                </svg>
                             </div>
-                            <div class="card-icon patient">
-                                <i class="fa-solid fa-hospital-user"></i>
-                            </div>
+                            <div class="card-icon patient"><i class="fa-solid fa-hospital-user"></i></div>
                         </div>
 
-                        <div class="report-card">
+                        <div class="report-card reveal">
                             <div class="card-content">
                                 <h4>Appointments</h4>
-                                <h2>684</h2>
-                                <p><i class="fa-solid fa-calendar-check"></i> 27 Today</p>
+                                <h2 id="totalAppointments">0</h2>
+
+                                <p>
+                                    <i class="fa-solid fa-database"></i>
+                                    From appointment records
+                                </p>
+
+                                <svg class="spark" viewBox="0 0 90 24" width="90" height="24">
+                                    <polyline class="spark-line" style="stroke:var(--warning)"
+                                        points="0,10 15,15 30,8 45,17 60,11 75,18 90,6" />
+                                </svg>
                             </div>
-                            <div class="card-icon appointment">
-                                <i class="fa-solid fa-calendar-days"></i>
-                            </div>
+                            <div class="card-icon appointment"><i class="fa-solid fa-calendar-days"></i></div>
                         </div>
 
-                        <div class="report-card">
+                        <div class="report-card reveal">
                             <div class="card-content">
                                 <h4>Total Doctors</h4>
-                                <h2>54</h2>
-                                <p><i class="fa-solid fa-user-doctor"></i> 6 Departments</p>
+                                <h2 id="totalDoctors">0</h2>
+
+                                <p>
+                                    <i class="fa-solid fa-database"></i>
+                                    From doctor records
+                                </p>
+
+                                <svg class="spark" viewBox="0 0 90 24" width="90" height="24">
+                                    <polyline class="spark-line" style="stroke:var(--purple)"
+                                        points="0,16 15,14 30,15 45,10 60,12 75,7 90,9" />
+                                </svg>
                             </div>
-                            <div class="card-icon doctor">
-                                <i class="fa-solid fa-user-doctor"></i>
+                            <div class="card-icon doctor"><i class="fa-solid fa-user-doctor"></i></div>
+                        </div>
+
+                        <div class="report-card reveal">
+                            <div class="card-content">
+
+                                <h4>Appointment Completion Rate</h4>
+
+                                <h2 id="appointmentCompletionRate">
+                                    0%
+                                </h2>
+
+                                <p>
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    Based on completed appointments
+                                </p>
+
+                                <svg class="spark" viewBox="0 0 90 24" width="90" height="24">
+
+                                    <polyline class="spark-line" style="stroke:var(--success)"
+                                        points="0,18 15,16 30,17 45,13 60,11 75,8 90,6" />
+
+                                </svg>
+
+                            </div>
+
+                            <div class="card-icon occupancy">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="report-card reveal">
+                            <div class="card-content">
+
+                                <h4>Patient Satisfaction</h4>
+
+                                <h2 id="patientSatisfaction">
+                                    0/5
+                                </h2>
+
+                                <p>
+                                    <i class="fa-solid fa-star"></i>
+                                    Based on patient feedback
+                                </p>
+
+                                <svg class="spark" viewBox="0 0 90 24" width="90" height="24">
+
+                                    <polyline class="spark-line" style="stroke:var(--info)"
+                                        points="0,17 15,15 30,16 45,11 60,12 75,9 90,5" />
+
+                                </svg>
+
+                            </div>
+
+                            <div class="card-icon satisfaction">
+                                <i class="fa-solid fa-star"></i>
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="insight-banner reveal">
+                        <div class="ico">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <div>
+                            <h4>Analytics Summary</h4>
+
+                            <p id="analyticsInsight">
+                                Analytics will be generated from current hospital data.
+                            </p>
+                        </div>
                     </div>
 
                     <div class="tools-bar">
@@ -732,18 +1260,11 @@
                         <div class="filters">
 
                             <select id="yearFilter">
-                                <option>2026</option>
-                                <option>2025</option>
-                                <option>2024</option>
+                                <option value="">All Years</option>
                             </select>
 
                             <select id="departmentFilter">
-                                <option>All Departments</option>
-                                <option>Cardiology</option>
-                                <option>Neurology</option>
-                                <option>Orthopedics</option>
-                                <option>Pediatrics</option>
-                                <option>Dermatology</option>
+                                <option value="all">All Departments</option>
                             </select>
 
                             <input type="month" id="monthFilter">
@@ -766,113 +1287,110 @@
 
                     </div>
 
+                    <div class="chart-tabs">
+                        <button class="tab-btn active" data-filter="all">All Reports</button>
+                        <button class="tab-btn" data-filter="financial">Financial</button>
+                        <button class="tab-btn" data-filter="clinical">Clinical</button>
+                        <button class="tab-btn" data-filter="doctors">Doctors</button>
+                    </div>
+
                     <div class="chart-grid">
 
-                        <div class="chart-card">
-
-                            <h3>Monthly Revenue</h3>
-
+                        <div class="chart-card reveal" data-category="financial">
+                            <div class="chart-card-head">
+                                <h3>Monthly Revenue</h3>
+                                <span class="chart-badge" id="revenueChartBadge">
+                                    Database
+                                </span>
+                            </div>
                             <canvas id="revenueChart"></canvas>
-
                         </div>
 
-                        <div class="chart-card">
-
-                            <h3>Appointments Overview</h3>
-
+                        <div class="chart-card reveal" data-category="clinical">
+                            <div class="chart-card-head">
+                                <h3>Appointments Overview</h3>
+                                <span class="chart-badge">
+                                    Database
+                                </span>
+                            </div>
                             <canvas id="appointmentChart"></canvas>
-
                         </div>
 
-                        <div class="chart-card">
-
-                            <h3>Department Performance</h3>
-
+                        <div class="chart-card reveal" data-category="financial clinical">
+                            <div class="chart-card-head">
+                                <h3>Department Performance</h3>
+                                <span class="chart-badge">Live</span>
+                            </div>
                             <canvas id="departmentChart"></canvas>
-
                         </div>
 
-                        <div class="chart-card">
-
-                            <h3>Patient Growth</h3>
-
+                        <div class="chart-card reveal" data-category="clinical">
+                            <div class="chart-card-head">
+                                <h3>Patient Growth</h3>
+                                <span class="chart-badge">
+                                    Current Data
+                                </span>
+                            </div>
                             <canvas id="patientChart"></canvas>
+                        </div>
 
+                        <div class="chart-card reveal" data-category="financial">
+                            <div class="chart-card-head">
+                                <h3>Revenue by Payment Method</h3>
+                                <span class="chart-badge">
+                                    Billing Data
+                                </span>
+                            </div>
+                            <canvas id="paymentChart"></canvas>
+                        </div>
+
+                        <div class="chart-card reveal" data-category="doctors">
+                            <div class="chart-card-head">
+                                <h3>Doctor Performance</h3>
+                                <span class="chart-badge">
+                                    Calculated
+                                </span>
+                            </div>
+                            <canvas id="doctorRadarChart"></canvas>
+                        </div>
+
+                        <div class="chart-card reveal wide" data-category="clinical">
+                            <div class="chart-card-head">
+                                <h3>Weekly Appointment Status</h3>
+                                <span class="chart-badge">Completed · Cancelled · Pending</span>
+                            </div>
+                            <canvas id="weeklyStatusChart"></canvas>
                         </div>
 
                     </div>
 
-                    <div class="table-card">
+                    <div class="table-card reveal">
 
                         <h3>Department Statistics</h3>
 
                         <div class="table-container">
 
-                            <table>
+                            <table id="deptTable">
 
                                 <thead>
 
                                     <tr>
-
-                                        <th>Department</th>
-                                        <th>Doctors</th>
-                                        <th>Patients</th>
-                                        <th>Appointments</th>
-                                        <th>Revenue</th>
+                                        <th class="sortable" data-type="text">Department <i
+                                                class="fa-solid fa-sort"></i></th>
+                                        <th class="sortable" data-type="number">Doctors <i class="fa-solid fa-sort"></i>
+                                        </th>
+                                        <th class="sortable" data-type="number">Patients <i
+                                                class="fa-solid fa-sort"></i></th>
+                                        <th class="sortable" data-type="number">Appointments <i
+                                                class="fa-solid fa-sort"></i></th>
+                                        <th class="sortable" data-type="number">Revenue <i class="fa-solid fa-sort"></i>
+                                        </th>
                                         <th>Performance</th>
-
                                     </tr>
 
                                 </thead>
 
-                                <tbody>
-
-                                    <tr>
-                                        <td>Cardiology</td>
-                                        <td>12</td>
-                                        <td>245</td>
-                                        <td>168</td>
-                                        <td>₹8,20,000</td>
-                                        <td><span class="status good">Excellent</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Neurology</td>
-                                        <td>10</td>
-                                        <td>191</td>
-                                        <td>124</td>
-                                        <td>₹6,45,000</td>
-                                        <td><span class="status good">Excellent</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Orthopedics</td>
-                                        <td>8</td>
-                                        <td>140</td>
-                                        <td>96</td>
-                                        <td>₹4,80,000</td>
-                                        <td><span class="status average">Good</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Pediatrics</td>
-                                        <td>9</td>
-                                        <td>210</td>
-                                        <td>142</td>
-                                        <td>₹3,95,000</td>
-                                        <td><span class="status good">Excellent</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Dermatology</td>
-                                        <td>6</td>
-                                        <td>98</td>
-                                        <td>73</td>
-                                        <td>₹2,10,000</td>
-                                        <td><span class="status low">Average</span></td>
-                                    </tr>
-
-                                </tbody>
+                                <tbody id="departmentTableBody"></tbody>
 
                             </table>
 
@@ -880,74 +1398,41 @@
 
                     </div>
 
-                    <div class="table-card">
+                    <div class="table-card reveal">
 
                         <h3>Top Performing Doctors</h3>
 
                         <div class="table-container">
 
-                            <table>
+                            <table id="doctorTable">
 
                                 <thead>
 
                                     <tr>
-
-                                        <th>Doctor</th>
-                                        <th>Department</th>
-                                        <th>Patients</th>
-                                        <th>Appointments</th>
-                                        <th>Rating</th>
-                                        <th>Revenue</th>
-
+                                        <th class="sortable" data-type="text">Doctor <i class="fa-solid fa-sort"></i>
+                                        </th>
+                                        <th class="sortable" data-type="text">Department <i
+                                                class="fa-solid fa-sort"></i></th>
+                                        <th class="sortable" data-type="number">Patients <i
+                                                class="fa-solid fa-sort"></i></th>
+                                        <th class="sortable" data-type="number">Appointments <i
+                                                class="fa-solid fa-sort"></i></th>
+                                        <th class="sortable" data-type="number">Rating <i class="fa-solid fa-sort"></i>
+                                        </th>
+                                        <th class="sortable" data-type="number">Revenue <i class="fa-solid fa-sort"></i>
+                                        </th>
                                     </tr>
 
                                 </thead>
 
-                                <tbody>
-
-                                    <tr>
-                                        <td>Dr. Rahul Sharma</td>
-                                        <td>Cardiology</td>
-                                        <td>182</td>
-                                        <td>146</td>
-                                        <td>4.9 ⭐</td>
-                                        <td>₹4,25,000</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Dr. Neha Gupta</td>
-                                        <td>Neurology</td>
-                                        <td>161</td>
-                                        <td>128</td>
-                                        <td>4.8 ⭐</td>
-                                        <td>₹3,80,000</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Dr. Raj Patel</td>
-                                        <td>Orthopedics</td>
-                                        <td>145</td>
-                                        <td>119</td>
-                                        <td>4.7 ⭐</td>
-                                        <td>₹3,15,000</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Dr. Pooja Verma</td>
-                                        <td>Pediatrics</td>
-                                        <td>172</td>
-                                        <td>134</td>
-                                        <td>4.9 ⭐</td>
-                                        <td>₹3,42,000</td>
-                                    </tr>
-
-                                </tbody>
+                                <tbody id="doctorTableBody"></tbody>
 
                             </table>
 
                         </div>
 
                     </div>
+
                 </div>
 
             </main>
@@ -957,179 +1442,2914 @@
     </div>
 
     <script>
-        const menuBtn = document.querySelector(".menu-btn");
-        const sidebar = document.querySelector(".sidebar");
-        const searchInput = document.querySelector(".search-box input");
-        const yearFilter = document.getElementById("yearFilter");
-        const departmentFilter = document.getElementById("departmentFilter");
-        const monthFilter = document.getElementById("monthFilter");
-        const pdfBtn = document.querySelector(".pdf-btn");
-        const excelBtn = document.querySelector(".excel-btn");
+        const API_BASE_URL = "http://localhost:8080";
 
-        menuBtn.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const state = {
+            analytics: null,
+            charts: {},
+            selectedYear: new Date().getFullYear(),
+            selectedDepartment: "all",
+            selectedMonth: ""
+        };
+
+        const elements = {
+            menuBtn: document.querySelector(".menu-btn"),
+            sidebar: document.querySelector(".sidebar"),
+            profile: document.querySelector(".profile"),
+            searchInput: document.querySelector(".search-box input"),
+            yearFilter: document.getElementById("yearFilter"),
+            departmentFilter: document.getElementById("departmentFilter"),
+            monthFilter: document.getElementById("monthFilter"),
+            totalRevenue: document.getElementById("totalRevenue"),
+            totalPatients: document.getElementById("totalPatients"),
+            totalAppointments: document.getElementById("totalAppointments"),
+            totalDoctors: document.getElementById("totalDoctors"),
+            appointmentCompletionRate: document.getElementById("appointmentCompletionRate"),
+            patientSatisfaction: document.getElementById("patientSatisfaction"),
+            analyticsInsight: document.getElementById("analyticsInsight"),
+            adminName: document.getElementById("adminName"),
+            adminRole: document.getElementById("adminRole"),
+            notificationCount: document.getElementById("notificationCount"),
+            lastUpdated: document.getElementById("lastUpdated"),
+            revenueChart: document.getElementById("revenueChart"),
+            appointmentChart: document.getElementById("appointmentChart"),
+            departmentChart: document.getElementById("departmentChart"),
+            patientChart: document.getElementById("patientChart"),
+            paymentChart: document.getElementById("paymentChart"),
+            doctorRadarChart: document.getElementById("doctorRadarChart"),
+            weeklyStatusChart: document.getElementById("weeklyStatusChart"),
+            revenueChartBadge: document.getElementById("revenueChartBadge"),
+            departmentTableBody: document.getElementById("departmentTableBody"),
+            doctorTableBody: document.getElementById("doctorTableBody"),
+            pdfBtn: document.querySelector(".pdf-btn"),
+            excelBtn: document.querySelector(".excel-btn")
+        };
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeReports
+        );
+
+        async function initializeReports() {
+            setupSidebar();
+            setupProfile();
+            setupFilters();
+            setupChartTabs();
+            setupSearch();
+            setupExports();
+            setupTableSorting();
+            setupNotifications();
+            setupYearFilter();
+            loadAdminProfile();
+            setupRevealAnimation();
+            initializeChartDefaults();
+            await loadAnalytics();
+        }
+
+        function setupYearFilter() {
+            if (!elements.yearFilter) {
+                return;
             }
-        });
 
-        document.addEventListener("click", e => {
-            if (window.innerWidth <= 900) {
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+            const currentYear =
+                new Date().getFullYear();
+
+            elements.yearFilter.innerHTML = "";
+
+            for (
+                let year = currentYear;
+                year >= currentYear - 4;
+                year--
+            ) {
+                const option =
+                    document.createElement("option");
+
+                option.value = year;
+                option.textContent = year;
+
+                elements.yearFilter.appendChild(
+                    option
+                );
+            }
+
+            elements.yearFilter.value =
+                state.selectedYear;
+        }
+
+        async function loadAnalytics() {
+            try {
+                const params =
+                    new URLSearchParams();
+
+                if (
+                    state.selectedYear !== null &&
+                    state.selectedYear !== undefined
+                ) {
+                    params.set(
+                        "year",
+                        state.selectedYear
+                    );
                 }
-            }
-        });
 
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
+                if (
+                    state.selectedDepartment &&
+                    state.selectedDepartment !== "all"
+                ) {
+                    params.set(
+                        "department",
+                        state.selectedDepartment
+                    );
+                }
+
+                const url =
+                    `${API_BASE_URL}/api/reports/analytics?${params.toString()}`;
+
+                console.log(
+                    "Reports API:",
+                    url
+                );
+
+                const response =
+                    await fetch(
+                        url,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `API Error: ${response.status}`
+                    );
+                }
+
+                state.analytics =
+                    await response.json();
+
+                console.log(
+                    "Reports Data:",
+                    state.analytics
+                );
+
+                renderAnalytics();
+                updateLastUpdated();
+
+            } catch (error) {
+                console.error(
+                    "Reports loading error:",
+                    error
+                );
+
+                showErrorState(
+                    "Unable to load reports from backend."
+                );
+            }
+        }
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type":
+                    "application/json"
+            };
+
+            const token =
+                localStorage.getItem("token");
+
+            if (token) {
+                headers.Authorization =
+                    `Bearer ${token}`;
+            }
+
+            return headers;
+        }
+
+        function renderAnalytics() {
+            if (!state.analytics) {
+                return;
+            }
+
+            renderKPIs();
+            renderInsight();
+            populateDepartmentFilter();
+            renderDepartmentTable();
+            renderDoctorTable();
+            renderRevenueChart();
+            renderAppointmentChart();
+            renderDepartmentChart();
+            renderPatientChart();
+            renderPaymentChart();
+            renderDoctorPerformanceChart();
+            renderWeeklyStatusChart();
+            updateNotificationCount();
+            animateCards();
+        }
+
+        function renderKPIs() {
+            const data =
+                state.analytics;
+
+            animateNumber(
+                elements.totalRevenue,
+                Number(
+                    data.totalRevenue || 0
+                ),
+                "₹",
+                "",
+                0
+            );
+
+            animateNumber(
+                elements.totalPatients,
+                Number(
+                    data.totalPatients || 0
+                ),
+                "",
+                "",
+                0
+            );
+
+            animateNumber(
+                elements.totalAppointments,
+                Number(
+                    data.totalAppointments || 0
+                ),
+                "",
+                "",
+                0
+            );
+
+            animateNumber(
+                elements.totalDoctors,
+                Number(
+                    data.totalDoctors || 0
+                ),
+                "",
+                "",
+                0
+            );
+
+            animateNumber(
+                elements.appointmentCompletionRate,
+                Number(
+                    data.appointmentCompletionRate || 0
+                ),
+                "",
+                "%",
+                1
+            );
+
+            animateNumber(
+                elements.patientSatisfaction,
+                Number(
+                    data.patientSatisfaction || 0
+                ),
+                "",
+                "/5",
+                1
+            );
+        }
+
+        function renderInsight() {
+            if (!elements.analyticsInsight) {
+                return;
+            }
+
+            elements.analyticsInsight.textContent =
+                state.analytics.analyticsInsight ||
+                "Analytics generated from current hospital data.";
+        }
+
+        function populateDepartmentFilter() {
+            if (!elements.departmentFilter) {
+                return;
+            }
+
+            const departments =
+                state.analytics.departmentPerformance ||
+                [];
+
+            const current =
+                state.selectedDepartment;
+
+            elements.departmentFilter.innerHTML = `
+        <option value="all">
+            All Departments
+        </option>
+    `;
+
+            departments.forEach(
+                department => {
+                    if (!department.departmentName) {
+                        return;
+                    }
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value =
+                        department.departmentName;
+
+                    option.textContent =
+                        department.departmentName;
+
+                    elements.departmentFilter.appendChild(
+                        option
+                    );
+                }
+            );
+
+            const exists =
+                Array.from(
+                    elements.departmentFilter.options
+                ).some(
+                    option =>
+                        option.value === current
+                );
+
+            if (exists) {
+                elements.departmentFilter.value =
+                    current;
             } else {
-                sidebar.style.left = "-270px";
+                elements.departmentFilter.value =
+                    "all";
+
+                state.selectedDepartment =
+                    "all";
             }
-        });
+        }
 
-        document.querySelector(".profile").addEventListener("click", () => {
-            window.location.href = "profile.html";
-        });
+        function setupFilters() {
+            if (elements.yearFilter) {
+                elements.yearFilter.addEventListener(
+                    "change",
+                    async function () {
+                        state.selectedYear =
+                            Number(this.value);
 
-        searchInput.addEventListener("keyup", () => {
+                        await loadAnalytics();
+                    }
+                );
+            }
 
-            const value = searchInput.value.toLowerCase();
+            if (elements.departmentFilter) {
+                elements.departmentFilter.addEventListener(
+                    "change",
+                    async function () {
+                        state.selectedDepartment =
+                            this.value;
 
-            document.querySelectorAll("tbody tr").forEach(row => {
+                        await loadAnalytics();
+                    }
+                );
+            }
 
-                row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+            if (elements.monthFilter) {
+                elements.monthFilter.addEventListener(
+                    "change",
+                    function () {
+                        state.selectedMonth =
+                            this.value;
 
-            });
+                        applyMonthHighlight();
+                    }
+                );
+            }
+        }
 
-        });
+        function applyMonthHighlight() {
+            const chart =
+                state.charts.revenueChart;
 
-        yearFilter.addEventListener("change", () => {
-            alert("Year : " + yearFilter.value);
-        });
+            if (
+                !chart ||
+                !state.selectedMonth
+            ) {
+                return;
+            }
 
-        departmentFilter.addEventListener("change", () => {
-            alert("Department : " + departmentFilter.value);
-        });
+            const parts =
+                state.selectedMonth.split("-");
 
-        monthFilter.addEventListener("change", () => {
-            alert("Month : " + monthFilter.value);
-        });
+            const selectedMonth =
+                Number(parts[1]) - 1;
 
-        pdfBtn.addEventListener("click", () => {
-            alert("PDF Report Generated Successfully.");
-        });
+            const labels =
+                chart.data.labels;
 
-        excelBtn.addEventListener("click", () => {
-            alert("Excel Report Generated Successfully.");
-        });
+            chart.data.datasets[0]
+                .backgroundColor =
+                labels.map(
+                    (_, index) => {
+                        const color =
+                            getChartColor(index);
 
-        document.querySelectorAll("tbody tr").forEach(row => {
+                        return index === selectedMonth
+                            ? color
+                            : hexToRgba(
+                                color,
+                                0.30
+                            );
+                    }
+                );
 
-            row.addEventListener("mouseenter", () => {
-                row.style.background = "#f8fbff";
-            });
+            chart.update();
+        }
 
-            row.addEventListener("mouseleave", () => {
-                row.style.background = "transparent";
-            });
+        function renderRevenueChart() {
+            const data =
+                state.analytics.monthlyRevenue ||
+                [];
 
-        });
+            const labels =
+                data.map(
+                    item =>
+                        formatMonthName(
+                            item.month
+                        )
+                );
 
-        new Chart(document.getElementById("revenueChart"), {
-            type: "bar",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-                datasets: [{
-                    label: "Revenue",
-                    data: [12, 15, 18, 16, 22, 24, 27],
-                    backgroundColor: [
-                        "#0f766e",
-                        "#14b8a6",
-                        "#2563eb",
-                        "#3b82f6",
-                        "#7c3aed",
-                        "#f59e0b",
-                        "#16a34a"
-                    ],
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
+            const values =
+                data.map(
+                    item =>
+                        Number(
+                            item.revenue || 0
+                        ) / 100000
+                );
+
+            destroyChart("revenueChart");
+
+            state.charts.revenueChart =
+                new Chart(
+                    elements.revenueChart,
+                    {
+                        type: "bar",
+
+                        data: {
+                            labels,
+
+                            datasets: [
+                                {
+                                    label:
+                                        "Revenue (₹ Lakh)",
+
+                                    data:
+                                        values,
+
+                                    backgroundColor:
+                                        labels.map(
+                                            (_, index) =>
+                                                getChartColor(
+                                                    index
+                                                )
+                                        ),
+
+                                    borderRadius:
+                                        8,
+
+                                    maxBarThickness:
+                                        48
+                                }
+                            ]
+                        },
+
+                        options:
+                            getBaseChartOptions(
+                                "Revenue (₹ Lakh)"
+                            )
+                    }
+                );
+
+            if (elements.revenueChartBadge) {
+                elements.revenueChartBadge.textContent =
+                    formatCurrency(
+                        state.analytics.totalRevenue || 0
+                    );
+            }
+
+            applyMonthHighlight();
+        }
+
+        function renderAppointmentChart() {
+            const status =
+                state.analytics.appointmentStatus ||
+                {};
+
+            const labels = [
+                "Pending",
+                "Accepted",
+                "Completed",
+                "Rejected"
+            ];
+
+            const values = [
+                Number(status.PENDING || 0),
+                Number(status.ACCEPTED || 0),
+                Number(status.COMPLETED || 0),
+                Number(status.REJECTED || 0)
+            ];
+
+            destroyChart("appointmentChart");
+
+            state.charts.appointmentChart =
+                new Chart(
+                    elements.appointmentChart,
+                    {
+                        type: "bar",
+
+                        data: {
+                            labels,
+
+                            datasets: [
+                                {
+                                    label:
+                                        "Appointments",
+
+                                    data:
+                                        values,
+
+                                    backgroundColor: [
+                                        "#f59e0b",
+                                        "#2563eb",
+                                        "#16a34a",
+                                        "#dc2626"
+                                    ],
+
+                                    borderRadius:
+                                        8,
+
+                                    maxBarThickness:
+                                        48
+                                }
+                            ]
+                        },
+
+                        options: {
+                            ...getBaseChartOptions(
+                                "Appointments"
+                            ),
+
+                            plugins: {
+                                legend: {
+                                    display:
+                                        false
+                                }
+                            }
+                        }
+                    }
+                );
+        }
+
+        function renderDepartmentChart() {
+            const departments =
+                state.analytics.departmentPerformance ||
+                [];
+
+            const labels =
+                departments.map(
+                    department =>
+                        department.departmentName
+                );
+
+            const values =
+                departments.map(
+                    department =>
+                        Number(
+                            department.appointmentCount ||
+                            0
+                        )
+                );
+
+            destroyChart("departmentChart");
+
+            state.charts.departmentChart =
+                new Chart(
+                    elements.departmentChart,
+                    {
+                        type: "doughnut",
+
+                        data: {
+                            labels,
+
+                            datasets: [
+                                {
+                                    data:
+                                        values,
+
+                                    backgroundColor:
+                                        labels.map(
+                                            (_, index) =>
+                                                getChartColor(
+                                                    index
+                                                )
+                                        ),
+
+                                    borderColor:
+                                        "#ffffff",
+
+                                    borderWidth:
+                                        3,
+
+                                    hoverOffset:
+                                        10
+                                }
+                            ]
+                        },
+
+                        options: {
+                            responsive:
+                                true,
+
+                            maintainAspectRatio:
+                                false,
+
+                            cutout:
+                                "60%",
+
+                            animation: {
+                                duration:
+                                    1200
+                            },
+
+                            plugins: {
+                                legend: {
+                                    position:
+                                        "bottom",
+
+                                    labels: {
+                                        padding:
+                                            15,
+
+                                        usePointStyle:
+                                            true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+        }
+
+        function renderPatientChart() {
+            const data =
+                state.analytics.patientGrowth ||
+                [];
+
+            const labels =
+                data.map(
+                    item =>
+                        formatMonthName(
+                            item.month
+                        )
+                );
+
+            const values =
+                data.map(
+                    item =>
+                        Number(
+                            item.patientCount || 0
+                        )
+                );
+
+            destroyChart("patientChart");
+
+            state.charts.patientChart =
+                new Chart(
+                    elements.patientChart,
+                    {
+                        type: "line",
+
+                        data: {
+                            labels,
+
+                            datasets: [
+                                {
+                                    label:
+                                        "Patients",
+
+                                    data:
+                                        values,
+
+                                    borderColor:
+                                        "#16a34a",
+
+                                    backgroundColor:
+                                        "rgba(22,163,74,.12)",
+
+                                    fill:
+                                        true,
+
+                                    tension:
+                                        0.4,
+
+                                    pointRadius:
+                                        4,
+
+                                    pointBackgroundColor:
+                                        "#16a34a"
+                                }
+                            ]
+                        },
+
+                        options:
+                            getLineChartOptions(
+                                "Patients"
+                            )
+                    }
+                );
+        }
+
+        function renderPaymentChart() {
+            const paymentData =
+                state.analytics.paymentMethodRevenue ||
+                {};
+
+            const labels =
+                Object.keys(
+                    paymentData
+                );
+
+            const values =
+                Object.values(
+                    paymentData
+                ).map(
+                    value =>
+                        Number(
+                            value || 0
+                        )
+                );
+
+            destroyChart("paymentChart");
+
+            state.charts.paymentChart =
+                new Chart(
+                    elements.paymentChart,
+                    {
+                        type: "polarArea",
+
+                        data: {
+                            labels,
+
+                            datasets: [
+                                {
+                                    data:
+                                        values,
+
+                                    backgroundColor:
+                                        labels.map(
+                                            (_, index) =>
+                                                getTransparentColor(
+                                                    index
+                                                )
+                                        ),
+
+                                    borderWidth:
+                                        2,
+
+                                    borderColor:
+                                        "#ffffff"
+                                }
+                            ]
+                        },
+
+                        options: {
+                            responsive:
+                                true,
+
+                            maintainAspectRatio:
+                                false,
+
+                            animation: {
+                                duration:
+                                    1200
+                            },
+
+                            plugins: {
+                                legend: {
+                                    position:
+                                        "bottom",
+
+                                    labels: {
+                                        padding:
+                                            15,
+
+                                        usePointStyle:
+                                            true
+                                    }
+                                }
+                            },
+
+                            scales: {
+                                r: {
+                                    ticks: {
+                                        display:
+                                            false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+        }
+
+        function renderDoctorPerformanceChart() {
+            const doctors =
+                state.analytics.doctorPerformance ||
+                [];
+
+            const topDoctors =
+                [...doctors]
+                    .sort(
+                        (a, b) =>
+                            Number(
+                                b.appointmentCount || 0
+                            ) -
+                            Number(
+                                a.appointmentCount || 0
+                            )
+                    )
+                    .slice(0, 3);
+
+            destroyChart(
+                "doctorRadarChart"
+            );
+
+            if (topDoctors.length === 0) {
+                return;
+            }
+
+            const maxPatients =
+                Math.max(
+                    ...topDoctors.map(
+                        doctor =>
+                            Number(
+                                doctor.patientCount || 0
+                            )
+                    ),
+                    1
+                );
+
+            const maxAppointments =
+                Math.max(
+                    ...topDoctors.map(
+                        doctor =>
+                            Number(
+                                doctor.appointmentCount || 0
+                            )
+                    ),
+                    1
+                );
+
+            const maxRevenue =
+                Math.max(
+                    ...topDoctors.map(
+                        doctor =>
+                            Number(
+                                doctor.revenue || 0
+                            )
+                    ),
+                    1
+                );
+
+            const datasets =
+                topDoctors.map(
+                    (doctor, index) => {
+                        const color =
+                            getChartColor(index);
+
+                        return {
+                            label:
+                                doctor.doctorName ||
+                                "Doctor",
+
+                            data: [
+                                normalize(
+                                    Number(
+                                        doctor.patientCount || 0
+                                    ),
+                                    maxPatients
+                                ),
+
+                                normalize(
+                                    Number(
+                                        doctor.appointmentCount || 0
+                                    ),
+                                    maxAppointments
+                                ),
+
+                                normalize(
+                                    Number(
+                                        doctor.rating || 0
+                                    ),
+                                    5
+                                ),
+
+                                normalize(
+                                    Number(
+                                        doctor.revenue || 0
+                                    ),
+                                    maxRevenue
+                                )
+                            ],
+
+                            borderColor:
+                                color,
+
+                            backgroundColor:
+                                hexToRgba(
+                                    color,
+                                    0.12
+                                ),
+
+                            pointBackgroundColor:
+                                color,
+
+                            borderWidth:
+                                2
+                        };
+                    }
+                );
+
+            state.charts.doctorRadarChart =
+                new Chart(
+                    elements.doctorRadarChart,
+                    {
+                        type: "radar",
+
+                        data: {
+                            labels: [
+                                "Patients",
+                                "Appointments",
+                                "Rating",
+                                "Revenue"
+                            ],
+
+                            datasets
+                        },
+
+                        options: {
+                            responsive:
+                                true,
+
+                            maintainAspectRatio:
+                                false,
+
+                            scales: {
+                                r: {
+                                    beginAtZero:
+                                        true,
+
+                                    min:
+                                        0,
+
+                                    max:
+                                        100,
+
+                                    ticks: {
+                                        stepSize:
+                                            20
+                                    }
+                                }
+                            },
+
+                            plugins: {
+                                legend: {
+                                    position:
+                                        "bottom",
+
+                                    labels: {
+                                        padding:
+                                            15,
+
+                                        usePointStyle:
+                                            true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+        }
+
+        function renderWeeklyStatusChart() {
+            const data =
+                state.analytics.weeklyAppointmentStatus ||
+                [];
+
+            const labels =
+                data.map(
+                    item =>
+                        formatDayName(
+                            item.day
+                        )
+                );
+
+            const completed =
+                data.map(
+                    item =>
+                        Number(
+                            item.completed || 0
+                        )
+                );
+
+            const cancelled =
+                data.map(
+                    item =>
+                        Number(
+                            item.cancelled || 0
+                        )
+                );
+
+            const pending =
+                data.map(
+                    item =>
+                        Number(
+                            item.pending || 0
+                        )
+                );
+
+            destroyChart(
+                "weeklyStatusChart"
+            );
+
+            state.charts.weeklyStatusChart =
+                new Chart(
+                    elements.weeklyStatusChart,
+                    {
+                        type: "bar",
+
+                        data: {
+                            labels,
+
+                            datasets: [
+                                {
+                                    label:
+                                        "Completed",
+
+                                    data:
+                                        completed,
+
+                                    backgroundColor:
+                                        "#16a34a",
+
+                                    borderRadius:
+                                        6
+                                },
+
+                                {
+                                    label:
+                                        "Cancelled",
+
+                                    data:
+                                        cancelled,
+
+                                    backgroundColor:
+                                        "#dc2626",
+
+                                    borderRadius:
+                                        6
+                                },
+
+                                {
+                                    label:
+                                        "Pending",
+
+                                    data:
+                                        pending,
+
+                                    backgroundColor:
+                                        "#f59e0b",
+
+                                    borderRadius:
+                                        6
+                                }
+                            ]
+                        },
+
+                        options: {
+                            responsive:
+                                true,
+
+                            maintainAspectRatio:
+                                false,
+
+                            scales: {
+                                x: {
+                                    stacked:
+                                        true,
+
+                                    grid: {
+                                        display:
+                                            false
+                                    }
+                                },
+
+                                y: {
+                                    stacked:
+                                        true,
+
+                                    beginAtZero:
+                                        true
+                                }
+                            },
+
+                            plugins: {
+                                legend: {
+                                    position:
+                                        "bottom",
+
+                                    labels: {
+                                        padding:
+                                            15,
+
+                                        usePointStyle:
+                                            true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+        }
+
+        function renderDepartmentTable() {
+            const tbody =
+                elements.departmentTableBody;
+
+            if (!tbody) {
+                return;
+            }
+
+            const departments =
+                state.analytics.departmentPerformance ||
+                [];
+
+            tbody.innerHTML = "";
+
+            if (!departments.length) {
+                tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#64748b;
+                    "
+                >
+                    No department data available.
+                </td>
+            </tr>
+        `;
+
+                return;
+            }
+
+            departments.forEach(
+                department => {
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    const performance =
+                        department.performance ||
+                        "Average";
+
+                    row.innerHTML = `
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                        department.departmentName ||
+                        "--"
+                    )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${formatNumber(
+                        department.doctorCount
+                    )}
+                </td>
+
+                <td>
+                    ${formatNumber(
+                        department.patientCount
+                    )}
+                </td>
+
+                <td>
+                    ${formatNumber(
+                        department.appointmentCount
+                    )}
+                </td>
+
+                <td>
+                    ${formatCurrency(
+                        department.revenue
+                    )}
+                </td>
+
+                <td>
+                    <span
+                        class="status ${getPerformanceClass(
+                        performance
+                    )}"
+                    >
+                        ${escapeHtml(
+                        performance
+                    )}
+                    </span>
+                </td>
+            `;
+
+                    tbody.appendChild(
+                        row
+                    );
+                }
+            );
+        }
+
+        function renderDoctorTable() {
+            const tbody =
+                elements.doctorTableBody;
+
+            if (!tbody) {
+                return;
+            }
+
+            const doctors =
+                state.analytics.doctorPerformance ||
+                [];
+
+            tbody.innerHTML = "";
+
+            if (!doctors.length) {
+                tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#64748b;
+                    "
+                >
+                    No doctor performance data available.
+                </td>
+            </tr>
+        `;
+
+                return;
+            }
+
+            const sortedDoctors =
+                [...doctors].sort(
+                    (a, b) =>
+                        Number(
+                            b.appointmentCount || 0
+                        ) -
+                        Number(
+                            a.appointmentCount || 0
+                        )
+                );
+
+            sortedDoctors.forEach(
+                doctor => {
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    row.innerHTML = `
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                        doctor.doctorName ||
+                        "--"
+                    )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        doctor.department ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    ${formatNumber(
+                        doctor.patientCount
+                    )}
+                </td>
+
+                <td>
+                    ${formatNumber(
+                        doctor.appointmentCount
+                    )}
+                </td>
+
+                <td>
+                    ${Number(
+                        doctor.rating || 0
+                    ).toFixed(1)}
+                    ⭐
+                </td>
+
+                <td>
+                    ${formatCurrency(
+                        doctor.revenue
+                    )}
+                </td>
+            `;
+
+                    tbody.appendChild(
+                        row
+                    );
+                }
+            );
+        }
+
+        function setupChartTabs() {
+            const buttons =
+                document.querySelectorAll(
+                    ".tab-btn"
+                );
+
+            const cards =
+                document.querySelectorAll(
+                    ".chart-card"
+                );
+
+            buttons.forEach(
+                button => {
+                    button.addEventListener(
+                        "click",
+                        function () {
+                            buttons.forEach(
+                                item =>
+                                    item.classList.remove(
+                                        "active"
+                                    )
+                            );
+
+                            this.classList.add(
+                                "active"
+                            );
+
+                            const filter =
+                                this.dataset.filter;
+
+                            cards.forEach(
+                                card => {
+                                    const categories =
+                                        (
+                                            card.dataset.category ||
+                                            ""
+                                        ).split(" ");
+
+                                    const show =
+                                        filter === "all" ||
+                                        categories.includes(
+                                            filter
+                                        );
+
+                                    if (show) {
+                                        card.classList.remove(
+                                            "gone"
+                                        );
+                                    } else {
+                                        card.classList.add(
+                                            "gone"
+                                        );
+                                    }
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+        }
+
+        function setupSearch() {
+            if (!elements.searchInput) {
+                return;
+            }
+
+            elements.searchInput.addEventListener(
+                "input",
+                function () {
+                    const value =
+                        this.value
+                            .trim()
+                            .toLowerCase();
+
+                    document
+                        .querySelectorAll(
+                            "tbody tr"
+                        )
+                        .forEach(
+                            row => {
+                                const text =
+                                    row.innerText
+                                        .toLowerCase();
+
+                                row.style.display =
+                                    !value ||
+                                        text.includes(
+                                            value
+                                        )
+                                        ? ""
+                                        : "none";
+                            }
+                        );
+                }
+            );
+        }
+
+        function setupSidebar() {
+            if (
+                !elements.menuBtn ||
+                !elements.sidebar
+            ) {
+                return;
+            }
+
+            elements.menuBtn.addEventListener(
+                "click",
+                function () {
+                    if (
+                        window.innerWidth <=
+                        900
+                    ) {
+                        const current =
+                            elements.sidebar.style.left;
+
+                        elements.sidebar.style.left =
+                            current === "0px"
+                                ? "-270px"
+                                : "0";
                     }
                 }
-            }
-        });
+            );
 
-        new Chart(document.getElementById("appointmentChart"), {
-            type: "line",
-            data: {
-                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                datasets: [{
-                    label: "Appointments",
-                    data: [22, 34, 31, 46, 40, 55, 49],
-                    borderColor: "#2563eb",
-                    backgroundColor: "rgba(37,99,235,.15)",
-                    fill: true,
-                    tension: .4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
+            document.addEventListener(
+                "click",
+                function (event) {
+                    if (
+                        window.innerWidth <=
+                        900
+                    ) {
+                        if (
+                            !elements.sidebar.contains(
+                                event.target
+                            ) &&
+                            !elements.menuBtn.contains(
+                                event.target
+                            )
+                        ) {
+                            elements.sidebar.style.left =
+                                "-270px";
+                        }
+                    }
+                }
+            );
+        }
 
-        new Chart(document.getElementById("departmentChart"), {
-            type: "doughnut",
-            data: {
-                labels: [
-                    "Cardiology",
-                    "Neurology",
-                    "Orthopedics",
-                    "Pediatrics",
-                    "Dermatology"
-                ],
-                datasets: [{
-                    data: [28, 22, 18, 20, 12],
-                    backgroundColor: [
-                        "#0f766e",
-                        "#2563eb",
-                        "#7c3aed",
-                        "#f59e0b",
-                        "#dc2626"
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
+        function setupProfile() {
+            if (!elements.profile) {
+                return;
             }
-        });
 
-        new Chart(document.getElementById("patientChart"), {
-            type: "line",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-                datasets: [{
-                    label: "Patients",
-                    data: [180, 220, 270, 310, 390, 450, 520],
-                    borderColor: "#16a34a",
-                    backgroundColor: "rgba(22,163,74,.12)",
-                    fill: true,
-                    tension: .4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
+            elements.profile.addEventListener(
+                "click",
+                function () {
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        function loadAdminProfile() {
+            const keys = [
+                "admin",
+                "currentAdmin",
+                "user",
+                "currentUser",
+                "userData"
+            ];
+
+            let admin = null;
+
+            for (const key of keys) {
+                const raw =
+                    localStorage.getItem(
+                        key
+                    );
+
+                if (!raw) {
+                    continue;
+                }
+
+                try {
+                    const parsed =
+                        JSON.parse(
+                            raw
+                        );
+
+                    if (
+                        parsed &&
+                        typeof parsed ===
+                        "object"
+                    ) {
+                        admin =
+                            parsed;
+
+                        break;
+                    }
+                } catch (error) {
+                }
             }
-        });
+
+            if (
+                elements.adminName
+            ) {
+                elements.adminName.textContent =
+                    admin?.fullName ||
+                    admin?.name ||
+                    admin?.adminName ||
+                    "Admin";
+            }
+
+            if (
+                elements.adminRole
+            ) {
+                elements.adminRole.textContent =
+                    admin?.role ||
+                    admin?.adminRole ||
+                    "System Administrator";
+            }
+        }
+
+        function setupNotifications() {
+            const notify =
+                document.querySelector(
+                    ".notify"
+                );
+
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                function () {
+                    if (!state.analytics) {
+                        showToast(
+                            "Reports data is not loaded.",
+                            "warning",
+                            "fa-triangle-exclamation"
+                        );
+
+                        return;
+                    }
+
+                    const pending =
+                        Number(
+                            state.analytics
+                                .appointmentStatus
+                                ?.PENDING ||
+                            0
+                        );
+
+                    if (pending > 0) {
+                        showToast(
+                            `${pending} pending appointment(s).`,
+                            "warning",
+                            "fa-calendar-check"
+                        );
+                    } else {
+                        showToast(
+                            "No pending appointments.",
+                            "success",
+                            "fa-circle-check"
+                        );
+                    }
+                }
+            );
+        }
+
+        function updateNotificationCount() {
+            if (
+                !elements.notificationCount ||
+                !state.analytics
+            ) {
+                return;
+            }
+
+            elements.notificationCount.textContent =
+                Number(
+                    state.analytics
+                        .appointmentStatus
+                        ?.PENDING ||
+                    0
+                );
+        }
+
+        function setupExports() {
+            if (elements.pdfBtn) {
+                elements.pdfBtn.addEventListener(
+                    "click",
+                    exportPDF
+                );
+            }
+
+            if (elements.excelBtn) {
+                elements.excelBtn.addEventListener(
+                    "click",
+                    exportExcel
+                );
+            }
+        }
+
+        function exportPDF() {
+            if (!state.analytics) {
+                showToast(
+                    "Analytics data is not loaded yet.",
+                    "warning",
+                    "fa-triangle-exclamation"
+                );
+
+                return;
+            }
+
+            const printWindow =
+                window.open(
+                    "",
+                    "_blank"
+                );
+
+            if (!printWindow) {
+                showToast(
+                    "Please allow pop-ups for PDF export.",
+                    "warning",
+                    "fa-triangle-exclamation"
+                );
+
+                return;
+            }
+
+            printWindow.document.write(
+                buildPrintableReport()
+            );
+
+            printWindow.document.close();
+
+            setTimeout(
+                () => {
+                    printWindow.focus();
+                    printWindow.print();
+                },
+                300
+            );
+        }
+
+        function buildPrintableReport() {
+            const data =
+                state.analytics;
+
+            const departments =
+                data.departmentPerformance ||
+                [];
+
+            const doctors =
+                data.doctorPerformance ||
+                [];
+
+            return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>OptiHealth Reports</title>
+
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 30px;
+                    color: #111827;
+                }
+
+                h1 {
+                    color: #0f766e;
+                }
+
+                .summary {
+                    display: grid;
+                    grid-template-columns:
+                        repeat(4, 1fr);
+                    gap: 15px;
+                    margin: 20px 0;
+                }
+
+                .box {
+                    border: 1px solid #ddd;
+                    padding: 15px;
+                    border-radius: 10px;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 15px;
+                }
+
+                th,
+                td {
+                    padding: 9px;
+                    border: 1px solid #ddd;
+                    text-align: left;
+                }
+
+                th {
+                    background: #f1f5f9;
+                }
+            </style>
+        </head>
+
+        <body>
+
+            <h1>
+                OptiHealth Reports & Analytics
+            </h1>
+
+            <p>
+                Year:
+                ${state.selectedYear}
+            </p>
+
+            <div class="summary">
+
+                <div class="box">
+                    <strong>
+                        Total Revenue
+                    </strong>
+
+                    <h2>
+                        ${formatCurrency(
+                data.totalRevenue
+            )}
+                    </h2>
+                </div>
+
+                <div class="box">
+                    <strong>
+                        Total Patients
+                    </strong>
+
+                    <h2>
+                        ${formatNumber(
+                data.totalPatients
+            )}
+                    </h2>
+                </div>
+
+                <div class="box">
+                    <strong>
+                        Total Appointments
+                    </strong>
+
+                    <h2>
+                        ${formatNumber(
+                data.totalAppointments
+            )}
+                    </h2>
+                </div>
+
+                <div class="box">
+                    <strong>
+                        Completion Rate
+                    </strong>
+
+                    <h2>
+                        ${Number(
+                data.appointmentCompletionRate ||
+                0
+            ).toFixed(1)}%
+                    </h2>
+                </div>
+
+            </div>
+
+            <h2>
+                Department Statistics
+            </h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Doctors</th>
+                        <th>Patients</th>
+                        <th>Appointments</th>
+                        <th>Revenue</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    ${departments.map(
+                department => `
+                            <tr>
+                                <td>
+                                    ${escapeHtml(
+                    department.departmentName ||
+                    "--"
+                )}
+                                </td>
+
+                                <td>
+                                    ${formatNumber(
+                    department.doctorCount
+                )}
+                                </td>
+
+                                <td>
+                                    ${formatNumber(
+                    department.patientCount
+                )}
+                                </td>
+
+                                <td>
+                                    ${formatNumber(
+                    department.appointmentCount
+                )}
+                                </td>
+
+                                <td>
+                                    ${formatCurrency(
+                    department.revenue
+                )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                    department.performance ||
+                    "--"
+                )}
+                                </td>
+                            </tr>
+                        `
+            ).join("")}
+
+                </tbody>
+
+            </table>
+
+            <h2>
+                Doctor Performance
+            </h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Department</th>
+                        <th>Patients</th>
+                        <th>Appointments</th>
+                        <th>Rating</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    ${doctors.map(
+                doctor => `
+                            <tr>
+                                <td>
+                                    ${escapeHtml(
+                    doctor.doctorName ||
+                    "--"
+                )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                    doctor.department ||
+                    "--"
+                )}
+                                </td>
+
+                                <td>
+                                    ${formatNumber(
+                    doctor.patientCount
+                )}
+                                </td>
+
+                                <td>
+                                    ${formatNumber(
+                    doctor.appointmentCount
+                )}
+                                </td>
+
+                                <td>
+                                    ${Number(
+                    doctor.rating ||
+                    0
+                ).toFixed(1)}
+                                </td>
+
+                                <td>
+                                    ${formatCurrency(
+                    doctor.revenue
+                )}
+                                </td>
+                            </tr>
+                        `
+            ).join("")}
+
+                </tbody>
+
+            </table>
+
+            <h2>
+                Analytics Summary
+            </h2>
+
+            <p>
+                ${escapeHtml(
+                data.analyticsInsight ||
+                "--"
+            )}
+            </p>
+
+        </body>
+        </html>
+    `;
+        }
+
+        function exportExcel() {
+            if (!state.analytics) {
+                showToast(
+                    "Analytics data is not loaded yet.",
+                    "warning",
+                    "fa-triangle-exclamation"
+                );
+
+                return;
+            }
+
+            const csv =
+                buildCSV();
+
+            const blob =
+                new Blob(
+                    [csv],
+                    {
+                        type:
+                            "text/csv;charset=utf-8;"
+                    }
+                );
+
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+            link.href =
+                url;
+
+            link.download =
+                `OptiHealth-Reports-${state.selectedYear}.csv`;
+
+            document.body.appendChild(
+                link
+            );
+
+            link.click();
+
+            link.remove();
+
+            URL.revokeObjectURL(
+                url
+            );
+
+            showToast(
+                "Excel-compatible report downloaded.",
+                "success",
+                "fa-file-excel"
+            );
+        }
+
+        function buildCSV() {
+            const data =
+                state.analytics;
+
+            const rows = [];
+
+            rows.push([
+                "OptiHealth Reports & Analytics"
+            ]);
+
+            rows.push([
+                `Year: ${state.selectedYear}`
+            ]);
+
+            rows.push([
+                `Department: ${state.selectedDepartment}`
+            ]);
+
+            rows.push([]);
+
+            rows.push([
+                "Metric",
+                "Value"
+            ]);
+
+            rows.push([
+                "Total Revenue",
+                data.totalRevenue || 0
+            ]);
+
+            rows.push([
+                "Total Patients",
+                data.totalPatients || 0
+            ]);
+
+            rows.push([
+                "Total Appointments",
+                data.totalAppointments || 0
+            ]);
+
+            rows.push([
+                "Total Doctors",
+                data.totalDoctors || 0
+            ]);
+
+            rows.push([
+                "Appointment Completion Rate",
+                data.appointmentCompletionRate || 0
+            ]);
+
+            rows.push([
+                "Patient Satisfaction",
+                data.patientSatisfaction || 0
+            ]);
+
+            rows.push([]);
+
+            rows.push([
+                "Department",
+                "Doctors",
+                "Patients",
+                "Appointments",
+                "Revenue",
+                "Performance"
+            ]);
+
+            (
+                data.departmentPerformance ||
+                []
+            ).forEach(
+                department => {
+                    rows.push([
+                        department.departmentName ||
+                        "",
+                        department.doctorCount ||
+                        0,
+                        department.patientCount ||
+                        0,
+                        department.appointmentCount ||
+                        0,
+                        department.revenue ||
+                        0,
+                        department.performance ||
+                        ""
+                    ]);
+                }
+            );
+
+            rows.push([]);
+
+            rows.push([
+                "Doctor",
+                "Department",
+                "Patients",
+                "Appointments",
+                "Rating",
+                "Revenue"
+            ]);
+
+            (
+                data.doctorPerformance ||
+                []
+            ).forEach(
+                doctor => {
+                    rows.push([
+                        doctor.doctorName ||
+                        "",
+                        doctor.department ||
+                        "",
+                        doctor.patientCount ||
+                        0,
+                        doctor.appointmentCount ||
+                        0,
+                        doctor.rating ||
+                        0,
+                        doctor.revenue ||
+                        0
+                    ]);
+                }
+            );
+
+            return rows
+                .map(
+                    row =>
+                        row
+                            .map(
+                                value =>
+                                    csvEscape(
+                                        value
+                                    )
+                            )
+                            .join(",")
+                )
+                .join("\n");
+        }
+
+        function setupTableSorting() {
+            document
+                .querySelectorAll(
+                    "th.sortable"
+                )
+                .forEach(
+                    header => {
+                        header.addEventListener(
+                            "click",
+                            function () {
+                                const table =
+                                    this.closest(
+                                        "table"
+                                    );
+
+                                const tbody =
+                                    table.querySelector(
+                                        "tbody"
+                                    );
+
+                                if (!tbody) {
+                                    return;
+                                }
+
+                                const index =
+                                    Array.from(
+                                        this.parentElement
+                                            .children
+                                    ).indexOf(
+                                        this
+                                    );
+
+                                const type =
+                                    this.dataset.type ||
+                                    "text";
+
+                                const ascending =
+                                    !this.classList.contains(
+                                        "asc"
+                                    );
+
+                                table
+                                    .querySelectorAll(
+                                        "th.sortable"
+                                    )
+                                    .forEach(
+                                        th =>
+                                            th.classList.remove(
+                                                "asc",
+                                                "desc"
+                                            )
+                                    );
+
+                                this.classList.add(
+                                    ascending
+                                        ? "asc"
+                                        : "desc"
+                                );
+
+                                const rows =
+                                    Array.from(
+                                        tbody.querySelectorAll(
+                                            "tr"
+                                        )
+                                    );
+
+                                rows.sort(
+                                    (a, b) => {
+                                        let valueA =
+                                            a.children[
+                                                index
+                                            ]?.innerText
+                                                .trim() ||
+                                            "";
+
+                                        let valueB =
+                                            b.children[
+                                                index
+                                            ]?.innerText
+                                                .trim() ||
+                                            "";
+
+                                        if (
+                                            type ===
+                                            "number"
+                                        ) {
+                                            valueA =
+                                                parseFloat(
+                                                    valueA.replace(
+                                                        /[^0-9.-]/g,
+                                                        ""
+                                                    )
+                                                ) ||
+                                                0;
+
+                                            valueB =
+                                                parseFloat(
+                                                    valueB.replace(
+                                                        /[^0-9.-]/g,
+                                                        ""
+                                                    )
+                                                ) ||
+                                                0;
+
+                                            return ascending
+                                                ? valueA -
+                                                valueB
+                                                : valueB -
+                                                valueA;
+                                        }
+
+                                        return ascending
+                                            ? valueA.localeCompare(
+                                                valueB
+                                            )
+                                            : valueB.localeCompare(
+                                                valueA
+                                            );
+                                    }
+                                );
+
+                                rows.forEach(
+                                    row =>
+                                        tbody.appendChild(
+                                            row
+                                        )
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+        function setupRevealAnimation() {
+            document
+                .querySelectorAll(
+                    ".reveal"
+                )
+                .forEach(
+                    element =>
+                        element.classList.add(
+                            "visible"
+                        )
+                );
+        }
+
+        function animateCards() {
+            document
+                .querySelectorAll(
+                    ".report-card"
+                )
+                .forEach(
+                    (card, index) => {
+                        card.style.animation =
+                            "none";
+
+                        card.offsetHeight;
+
+                        card.style.animation =
+                            `fadeCard .5s ease ${index * 0.08}s both`;
+                    }
+                );
+        }
+
+        function initializeChartDefaults() {
+            if (
+                typeof Chart ===
+                "undefined"
+            ) {
+                console.error(
+                    "Chart.js is not loaded."
+                );
+
+                return;
+            }
+
+            Chart.defaults.font.family =
+                "'Poppins', sans-serif";
+
+            Chart.defaults.color =
+                "#64748b";
+        }
+
+        function getBaseChartOptions(
+            label
+        ) {
+            return {
+                responsive:
+                    true,
+
+                maintainAspectRatio:
+                    false,
+
+                animation: {
+                    duration:
+                        1000
+                },
+
+                plugins: {
+                    legend: {
+                        display:
+                            false
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label:
+                                context =>
+                                    `${label}: ${context.raw}`
+                        }
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero:
+                            true,
+
+                        grid: {
+                            color:
+                                "#f1f5f9"
+                        }
+                    },
+
+                    x: {
+                        grid: {
+                            display:
+                                false
+                        }
+                    }
+                }
+            };
+        }
+
+        function getLineChartOptions(
+            label
+        ) {
+            return {
+                responsive:
+                    true,
+
+                maintainAspectRatio:
+                    false,
+
+                animation: {
+                    duration:
+                        1000
+                },
+
+                plugins: {
+                    legend: {
+                        display:
+                            false
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label:
+                                context =>
+                                    `${label}: ${context.raw}`
+                        }
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero:
+                            true,
+
+                        grid: {
+                            color:
+                                "#f1f5f9"
+                        }
+                    },
+
+                    x: {
+                        grid: {
+                            display:
+                                false
+                        }
+                    }
+                }
+            };
+        }
+
+        function destroyChart(
+            name
+        ) {
+            if (
+                state.charts[name]
+            ) {
+                state.charts[name].destroy();
+                state.charts[name] =
+                    null;
+            }
+        }
+
+        function animateNumber(
+            element,
+            target,
+            prefix = "",
+            suffix = "",
+            decimals = 0
+        ) {
+            if (!element) {
+                return;
+            }
+
+            const end =
+                Number(target) || 0;
+
+            const duration =
+                800;
+
+            const start =
+                performance.now();
+
+            function frame(
+                currentTime
+            ) {
+                const progress =
+                    Math.min(
+                        (
+                            currentTime -
+                            start
+                        ) /
+                        duration,
+                        1
+                    );
+
+                const eased =
+                    1 -
+                    Math.pow(
+                        1 - progress,
+                        3
+                    );
+
+                const value =
+                    end *
+                    eased;
+
+                element.textContent =
+                    `${prefix}${value.toLocaleString(
+                        "en-IN",
+                        {
+                            minimumFractionDigits:
+                                decimals,
+
+                            maximumFractionDigits:
+                                decimals
+                        }
+                    )}${suffix}`;
+
+                if (
+                    progress <
+                    1
+                ) {
+                    requestAnimationFrame(
+                        frame
+                    );
+                }
+            }
+
+            requestAnimationFrame(
+                frame
+            );
+        }
+
+        function updateLastUpdated() {
+            if (
+                !elements.lastUpdated
+            ) {
+                return;
+            }
+
+            elements.lastUpdated.textContent =
+                "Last updated: " +
+                new Date().toLocaleTimeString(
+                    "en-IN",
+                    {
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit",
+
+                        second:
+                            "2-digit"
+                    }
+                );
+        }
+
+        function showErrorState(
+            message
+        ) {
+            if (
+                elements.analyticsInsight
+            ) {
+                elements.analyticsInsight.textContent =
+                    message;
+            }
+
+            if (
+                elements.departmentTableBody
+            ) {
+                elements.departmentTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#dc2626;
+                    "
+                >
+                    Unable to load department data.
+                </td>
+            </tr>
+        `;
+            }
+
+            if (
+                elements.doctorTableBody
+            ) {
+                elements.doctorTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#dc2626;
+                    "
+                >
+                    Unable to load doctor data.
+                </td>
+            </tr>
+        `;
+            }
+
+            showToast(
+                message,
+                "warning",
+                "fa-triangle-exclamation"
+            );
+        }
+
+        function formatCurrency(
+            value
+        ) {
+            return (
+                "₹" +
+                Number(
+                    value || 0
+                ).toLocaleString(
+                    "en-IN",
+                    {
+                        maximumFractionDigits:
+                            2
+                    }
+                )
+            );
+        }
+
+        function formatNumber(
+            value
+        ) {
+            return Number(
+                value || 0
+            ).toLocaleString(
+                "en-IN"
+            );
+        }
+
+        function formatMonthName(
+            month
+        ) {
+            if (!month) {
+                return "--";
+            }
+
+            const map = {
+                JANUARY: "Jan",
+                FEBRUARY: "Feb",
+                MARCH: "Mar",
+                APRIL: "Apr",
+                MAY: "May",
+                JUNE: "Jun",
+                JULY: "Jul",
+                AUGUST: "Aug",
+                SEPTEMBER: "Sep",
+                OCTOBER: "Oct",
+                NOVEMBER: "Nov",
+                DECEMBER: "Dec"
+            };
+
+            const value =
+                String(
+                    month
+                ).toUpperCase();
+
+            return (
+                map[value] ||
+                String(
+                    month
+                ).substring(
+                    0,
+                    3
+                )
+            );
+        }
+
+        function formatDayName(
+            day
+        ) {
+            if (!day) {
+                return "--";
+            }
+
+            const map = {
+                MONDAY: "Mon",
+                TUESDAY: "Tue",
+                WEDNESDAY: "Wed",
+                THURSDAY: "Thu",
+                FRIDAY: "Fri",
+                SATURDAY: "Sat",
+                SUNDAY: "Sun"
+            };
+
+            const value =
+                String(
+                    day
+                ).toUpperCase();
+
+            return (
+                map[value] ||
+                String(
+                    day
+                ).substring(
+                    0,
+                    3
+                )
+            );
+        }
+
+        function getPerformanceClass(
+            value
+        ) {
+            const performance =
+                String(
+                    value || ""
+                ).toLowerCase();
+
+            if (
+                performance ===
+                "excellent"
+            ) {
+                return "good";
+            }
+
+            if (
+                performance ===
+                "good"
+            ) {
+                return "average";
+            }
+
+            return "low";
+        }
+
+        function normalize(
+            value,
+            max
+        ) {
+            if (
+                !max ||
+                max <= 0
+            ) {
+                return 0;
+            }
+
+            return (
+                Number(value || 0) /
+                max
+            ) * 100;
+        }
+
+        function getChartColor(
+            index
+        ) {
+            const colors = [
+                "#0f766e",
+                "#2563eb",
+                "#7c3aed",
+                "#f59e0b",
+                "#dc2626",
+                "#16a34a",
+                "#0891b2",
+                "#db2777"
+            ];
+
+            return colors[
+                index %
+                colors.length
+            ];
+        }
+
+        function getTransparentColor(
+            index
+        ) {
+            const colors = [
+                "rgba(15,118,110,.75)",
+                "rgba(37,99,235,.75)",
+                "rgba(124,58,237,.75)",
+                "rgba(245,158,11,.75)",
+                "rgba(220,38,38,.75)",
+                "rgba(22,163,74,.75)",
+                "rgba(8,145,178,.75)",
+                "rgba(219,39,119,.75)"
+            ];
+
+            return colors[
+                index %
+                colors.length
+            ];
+        }
+
+        function hexToRgba(
+            hex,
+            alpha
+        ) {
+            const clean =
+                hex.replace(
+                    "#",
+                    ""
+                );
+
+            const number =
+                parseInt(
+                    clean,
+                    16
+                );
+
+            const r =
+                (number >> 16) &
+                255;
+
+            const g =
+                (number >> 8) &
+                255;
+
+            const b =
+                number &
+                255;
+
+            return `
+        rgba(
+            ${r},
+            ${g},
+            ${b},
+            ${alpha}
+        )
+    `;
+        }
+
+        function csvEscape(
+            value
+        ) {
+            return `"${String(
+                value ?? ""
+            ).replaceAll(
+                '"',
+                '""'
+            )}"`;
+        }
+
+        function escapeHtml(
+            value
+        ) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(
+                value
+            )
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
+        }
+
+        function showToast(
+            message,
+            type = "success",
+            icon = "fa-circle-check"
+        ) {
+            const container =
+                document.getElementById(
+                    "toastContainer"
+                );
+
+            if (!container) {
+                return;
+            }
+
+            const toast =
+                document.createElement(
+                    "div"
+                );
+
+            toast.className =
+                `toast ${type}`;
+
+            toast.innerHTML = `
+        <i
+            class="fa-solid ${icon}"
+        ></i>
+
+        <span>
+            ${escapeHtml(
+                message
+            )}
+        </span>
+    `;
+
+            container.appendChild(
+                toast
+            );
+
+            setTimeout(
+                () => {
+                    toast.classList.add(
+                        "hide"
+                    );
+
+                    setTimeout(
+                        () =>
+                            toast.remove(),
+                        400
+                    );
+                },
+                3000
+            );
+        }
     </script>
 
 </body>

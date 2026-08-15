@@ -692,14 +692,14 @@
 
                     <div class="notify">
                         <i class="fa-regular fa-bell"></i>
-                        <span>4</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
                         <img src="../assets/admin.png" alt="">
                         <div>
-                            <h4>Admin</h4>
-                            <p>System Administrator</p>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
                         </div>
                     </div>
 
@@ -747,7 +747,6 @@
                                 <thead>
 
                                     <tr>
-
                                         <th>Department Code</th>
                                         <th>Department Name</th>
                                         <th>Head Doctor</th>
@@ -755,138 +754,11 @@
                                         <th>Total Patients</th>
                                         <th>Status</th>
                                         <th>Actions</th>
-
                                     </tr>
 
                                 </thead>
 
-                                <tbody id="departmentTable">
-
-                                    <tr>
-
-                                        <td>DEP101</td>
-                                        <td>Cardiology</td>
-                                        <td>Dr. Rahul Sharma</td>
-                                        <td>12</td>
-                                        <td>245</td>
-                                        <td><span class="status active">Active</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>DEP102</td>
-                                        <td>Neurology</td>
-                                        <td>Dr. Neha Gupta</td>
-                                        <td>9</td>
-                                        <td>182</td>
-                                        <td><span class="status active">Active</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>DEP103</td>
-                                        <td>Orthopedics</td>
-                                        <td>Dr. Raj Patel</td>
-                                        <td>7</td>
-                                        <td>131</td>
-                                        <td><span class="status inactive">Inactive</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>DEP104</td>
-                                        <td>Pediatrics</td>
-                                        <td>Dr. Pooja Verma</td>
-                                        <td>10</td>
-                                        <td>205</td>
-                                        <td><span class="status active">Active</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
+                                <tbody id="departmentTable"></tbody>
 
                             </table>
 
@@ -919,10 +791,7 @@
                                 <div class="input-group">
                                     <label>Head Doctor</label>
                                     <select id="departmentHead">
-                                        <option>Dr. Rahul Sharma</option>
-                                        <option>Dr. Neha Gupta</option>
-                                        <option>Dr. Raj Patel</option>
-                                        <option>Dr. Pooja Verma</option>
+                                        <option value="">Select Doctor</option>
                                     </select>
                                 </div>
 
@@ -973,38 +842,37 @@
 
                                 <div class="input-group">
                                     <label>Department Code</label>
-                                    <input type="text" value="DEP101" readonly>
+                                    <input type="text" id="viewDepartmentCode" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Department Name</label>
-                                    <input type="text" value="Cardiology" readonly>
+                                    <input type="text" id="viewDepartmentName" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Head Doctor</label>
-                                    <input type="text" value="Dr. Rahul Sharma" readonly>
+                                    <input type="text" id="viewDepartmentHead" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Total Doctors</label>
-                                    <input type="text" value="12" readonly>
+                                    <input type="text" id="viewTotalDoctors" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Total Patients</label>
-                                    <input type="text" value="245" readonly>
+                                    <input type="text" id="viewTotalPatients" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Status</label>
-                                    <input type="text" value="Active" readonly>
+                                    <input type="text" id="viewDepartmentStatus" readonly>
                                 </div>
 
                                 <div class="input-group full-width">
                                     <label>Description</label>
-                                    <textarea
-                                        readonly>Provides diagnosis, treatment and follow-up care for heart and cardiovascular diseases.</textarea>
+                                    <textarea id="viewDepartmentDescription" readonly></textarea>
                                 </div>
 
                             </div>
@@ -1029,202 +897,1352 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
+        const token = localStorage.getItem("token");
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
+        const profile = document.querySelector(".profile");
 
-        const addDepartmentBtn = document.getElementById("addDepartmentBtn");
-        const departmentModal = document.getElementById("departmentModal");
-        const viewModal = document.getElementById("viewModal");
+        const addDepartmentBtn =
+            document.getElementById("addDepartmentBtn");
 
-        const searchInput = document.querySelector(".search-box input");
-        const statusFilter = document.getElementById("statusFilter");
+        const departmentModal =
+            document.getElementById("departmentModal");
 
-        const departmentRows = document.querySelectorAll("#departmentTable tr");
+        const viewModal =
+            document.getElementById("viewModal");
 
-        const saveBtn = document.querySelector(".save-btn");
-        const cancelBtn = document.querySelector(".cancel-btn");
+        const departmentTable =
+            document.getElementById("departmentTable");
 
-        menuBtn.addEventListener("click", () => {
+        const searchInput =
+            document.querySelector(".search-box input");
 
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const statusFilter =
+            document.getElementById("statusFilter");
+
+        const departmentCode =
+            document.getElementById("departmentCode");
+
+        const departmentName =
+            document.getElementById("departmentName");
+
+        const departmentHead =
+            document.getElementById("departmentHead");
+
+        const departmentStatus =
+            document.getElementById("departmentStatus");
+
+        const departmentDescription =
+            document.getElementById("departmentDescription");
+
+        const saveBtn =
+            document.querySelector("#departmentModal .save-btn");
+
+        const cancelBtn =
+            document.querySelector("#departmentModal .cancel-btn");
+
+        const viewCloseBtn =
+            document.querySelector(".closeView");
+
+        const adminName =
+            document.getElementById("adminName");
+
+        const adminRole =
+            document.getElementById("adminRole");
+
+        const notificationCount =
+            document.getElementById(
+                "notificationCount"
+            );
+
+        const viewDepartmentCode =
+            document.getElementById(
+                "viewDepartmentCode"
+            );
+
+        const viewDepartmentName =
+            document.getElementById(
+                "viewDepartmentName"
+            );
+
+        const viewDepartmentHead =
+            document.getElementById(
+                "viewDepartmentHead"
+            );
+
+        const viewTotalDoctors =
+            document.getElementById(
+                "viewTotalDoctors"
+            );
+
+        const viewTotalPatients =
+            document.getElementById(
+                "viewTotalPatients"
+            );
+
+        const viewDepartmentStatus =
+            document.getElementById(
+                "viewDepartmentStatus"
+            );
+
+        const viewDepartmentDescription =
+            document.getElementById(
+                "viewDepartmentDescription"
+            );
+
+        let departments = [];
+        let doctors = [];
+        let patients = [];
+        let appointments = [];
+        let editingDepartmentId = null;
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
-        });
+            return headers;
+        }
 
-        document.addEventListener("click", e => {
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
 
-            if (window.innerWidth <= 900) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
 
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+        function getAdminData() {
+            try {
+                const data =
+                    localStorage.getItem("admin");
+
+                if (!data) {
+                    return null;
                 }
 
+                return JSON.parse(data);
+
+            } catch (error) {
+                console.error(
+                    "Admin data error:",
+                    error
+                );
+
+                return null;
+            }
+        }
+
+        function loadAdminProfile() {
+            const admin =
+                getAdminData();
+
+            if (adminName) {
+                adminName.textContent =
+                    admin?.fullName ||
+                    admin?.name ||
+                    "Admin";
             }
 
-        });
+            if (adminRole) {
+                adminRole.textContent =
+                    admin?.role ||
+                    "System Administrator";
+            }
+        }
 
-        window.addEventListener("resize", () => {
+        function setNotificationCount() {
+            if (!notificationCount) {
+                return;
+            }
 
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
+            notificationCount.textContent = "0";
+        }
+
+        function findDoctorById(doctorId) {
+            return doctors.find(
+                doctor =>
+                    Number(doctor.id) ===
+                    Number(doctorId)
+            );
+        }
+
+        function getDoctorName(doctorId) {
+            const doctor =
+                findDoctorById(doctorId);
+
+            return doctor?.doctorName ||
+                "--";
+        }
+
+        function getDepartmentDoctors(
+            departmentNameValue
+        ) {
+            const name =
+                String(
+                    departmentNameValue || ""
+                ).trim().toLowerCase();
+
+            return doctors.filter(
+                doctor =>
+                    String(
+                        doctor.specialization || ""
+                    ).trim().toLowerCase() ===
+                    name
+            );
+        }
+
+        function getDepartmentPatientCount(
+            departmentNameValue
+        ) {
+            const departmentDoctors =
+                getDepartmentDoctors(
+                    departmentNameValue
+                );
+
+            const doctorIds =
+                new Set(
+                    departmentDoctors.map(
+                        doctor =>
+                            Number(doctor.id)
+                    )
+                );
+
+            const patientIds =
+                new Set();
+
+            appointments.forEach(
+                appointment => {
+
+                    if (
+                        doctorIds.has(
+                            Number(
+                                appointment.doctorId
+                            )
+                        )
+                    ) {
+                        patientIds.add(
+                            Number(
+                                appointment.patientId
+                            )
+                        );
+                    }
+                }
+            );
+
+            return patientIds.size;
+        }
+
+        function getTotalDoctors(
+            departmentNameValue
+        ) {
+            return getDepartmentDoctors(
+                departmentNameValue
+            ).length;
+        }
+
+        function formatCount(value) {
+            return value !== null &&
+                value !== undefined
+                ? String(value)
+                : "0";
+        }
+
+        function openDepartmentModal() {
+            departmentModal.style.display =
+                "flex";
+        }
+
+        function closeDepartmentModal() {
+            departmentModal.style.display =
+                "none";
+        }
+
+        function openViewModal() {
+            viewModal.style.display =
+                "flex";
+        }
+
+        function closeViewModal() {
+            viewModal.style.display =
+                "none";
+        }
+
+        function clearForm() {
+            departmentCode.value = "";
+            departmentName.value = "";
+            departmentHead.value = "";
+            departmentStatus.value = "Active";
+            departmentDescription.value = "";
+        }
+
+        function populateDoctorDropdown(
+            selectedDoctorId = null
+        ) {
+            departmentHead.innerHTML = `
+        <option value="">
+            Select Doctor
+        </option>
+    `;
+
+            doctors.forEach(
+                doctor => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        doctor.id;
+
+                    option.textContent =
+                        doctor.doctorName ||
+                        `Doctor ${doctor.id}`;
+
+                    if (
+                        selectedDoctorId !== null &&
+                        Number(
+                            selectedDoctorId
+                        ) === Number(
+                            doctor.id
+                        )
+                    ) {
+                        option.selected =
+                            true;
+                    }
+
+                    departmentHead.appendChild(
+                        option
+                    );
+                }
+            );
+        }
+
+        async function loadDoctors() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Doctors API Error:",
+                        response.status
+                    );
+
+                    doctors = [];
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                doctors =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                populateDoctorDropdown();
+
+            } catch (error) {
+                console.error(
+                    "Doctor Load Error:",
+                    error
+                );
+
+                doctors = [];
+            }
+        }
+
+        async function loadPatients() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Patients API Error:",
+                        response.status
+                    );
+
+                    patients = [];
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                patients =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+            } catch (error) {
+                console.error(
+                    "Patient Load Error:",
+                    error
+                );
+
+                patients = [];
+            }
+        }
+
+        async function loadAppointments() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/appointment/all`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Appointments API Error:",
+                        response.status
+                    );
+
+                    appointments = [];
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                appointments =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+            } catch (error) {
+                console.error(
+                    "Appointment Load Error:",
+                    error
+                );
+
+                appointments = [];
+            }
+        }
+
+        async function loadDepartments() {
+            departmentTable.innerHTML = `
+        <tr>
+            <td
+                colspan="7"
+                style="
+                    text-align:center;
+                    padding:30px;
+                "
+            >
+                Loading departments...
+            </td>
+        </tr>
+    `;
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/departments`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                console.log(
+                    "Department API Status:",
+                    response.status
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Department API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    departmentTable.innerHTML = `
+                <tr>
+                    <td
+                        colspan="7"
+                        style="
+                            text-align:center;
+                            padding:30px;
+                            color:#dc2626;
+                        "
+                    >
+                        Unable to load departments.
+                        Error: ${response.status}
+                    </td>
+                </tr>
+            `;
+
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                departments =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                renderDepartments();
+
+            } catch (error) {
+                console.error(
+                    "Department Load Error:",
+                    error
+                );
+
+                departmentTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#dc2626;
+                    "
+                >
+                    Unable to connect with backend.
+                </td>
+            </tr>
+        `;
+            }
+        }
+
+        function renderDepartments() {
+            const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            const selectedStatus =
+                statusFilter.value
+                    .toLowerCase();
+
+            const filteredDepartments =
+                departments.filter(
+                    department => {
+
+                        const code =
+                            String(
+                                department.departmentCode ||
+                                ""
+                            ).toLowerCase();
+
+                        const name =
+                            String(
+                                department.departmentName ||
+                                ""
+                            ).toLowerCase();
+
+                        const headDoctor =
+                            getDoctorName(
+                                department.headDoctorId
+                            ).toLowerCase();
+
+                        const status =
+                            String(
+                                department.status ||
+                                ""
+                            ).toLowerCase();
+
+                        const searchMatch =
+                            !search ||
+                            code.includes(search) ||
+                            name.includes(search) ||
+                            headDoctor.includes(search);
+
+                        const statusMatch =
+                            selectedStatus === "all" ||
+                            status === selectedStatus;
+
+                        return (
+                            searchMatch &&
+                            statusMatch
+                        );
+                    }
+                );
+
+            departmentTable.innerHTML = "";
+
+            if (
+                filteredDepartments.length === 0
+            ) {
+                departmentTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#64748b;
+                    "
+                >
+                    No departments found.
+                </td>
+            </tr>
+        `;
+
+                return;
+            }
+
+            filteredDepartments.forEach(
+                department => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    row.dataset.id =
+                        department.id;
+
+                    const totalDoctors =
+                        getTotalDoctors(
+                            department.departmentName
+                        );
+
+                    const totalPatients =
+                        getDepartmentPatientCount(
+                            department.departmentName
+                        );
+
+                    const headName =
+                        getDoctorName(
+                            department.headDoctorId
+                        );
+
+                    const status =
+                        department.status ||
+                        "--";
+
+                    const statusClass =
+                        String(status)
+                            .toLowerCase() ===
+                            "active"
+                            ? "active"
+                            : "inactive";
+
+                    row.innerHTML = `
+                <td>
+                    ${escapeHtml(
+                        department.departmentCode ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        department.departmentName ||
+                        "--"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        headName
+                    )}
+                </td>
+
+                <td>
+                    ${formatCount(
+                        totalDoctors
+                    )}
+                </td>
+
+                <td>
+                    ${formatCount(
+                        totalPatients
+                    )}
+                </td>
+
+                <td>
+                    <span
+                        class="status ${statusClass}"
+                    >
+                        ${escapeHtml(
+                        status
+                    )}
+                    </span>
+                </td>
+
+                <td>
+                    <div class="action-buttons">
+
+                        <button
+                            class="view-btn"
+                            data-id="${department.id}"
+                            title="View"
+                        >
+                            <i
+                                class="fa-solid fa-eye"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="edit-btn"
+                            data-id="${department.id}"
+                            title="Edit"
+                        >
+                            <i
+                                class="fa-solid fa-pen"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            data-id="${department.id}"
+                            title="Delete"
+                        >
+                            <i
+                                class="fa-solid fa-trash"
+                            ></i>
+                        </button>
+
+                    </div>
+                </td>
+            `;
+
+                    departmentTable.appendChild(
+                        row
+                    );
+                }
+            );
+
+            attachDepartmentActions();
+        }
+
+        function attachDepartmentActions() {
+            document
+                .querySelectorAll(
+                    ".view-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                viewDepartment(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".edit-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                editDepartment(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".delete-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                deleteDepartment(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+        function findDepartmentById(
+            departmentId
+        ) {
+            return departments.find(
+                department =>
+                    Number(department.id) ===
+                    Number(departmentId)
+            );
+        }
+
+        function viewDepartment(
+            departmentId
+        ) {
+            const department =
+                findDepartmentById(
+                    departmentId
+                );
+
+            if (!department) {
+                alert(
+                    "Department data not found."
+                );
+                return;
+            }
+
+            const totalDoctors =
+                getTotalDoctors(
+                    department.departmentName
+                );
+
+            const totalPatients =
+                getDepartmentPatientCount(
+                    department.departmentName
+                );
+
+            viewDepartmentCode.value =
+                department.departmentCode ||
+                "--";
+
+            viewDepartmentName.value =
+                department.departmentName ||
+                "--";
+
+            viewDepartmentHead.value =
+                getDoctorName(
+                    department.headDoctorId
+                );
+
+            viewTotalDoctors.value =
+                totalDoctors;
+
+            viewTotalPatients.value =
+                totalPatients;
+
+            viewDepartmentStatus.value =
+                department.status ||
+                "--";
+
+            viewDepartmentDescription.value =
+                department.description ||
+                "--";
+
+            openViewModal();
+        }
+
+        function openAddDepartment() {
+            editingDepartmentId =
+                null;
+
+            document.querySelector(
+                "#departmentModal .modal-title"
+            ).textContent =
+                "Add Department";
+
+            clearForm();
+
+            populateDoctorDropdown();
+
+            openDepartmentModal();
+        }
+
+        function editDepartment(
+            departmentId
+        ) {
+            const department =
+                findDepartmentById(
+                    departmentId
+                );
+
+            if (!department) {
+                alert(
+                    "Department data not found."
+                );
+                return;
+            }
+
+            editingDepartmentId =
+                Number(
+                    departmentId
+                );
+
+            document.querySelector(
+                "#departmentModal .modal-title"
+            ).textContent =
+                "Edit Department";
+
+            departmentCode.value =
+                department.departmentCode ||
+                "";
+
+            departmentName.value =
+                department.departmentName ||
+                "";
+
+            departmentStatus.value =
+                department.status ||
+                "Active";
+
+            departmentDescription.value =
+                department.description ||
+                "";
+
+            populateDoctorDropdown(
+                department.headDoctorId
+            );
+
+            openDepartmentModal();
+        }
+
+        async function saveDepartment() {
+            const code =
+                departmentCode.value.trim();
+
+            const name =
+                departmentName.value.trim();
+
+            const headDoctorValue =
+                departmentHead.value;
+
+            const status =
+                departmentStatus.value;
+
+            const description =
+                departmentDescription.value.trim();
+
+            if (!code) {
+                alert(
+                    "Please enter department code."
+                );
+                return;
+            }
+
+            if (!name) {
+                alert(
+                    "Please enter department name."
+                );
+                return;
+            }
+
+            if (!status) {
+                alert(
+                    "Please select department status."
+                );
+                return;
+            }
+
+            const payload = {
+                departmentCode:
+                    code,
+
+                departmentName:
+                    name,
+
+                headDoctorId:
+                    headDoctorValue
+                        ? Number(
+                            headDoctorValue
+                        )
+                        : null,
+
+                status:
+                    status,
+
+                description:
+                    description || null
+            };
+
+            try {
+                saveBtn.disabled =
+                    true;
+
+                const url =
+                    editingDepartmentId
+                        ? `${API_BASE_URL}/api/departments/${editingDepartmentId}`
+                        : `${API_BASE_URL}/api/departments`;
+
+                const method =
+                    editingDepartmentId
+                        ? "PUT"
+                        : "POST";
+
+                const response =
+                    await fetch(
+                        url,
+                        {
+                            method:
+                                method,
+
+                            headers:
+                                getHeaders(),
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Save Department Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to save department. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    editingDepartmentId
+                        ? "Department updated successfully."
+                        : "Department added successfully."
+                );
+
+                closeDepartmentModal();
+
+                await loadDepartments();
+
+            } catch (error) {
+                console.error(
+                    "Save Department Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+
+            } finally {
+                saveBtn.disabled =
+                    false;
+            }
+        }
+
+        async function deleteDepartment(
+            departmentId
+        ) {
+            const department =
+                findDepartmentById(
+                    departmentId
+                );
+
+            if (!department) {
+                alert(
+                    "Department data not found."
+                );
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    `Delete ${department.departmentName || "this department"}?`
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/departments/${departmentId}`,
+                        {
+                            method: "DELETE",
+                            headers: getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Delete Department Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to delete department. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Department deleted successfully."
+                );
+
+                await loadDepartments();
+
+            } catch (error) {
+                console.error(
+                    "Delete Department Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        function setupSearch() {
+            searchInput.addEventListener(
+                "input",
+                renderDepartments
+            );
+        }
+
+        function setupFilter() {
+            statusFilter.addEventListener(
+                "change",
+                renderDepartments
+            );
+        }
+
+        function setupModals() {
+            addDepartmentBtn.addEventListener(
+                "click",
+                openAddDepartment
+            );
+
+            saveBtn.addEventListener(
+                "click",
+                saveDepartment
+            );
+
+            cancelBtn.addEventListener(
+                "click",
+                closeDepartmentModal
+            );
+
+            viewCloseBtn.addEventListener(
+                "click",
+                closeViewModal
+            );
+
+            document
+                .querySelectorAll(
+                    ".close-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+                                closeDepartmentModal();
+                                closeViewModal();
+                            }
+                        );
+                    }
+                );
+
+            window.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        departmentModal
+                    ) {
+                        closeDepartmentModal();
+                    }
+
+                    if (
+                        event.target ===
+                        viewModal
+                    ) {
+                        closeViewModal();
+                    }
+                }
+            );
+        }
+
+        function setupSidebar() {
+            menuBtn.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        window.innerWidth <=
+                        900
+                    ) {
+
+                        sidebar.style.left =
+                            sidebar.style.left ===
+                                "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        !sidebar.contains(
+                            event.target
+                        ) &&
+                        !menuBtn.contains(
+                            event.target
+                        )
+                    ) {
+
+                        sidebar.style.left =
+                            "-270px";
+                    }
+                }
+            );
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    sidebar.style.left =
+                        window.innerWidth > 900
+                            ? "0"
+                            : "-270px";
+                }
+            );
+        }
+
+        function setupProfile() {
+            if (!profile) {
+                return;
+            }
+
+            profile.addEventListener(
+                "click",
+                () => {
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        function setupNotification() {
+            const notify =
+                document.querySelector(
+                    ".notify"
+                );
+
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                () => {
+                    alert(
+                        "No new notifications."
+                    );
+                }
+            );
+        }
+
+        async function initialize() {
+            if (
+                window.innerWidth <=
+                900
+            ) {
+                sidebar.style.left =
+                    "-270px";
             } else {
-                sidebar.style.left = "-270px";
+                sidebar.style.left =
+                    "0";
             }
 
-        });
-
-        document.querySelector(".profile").addEventListener("click", () => {
-
-            window.location.href = "profile.html";
-
-        });
-
-        addDepartmentBtn.addEventListener("click", () => {
-
-            document.querySelector("#departmentModal .modal-title").innerText = "Add Department";
-
-            document.getElementById("departmentCode").value = "";
-            document.getElementById("departmentName").value = "";
-            document.getElementById("departmentDescription").value = "";
-
-            departmentModal.style.display = "flex";
-
-        });
-
-        document.querySelectorAll(".edit-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                const row = btn.closest("tr");
-
-                document.querySelector("#departmentModal .modal-title").innerText = "Edit Department";
-
-                document.getElementById("departmentCode").value = row.cells[0].innerText;
-                document.getElementById("departmentName").value = row.cells[1].innerText;
-                document.getElementById("departmentHead").value = row.cells[2].innerText;
-                document.getElementById("departmentStatus").value = row.cells[5].innerText;
-
-                departmentModal.style.display = "flex";
-
-            });
-
-        });
-
-        document.querySelectorAll(".view-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                viewModal.style.display = "flex";
-
-            });
-
-        });
-
-        document.querySelectorAll(".delete-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                if (confirm("Delete this department?")) {
-
-                    btn.closest("tr").remove();
-
-                    alert("Department Deleted Successfully.");
-
-                }
-
-            });
-
-        });
-
-        saveBtn.addEventListener("click", () => {
-
-            alert("Department Saved Successfully.");
-
-            departmentModal.style.display = "none";
-
-        });
-
-        cancelBtn.addEventListener("click", () => {
-
-            departmentModal.style.display = "none";
-
-        });
-
-        document.querySelector(".closeView").addEventListener("click", () => {
-
-            viewModal.style.display = "none";
-
-        });
-
-        document.querySelectorAll(".close-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                departmentModal.style.display = "none";
-                viewModal.style.display = "none";
-
-            });
-
-        });
-
-        window.addEventListener("click", e => {
-
-            if (e.target === departmentModal) {
-                departmentModal.style.display = "none";
-            }
-
-            if (e.target === viewModal) {
-                viewModal.style.display = "none";
-            }
-
-        });
-
-        searchInput.addEventListener("keyup", () => {
-
-            const value = searchInput.value.toLowerCase();
-
-            departmentRows.forEach(row => {
-
-                const text = row.innerText.toLowerCase();
-
-                row.style.display = text.includes(value) ? "" : "none";
-
-            });
-
-        });
-
-        statusFilter.addEventListener("change", () => {
-
-            const status = statusFilter.value.toLowerCase();
-
-            departmentRows.forEach(row => {
-
-                const rowStatus = row.cells[5].innerText.toLowerCase();
-
-                const match = status === "all" || rowStatus === status;
-
-                row.style.display = match ? "" : "none";
-
-            });
-
-        });
-
-        document.querySelectorAll("tbody tr").forEach(row => {
-
-            row.addEventListener("mouseenter", () => {
-
-                row.style.background = "#f8fbff";
-
-            });
-
-            row.addEventListener("mouseleave", () => {
-
-                row.style.background = "transparent";
-
-            });
-
-        });
+            loadAdminProfile();
+            setNotificationCount();
+
+            setupSidebar();
+            setupProfile();
+            setupNotification();
+            setupSearch();
+            setupFilter();
+            setupModals();
+
+            await loadDoctors();
+            await loadPatients();
+            await loadAppointments();
+            await loadDepartments();
+        }
+
+        initialize();
     </script>
 
 </body>

@@ -724,14 +724,14 @@
 
                     <div class="notify">
                         <i class="fa-regular fa-bell"></i>
-                        <span>5</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
                         <img src="../assets/admin.png" alt="">
                         <div>
-                            <h4>Admin</h4>
-                            <p>System Administrator</p>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
                         </div>
                     </div>
 
@@ -765,10 +765,6 @@
 
                             <select id="patientFilter">
                                 <option value="all">All Patients</option>
-                                <option>Rahul Verma</option>
-                                <option>Priya Sharma</option>
-                                <option>Amit Patel</option>
-                                <option>Sneha Joshi</option>
                             </select>
 
                             <input type="date" id="dateFilter">
@@ -806,225 +802,7 @@
 
                                 </thead>
 
-                                <tbody id="billingTable">
-
-                                    <tr>
-
-                                        <td>BILL101</td>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Rahul Verma</b><br>
-                                                    <small>PAT101</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Dr. Rahul Sharma</td>
-                                        <td>25-07-2026</td>
-                                        <td>₹5,000</td>
-                                        <td>₹5,000</td>
-                                        <td>₹0</td>
-
-                                        <td><span class="status paid">Paid</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="pay-btn">
-                                                    <i class="fa-solid fa-money-bill-wave"></i>
-                                                </button>
-
-                                                <button class="download-btn">
-                                                    <i class="fa-solid fa-download"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>BILL102</td>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Priya Sharma</b><br>
-                                                    <small>PAT102</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Dr. Neha Gupta</td>
-                                        <td>26-07-2026</td>
-                                        <td>₹7,500</td>
-                                        <td>₹4,000</td>
-                                        <td>₹3,500</td>
-
-                                        <td><span class="status partial">Partial</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="pay-btn">
-                                                    <i class="fa-solid fa-money-bill-wave"></i>
-                                                </button>
-
-                                                <button class="download-btn">
-                                                    <i class="fa-solid fa-download"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>BILL103</td>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Amit Patel</b><br>
-                                                    <small>PAT103</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Dr. Raj Patel</td>
-                                        <td>27-07-2026</td>
-                                        <td>₹3,200</td>
-                                        <td>₹0</td>
-                                        <td>₹3,200</td>
-
-                                        <td><span class="status pending">Pending</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="pay-btn">
-                                                    <i class="fa-solid fa-money-bill-wave"></i>
-                                                </button>
-
-                                                <button class="download-btn">
-                                                    <i class="fa-solid fa-download"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>BILL104</td>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Sneha Joshi</b><br>
-                                                    <small>PAT104</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Dr. Pooja Verma</td>
-                                        <td>28-07-2026</td>
-                                        <td>₹8,900</td>
-                                        <td>₹2,000</td>
-                                        <td>₹6,900</td>
-
-                                        <td><span class="status overdue">Overdue</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="edit-btn">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <button class="pay-btn">
-                                                    <i class="fa-solid fa-money-bill-wave"></i>
-                                                </button>
-
-                                                <button class="download-btn">
-                                                    <i class="fa-solid fa-download"></i>
-                                                </button>
-
-                                                <button class="delete-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
+                                <tbody id="billingTable"></tbody>
 
                             </table>
 
@@ -1047,20 +825,14 @@
                                 <div class="input-group">
                                     <label>Patient</label>
                                     <select id="billPatient">
-                                        <option>Rahul Verma</option>
-                                        <option>Priya Sharma</option>
-                                        <option>Amit Patel</option>
-                                        <option>Sneha Joshi</option>
+                                        <option value="">Select Patient</option>
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Doctor</label>
                                     <select id="billDoctor">
-                                        <option>Dr. Rahul Sharma</option>
-                                        <option>Dr. Neha Gupta</option>
-                                        <option>Dr. Raj Patel</option>
-                                        <option>Dr. Pooja Verma</option>
+                                        <option value="">Select Doctor</option>
                                     </select>
                                 </div>
 
@@ -1127,37 +899,37 @@
 
                                 <div class="input-group">
                                     <label>Bill ID</label>
-                                    <input type="text" value="BILL101" readonly>
+                                    <input type="text" id="viewBillId" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Patient</label>
-                                    <input type="text" value="Rahul Verma" readonly>
+                                    <input type="text" id="viewBillPatient" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Doctor</label>
-                                    <input type="text" value="Dr. Rahul Sharma" readonly>
+                                    <input type="text" id="viewBillDoctor" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Total Amount</label>
-                                    <input type="text" value="₹5,000" readonly>
+                                    <input type="text" id="viewBillTotal" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Paid Amount</label>
-                                    <input type="text" value="₹5,000" readonly>
+                                    <input type="text" id="viewBillPaid" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Due Amount</label>
-                                    <input type="text" value="₹0" readonly>
+                                    <input type="text" id="viewBillDue" readonly>
                                 </div>
 
                                 <div class="input-group full-width">
                                     <label>Remarks</label>
-                                    <textarea readonly>Payment received successfully.</textarea>
+                                    <textarea id="viewBillRemarks" readonly></textarea>
                                 </div>
 
                             </div>
@@ -1182,252 +954,1740 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
+        const token = localStorage.getItem("token");
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
+        const profile = document.querySelector(".profile");
 
-        const generateBillBtn = document.getElementById("generateBillBtn");
-        const billModal = document.getElementById("billModal");
-        const viewModal = document.getElementById("viewModal");
+        const generateBillBtn =
+            document.getElementById("generateBillBtn");
 
-        const searchInput = document.querySelector(".search-box input");
-        const statusFilter = document.getElementById("statusFilter");
-        const patientFilter = document.getElementById("patientFilter");
-        const dateFilter = document.getElementById("dateFilter");
+        const billModal =
+            document.getElementById("billModal");
 
-        const billRows = document.querySelectorAll("#billingTable tr");
+        const viewModal =
+            document.getElementById("viewModal");
 
-        const saveBtn = document.querySelector(".save-btn");
-        const cancelBtn = document.querySelector(".cancel-btn");
+        const billingTable =
+            document.getElementById("billingTable");
 
-        menuBtn.addEventListener("click", () => {
+        const searchInput =
+            document.querySelector(".search-box input");
 
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const statusFilter =
+            document.getElementById("statusFilter");
+
+        const patientFilter =
+            document.getElementById("patientFilter");
+
+        const dateFilter =
+            document.getElementById("dateFilter");
+
+        const billPatient =
+            document.getElementById("billPatient");
+
+        const billDoctor =
+            document.getElementById("billDoctor");
+
+        const billDate =
+            document.getElementById("billDate");
+
+        const billAmount =
+            document.getElementById("billAmount");
+
+        const paidAmount =
+            document.getElementById("paidAmount");
+
+        const billStatus =
+            document.getElementById("billStatus");
+
+        const billRemarks =
+            document.getElementById("billRemarks");
+
+        const saveBtn =
+            document.querySelector("#billModal .save-btn");
+
+        const cancelBtn =
+            document.querySelector("#billModal .cancel-btn");
+
+        const closeViewBtn =
+            document.querySelector(".closeView");
+
+        const adminName =
+            document.getElementById("adminName");
+
+        const adminRole =
+            document.getElementById("adminRole");
+
+        const notificationCount =
+            document.getElementById("notificationCount");
+
+        const viewBillId =
+            document.getElementById("viewBillId");
+
+        const viewBillPatient =
+            document.getElementById("viewBillPatient");
+
+        const viewBillDoctor =
+            document.getElementById("viewBillDoctor");
+
+        const viewBillTotal =
+            document.getElementById("viewBillTotal");
+
+        const viewBillPaid =
+            document.getElementById("viewBillPaid");
+
+        const viewBillDue =
+            document.getElementById("viewBillDue");
+
+        const viewBillRemarks =
+            document.getElementById("viewBillRemarks");
+
+        let bills = [];
+        let patients = [];
+        let doctors = [];
+        let editingBillId = null;
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
-        });
-
-        document.addEventListener("click", e => {
-
-            if (window.innerWidth <= 900) {
-
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
-                }
-
-            }
-
-        });
-
-        window.addEventListener("resize", () => {
-
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            }
-            else {
-                sidebar.style.left = "-270px";
-            }
-
-        });
-
-        document.querySelector(".profile").addEventListener("click", () => {
-
-            window.location.href = "profile.html";
-
-        });
-
-        generateBillBtn.addEventListener("click", () => {
-
-            document.querySelector("#billModal .modal-title").innerText = "Generate Bill";
-
-            document.getElementById("billAmount").value = "";
-            document.getElementById("paidAmount").value = "";
-            document.getElementById("billRemarks").value = "";
-
-            billModal.style.display = "flex";
-
-        });
-
-        document.querySelectorAll(".edit-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                const row = btn.closest("tr");
-
-                document.querySelector("#billModal .modal-title").innerText = "Edit Bill";
-
-                document.getElementById("billPatient").value = row.cells[1].querySelector("b").innerText;
-                document.getElementById("billDoctor").value = row.cells[2].innerText;
-                document.getElementById("billAmount").value = row.cells[4].innerText.replace(/[₹,]/g, "");
-                document.getElementById("paidAmount").value = row.cells[5].innerText.replace(/[₹,]/g, "");
-                document.getElementById("billStatus").value = row.cells[7].innerText;
-
-                billModal.style.display = "flex";
-
-            });
-
-        });
-
-        document.querySelectorAll(".view-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                viewModal.style.display = "flex";
-
-            });
-
-        });
-
-        document.querySelectorAll(".delete-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                if (confirm("Delete this bill?")) {
-
-                    btn.closest("tr").remove();
-
-                    alert("Bill Deleted Successfully.");
-
-                }
-
-            });
-
-        });
-
-        document.querySelectorAll(".pay-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                const row = btn.closest("tr");
-
-                row.cells[5].innerText = row.cells[4].innerText;
-                row.cells[6].innerText = "₹0";
-                row.cells[7].innerHTML = '<span class="status paid">Paid</span>';
-
-                alert("Payment Completed Successfully.");
-
-            });
-
-        });
-
-        document.querySelectorAll(".download-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                alert("Invoice Download Started.");
-
-            });
-
-        });
-
-        saveBtn.addEventListener("click", () => {
-
-            alert("Bill Saved Successfully.");
-
-            billModal.style.display = "none";
-
-        });
-
-        cancelBtn.addEventListener("click", () => {
-
-            billModal.style.display = "none";
-
-        });
-
-        document.querySelector(".closeView").addEventListener("click", () => {
-
-            viewModal.style.display = "none";
-
-        });
-
-        document.querySelectorAll(".close-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                billModal.style.display = "none";
-                viewModal.style.display = "none";
-
-            });
-
-        });
-
-        window.addEventListener("click", e => {
-
-            if (e.target === billModal) {
-                billModal.style.display = "none";
-            }
-
-            if (e.target === viewModal) {
-                viewModal.style.display = "none";
-            }
-
-        });
-
-        searchInput.addEventListener("keyup", () => {
-
-            const value = searchInput.value.toLowerCase();
-
-            billRows.forEach(row => {
-
-                const text = row.innerText.toLowerCase();
-
-                row.style.display = text.includes(value) ? "" : "none";
-
-            });
-
-        });
-
-        statusFilter.addEventListener("change", filterBills);
-        patientFilter.addEventListener("change", filterBills);
-        dateFilter.addEventListener("change", filterBills);
-
-        function filterBills() {
-
-            const status = statusFilter.value.toLowerCase();
-            const patient = patientFilter.value.toLowerCase();
-            const date = dateFilter.value;
-
-            billRows.forEach(row => {
-
-                const rowStatus = row.cells[7].innerText.toLowerCase();
-                const rowPatient = row.cells[1].innerText.toLowerCase();
-
-                const statusMatch = status === "all" || rowStatus === status;
-                const patientMatch = patient === "all" || rowPatient.includes(patient);
-
-                let dateMatch = true;
-
-                if (date !== "") {
-
-                    const rowDate = row.cells[3].innerText.split("-");
-
-                    const formatted = rowDate[2] + "-" + rowDate[1] + "-" + rowDate[0];
-
-                    dateMatch = formatted === date;
-
-                }
-
-                row.style.display = (statusMatch && patientMatch && dateMatch) ? "" : "none";
-
-            });
-
+            return headers;
         }
 
-        document.querySelectorAll("tbody tr").forEach(row => {
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
 
-            row.addEventListener("mouseenter", () => {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
 
-                row.style.background = "#f8fbff";
+        function getAdminData() {
+            try {
+                const data =
+                    localStorage.getItem("admin");
 
-            });
+                if (!data) {
+                    return null;
+                }
 
-            row.addEventListener("mouseleave", () => {
+                return JSON.parse(data);
 
-                row.style.background = "transparent";
+            } catch (error) {
+                console.error(
+                    "Admin data error:",
+                    error
+                );
 
-            });
+                return null;
+            }
+        }
 
-        });
+        function loadAdminProfile() {
+            const admin =
+                getAdminData();
+
+            if (adminName) {
+                adminName.textContent =
+                    admin?.fullName ||
+                    admin?.name ||
+                    "Admin";
+            }
+
+            if (adminRole) {
+                adminRole.textContent =
+                    admin?.role ||
+                    "System Administrator";
+            }
+        }
+
+        function formatDate(date) {
+            if (!date) {
+                return "--";
+            }
+
+            const parts =
+                String(date).split("-");
+
+            if (parts.length !== 3) {
+                return date;
+            }
+
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        function formatCurrency(value) {
+            const amount =
+                Number(value || 0);
+
+            return "₹" +
+                amount.toLocaleString("en-IN");
+        }
+
+        function getDueAmount(bill) {
+            const total =
+                Number(
+                    bill.totalAmount || 0
+                );
+
+            const paid =
+                Number(
+                    bill.paidAmount || 0
+                );
+
+            return Math.max(
+                0,
+                total - paid
+            );
+        }
+
+        function getPatientName(patientId) {
+            const patient =
+                patients.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(patientId)
+                );
+
+            return patient?.fullName ||
+                "Patient Not Found";
+        }
+
+        function getDoctorName(doctorId) {
+            const doctor =
+                doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(doctorId)
+                );
+
+            return doctor?.doctorName ||
+                "Doctor Not Found";
+        }
+
+        function getStatusClass(status) {
+            const value =
+                String(status || "")
+                    .toLowerCase();
+
+            if (value === "paid") {
+                return "paid";
+            }
+
+            if (value === "partial") {
+                return "partial";
+            }
+
+            if (value === "overdue") {
+                return "overdue";
+            }
+
+            return "pending";
+        }
+
+        async function loadPatients() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Patients API Error:",
+                        response.status
+                    );
+
+                    patients = [];
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                patients =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                populatePatientDropdowns();
+
+            } catch (error) {
+                console.error(
+                    "Patient Load Error:",
+                    error
+                );
+
+                patients = [];
+            }
+        }
+
+        async function loadDoctors() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Doctors API Error:",
+                        response.status
+                    );
+
+                    doctors = [];
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                doctors =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                populateDoctorDropdown();
+
+            } catch (error) {
+                console.error(
+                    "Doctor Load Error:",
+                    error
+                );
+
+                doctors = [];
+            }
+        }
+
+        function populatePatientDropdowns() {
+            billPatient.innerHTML = `
+        <option value="">
+            Select Patient
+        </option>
+    `;
+
+            patientFilter.innerHTML = `
+        <option value="all">
+            All Patients
+        </option>
+    `;
+
+            patients.forEach(
+                patient => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        patient.id;
+
+                    option.textContent =
+                        patient.fullName ||
+                        `Patient ${patient.id}`;
+
+                    billPatient.appendChild(
+                        option
+                    );
+
+                    const filterOption =
+                        document.createElement(
+                            "option"
+                        );
+
+                    filterOption.value =
+                        patient.id;
+
+                    filterOption.textContent =
+                        patient.fullName ||
+                        `Patient ${patient.id}`;
+
+                    patientFilter.appendChild(
+                        filterOption
+                    );
+                }
+            );
+        }
+
+        function populateDoctorDropdown() {
+            billDoctor.innerHTML = `
+        <option value="">
+            Select Doctor
+        </option>
+    `;
+
+            doctors.forEach(
+                doctor => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        doctor.id;
+
+                    option.textContent =
+                        doctor.doctorName ||
+                        `Doctor ${doctor.id}`;
+
+                    billDoctor.appendChild(
+                        option
+                    );
+                }
+            );
+        }
+
+        async function loadBills() {
+            billingTable.innerHTML = `
+        <tr>
+            <td
+                colspan="9"
+                style="
+                    text-align:center;
+                    padding:30px;
+                "
+            >
+                Loading billing records...
+            </td>
+        </tr>
+    `;
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/billing`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                console.log(
+                    "Billing API Status:",
+                    response.status
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Billing API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    billingTable.innerHTML = `
+                <tr>
+                    <td
+                        colspan="9"
+                        style="
+                            text-align:center;
+                            padding:30px;
+                            color:#dc2626;
+                        "
+                    >
+                        Unable to load billing records.
+                        Error: ${response.status}
+                    </td>
+                </tr>
+            `;
+
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                bills =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                renderBills();
+
+            } catch (error) {
+                console.error(
+                    "Billing Load Error:",
+                    error
+                );
+
+                billingTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="9"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#dc2626;
+                    "
+                >
+                    Unable to connect with backend.
+                </td>
+            </tr>
+        `;
+            }
+        }
+
+        function renderBills() {
+            const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            const selectedStatus =
+                statusFilter.value
+                    .toLowerCase();
+
+            const selectedPatient =
+                patientFilter.value;
+
+            const selectedDate =
+                dateFilter.value;
+
+            const filteredBills =
+                bills.filter(
+                    bill => {
+
+                        const patientName =
+                            getPatientName(
+                                bill.patientId
+                            ).toLowerCase();
+
+                        const doctorName =
+                            getDoctorName(
+                                bill.doctorId
+                            ).toLowerCase();
+
+                        const billNumber =
+                            String(
+                                bill.billNumber ||
+                                bill.id ||
+                                ""
+                            ).toLowerCase();
+
+                        const status =
+                            String(
+                                bill.paymentStatus ||
+                                ""
+                            ).toLowerCase();
+
+                        const searchMatch =
+                            !search ||
+                            patientName.includes(search) ||
+                            doctorName.includes(search) ||
+                            billNumber.includes(search);
+
+                        const statusMatch =
+                            selectedStatus === "all" ||
+                            status === selectedStatus;
+
+                        const patientMatch =
+                            selectedPatient === "all" ||
+                            Number(
+                                bill.patientId
+                            ) === Number(
+                                selectedPatient
+                            );
+
+                        const dateMatch =
+                            !selectedDate ||
+                            String(
+                                bill.billDate ||
+                                ""
+                            ) === selectedDate;
+
+                        return (
+                            searchMatch &&
+                            statusMatch &&
+                            patientMatch &&
+                            dateMatch
+                        );
+                    }
+                );
+
+            billingTable.innerHTML = "";
+
+            if (
+                filteredBills.length === 0
+            ) {
+                billingTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="9"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#64748b;
+                    "
+                >
+                    No billing records found.
+                </td>
+            </tr>
+        `;
+
+                return;
+            }
+
+            filteredBills.forEach(
+                bill => {
+
+                    const total =
+                        Number(
+                            bill.totalAmount || 0
+                        );
+
+                    const paid =
+                        Number(
+                            bill.paidAmount || 0
+                        );
+
+                    const due =
+                        getDueAmount(bill);
+
+                    const status =
+                        bill.paymentStatus ||
+                        "Pending";
+
+                    const statusClass =
+                        getStatusClass(
+                            status
+                        );
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    row.dataset.id =
+                        bill.id;
+
+                    row.innerHTML = `
+                <td>
+                    ${escapeHtml(
+                        bill.billNumber ||
+                        `BILL-${bill.id}`
+                    )}
+                </td>
+
+                <td>
+                    <div class="patient-box">
+
+                        <img
+                            src="../assets/patient.png"
+                            alt="Patient"
+                            onerror="
+                                this.style.display='none'
+                            "
+                        >
+
+                        <div>
+                            <b>
+                                ${escapeHtml(
+                        getPatientName(
+                            bill.patientId
+                        )
+                    )}
+                            </b>
+                            <br>
+                            <small>
+                                ID:
+                                ${escapeHtml(
+                        bill.patientId
+                    )}
+                            </small>
+                        </div>
+
+                    </div>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        getDoctorName(
+                            bill.doctorId
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        formatDate(
+                            bill.billDate
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${formatCurrency(
+                        total
+                    )}
+                </td>
+
+                <td>
+                    ${formatCurrency(
+                        paid
+                    )}
+                </td>
+
+                <td>
+                    ${formatCurrency(
+                        due
+                    )}
+                </td>
+
+                <td>
+                    <span
+                        class="status ${statusClass}"
+                    >
+                        ${escapeHtml(
+                        status
+                    )}
+                    </span>
+                </td>
+
+                <td>
+                    <div class="action-buttons">
+
+                        <button
+                            class="view-btn"
+                            data-id="${bill.id}"
+                            title="View"
+                        >
+                            <i
+                                class="fa-solid fa-eye"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="edit-btn"
+                            data-id="${bill.id}"
+                            title="Edit"
+                        >
+                            <i
+                                class="fa-solid fa-pen"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="pay-btn"
+                            data-id="${bill.id}"
+                            title="Pay"
+                        >
+                            <i
+                                class="fa-solid fa-money-bill-wave"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="download-btn"
+                            data-id="${bill.id}"
+                            title="Download"
+                        >
+                            <i
+                                class="fa-solid fa-download"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            data-id="${bill.id}"
+                            title="Delete"
+                        >
+                            <i
+                                class="fa-solid fa-trash"
+                            ></i>
+                        </button>
+
+                    </div>
+                </td>
+            `;
+
+                    billingTable.appendChild(
+                        row
+                    );
+                }
+            );
+
+            attachBillActions();
+        }
+
+        function findBillById(id) {
+            return bills.find(
+                bill =>
+                    Number(bill.id) ===
+                    Number(id)
+            );
+        }
+
+        function attachBillActions() {
+            document
+                .querySelectorAll(
+                    ".view-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                viewBill(
+                                    Number(
+                                        button.dataset.id
+                                    )
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".edit-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                editBill(
+                                    Number(
+                                        button.dataset.id
+                                    )
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".pay-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                payBill(
+                                    Number(
+                                        button.dataset.id
+                                    )
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".download-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                downloadBill(
+                                    Number(
+                                        button.dataset.id
+                                    )
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".delete-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                deleteBill(
+                                    Number(
+                                        button.dataset.id
+                                    )
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+        function openGenerateModal() {
+            editingBillId =
+                null;
+
+            document.querySelector(
+                "#billModal .modal-title"
+            ).textContent =
+                "Generate Bill";
+
+            billPatient.value =
+                "";
+
+            billDoctor.value =
+                "";
+
+            const today =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+            billDate.value =
+                today;
+
+            billAmount.value =
+                "";
+
+            paidAmount.value =
+                "0";
+
+            billStatus.value =
+                "Pending";
+
+            billRemarks.value =
+                "";
+
+            saveBtn.innerHTML = `
+        <i class="fa-solid fa-floppy-disk"></i>
+        Save Bill
+    `;
+
+            billModal.style.display =
+                "flex";
+        }
+
+        function editBill(id) {
+            const bill =
+                findBillById(id);
+
+            if (!bill) {
+                alert(
+                    "Bill data not found."
+                );
+                return;
+            }
+
+            editingBillId =
+                id;
+
+            document.querySelector(
+                "#billModal .modal-title"
+            ).textContent =
+                "Edit Bill";
+
+            billPatient.value =
+                bill.patientId ||
+                "";
+
+            billDoctor.value =
+                bill.doctorId ||
+                "";
+
+            billDate.value =
+                bill.billDate ||
+                "";
+
+            billAmount.value =
+                bill.totalAmount ??
+                "";
+
+            paidAmount.value =
+                bill.paidAmount ??
+                "0";
+
+            billStatus.value =
+                bill.paymentStatus ||
+                "Pending";
+
+            billRemarks.value =
+                bill.remarks ||
+                "";
+
+            saveBtn.innerHTML = `
+        <i class="fa-solid fa-floppy-disk"></i>
+        Update Bill
+    `;
+
+            billModal.style.display =
+                "flex";
+        }
+
+        function viewBill(id) {
+            const bill =
+                findBillById(id);
+
+            if (!bill) {
+                alert(
+                    "Bill data not found."
+                );
+                return;
+            }
+
+            viewBillId.value =
+                bill.billNumber ||
+                `BILL-${bill.id}`;
+
+            viewBillPatient.value =
+                getPatientName(
+                    bill.patientId
+                );
+
+            viewBillDoctor.value =
+                getDoctorName(
+                    bill.doctorId
+                );
+
+            viewBillTotal.value =
+                formatCurrency(
+                    bill.totalAmount
+                );
+
+            viewBillPaid.value =
+                formatCurrency(
+                    bill.paidAmount
+                );
+
+            viewBillDue.value =
+                formatCurrency(
+                    getDueAmount(bill)
+                );
+
+            viewBillRemarks.value =
+                bill.remarks ||
+                "--";
+
+            viewModal.style.display =
+                "flex";
+        }
+
+        async function saveBill() {
+            const patientId =
+                billPatient.value;
+
+            const doctorId =
+                billDoctor.value;
+
+            const date =
+                billDate.value;
+
+            const total =
+                Number(
+                    billAmount.value
+                );
+
+            const paid =
+                Number(
+                    paidAmount.value || 0
+                );
+
+            const status =
+                billStatus.value;
+
+            const remarks =
+                billRemarks.value.trim();
+
+            if (!patientId) {
+                alert(
+                    "Please select a patient."
+                );
+                return;
+            }
+
+            if (!doctorId) {
+                alert(
+                    "Please select a doctor."
+                );
+                return;
+            }
+
+            if (!date) {
+                alert(
+                    "Please select bill date."
+                );
+                return;
+            }
+
+            if (
+                Number.isNaN(total) ||
+                total < 0
+            ) {
+                alert(
+                    "Please enter a valid total amount."
+                );
+                return;
+            }
+
+            if (
+                Number.isNaN(paid) ||
+                paid < 0
+            ) {
+                alert(
+                    "Please enter a valid paid amount."
+                );
+                return;
+            }
+
+            if (paid > total) {
+                alert(
+                    "Paid amount cannot be greater than total amount."
+                );
+                return;
+            }
+
+            const payload = {
+                billNumber:
+                    editingBillId
+                        ? findBillById(
+                            editingBillId
+                        )?.billNumber
+                        : "BILL-" +
+                        Date.now(),
+
+                patientId:
+                    Number(
+                        patientId
+                    ),
+
+                doctorId:
+                    Number(
+                        doctorId
+                    ),
+
+                billDate:
+                    date,
+
+                totalAmount:
+                    total,
+
+                paidAmount:
+                    paid,
+
+                paymentStatus:
+                    status,
+
+                remarks:
+                    remarks || null
+            };
+
+            try {
+                saveBtn.disabled =
+                    true;
+
+                const url =
+                    editingBillId
+                        ? `${API_BASE_URL}/api/billing/${editingBillId}`
+                        : `${API_BASE_URL}/api/billing`;
+
+                const method =
+                    editingBillId
+                        ? "PUT"
+                        : "POST";
+
+                const response =
+                    await fetch(
+                        url,
+                        {
+                            method:
+                                method,
+
+                            headers:
+                                getHeaders(),
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Save Bill Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to save bill. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    editingBillId
+                        ? "Bill updated successfully."
+                        : "Bill generated successfully."
+                );
+
+                closeBillModal();
+
+                await loadBills();
+
+            } catch (error) {
+                console.error(
+                    "Save Bill Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+
+            } finally {
+                saveBtn.disabled =
+                    false;
+            }
+        }
+
+        async function payBill(id) {
+            const bill =
+                findBillById(id);
+
+            if (!bill) {
+                alert(
+                    "Bill data not found."
+                );
+                return;
+            }
+
+            const due =
+                getDueAmount(
+                    bill
+                );
+
+            if (due <= 0) {
+                alert(
+                    "This bill is already fully paid."
+                );
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    `Pay remaining amount ${formatCurrency(due)}?`
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/billing/pay/${id}`,
+                        {
+                            method: "PUT",
+                            headers: getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Payment Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to complete payment. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Payment completed successfully."
+                );
+
+                await loadBills();
+
+            } catch (error) {
+                console.error(
+                    "Payment Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        async function deleteBill(id) {
+            const bill =
+                findBillById(id);
+
+            if (!bill) {
+                alert(
+                    "Bill data not found."
+                );
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    `Delete ${bill.billNumber || "this bill"}?`
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/billing/${id}`,
+                        {
+                            method: "DELETE",
+                            headers: getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Delete Bill Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to delete bill. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Bill deleted successfully."
+                );
+
+                await loadBills();
+
+            } catch (error) {
+                console.error(
+                    "Delete Bill Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        function downloadBill(id) {
+            const bill =
+                findBillById(id);
+
+            if (!bill) {
+                alert(
+                    "Bill data not found."
+                );
+                return;
+            }
+
+            const content = `
+OptiHealth Billing Invoice
+--------------------------
+
+Bill ID: ${bill.billNumber ||
+                `BILL-${bill.id}`
+                }
+
+Patient: ${getPatientName(
+                    bill.patientId
+                )
+                }
+
+Doctor: ${getDoctorName(
+                    bill.doctorId
+                )
+                }
+
+Bill Date: ${bill.billDate ||
+                "--"
+                }
+
+Total Amount: ${formatCurrency(
+                    bill.totalAmount
+                )
+                }
+
+Paid Amount: ${formatCurrency(
+                    bill.paidAmount
+                )
+                }
+
+Due Amount: ${formatCurrency(
+                    getDueAmount(bill)
+                )
+                }
+
+Payment Status: ${bill.paymentStatus ||
+                "--"
+                }
+
+Remarks: ${bill.remarks ||
+                "--"
+                }
+`;
+
+            const blob =
+                new Blob(
+                    [content],
+                    {
+                        type: "text/plain"
+                    }
+                );
+
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+            link.href =
+                url;
+
+            link.download =
+                (
+                    bill.billNumber ||
+                    `BILL-${bill.id}`
+                ) +
+                ".txt";
+
+            document.body.appendChild(
+                link
+            );
+
+            link.click();
+
+            link.remove();
+
+            URL.revokeObjectURL(
+                url
+            );
+        }
+
+        function closeBillModal() {
+            billModal.style.display =
+                "none";
+
+            editingBillId =
+                null;
+        }
+
+        function closeViewModal() {
+            viewModal.style.display =
+                "none";
+        }
+
+        function setupSearch() {
+            searchInput.addEventListener(
+                "input",
+                renderBills
+            );
+        }
+
+        function setupFilters() {
+            statusFilter.addEventListener(
+                "change",
+                renderBills
+            );
+
+            patientFilter.addEventListener(
+                "change",
+                renderBills
+            );
+
+            dateFilter.addEventListener(
+                "change",
+                renderBills
+            );
+        }
+
+        function setupModals() {
+            generateBillBtn.addEventListener(
+                "click",
+                openGenerateModal
+            );
+
+            saveBtn.addEventListener(
+                "click",
+                saveBill
+            );
+
+            cancelBtn.addEventListener(
+                "click",
+                closeBillModal
+            );
+
+            closeViewBtn.addEventListener(
+                "click",
+                closeViewModal
+            );
+
+            document
+                .querySelectorAll(
+                    "#billModal .close-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            closeBillModal
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    "#viewModal .close-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            closeViewModal
+                        );
+                    }
+                );
+
+            window.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        billModal
+                    ) {
+                        closeBillModal();
+                    }
+
+                    if (
+                        event.target ===
+                        viewModal
+                    ) {
+                        closeViewModal();
+                    }
+                }
+            );
+        }
+
+        function setupSidebar() {
+            menuBtn.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        window.innerWidth <=
+                        900
+                    ) {
+
+                        sidebar.style.left =
+                            sidebar.style.left ===
+                                "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        !sidebar.contains(
+                            event.target
+                        ) &&
+                        !menuBtn.contains(
+                            event.target
+                        )
+                    ) {
+
+                        sidebar.style.left =
+                            "-270px";
+                    }
+                }
+            );
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    sidebar.style.left =
+                        window.innerWidth > 900
+                            ? "0"
+                            : "-270px";
+                }
+            );
+        }
+
+        function setupProfile() {
+            if (!profile) {
+                return;
+            }
+
+            profile.addEventListener(
+                "click",
+                () => {
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        function setupNotification() {
+            const notify =
+                document.querySelector(
+                    ".notify"
+                );
+
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                () => {
+
+                    const pendingBills =
+                        bills.filter(
+                            bill =>
+                                String(
+                                    bill.paymentStatus ||
+                                    ""
+                                ).toLowerCase() !==
+                                "paid"
+                        ).length;
+
+                    if (
+                        pendingBills === 0
+                    ) {
+                        alert(
+                            "No pending bills."
+                        );
+                    } else {
+                        alert(
+                            `There are ${pendingBills} unpaid bill(s).`
+                        );
+                    }
+                }
+            );
+        }
+
+        async function initializeBilling() {
+            if (
+                window.innerWidth <=
+                900
+            ) {
+                sidebar.style.left =
+                    "-270px";
+            } else {
+                sidebar.style.left =
+                    "0";
+            }
+
+            loadAdminProfile();
+            setupSidebar();
+            setupProfile();
+            setupNotification();
+            setupSearch();
+            setupFilters();
+            setupModals();
+
+            await loadPatients();
+            await loadDoctors();
+            await loadBills();
+
+            setTimeout(
+                () => {
+                    if (
+                        notificationCount
+                    ) {
+                        const unpaid =
+                            bills.filter(
+                                bill =>
+                                    String(
+                                        bill.paymentStatus ||
+                                        ""
+                                    ).toLowerCase() !==
+                                    "paid"
+                            ).length;
+
+                        notificationCount.textContent =
+                            unpaid;
+                    }
+                },
+                100
+            );
+        }
+
+        initializeBilling();
     </script>
 
 </body>

@@ -701,14 +701,14 @@
 
                     <div class="notify">
                         <i class="fa-regular fa-bell"></i>
-                        <span>5</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
                         <img src="../assets/admin.png" alt="">
                         <div>
-                            <h4>Admin</h4>
-                            <p>System Administrator</p>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
                         </div>
                     </div>
 
@@ -734,26 +734,18 @@
 
                             <select id="statusFilter">
                                 <option value="all">All Status</option>
-                                <option>Pending</option>
-                                <option>Approved</option>
-                                <option>Completed</option>
-                                <option>Cancelled</option>
+                                <option value="PENDING">Pending</option>
+                                <option value="ACCEPTED">Accepted</option>
+                                <option value="REJECTED">Rejected</option>
+                                <option value="COMPLETED">Completed</option>
                             </select>
 
                             <select id="departmentFilter">
                                 <option value="all">All Departments</option>
-                                <option>Cardiology</option>
-                                <option>Neurology</option>
-                                <option>Orthopedics</option>
-                                <option>Pediatrics</option>
-                                <option>Dermatology</option>
                             </select>
 
                             <select id="doctorFilter">
                                 <option value="all">All Doctors</option>
-                                <option>Dr. Rahul Sharma</option>
-                                <option>Dr. Neha Gupta</option>
-                                <option>Dr. Raj Patel</option>
                             </select>
 
                             <input type="date" id="dateFilter">
@@ -785,237 +777,7 @@
 
                                 </thead>
 
-                                <tbody id="appointmentTable">
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Rahul Verma</b><br>
-                                                    <small>PAT101</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-
-                                            <div class="doctor-box">
-                                                <img src="../assets/doctor.png">
-                                                <div>
-                                                    <b>Dr. Rahul Sharma</b>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Cardiology</td>
-                                        <td>25-07-2026</td>
-                                        <td>09:30 AM</td>
-                                        <td>#101</td>
-                                        <td><span class="status pending">Pending</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="approve-btn">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </button>
-
-                                                <button class="reject-btn">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </button>
-
-                                                <button class="reschedule-btn">
-                                                    <i class="fa-solid fa-calendar-days"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Priya Sharma</b><br>
-                                                    <small>PAT102</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-
-                                            <div class="doctor-box">
-                                                <img src="../assets/doctor.png">
-                                                <div>
-                                                    <b>Dr. Neha Gupta</b>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Neurology</td>
-                                        <td>25-07-2026</td>
-                                        <td>11:00 AM</td>
-                                        <td>#102</td>
-                                        <td><span class="status approved">Approved</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="approve-btn">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </button>
-
-                                                <button class="reject-btn">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </button>
-
-                                                <button class="reschedule-btn">
-                                                    <i class="fa-solid fa-calendar-days"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Amit Patel</b><br>
-                                                    <small>PAT103</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-
-                                            <div class="doctor-box">
-                                                <img src="../assets/doctor.png">
-                                                <div>
-                                                    <b>Dr. Raj Patel</b>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Orthopedics</td>
-                                        <td>26-07-2026</td>
-                                        <td>02:15 PM</td>
-                                        <td>#103</td>
-                                        <td><span class="status completed">Completed</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="approve-btn">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </button>
-
-                                                <button class="reject-btn">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </button>
-
-                                                <button class="reschedule-btn">
-                                                    <i class="fa-solid fa-calendar-days"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="patient-box">
-                                                <img src="../assets/patient.png">
-                                                <div>
-                                                    <b>Sneha Joshi</b><br>
-                                                    <small>PAT104</small>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-
-                                            <div class="doctor-box">
-                                                <img src="../assets/doctor.png">
-                                                <div>
-                                                    <b>Dr. Rahul Sharma</b>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                        <td>Cardiology</td>
-                                        <td>27-07-2026</td>
-                                        <td>10:30 AM</td>
-                                        <td>#104</td>
-                                        <td><span class="status cancelled">Cancelled</span></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-                                                <button class="view-btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <button class="approve-btn">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </button>
-
-                                                <button class="reject-btn">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </button>
-
-                                                <button class="reschedule-btn">
-                                                    <i class="fa-solid fa-calendar-days"></i>
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
+                                <tbody id="appointmentTable"></tbody>
 
                             </table>
 
@@ -1037,48 +799,37 @@
 
                                 <div class="input-group">
                                     <label>Patient Name</label>
-                                    <input type="text" value="Rahul Verma" readonly>
+                                    <input type="text" id="viewPatientName" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Doctor</label>
-                                    <input type="text" value="Dr. Rahul Sharma">
+                                    <input type="text" id="viewDoctorName" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Department</label>
-                                    <select>
-                                        <option>Cardiology</option>
-                                        <option>Neurology</option>
-                                        <option>Orthopedics</option>
-                                        <option>Pediatrics</option>
-                                        <option>Dermatology</option>
-                                    </select>
+                                    <input type="text" id="viewDepartment" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Status</label>
-                                    <select>
-                                        <option>Pending</option>
-                                        <option>Approved</option>
-                                        <option>Completed</option>
-                                        <option>Cancelled</option>
-                                    </select>
+                                    <input type="text" id="viewStatus" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Appointment Date</label>
-                                    <input type="date">
+                                    <input type="date" id="viewAppointmentDate" readonly>
                                 </div>
 
                                 <div class="input-group">
                                     <label>Appointment Time</label>
-                                    <input type="time">
+                                    <input type="time" id="viewAppointmentTime" readonly>
                                 </div>
 
                                 <div class="input-group full-width">
                                     <label>Remarks</label>
-                                    <textarea placeholder="Enter remarks..."></textarea>
+                                    <textarea id="viewRemarks" readonly></textarea>
                                 </div>
 
                             </div>
@@ -1108,204 +859,1566 @@
     </div>
 
     <script>
+        const API_BASE_URL = "http://localhost:8080";
+
+        const token = localStorage.getItem("token");
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
+        const profile = document.querySelector(".profile");
 
-        const searchInput = document.querySelector(".search-box input");
-        const statusFilter = document.getElementById("statusFilter");
-        const departmentFilter = document.getElementById("departmentFilter");
-        const doctorFilter = document.getElementById("doctorFilter");
-        const dateFilter = document.getElementById("dateFilter");
+        const searchInput =
+            document.querySelector(".search-box input");
 
-        const appointmentRows = document.querySelectorAll("#appointmentTable tr");
+        const statusFilter =
+            document.getElementById("statusFilter");
 
-        const appointmentModal = document.getElementById("appointmentModal");
-        const saveBtn = document.querySelector(".save-btn");
-        const cancelBtn = document.querySelector(".cancel-btn");
+        const departmentFilter =
+            document.getElementById("departmentFilter");
 
-        menuBtn.addEventListener("click", () => {
+        const doctorFilter =
+            document.getElementById("doctorFilter");
 
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const dateFilter =
+            document.getElementById("dateFilter");
+
+        const appointmentTable =
+            document.getElementById("appointmentTable");
+
+        const appointmentModal =
+            document.getElementById("appointmentModal");
+
+        const saveBtn =
+            document.querySelector(".save-btn");
+
+        const cancelBtn =
+            document.querySelector(".cancel-btn");
+
+        const closeBtn =
+            document.querySelector(".close-btn");
+
+        const adminName =
+            document.getElementById("adminName");
+
+        const adminRole =
+            document.getElementById("adminRole");
+
+        const notificationCount =
+            document.getElementById("notificationCount");
+
+        const viewPatientName =
+            document.getElementById("viewPatientName");
+
+        const viewDoctorName =
+            document.getElementById("viewDoctorName");
+
+        const viewDepartment =
+            document.getElementById("viewDepartment");
+
+        const viewStatus =
+            document.getElementById("viewStatus");
+
+        const viewAppointmentDate =
+            document.getElementById("viewAppointmentDate");
+
+        const viewAppointmentTime =
+            document.getElementById("viewAppointmentTime");
+
+        const viewRemarks =
+            document.getElementById("viewRemarks");
+
+        let appointments = [];
+        let patients = [];
+        let doctors = [];
+        let selectedAppointment = null;
+        let rescheduleMode = false;
+
+        function getHeaders() {
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
-        });
-
-        document.addEventListener("click", e => {
-
-            if (window.innerWidth <= 900) {
-
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
-                }
-
-            }
-
-        });
-
-        window.addEventListener("resize", () => {
-
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
-            } else {
-                sidebar.style.left = "-270px";
-            }
-
-        });
-
-        document.querySelector(".profile").addEventListener("click", () => {
-
-            window.location.href = "profile.html";
-
-        });
-
-        document.querySelectorAll(".view-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                appointmentModal.style.display = "flex";
-
-            });
-
-        });
-
-        document.querySelectorAll(".approve-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                const row = btn.closest("tr");
-
-                row.cells[6].innerHTML = '<span class="status approved">Approved</span>';
-
-                alert("Appointment Approved Successfully.");
-
-            });
-
-        });
-
-        document.querySelectorAll(".reject-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                const row = btn.closest("tr");
-
-                row.cells[6].innerHTML = '<span class="status cancelled">Cancelled</span>';
-
-                alert("Appointment Rejected.");
-
-            });
-
-        });
-
-        document.querySelectorAll(".reschedule-btn").forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                appointmentModal.style.display = "flex";
-
-                document.querySelector("#appointmentModal .modal-title").innerText = "Reschedule Appointment";
-
-            });
-
-        });
-
-        saveBtn.addEventListener("click", () => {
-
-            alert("Appointment Updated Successfully.");
-
-            appointmentModal.style.display = "none";
-
-        });
-
-        cancelBtn.addEventListener("click", () => {
-
-            appointmentModal.style.display = "none";
-
-        });
-
-        document.querySelector(".close-btn").addEventListener("click", () => {
-
-            appointmentModal.style.display = "none";
-
-        });
-
-        window.addEventListener("click", e => {
-
-            if (e.target === appointmentModal) {
-                appointmentModal.style.display = "none";
-            }
-
-        });
-
-        searchInput.addEventListener("keyup", () => {
-
-            const value = searchInput.value.toLowerCase();
-
-            appointmentRows.forEach(row => {
-
-                const text = row.innerText.toLowerCase();
-
-                row.style.display = text.includes(value) ? "" : "none";
-
-            });
-
-        });
-
-        statusFilter.addEventListener("change", filterAppointments);
-        departmentFilter.addEventListener("change", filterAppointments);
-        doctorFilter.addEventListener("change", filterAppointments);
-        dateFilter.addEventListener("change", filterAppointments);
-
-        function filterAppointments() {
-
-            const status = statusFilter.value.toLowerCase();
-            const department = departmentFilter.value.toLowerCase();
-            const doctor = doctorFilter.value.toLowerCase();
-            const date = dateFilter.value;
-
-            appointmentRows.forEach(row => {
-
-                const rowStatus = row.cells[6].innerText.toLowerCase();
-                const rowDepartment = row.cells[2].innerText.toLowerCase();
-                const rowDoctor = row.cells[1].innerText.toLowerCase();
-
-                const statusMatch = status === "all" || rowStatus === status;
-                const departmentMatch = department === "all" || rowDepartment === department;
-                const doctorMatch = doctor === "all" || rowDoctor.includes(doctor);
-
-                let dateMatch = true;
-
-                if (date !== "") {
-
-                    const rowDate = row.cells[3].innerText.split("-");
-
-                    const formatted = rowDate[2] + "-" + rowDate[1] + "-" + rowDate[0];
-
-                    dateMatch = formatted === date;
-
-                }
-
-                row.style.display = (statusMatch && departmentMatch && doctorMatch && dateMatch) ? "" : "none";
-
-            });
-
+            return headers;
         }
 
-        document.querySelectorAll("tbody tr").forEach(row => {
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
 
-            row.addEventListener("mouseenter", () => {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
 
-                row.style.background = "#f8fbff";
+        function getAdminData() {
+            try {
+                const data =
+                    localStorage.getItem("admin");
 
-            });
+                if (!data) {
+                    return null;
+                }
 
-            row.addEventListener("mouseleave", () => {
+                return JSON.parse(data);
 
-                row.style.background = "transparent";
+            } catch (error) {
+                console.error(
+                    "Admin data error:",
+                    error
+                );
 
-            });
+                return null;
+            }
+        }
 
-        });
+        function loadAdminProfile() {
+            const admin =
+                getAdminData();
+
+            if (adminName) {
+                adminName.textContent =
+                    admin?.fullName ||
+                    admin?.name ||
+                    "Admin";
+            }
+
+            if (adminRole) {
+                adminRole.textContent =
+                    admin?.role ||
+                    "System Administrator";
+            }
+        }
+
+        function setNotificationCount() {
+            const pendingCount =
+                appointments.filter(
+                    appointment =>
+                        String(
+                            appointment.status || ""
+                        ).toUpperCase() ===
+                        "PENDING"
+                ).length;
+
+            if (notificationCount) {
+                notificationCount.textContent =
+                    pendingCount;
+            }
+        }
+
+        function getPatient(patientId) {
+            return patients.find(
+                patient =>
+                    Number(patient.id) ===
+                    Number(patientId)
+            );
+        }
+
+        function getDoctor(doctorId) {
+            return doctors.find(
+                doctor =>
+                    Number(doctor.id) ===
+                    Number(doctorId)
+            );
+        }
+
+        function getPatientName(patientId) {
+            const patient =
+                getPatient(patientId);
+
+            return patient?.fullName ||
+                "Patient Not Found";
+        }
+
+        function getDoctorName(doctorId) {
+            const doctor =
+                getDoctor(doctorId);
+
+            return doctor?.doctorName ||
+                "Doctor Not Found";
+        }
+
+        function getDepartment(doctorId) {
+            const doctor =
+                getDoctor(doctorId);
+
+            return doctor?.specialization ||
+                "--";
+        }
+
+        function formatDate(date) {
+            if (!date) {
+                return "--";
+            }
+
+            const parts =
+                String(date).split("-");
+
+            if (parts.length !== 3) {
+                return date;
+            }
+
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        function formatTime(time) {
+            if (!time) {
+                return "--";
+            }
+
+            const parts =
+                String(time).split(":");
+
+            if (parts.length < 2) {
+                return time;
+            }
+
+            let hours =
+                Number(parts[0]);
+
+            const minutes =
+                parts[1];
+
+            if (Number.isNaN(hours)) {
+                return time;
+            }
+
+            const period =
+                hours >= 12
+                    ? "PM"
+                    : "AM";
+
+            hours =
+                hours % 12;
+
+            if (hours === 0) {
+                hours = 12;
+            }
+
+            return (
+                String(hours).padStart(2, "0") +
+                ":" +
+                minutes +
+                " " +
+                period
+            );
+        }
+
+        function getStatusClass(status) {
+            const value =
+                String(status || "")
+                    .toUpperCase();
+
+            if (value === "PENDING") {
+                return "pending";
+            }
+
+            if (value === "ACCEPTED") {
+                return "approved";
+            }
+
+            if (value === "COMPLETED") {
+                return "completed";
+            }
+
+            if (
+                value === "REJECTED" ||
+                value === "CANCELLED"
+            ) {
+                return "cancelled";
+            }
+
+            return "pending";
+        }
+
+        function getStatusText(status) {
+            const value =
+                String(status || "")
+                    .toUpperCase();
+
+            if (value === "ACCEPTED") {
+                return "Accepted";
+            }
+
+            if (value === "REJECTED") {
+                return "Rejected";
+            }
+
+            if (value === "COMPLETED") {
+                return "Completed";
+            }
+
+            if (value === "CANCELLED") {
+                return "Cancelled";
+            }
+
+            return "Pending";
+        }
+
+        async function loadPatients() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Patients API Error:",
+                        response.status
+                    );
+
+                    patients = [];
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                patients =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+            } catch (error) {
+                console.error(
+                    "Patient Load Error:",
+                    error
+                );
+
+                patients = [];
+            }
+        }
+
+        async function loadDoctors() {
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    console.error(
+                        "Doctors API Error:",
+                        response.status
+                    );
+
+                    doctors = [];
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                doctors =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+            } catch (error) {
+                console.error(
+                    "Doctor Load Error:",
+                    error
+                );
+
+                doctors = [];
+            }
+        }
+
+        async function loadAppointments() {
+            appointmentTable.innerHTML = `
+        <tr>
+            <td
+                colspan="8"
+                style="
+                    text-align:center;
+                    padding:30px;
+                "
+            >
+                Loading appointments...
+            </td>
+        </tr>
+    `;
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/appointment/all`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                console.log(
+                    "Appointments API Status:",
+                    response.status
+                );
+
+                if (!response.ok) {
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Appointments API Error:",
+                        response.status,
+                        errorText
+                    );
+
+                    appointmentTable.innerHTML = `
+                <tr>
+                    <td
+                        colspan="8"
+                        style="
+                            text-align:center;
+                            padding:30px;
+                            color:#dc2626;
+                        "
+                    >
+                        Unable to load appointments.
+                        Error: ${response.status}
+                    </td>
+                </tr>
+            `;
+
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                appointments =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                populateFilters();
+                setNotificationCount();
+                renderAppointments();
+
+            } catch (error) {
+                console.error(
+                    "Appointment Load Error:",
+                    error
+                );
+
+                appointmentTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#dc2626;
+                    "
+                >
+                    Unable to connect with backend.
+                </td>
+            </tr>
+        `;
+            }
+        }
+
+        function populateFilters() {
+            const departments = [
+                ...new Set(
+                    doctors
+                        .map(
+                            doctor =>
+                                doctor.specialization
+                        )
+                        .filter(Boolean)
+                )
+            ].sort();
+
+            departmentFilter.innerHTML = `
+        <option value="all">
+            All Departments
+        </option>
+    `;
+
+            departments.forEach(
+                department => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        department;
+
+                    option.textContent =
+                        department;
+
+                    departmentFilter.appendChild(
+                        option
+                    );
+                }
+            );
+
+            doctorFilter.innerHTML = `
+        <option value="all">
+            All Doctors
+        </option>
+    `;
+
+            doctors.forEach(
+                doctor => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        doctor.id;
+
+                    option.textContent =
+                        doctor.doctorName ||
+                        `Doctor ${doctor.id}`;
+
+                    doctorFilter.appendChild(
+                        option
+                    );
+                }
+            );
+        }
+
+        function renderAppointments() {
+            const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            const selectedStatus =
+                statusFilter.value
+                    .toUpperCase();
+
+            const selectedDepartment =
+                departmentFilter.value
+                    .toLowerCase();
+
+            const selectedDoctor =
+                doctorFilter.value;
+
+            const selectedDate =
+                dateFilter.value;
+
+            const filtered =
+                appointments.filter(
+                    appointment => {
+
+                        const patientName =
+                            getPatientName(
+                                appointment.patientId
+                            ).toLowerCase();
+
+                        const doctorName =
+                            getDoctorName(
+                                appointment.doctorId
+                            ).toLowerCase();
+
+                        const department =
+                            getDepartment(
+                                appointment.doctorId
+                            ).toLowerCase();
+
+                        const status =
+                            String(
+                                appointment.status ||
+                                ""
+                            ).toUpperCase();
+
+                        const searchMatch =
+                            !search ||
+                            patientName.includes(search) ||
+                            doctorName.includes(search) ||
+                            department.includes(search);
+
+                        const statusMatch =
+                            selectedStatus === "ALL" ||
+                            status === selectedStatus;
+
+                        const departmentMatch =
+                            selectedDepartment === "all" ||
+                            department ===
+                            selectedDepartment;
+
+                        const doctorMatch =
+                            selectedDoctor === "all" ||
+                            Number(
+                                appointment.doctorId
+                            ) === Number(
+                                selectedDoctor
+                            );
+
+                        const dateMatch =
+                            !selectedDate ||
+                            String(
+                                appointment.appointmentDate ||
+                                ""
+                            ) === selectedDate;
+
+                        return (
+                            searchMatch &&
+                            statusMatch &&
+                            departmentMatch &&
+                            doctorMatch &&
+                            dateMatch
+                        );
+                    }
+                );
+
+            appointmentTable.innerHTML = "";
+
+            if (!filtered.length) {
+                appointmentTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#64748b;
+                    "
+                >
+                    No appointments found.
+                </td>
+            </tr>
+        `;
+
+                return;
+            }
+
+            filtered.forEach(
+                appointment => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    row.dataset.id =
+                        appointment.appointmentId;
+
+                    const patientName =
+                        getPatientName(
+                            appointment.patientId
+                        );
+
+                    const doctorName =
+                        getDoctorName(
+                            appointment.doctorId
+                        );
+
+                    const department =
+                        getDepartment(
+                            appointment.doctorId
+                        );
+
+                    const status =
+                        String(
+                            appointment.status ||
+                            "PENDING"
+                        ).toUpperCase();
+
+                    const statusClass =
+                        getStatusClass(
+                            status
+                        );
+
+                    const date =
+                        formatDate(
+                            appointment.appointmentDate
+                        );
+
+                    const time =
+                        formatTime(
+                            appointment.appointmentTime
+                        );
+
+                    row.innerHTML = `
+                <td>
+                    <div class="patient-box">
+                        <img
+                            src="../assets/patient.png"
+                            alt="Patient"
+                            onerror="
+                                this.style.display='none'
+                            "
+                        >
+
+                        <div>
+                            <b>
+                                ${escapeHtml(
+                        patientName
+                    )}
+                            </b>
+                            <br>
+                            <small>
+                                ID:
+                                ${escapeHtml(
+                        appointment.patientId
+                    )}
+                            </small>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="doctor-box">
+                        <img
+                            src="../assets/doctor.png"
+                            alt="Doctor"
+                            onerror="
+                                this.style.display='none'
+                            "
+                        >
+
+                        <div>
+                            <b>
+                                ${escapeHtml(
+                        doctorName
+                    )}
+                            </b>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        department
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        date
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        time
+                    )}
+                </td>
+
+                <td>
+                    ${appointment.appointmentId != null
+                            ? "#" +
+                            escapeHtml(
+                                appointment.appointmentId
+                            )
+                            : "--"
+                        }
+                </td>
+
+                <td>
+                    <span
+                        class="status ${statusClass}"
+                    >
+                        ${escapeHtml(
+                            getStatusText(
+                                status
+                            )
+                        )}
+                    </span>
+                </td>
+
+                <td>
+                    <div class="action-buttons">
+
+                        <button
+                            class="view-btn"
+                            data-id="${appointment.appointmentId}"
+                            title="View"
+                        >
+                            <i
+                                class="fa-solid fa-eye"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="approve-btn"
+                            data-id="${appointment.appointmentId}"
+                            title="Approve"
+                        >
+                            <i
+                                class="fa-solid fa-check"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="reject-btn"
+                            data-id="${appointment.appointmentId}"
+                            title="Reject"
+                        >
+                            <i
+                                class="fa-solid fa-xmark"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="reschedule-btn"
+                            data-id="${appointment.appointmentId}"
+                            title="Reschedule"
+                        >
+                            <i
+                                class="fa-solid fa-calendar-days"
+                            ></i>
+                        </button>
+
+                    </div>
+                </td>
+            `;
+
+                    appointmentTable.appendChild(
+                        row
+                    );
+                }
+            );
+
+            attachAppointmentActions();
+        }
+
+        function attachAppointmentActions() {
+            document
+                .querySelectorAll(
+                    ".view-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                openViewModal(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".approve-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                approveAppointment(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".reject-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                rejectAppointment(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+
+            document
+                .querySelectorAll(
+                    ".reschedule-btn"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                const id =
+                                    Number(
+                                        button.dataset.id
+                                    );
+
+                                openRescheduleModal(
+                                    id
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+        function findAppointment(id) {
+            return appointments.find(
+                appointment =>
+                    Number(
+                        appointment.appointmentId
+                    ) === Number(id)
+            );
+        }
+
+        function openViewModal(id) {
+            const appointment =
+                findAppointment(id);
+
+            if (!appointment) {
+                alert(
+                    "Appointment data not found."
+                );
+                return;
+            }
+
+            selectedAppointment =
+                appointment;
+
+            rescheduleMode =
+                false;
+
+            document.querySelector(
+                "#appointmentModal .modal-title"
+            ).textContent =
+                "Appointment Details";
+
+            viewPatientName.value =
+                getPatientName(
+                    appointment.patientId
+                );
+
+            viewDoctorName.value =
+                getDoctorName(
+                    appointment.doctorId
+                );
+
+            viewDepartment.value =
+                getDepartment(
+                    appointment.doctorId
+                );
+
+            viewStatus.value =
+                getStatusText(
+                    appointment.status
+                );
+
+            viewAppointmentDate.value =
+                appointment.appointmentDate ||
+                "";
+
+            viewAppointmentTime.value =
+                appointment.appointmentTime ||
+                "";
+
+            viewRemarks.value =
+                appointment.remarks ||
+                "";
+
+            setModalEditable(false);
+
+            saveBtn.style.display =
+                "none";
+
+            appointmentModal.style.display =
+                "flex";
+        }
+
+        function openRescheduleModal(id) {
+            const appointment =
+                findAppointment(id);
+
+            if (!appointment) {
+                alert(
+                    "Appointment data not found."
+                );
+                return;
+            }
+
+            selectedAppointment =
+                appointment;
+
+            rescheduleMode =
+                true;
+
+            document.querySelector(
+                "#appointmentModal .modal-title"
+            ).textContent =
+                "Reschedule Appointment";
+
+            viewPatientName.value =
+                getPatientName(
+                    appointment.patientId
+                );
+
+            viewDoctorName.value =
+                getDoctorName(
+                    appointment.doctorId
+                );
+
+            viewDepartment.value =
+                getDepartment(
+                    appointment.doctorId
+                );
+
+            viewStatus.value =
+                getStatusText(
+                    appointment.status
+                );
+
+            viewAppointmentDate.value =
+                appointment.appointmentDate ||
+                "";
+
+            viewAppointmentTime.value =
+                appointment.appointmentTime ||
+                "";
+
+            viewRemarks.value =
+                appointment.remarks ||
+                "";
+
+            setModalEditable(true);
+
+            saveBtn.style.display =
+                "inline-block";
+
+            saveBtn.innerHTML = `
+        <i class="fa-solid fa-calendar-days"></i>
+        Save Changes
+    `;
+
+            appointmentModal.style.display =
+                "flex";
+        }
+
+        function setModalEditable(editable) {
+            viewAppointmentDate.readOnly =
+                !editable;
+
+            viewAppointmentTime.readOnly =
+                !editable;
+
+            viewRemarks.readOnly =
+                !editable;
+        }
+
+        async function approveAppointment(
+            appointmentId
+        ) {
+            const appointment =
+                findAppointment(
+                    appointmentId
+                );
+
+            if (!appointment) {
+                return;
+            }
+
+            if (
+                String(
+                    appointment.status || ""
+                ).toUpperCase() ===
+                "COMPLETED"
+            ) {
+                alert(
+                    "Completed appointment cannot be approved."
+                );
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    "Approve this appointment?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            const date =
+                appointment.appointmentDate;
+
+            const time =
+                appointment.appointmentTime;
+
+            if (!date || !time) {
+                alert(
+                    "Appointment date and time are required."
+                );
+                return;
+            }
+
+            try {
+                const params =
+                    new URLSearchParams();
+
+                params.append(
+                    "appointmentDate",
+                    date
+                );
+
+                params.append(
+                    "appointmentTime",
+                    time
+                );
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/accept/${appointmentId}?${params.toString()}`,
+                        {
+                            method: "PUT",
+                            headers: getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Approve Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to approve appointment. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Appointment Approved Successfully."
+                );
+
+                await loadAppointments();
+
+            } catch (error) {
+                console.error(
+                    "Approve Appointment Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        async function rejectAppointment(
+            appointmentId
+        ) {
+            const confirmed =
+                confirm(
+                    "Reject this appointment?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/reject/${appointmentId}`,
+                        {
+                            method: "PUT",
+                            headers: getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Reject Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to reject appointment. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Appointment Rejected Successfully."
+                );
+
+                await loadAppointments();
+
+            } catch (error) {
+                console.error(
+                    "Reject Appointment Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        async function rescheduleAppointment() {
+            if (!selectedAppointment) {
+                return;
+            }
+
+            const date =
+                viewAppointmentDate.value;
+
+            const time =
+                viewAppointmentTime.value;
+
+            if (!date) {
+                alert(
+                    "Please select appointment date."
+                );
+                return;
+            }
+
+            if (!time) {
+                alert(
+                    "Please select appointment time."
+                );
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    "Save the new appointment date and time?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const params =
+                    new URLSearchParams();
+
+                params.append(
+                    "appointmentDate",
+                    date
+                );
+
+                params.append(
+                    "appointmentTime",
+                    time
+                );
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/appointment/reschedule/${selectedAppointment.appointmentId}?${params.toString()}`,
+                        {
+                            method: "PUT",
+                            headers: getHeaders()
+                        }
+                    );
+
+                const responseText =
+                    await response.text();
+
+                if (!response.ok) {
+                    console.error(
+                        "Reschedule Error:",
+                        response.status,
+                        responseText
+                    );
+
+                    alert(
+                        "Unable to reschedule appointment. Error: " +
+                        response.status
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Appointment Rescheduled Successfully."
+                );
+
+                closeModal();
+
+                await loadAppointments();
+
+            } catch (error) {
+                console.error(
+                    "Reschedule Appointment Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect with backend."
+                );
+            }
+        }
+
+        function closeModal() {
+            appointmentModal.style.display =
+                "none";
+
+            selectedAppointment =
+                null;
+
+            rescheduleMode =
+                false;
+
+            setModalEditable(false);
+
+            saveBtn.style.display =
+                "inline-block";
+        }
+
+        function setupSearch() {
+            searchInput.addEventListener(
+                "input",
+                renderAppointments
+            );
+        }
+
+        function setupFilters() {
+            statusFilter.addEventListener(
+                "change",
+                renderAppointments
+            );
+
+            departmentFilter.addEventListener(
+                "change",
+                renderAppointments
+            );
+
+            doctorFilter.addEventListener(
+                "change",
+                renderAppointments
+            );
+
+            dateFilter.addEventListener(
+                "change",
+                renderAppointments
+            );
+        }
+
+        function setupModals() {
+            saveBtn.addEventListener(
+                "click",
+                async () => {
+
+                    if (rescheduleMode) {
+                        await rescheduleAppointment();
+                    }
+                }
+            );
+
+            cancelBtn.addEventListener(
+                "click",
+                closeModal
+            );
+
+            closeBtn.addEventListener(
+                "click",
+                closeModal
+            );
+
+            window.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        appointmentModal
+                    ) {
+                        closeModal();
+                    }
+                }
+            );
+        }
+
+        function setupSidebar() {
+            menuBtn.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        window.innerWidth <=
+                        900
+                    ) {
+
+                        sidebar.style.left =
+                            sidebar.style.left ===
+                                "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        !sidebar.contains(
+                            event.target
+                        ) &&
+                        !menuBtn.contains(
+                            event.target
+                        )
+                    ) {
+
+                        sidebar.style.left =
+                            "-270px";
+                    }
+                }
+            );
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    sidebar.style.left =
+                        window.innerWidth > 900
+                            ? "0"
+                            : "-270px";
+                }
+            );
+        }
+
+        function setupProfile() {
+            if (!profile) {
+                return;
+            }
+
+            profile.addEventListener(
+                "click",
+                () => {
+
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        function setupNotification() {
+            const notify =
+                document.querySelector(
+                    ".notify"
+                );
+
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                () => {
+
+                    const pending =
+                        appointments.filter(
+                            appointment =>
+                                String(
+                                    appointment.status ||
+                                    ""
+                                ).toUpperCase() ===
+                                "PENDING"
+                        ).length;
+
+                    if (pending === 0) {
+                        alert(
+                            "No pending appointments."
+                        );
+                    } else {
+                        alert(
+                            `There are ${pending} pending appointment(s).`
+                        );
+                    }
+                }
+            );
+        }
+
+        async function initializeAppointments() {
+            if (
+                window.innerWidth <=
+                900
+            ) {
+                sidebar.style.left =
+                    "-270px";
+            } else {
+                sidebar.style.left =
+                    "0";
+            }
+
+            loadAdminProfile();
+
+            setupSidebar();
+            setupProfile();
+            setupNotification();
+            setupSearch();
+            setupFilters();
+            setupModals();
+
+            await loadPatients();
+            await loadDoctors();
+            await loadAppointments();
+        }
+
+        initializeAppointments();
     </script>
 
 </body>

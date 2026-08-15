@@ -1,5 +1,6 @@
 package com.example.demo.Services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +32,18 @@ public class PatientService {
     private PasswordEncoder passwordEncoder;
 
     public void registerPatient(PatientModel patient) {
+
         patient.setPassword(
                 passwordEncoder.encode(
                         patient.getPassword()
                 )
         );
+
+        if (patient.getRegistrationDate() == null) {
+            patient.setRegistrationDate(
+                    LocalDate.now()
+            );
+        }
 
         patientRepo.save(patient);
     }
@@ -203,7 +211,9 @@ public class PatientService {
             Long patientId) {
 
         Optional<PatientModel> optionalPatient
-                = patientRepo.findById(patientId);
+                = patientRepo.findById(
+                        patientId
+                );
 
         if (optionalPatient.isEmpty()) {
             return null;

@@ -1,5 +1,7 @@
 package com.example.demo.Services;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +71,31 @@ public class AppointmentService {
         appointmentRepo.deleteById(appointmentId);
 
         return "Appointment Deleted Successfully";
+    }
+
+    public void rescheduleAppointment(
+            Long appointmentId,
+            LocalDate appointmentDate,
+            LocalTime appointmentTime) {
+
+        Optional<AppointmentModel> optionalAppointment
+                = appointmentRepo.findById(appointmentId);
+
+        if (optionalAppointment.isPresent()) {
+
+            AppointmentModel appointment
+                    = optionalAppointment.get();
+
+            appointment.setAppointmentDate(
+                    appointmentDate
+            );
+
+            appointment.setAppointmentTime(
+                    appointmentTime
+            );
+
+            appointmentRepo.save(appointment);
+        }
     }
 
 }

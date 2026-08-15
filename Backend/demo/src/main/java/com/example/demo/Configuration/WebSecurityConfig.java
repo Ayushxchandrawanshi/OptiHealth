@@ -49,29 +49,44 @@ public class WebSecurityConfig {
                         "/api/doctors/**",
                         "/api/medical-history/**",
                         "/api/admin/dashboard",
-                        "/api/prescriptions/**"
+                        "/api/prescriptions/**",
+                        "/api/appointment/**",
+                        "/api/departments/**",
+                        "/api/billing/**",
+                        "/api/patient-feedback/**",
+                        "/api/reports/**"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.POST,
                         "/api/prescriptions",
                         "/api/doctors/schedule",
                         "/api/doctors/leave",
-                        "/api/medical-history"
+                        "/api/medical-history",
+                        "/api/departments",
+                        "/api/billing",
+                        "/api/patient-feedback"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.PUT,
+                        "/api/appointment/**",
                         "/api/doctors/accept/**",
                         "/api/doctors/reject/**",
                         "/api/doctors/complete/**",
                         "/api/doctors/**",
-                        "/api/patients/**"
+                        "/api/patients/**",
+                        "/api/departments/**",
+                        "/api/billing/**",
+                        "/api/patient-feedback/**"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.DELETE,
                         "/api/doctors/**",
                         "/api/patients/**",
                         "/api/prescriptions/**",
-                        "/api/medical-history/**"
+                        "/api/medical-history/**",
+                        "/api/departments/**",
+                        "/api/billing/**",
+                        "/api/patient-feedback/**"
                 ).permitAll()
                 .requestMatchers(
                         "/swagger-ui/**",

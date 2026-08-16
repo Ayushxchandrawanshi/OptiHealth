@@ -897,6 +897,18 @@
                             <p>Total Revenue</p>
                         </div>
 
+                        <div class="stat-card">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <h2 id="appointmentCompletionRate">0%</h2>
+                            <p>Appointment Completion Rate</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <i class="fa-solid fa-star"></i>
+                            <h2 id="patientSatisfaction">0/5</h2>
+                            <p>Patient Satisfaction</p>
+                        </div>
+
                     </div>
 
                     <div class="activity-card">
@@ -1035,6 +1047,12 @@
 
         const totalRevenue =
             document.getElementById("totalRevenue");
+
+        const appointmentCompletionRate =
+            document.getElementById("appointmentCompletionRate");
+
+        const patientSatisfaction =
+            document.getElementById("patientSatisfaction");
 
         const recentActivity =
             document.getElementById("recentActivity");
@@ -2257,12 +2275,114 @@
         async function loadDashboardStats() {
 
             await Promise.all([
-                loadDoctorCount(),
                 loadPatientCount(),
-                loadAppointmentData(),
-                loadBillingData(),
+                loadReportAnalytics(),
                 loadNotificationCount()
             ]);
+        }
+
+        async function loadReportAnalytics() {
+
+            try {
+
+                const currentYear =
+                    new Date().getFullYear();
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/reports/analytics?year=${currentYear}`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    const errorText =
+                        await response.text();
+
+                    throw new Error(
+                        `Reports API Error ${response.status}: ${errorText}`
+                    );
+                }
+
+                const data =
+                    await response.json();
+
+                if (totalRevenue) {
+
+                    animateCurrency(
+                        totalRevenue,
+                        Number(
+                            data.totalRevenue || 0
+                        )
+                    );
+                }
+
+                if (totalAppointments) {
+
+                    animateNumber(
+                        totalAppointments,
+                        Number(
+                            data.totalAppointments || 0
+                        )
+                    );
+                }
+
+                if (totalDoctors) {
+
+                    animateNumber(
+                        totalDoctors,
+                        Number(
+                            data.totalDoctors || 0
+                        )
+                    );
+                }
+
+                if (appointmentCompletionRate) {
+
+                    appointmentCompletionRate.textContent =
+                        `${Number(
+                            data.appointmentCompletionRate || 0
+                        ).toFixed(1)}%`;
+                }
+
+                if (patientSatisfaction) {
+
+                    patientSatisfaction.textContent =
+                        `${Number(
+                            data.patientSatisfaction || 0
+                        ).toFixed(1)}/5`;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Report analytics error:",
+                    error
+                );
+
+                if (totalRevenue) {
+                    totalRevenue.textContent = "₹0";
+                }
+
+                if (totalAppointments) {
+                    totalAppointments.textContent = "0";
+                }
+
+                if (totalDoctors) {
+                    totalDoctors.textContent = "0";
+                }
+
+                if (appointmentCompletionRate) {
+                    appointmentCompletionRate.textContent = "0%";
+                }
+
+                if (patientSatisfaction) {
+                    patientSatisfaction.textContent = "0/5";
+                }
+            }
         }
 
         async function loadDoctorCount() {
@@ -2441,6 +2561,140 @@
                 if (notificationCount) {
                     notificationCount.textContent =
                         "0";
+                }
+            }
+        }
+
+        async function loadAppointmentCompletionRate() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/appointment/all`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Appointment Completion API Error ${response.status}`
+                    );
+                }
+
+                const appointments =
+                    await response.json();
+
+                const list =
+                    Array.isArray(appointments)
+                        ? appointments
+                        : [];
+
+                const total =
+                    list.length;
+
+                const completed =
+                    list.filter(
+                        appointment =>
+                            String(
+                                appointment.status || ""
+                            ).toUpperCase() === "COMPLETED"
+                    ).length;
+
+                const rate =
+                    total > 0
+                        ? (completed / total) * 100
+                        : 0;
+
+                if (appointmentCompletionRate) {
+
+                    appointmentCompletionRate.textContent =
+                        `${rate.toFixed(1)}%`;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Appointment completion rate error:",
+                    error
+                );
+
+                if (appointmentCompletionRate) {
+                    appointmentCompletionRate.textContent =
+                        "0%";
+                }
+            }
+        }
+
+        async function loadPatientSatisfaction() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patient-feedback`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Patient Feedback API Error ${response.status}`
+                    );
+                }
+
+                const feedbackList =
+                    await response.json();
+
+                const list =
+                    Array.isArray(feedbackList)
+                        ? feedbackList
+                        : [];
+
+                if (list.length === 0) {
+
+                    if (patientSatisfaction) {
+                        patientSatisfaction.textContent =
+                            "0/5";
+                    }
+
+                    return;
+                }
+
+                const totalRating =
+                    list.reduce(
+                        (sum, feedback) =>
+                            sum +
+                            Number(
+                                feedback.rating || 0
+                            ),
+                        0
+                    );
+
+                const averageRating =
+                    totalRating /
+                    list.length;
+
+                if (patientSatisfaction) {
+
+                    patientSatisfaction.textContent =
+                        `${averageRating.toFixed(1)}/5`;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Patient satisfaction error:",
+                    error
+                );
+
+                if (patientSatisfaction) {
+                    patientSatisfaction.textContent =
+                        "0/5";
                 }
             }
         }

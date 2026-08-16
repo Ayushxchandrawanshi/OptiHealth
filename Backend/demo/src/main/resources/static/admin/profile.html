@@ -748,14 +748,15 @@
 
                     <div class="notify">
                         <i class="fa-regular fa-bell"></i>
-                        <span>2</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img id="headerProfileImage" alt="Admin">
+
                         <div>
-                            <h4>Administrator</h4>
-                            <p>System Administrator</p>
+                            <h4 id="headerAdminName">--</h4>
+                            <p id="headerAdminRole">System Administrator</p>
                         </div>
                     </div>
 
@@ -784,10 +785,13 @@
                             </div>
 
                             <div class="profile-info">
-                                <h2>Administrator</h2>
-                                <h4>System Administrator</h4>
-                                <p>Responsible for managing doctors, patients, appointments, billing, reports and
-                                    complete hospital administration.</p>
+                                <h2 id="profileName">--</h2>
+                                <h4 id="profileRole">System Administrator</h4>
+
+                                <p>
+                                    Responsible for managing doctors, patients, appointments, billing, reports and
+                                    complete hospital administration.
+                                </p>
                             </div>
 
                         </div>
@@ -796,30 +800,31 @@
 
                             <div class="input-group">
                                 <label>Full Name</label>
-                                <input type="text" id="fullName" value="Administrator">
+                                <input type="text" id="fullName" value="">
                             </div>
 
                             <div class="input-group">
                                 <label>Email</label>
-                                <input type="email" id="email" value="admin@optihealth.com">
+                                <input type="email" id="email" value="">
                             </div>
 
                             <div class="input-group">
                                 <label>Phone Number</label>
-                                <input type="text" id="phone" value="+91 9876543210">
+                                <input type="text" id="phone" value="">
                             </div>
 
                             <div class="input-group">
                                 <label>Date of Birth</label>
-                                <input type="date" id="dob" value="1995-05-12">
+                                <input type="date" id="dob" value="">
                             </div>
 
                             <div class="input-group">
                                 <label>Gender</label>
                                 <select id="gender">
-                                    <option selected>Male</option>
-                                    <option>Female</option>
-                                    <option>Other</option>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
 
@@ -830,7 +835,7 @@
 
                             <div class="input-group full-width">
                                 <label>Address</label>
-                                <textarea id="address">123 MG Road, Indore, Madhya Pradesh</textarea>
+                                <textarea id="address"></textarea>
                             </div>
 
                             <div class="input-group">
@@ -870,25 +875,25 @@
 
                         <div class="stat-card">
                             <i class="fa-solid fa-user-doctor"></i>
-                            <h2>54</h2>
+                            <h2 id="totalDoctors">0</h2>
                             <p>Total Doctors</p>
                         </div>
 
                         <div class="stat-card">
                             <i class="fa-solid fa-hospital-user"></i>
-                            <h2>2486</h2>
+                            <h2 id="totalPatients">0</h2>
                             <p>Total Patients</p>
                         </div>
 
                         <div class="stat-card">
                             <i class="fa-solid fa-calendar-check"></i>
-                            <h2>684</h2>
+                            <h2 id="totalAppointments">0</h2>
                             <p>Appointments</p>
                         </div>
 
                         <div class="stat-card">
                             <i class="fa-solid fa-sack-dollar"></i>
-                            <h2>₹24.8L</h2>
+                            <h2 id="totalRevenue">₹0</h2>
                             <p>Total Revenue</p>
                         </div>
 
@@ -898,45 +903,16 @@
 
                         <h3>Recent Activity</h3>
 
-                        <div class="timeline">
+                        <div class="timeline" id="recentActivity">
 
                             <div class="timeline-item">
                                 <div class="timeline-icon">
-                                    <i class="fa-solid fa-user-plus"></i>
+                                    <i class="fa-solid fa-clock"></i>
                                 </div>
-                                <div class="timeline-content">
-                                    <h4>New Doctor Added</h4>
-                                    <p>Dr. Ankit Sharma was added to the Cardiology Department • 20 minutes ago</p>
-                                </div>
-                            </div>
 
-                            <div class="timeline-item">
-                                <div class="timeline-icon">
-                                    <i class="fa-solid fa-calendar-check"></i>
-                                </div>
                                 <div class="timeline-content">
-                                    <h4>Appointment Approved</h4>
-                                    <p>Appointment #APT2045 was approved successfully • 1 hour ago</p>
-                                </div>
-                            </div>
-
-                            <div class="timeline-item">
-                                <div class="timeline-icon">
-                                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                                </div>
-                                <div class="timeline-content">
-                                    <h4>Invoice Generated</h4>
-                                    <p>Invoice BILL-1025 generated for Rahul Verma • 3 hours ago</p>
-                                </div>
-                            </div>
-
-                            <div class="timeline-item">
-                                <div class="timeline-icon">
-                                    <i class="fa-solid fa-database"></i>
-                                </div>
-                                <div class="timeline-content">
-                                    <h4>Database Backup Completed</h4>
-                                    <p>Automatic backup completed successfully • Today 02:00 AM</p>
+                                    <h4>No Recent Activity</h4>
+                                    <p>Activity history is not available yet.</p>
                                 </div>
                             </div>
 
@@ -965,44 +941,16 @@
 
                                 </thead>
 
-                                <tbody>
-
+                                <tbody id="loginHistoryBody">
                                     <tr>
-                                        <td>30 Jul 2026</td>
-                                        <td>09:12 AM</td>
-                                        <td><i class="fa-solid fa-desktop"></i> Windows PC</td>
-                                        <td><i class="fa-brands fa-chrome"></i> Chrome</td>
-                                        <td>192.168.1.20</td>
-                                        <td><span class="status good">Success</span></td>
+                                        <td colspan="6" style="
+                                        text-align:center;
+                                        padding:25px;
+                                        color:#64748b;
+                                        ">
+                                            No login history available.
+                                        </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>29 Jul 2026</td>
-                                        <td>07:48 PM</td>
-                                        <td><i class="fa-solid fa-laptop"></i> Laptop</td>
-                                        <td><i class="fa-brands fa-edge"></i> Edge</td>
-                                        <td>192.168.1.18</td>
-                                        <td><span class="status good">Success</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>28 Jul 2026</td>
-                                        <td>11:04 AM</td>
-                                        <td><i class="fa-solid fa-mobile-screen"></i> Android</td>
-                                        <td><i class="fa-brands fa-chrome"></i> Chrome </td>
-                                        <td>192.168.1.15</td>
-                                        <td><span class="status average">Verified</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>27 Jul 2026</td>
-                                        <td>08:55 PM</td>
-                                        <td><i class="fa-solid fa-desktop"></i> Windows PC</td>
-                                        <td><i class="fa-brands fa-chrome"></i> Chrome</td>
-                                        <td>192.168.1.20</td>
-                                        <td><span class="status good">Success</span></td>
-                                    </tr>
-
                                 </tbody>
 
                             </table>
@@ -1019,160 +967,1772 @@
     </div>
 
     <script>
+
+        const API_BASE_URL = "http://localhost:8080";
+
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
         const profile = document.querySelector(".profile");
         const uploadBtn = document.getElementById("uploadImageBtn");
         const uploadInput = document.getElementById("profileUpload");
         const preview = document.getElementById("profilePreview");
+        const headerProfileImage = document.getElementById("headerProfileImage");
         const editBtn = document.querySelector(".edit-btn");
         const saveBtn = document.querySelector(".save-btn");
         const searchInput = document.querySelector(".search-box input");
+        const notify = document.querySelector(".notify");
 
-        menuBtn.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-                sidebar.style.left = sidebar.style.left === "0px" ? "-270px" : "0";
+        const notificationCount =
+            document.getElementById("notificationCount");
+
+        const headerAdminName =
+            document.getElementById("headerAdminName");
+
+        const headerAdminRole =
+            document.getElementById("headerAdminRole");
+
+        const profileName =
+            document.getElementById("profileName");
+
+        const profileRole =
+            document.getElementById("profileRole");
+
+        const fullName =
+            document.getElementById("fullName");
+
+        const email =
+            document.getElementById("email");
+
+        const phone =
+            document.getElementById("phone");
+
+        const dob =
+            document.getElementById("dob");
+
+        const gender =
+            document.getElementById("gender");
+
+        const address =
+            document.getElementById("address");
+
+        const currentPassword =
+            document.getElementById("currentPassword");
+
+        const newPassword =
+            document.getElementById("newPassword");
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        const totalDoctors =
+            document.getElementById("totalDoctors");
+
+        const totalPatients =
+            document.getElementById("totalPatients");
+
+        const totalAppointments =
+            document.getElementById("totalAppointments");
+
+        const totalRevenue =
+            document.getElementById("totalRevenue");
+
+        const recentActivity =
+            document.getElementById("recentActivity");
+
+        const loginHistoryBody =
+            document.getElementById("loginHistoryBody");
+
+        let currentAdminId = null;
+        let currentAdminData = null;
+        let selectedImageFile = null;
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeProfile
+        );
+
+        async function initializeProfile() {
+
+            setupMenu();
+            setupResize();
+            setupNavigation();
+            setupImageUpload();
+            setupEditButton();
+            setupSaveButton();
+            setupSearch();
+            setupInputFocus();
+            setupCards();
+            setupTimeline();
+            setupNotifications();
+
+            await loadAdminProfile();
+            await loadDashboardStats();
+        }
+
+        function setupMenu() {
+
+            if (!menuBtn || !sidebar) {
+                return;
             }
-        });
 
-        document.addEventListener("click", e => {
-            if (window.innerWidth <= 900) {
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.style.left = "-270px";
+            menuBtn.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        window.innerWidth <= 900
+                    ) {
+
+                        sidebar.style.left =
+                            sidebar.style.left === "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        window.innerWidth <= 900
+                    ) {
+
+                        if (
+                            !sidebar.contains(event.target) &&
+                            !menuBtn.contains(event.target)
+                        ) {
+                            sidebar.style.left =
+                                "-270px";
+                        }
+                    }
+                }
+            );
+        }
+
+        function setupResize() {
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    if (
+                        window.innerWidth > 900
+                    ) {
+
+                        sidebar.style.left =
+                            "0";
+
+                    } else {
+
+                        sidebar.style.left =
+                            "-270px";
+                    }
+                }
+            );
+        }
+
+        function setupNavigation() {
+
+            if (profile) {
+
+                profile.addEventListener(
+                    "click",
+                    () => {
+
+                        return;
+                    }
+                );
+            }
+
+            document
+                .querySelectorAll(
+                    ".sidebar nav a"
+                )
+                .forEach(
+                    link => {
+
+                        link.addEventListener(
+                            "click",
+                            () => {
+
+                                document
+                                    .querySelectorAll(
+                                        ".sidebar nav a"
+                                    )
+                                    .forEach(
+                                        item =>
+                                            item.classList.remove(
+                                                "active"
+                                            )
+                                    );
+
+                                link.classList.add(
+                                    "active"
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+        function setupImageUpload() {
+
+            if (
+                !uploadBtn ||
+                !uploadInput ||
+                !preview
+            ) {
+                return;
+            }
+
+            uploadBtn.addEventListener(
+                "click",
+                () => {
+                    uploadInput.click();
+                }
+            );
+
+            uploadInput.addEventListener(
+                "change",
+                event => {
+
+                    const file =
+                        event.target.files[0];
+
+                    if (!file) {
+                        return;
+                    }
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        alert(
+                            "Please select a valid image file."
+                        );
+
+                        uploadInput.value =
+                            "";
+
+                        return;
+                    }
+
+                    selectedImageFile =
+                        file;
+
+                    const reader =
+                        new FileReader();
+
+                    reader.onload =
+                        function (
+                            readerEvent
+                        ) {
+
+                            const imageUrl =
+                                readerEvent.target.result;
+
+                            preview.src =
+                                imageUrl;
+
+                            if (
+                                headerProfileImage
+                            ) {
+
+                                headerProfileImage.src =
+                                    imageUrl;
+                            }
+                        };
+
+                    reader.readAsDataURL(
+                        file
+                    );
+                }
+            );
+        }
+
+        function setupEditButton() {
+
+            if (!editBtn) {
+                return;
+            }
+
+            editBtn.addEventListener(
+                "click",
+                () => {
+
+                    setFormEditable(
+                        true
+                    );
+
+                    alert(
+                        "Profile Editing Enabled."
+                    );
+                }
+            );
+        }
+
+        function setupSaveButton() {
+
+            if (!saveBtn) {
+                return;
+            }
+
+            saveBtn.addEventListener(
+                "click",
+                updateAdminProfile
+            );
+        }
+
+        function setupSearch() {
+
+            if (!searchInput) {
+                return;
+            }
+
+            searchInput.addEventListener(
+                "keyup",
+                () => {
+
+                    const value =
+                        searchInput.value
+                            .toLowerCase()
+                            .trim();
+
+                    document
+                        .querySelectorAll(
+                            ".profile-card, .activity-card, .stat-card"
+                        )
+                        .forEach(
+                            card => {
+
+                                const text =
+                                    card.innerText
+                                        .toLowerCase();
+
+                                card.style.display =
+                                    text.includes(
+                                        value
+                                    )
+                                        ? ""
+                                        : "none";
+                            }
+                        );
+                }
+            );
+        }
+
+        function setupInputFocus() {
+
+            document
+                .querySelectorAll(
+                    "input, textarea, select"
+                )
+                .forEach(
+                    field => {
+
+                        field.addEventListener(
+                            "focus",
+                            () => {
+                                field.style.borderColor =
+                                    "#0f766e";
+                            }
+                        );
+
+                        field.addEventListener(
+                            "blur",
+                            () => {
+                                field.style.borderColor =
+                                    "#e2e8f0";
+                            }
+                        );
+                    }
+                );
+        }
+
+        function setupCards() {
+
+            document
+                .querySelectorAll(
+                    ".stat-card"
+                )
+                .forEach(
+                    card => {
+
+                        card.addEventListener(
+                            "mouseenter",
+                            () => {
+                                card.style.transform =
+                                    "translateY(-6px)";
+
+                                card.style.transition =
+                                    ".3s";
+                            }
+                        );
+
+                        card.addEventListener(
+                            "mouseleave",
+                            () => {
+                                card.style.transform =
+                                    "translateY(0)";
+                            }
+                        );
+                    }
+                );
+        }
+
+        function setupTimeline() {
+
+            document
+                .querySelectorAll(
+                    ".timeline-item"
+                )
+                .forEach(
+                    item => {
+
+                        item.addEventListener(
+                            "mouseenter",
+                            () => {
+
+                                item.style.transform =
+                                    "translateX(8px)";
+
+                                item.style.transition =
+                                    ".3s";
+                            }
+                        );
+
+                        item.addEventListener(
+                            "mouseleave",
+                            () => {
+
+                                item.style.transform =
+                                    "translateX(0)";
+                            }
+                        );
+                    }
+                );
+        }
+        function setupNotifications() {
+
+            if (!notify) {
+                return;
+            }
+
+            notify.addEventListener(
+                "click",
+                async () => {
+
+                    await loadNotificationCount();
+
+                    const count =
+                        Number(
+                            notificationCount
+                                ?.textContent ||
+                            0
+                        );
+
+                    if (count > 0) {
+
+                        alert(
+                            `${count} pending appointment(s) available.`
+                        );
+
+                    } else {
+
+                        alert(
+                            "No pending appointments."
+                        );
+                    }
+                }
+            );
+        }
+
+        function getHeaders() {
+
+            const headers = {
+                "Content-Type":
+                    "application/json"
+            };
+
+            const token =
+                localStorage.getItem(
+                    "token"
+                );
+
+            if (token) {
+
+                headers.Authorization =
+                    `Bearer ${token}`;
+            }
+
+            return headers;
+        }
+
+        function getStoredAdmin() {
+
+            const keys = [
+                "admin",
+                "currentAdmin",
+                "user",
+                "currentUser",
+                "userData",
+                "loginResponse"
+            ];
+
+            for (
+                const key of keys
+            ) {
+
+                const value =
+                    localStorage.getItem(
+                        key
+                    );
+
+                if (!value) {
+                    continue;
+                }
+
+                try {
+
+                    const parsed =
+                        JSON.parse(
+                            value
+                        );
+
+                    if (
+                        parsed &&
+                        typeof parsed ===
+                        "object"
+                    ) {
+
+                        if (
+                            parsed.admin
+                        ) {
+                            return parsed.admin;
+                        }
+
+                        if (
+                            parsed.data &&
+                            typeof parsed.data ===
+                            "object"
+                        ) {
+
+                            if (
+                                parsed.data.admin
+                            ) {
+                                return parsed.data.admin;
+                            }
+
+                            return parsed.data;
+                        }
+
+                        return parsed;
+                    }
+
+                } catch (
+                error
+                ) {
+
                 }
             }
-        });
 
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 900) {
-                sidebar.style.left = "0";
+            return null;
+        }
+
+        function getAdminIdFromStorage() {
+
+            const admin =
+                getStoredAdmin();
+
+            if (!admin) {
+                return null;
+            }
+
+            return (
+                admin.adminId ??
+                admin.id ??
+                admin.userId ??
+                admin.adminID ??
+                null
+            );
+        }
+
+        function getAdminEmailFromStorage() {
+
+            const admin =
+                getStoredAdmin();
+
+            if (!admin) {
+                return null;
+            }
+
+            return (
+                admin.email ??
+                admin.adminEmail ??
+                null
+            );
+        }
+
+        async function loadAdminProfile() {
+
+            try {
+
+                let adminId =
+                    getAdminIdFromStorage();
+
+                let data = null;
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method:
+                                    "GET",
+                                headers:
+                                    getHeaders()
+                            }
+                        );
+
+                    if (
+                        response.ok
+                    ) {
+
+                        data =
+                            await response.json();
+                    }
+                }
+
+                if (
+                    !data
+                ) {
+
+                    const adminEmail =
+                        getAdminEmailFromStorage();
+
+                    if (
+                        adminEmail
+                    ) {
+
+                        const response =
+                            await fetch(
+                                `${API_BASE_URL}/api/admin/email/${encodeURIComponent(
+                                    adminEmail
+                                )}`,
+                                {
+                                    method:
+                                        "GET",
+                                    headers:
+                                        getHeaders()
+                                }
+                            );
+
+                        if (
+                            response.ok
+                        ) {
+
+                            data =
+                                await response.json();
+                        }
+                    }
+                }
+
+                if (
+                    !data
+                ) {
+
+                    throw new Error(
+                        "Admin profile data not found."
+                    );
+                }
+
+                currentAdminData =
+                    data;
+
+                currentAdminId =
+                    data.adminId;
+
+                populateAdminProfile(
+                    data
+                );
+
+                localStorage.setItem(
+                    "currentAdmin",
+                    JSON.stringify(
+                        data
+                    )
+                );
+
+            } catch (
+            error
+            ) {
+
+                console.error(
+                    "Admin profile load error:",
+                    error
+                );
+
+                showError(
+                    "Unable to load admin profile from backend."
+                );
+            }
+        }
+
+        function populateAdminProfile(
+            admin
+        ) {
+
+            const name =
+                admin.fullName ||
+                "";
+
+            const adminEmail =
+                admin.email ||
+                "";
+
+            const mobile =
+                admin.mobileNumber ??
+                "";
+
+            const adminDob =
+                admin.dob ||
+                "";
+
+            const adminGender =
+                admin.gender ||
+                "";
+
+            const adminAddress =
+                admin.address ||
+                "";
+
+            const image =
+                admin.profileImage ||
+                "";
+
+            if (headerAdminName) {
+
+                headerAdminName.textContent =
+                    name ||
+                    "--";
+            }
+
+            if (profileName) {
+
+                profileName.textContent =
+                    name ||
+                    "--";
+            }
+
+            if (headerAdminRole) {
+
+                headerAdminRole.textContent =
+                    "System Administrator";
+            }
+
+            if (profileRole) {
+
+                profileRole.textContent =
+                    "System Administrator";
+            }
+
+            if (fullName) {
+
+                fullName.value =
+                    name;
+            }
+
+            if (email) {
+
+                email.value =
+                    adminEmail;
+            }
+
+            if (phone) {
+
+                phone.value =
+                    mobile;
+            }
+
+            if (dob) {
+
+                dob.value =
+                    formatDateForInput(
+                        adminDob
+                    );
+            }
+
+            if (gender) {
+
+                gender.value =
+                    adminGender;
+            }
+
+            if (address) {
+
+                address.value =
+                    adminAddress;
+            }
+
+            if (
+                image &&
+                image.trim() !== ""
+            ) {
+
+                const imagePath =
+                    getImagePath(
+                        image
+                    );
+
+                if (preview) {
+
+                    preview.src =
+                        imagePath;
+                }
+
+                if (
+                    headerProfileImage
+                ) {
+
+                    headerProfileImage.src =
+                        imagePath;
+                }
+
             } else {
-                sidebar.style.left = "-270px";
+
+                if (preview) {
+
+                    preview.removeAttribute(
+                        "src"
+                    );
+                }
+
+                if (
+                    headerProfileImage
+                ) {
+
+                    headerProfileImage.removeAttribute(
+                        "src"
+                    );
+                }
             }
-        });
 
-        profile.addEventListener("click", () => {
-            window.location.href = "profile.html";
-        });
+            setFormEditable(
+                false
+            );
+        }
 
-        uploadBtn.addEventListener("click", () => {
-            uploadInput.click();
-        });
+        function formatDateForInput(
+            value
+        ) {
 
-        uploadInput.addEventListener("change", e => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    preview.src = event.target.result;
+            if (!value) {
+                return "";
+            }
+
+            if (
+                typeof value ===
+                "string"
+            ) {
+
+                return value.substring(
+                    0,
+                    10
+                );
+            }
+
+            return "";
+        }
+
+        function getImagePath(
+            fileName
+        ) {
+
+            const cleanName =
+                String(
+                    fileName ||
+                    ""
+                )
+                    .split("/")
+                    .pop()
+                    .split("\\")
+                    .pop();
+
+            if (!cleanName) {
+                return "";
+            }
+
+            return (
+                `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                    cleanName
+                )}`
+            );
+        }
+
+        async function uploadProfileImageToBackend(
+            adminId,
+            file
+        ) {
+
+            const formData =
+                new FormData();
+
+            formData.append(
+                "file",
+                file
+            );
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/admin/${adminId}/profile-image`,
+                    {
+                        method:
+                            "POST",
+                        headers:
+                            getMultipartHeaders(),
+                        body:
+                            formData
+                    }
+                );
+
+            if (!response.ok) {
+
+                const errorText =
+                    await response.text();
+
+                console.error(
+                    "Profile image upload error:",
+                    errorText
+                );
+
+                throw new Error(
+                    `Profile image upload failed with status ${response.status}`
+                );
+            }
+
+            return await response.json();
+        }
+
+        function getMultipartHeaders() {
+
+            const headers = {};
+
+            const token =
+                localStorage.getItem(
+                    "token"
+                );
+
+            if (token) {
+
+                headers.Authorization =
+                    `Bearer ${token}`;
+            }
+
+            return headers;
+        }
+
+        function setFormEditable(
+            enabled
+        ) {
+
+            const fields = [
+                fullName,
+                email,
+                phone,
+                dob,
+                gender,
+                address,
+                currentPassword,
+                newPassword,
+                confirmPassword
+            ];
+
+            fields.forEach(
+                field => {
+
+                    if (!field) {
+                        return;
+                    }
+
+                    if (enabled) {
+
+                        field.removeAttribute(
+                            "readonly"
+                        );
+
+                        field.removeAttribute(
+                            "disabled"
+                        );
+
+                    } else {
+
+                        if (
+                            field !==
+                            gender
+                        ) {
+
+                            field.setAttribute(
+                                "readonly",
+                                "readonly"
+                            );
+                        }
+                    }
+                }
+            );
+
+            if (gender) {
+
+                gender.disabled =
+                    !enabled;
+            }
+        }
+        async function updateAdminProfile() {
+
+            try {
+
+                if (!currentAdminId) {
+
+                    alert(
+                        "Admin ID not found. Please login again."
+                    );
+
+                    return;
+                }
+
+                const name =
+                    fullName?.value
+                        .trim() ||
+                    "";
+
+                const adminEmail =
+                    email?.value
+                        .trim() ||
+                    "";
+
+                const mobile =
+                    phone?.value
+                        .trim() ||
+                    "";
+
+                const adminDob =
+                    dob?.value ||
+                    "";
+
+                const adminGender =
+                    gender?.value ||
+                    "";
+
+                const adminAddress =
+                    address?.value
+                        .trim() ||
+                    "";
+
+                const newPass =
+                    newPassword?.value ||
+                    "";
+
+                const confirmPass =
+                    confirmPassword?.value ||
+                    "";
+
+                if (!name) {
+
+                    alert(
+                        "Full Name is required."
+                    );
+
+                    return;
+                }
+
+                if (!adminEmail) {
+
+                    alert(
+                        "Email is required."
+                    );
+
+                    return;
+                }
+
+                if (!mobile) {
+
+                    alert(
+                        "Phone Number is required."
+                    );
+
+                    return;
+                }
+
+                if (
+                    newPass ||
+                    confirmPass
+                ) {
+
+                    if (
+                        newPass !==
+                        confirmPass
+                    ) {
+
+                        alert(
+                            "Passwords do not match."
+                        );
+
+                        return;
+                    }
+
+                    if (
+                        newPass.length <
+                        6
+                    ) {
+
+                        alert(
+                            "New password must contain at least 6 characters."
+                        );
+
+                        return;
+                    }
+                }
+
+                const payload = {
+                    fullName:
+                        name,
+
+                    email:
+                        adminEmail,
+
+                    mobileNumber:
+                        Number(
+                            mobile
+                        ),
+
+                    dob:
+                        adminDob ||
+                        null,
+
+                    gender:
+                        adminGender ||
+                        null,
+
+                    address:
+                        adminAddress ||
+                        null
                 };
-                reader.readAsDataURL(file);
+
+                if (newPass) {
+
+                    payload.password =
+                        newPass;
+                }
+
+                saveBtn.disabled =
+                    true;
+
+                saveBtn.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Saving...
+        `;
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/admin/${currentAdminId}`,
+                        {
+                            method:
+                                "PUT",
+
+                            headers:
+                                getHeaders(),
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "Admin update error:",
+                        errorText
+                    );
+
+                    throw new Error(
+                        `Update failed with status ${response.status}`
+                    );
+                }
+
+                let updatedAdmin =
+                    await response.json();
+
+                if (
+                    selectedImageFile
+                ) {
+
+                    updatedAdmin =
+                        await uploadProfileImageToBackend(
+                            currentAdminId,
+                            selectedImageFile
+                        );
+                }
+
+                currentAdminData =
+                    updatedAdmin;
+
+                currentAdminId =
+                    updatedAdmin.adminId;
+
+                localStorage.setItem(
+                    "currentAdmin",
+                    JSON.stringify(
+                        updatedAdmin
+                    )
+                );
+
+                populateAdminProfile(
+                    updatedAdmin
+                );
+
+                if (currentPassword) {
+                    currentPassword.value =
+                        "";
+                }
+
+                if (newPassword) {
+                    newPassword.value =
+                        "";
+                }
+
+                if (confirmPassword) {
+                    confirmPassword.value =
+                        "";
+                }
+
+                selectedImageFile =
+                    null;
+
+                if (uploadInput) {
+                    uploadInput.value =
+                        "";
+                }
+
+                alert(
+                    "Profile updated successfully."
+                );
+
+            } catch (
+            error
+            ) {
+
+                console.error(
+                    "Profile update error:",
+                    error
+                );
+
+                alert(
+                    "Profile update failed. Please check the backend connection."
+                );
+
+            } finally {
+
+                if (saveBtn) {
+
+                    saveBtn.disabled =
+                        false;
+
+                    saveBtn.innerHTML = `
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save Changes
+            `;
+                }
             }
-        });
+        }
 
-        editBtn.addEventListener("click", () => {
-            document.querySelectorAll("#fullName,#email,#phone,#dob,#gender,#address,#currentPassword,#newPassword,#confirmPassword").forEach(field => {
-                field.removeAttribute("readonly");
-                field.removeAttribute("disabled");
-            });
-            alert("Profile Editing Enabled.");
-        });
+        async function loadDashboardStats() {
 
-        saveBtn.addEventListener("click", () => {
+            await Promise.all([
+                loadDoctorCount(),
+                loadPatientCount(),
+                loadAppointmentData(),
+                loadBillingData(),
+                loadNotificationCount()
+            ]);
+        }
 
-            const name = document.getElementById("fullName").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const phone = document.getElementById("phone").value.trim();
+        async function loadDoctorCount() {
 
-            if (name === "") {
-                alert("Full Name is required.");
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors`,
+                        {
+                            method:
+                                "GET",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Doctor API Error ${response.status}`
+                    );
+                }
+
+                const doctors =
+                    await response.json();
+
+                if (totalDoctors) {
+
+                    animateNumber(
+                        totalDoctors,
+                        Array.isArray(
+                            doctors
+                        )
+                            ? doctors.length
+                            : 0
+                    );
+                }
+
+            } catch (
+            error
+            ) {
+
+                console.error(
+                    "Doctor count error:",
+                    error
+                );
+
+                if (totalDoctors) {
+                    totalDoctors.textContent =
+                        "0";
+                }
+            }
+        }
+
+        async function loadPatientCount() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients`,
+                        {
+                            method:
+                                "GET",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Patient API Error ${response.status}`
+                    );
+                }
+
+                const patients =
+                    await response.json();
+
+                if (totalPatients) {
+
+                    animateNumber(
+                        totalPatients,
+                        Array.isArray(
+                            patients
+                        )
+                            ? patients.length
+                            : 0
+                    );
+                }
+
+            } catch (
+            error
+            ) {
+
+                console.error(
+                    "Patient count error:",
+                    error
+                );
+
+                if (totalPatients) {
+                    totalPatients.textContent =
+                        "0";
+                }
+            }
+        }
+
+        async function loadAppointmentData() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/appointment/all`,
+                        {
+                            method:
+                                "GET",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Appointment API Error ${response.status}`
+                    );
+                }
+
+                const appointments =
+                    await response.json();
+
+                const list =
+                    Array.isArray(
+                        appointments
+                    )
+                        ? appointments
+                        : [];
+
+                if (totalAppointments) {
+
+                    animateNumber(
+                        totalAppointments,
+                        list.length
+                    );
+                }
+
+                const pendingCount =
+                    list.filter(
+                        appointment =>
+                            String(
+                                appointment.status ||
+                                ""
+                            ).toUpperCase() ===
+                            "PENDING"
+                    ).length;
+
+                if (notificationCount) {
+
+                    notificationCount.textContent =
+                        pendingCount;
+                }
+
+            } catch (
+            error
+            ) {
+
+                console.error(
+                    "Appointment data error:",
+                    error
+                );
+
+                if (totalAppointments) {
+                    totalAppointments.textContent =
+                        "0";
+                }
+
+                if (notificationCount) {
+                    notificationCount.textContent =
+                        "0";
+                }
+            }
+        }
+
+        async function loadNotificationCount() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/appointment/all`,
+                        {
+                            method:
+                                "GET",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Notification API Error ${response.status}`
+                    );
+                }
+
+                const appointments =
+                    await response.json();
+
+                const list =
+                    Array.isArray(
+                        appointments
+                    )
+                        ? appointments
+                        : [];
+
+                const pendingCount =
+                    list.filter(
+                        appointment =>
+                            String(
+                                appointment.status ||
+                                ""
+                            ).toUpperCase() ===
+                            "PENDING"
+                    ).length;
+
+                if (notificationCount) {
+
+                    notificationCount.textContent =
+                        pendingCount;
+                }
+
+            } catch (
+            error
+            ) {
+
+                console.error(
+                    "Notification count error:",
+                    error
+                );
+            }
+        }
+
+        async function loadBillingData() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/billing/all`,
+                        {
+                            method:
+                                "GET",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Billing API Error ${response.status}`
+                    );
+                }
+
+                const bills =
+                    await response.json();
+
+                const list =
+                    Array.isArray(
+                        bills
+                    )
+                        ? bills
+                        : [];
+
+                let revenue =
+                    0;
+
+                list.forEach(
+                    bill => {
+
+                        const amount =
+                            Number(
+                                bill.paidAmount ??
+                                bill.totalAmount ??
+                                0
+                            );
+
+                        revenue +=
+                            amount;
+                    }
+                );
+
+                if (totalRevenue) {
+
+                    animateCurrency(
+                        totalRevenue,
+                        revenue
+                    );
+                }
+
+            } catch (
+            error
+            ) {
+
+                console.error(
+                    "Billing data error:",
+                    error
+                );
+
+                if (totalRevenue) {
+                    totalRevenue.textContent =
+                        "₹0";
+                }
+            }
+        }
+
+        function animateNumber(
+            element,
+            target
+        ) {
+
+            if (!element) {
                 return;
             }
 
-            if (email === "") {
-                alert("Email is required.");
+            const end =
+                Number(
+                    target
+                ) || 0;
+
+            const duration =
+                700;
+
+            const startTime =
+                performance.now();
+
+            function update(
+                currentTime
+            ) {
+
+                const progress =
+                    Math.min(
+                        (
+                            currentTime -
+                            startTime
+                        ) /
+                        duration,
+                        1
+                    );
+
+                const eased =
+                    1 -
+                    Math.pow(
+                        1 - progress,
+                        3
+                    );
+
+                const current =
+                    Math.round(
+                        end *
+                        eased
+                    );
+
+                element.textContent =
+                    current.toLocaleString(
+                        "en-IN"
+                    );
+
+                if (
+                    progress <
+                    1
+                ) {
+
+                    requestAnimationFrame(
+                        update
+                    );
+                }
+            }
+
+            requestAnimationFrame(
+                update
+            );
+        }
+        function animateCurrency(
+            element,
+            target
+        ) {
+
+            if (!element) {
                 return;
             }
 
-            if (phone === "") {
-                alert("Phone Number is required.");
-                return;
+            const end =
+                Number(
+                    target
+                ) || 0;
+
+            const duration =
+                700;
+
+            const startTime =
+                performance.now();
+
+            function update(
+                currentTime
+            ) {
+
+                const progress =
+                    Math.min(
+                        (
+                            currentTime -
+                            startTime
+                        ) /
+                        duration,
+                        1
+                    );
+
+                const eased =
+                    1 -
+                    Math.pow(
+                        1 - progress,
+                        3
+                    );
+
+                const current =
+                    end *
+                    eased;
+
+                element.textContent =
+                    "₹" +
+                    current.toLocaleString(
+                        "en-IN",
+                        {
+                            maximumFractionDigits:
+                                2
+                        }
+                    );
+
+                if (
+                    progress <
+                    1
+                ) {
+
+                    requestAnimationFrame(
+                        update
+                    );
+                }
             }
 
-            const newPass = document.getElementById("newPassword").value;
-            const confirmPass = document.getElementById("confirmPassword").value;
+            requestAnimationFrame(
+                update
+            );
+        }
 
-            if (newPass !== confirmPass) {
-                alert("Passwords do not match.");
-                return;
+        function showError(
+            message
+        ) {
+
+            if (profileName) {
+                profileName.textContent =
+                    "--";
             }
 
-            alert("Profile Updated Successfully.");
+            if (headerAdminName) {
+                headerAdminName.textContent =
+                    "--";
+            }
 
-        });
+            console.error(
+                message
+            );
+        }
 
-        searchInput.addEventListener("keyup", () => {
-
-            const value = searchInput.value.toLowerCase();
-
-            document.querySelectorAll(".profile-card,.activity-card,.stat-card").forEach(card => {
-
-                card.style.display = card.innerText.toLowerCase().includes(value) ? "" : "none";
-
-            });
-
-        });
-
-        document.querySelectorAll("input,textarea,select").forEach(field => {
-
-            field.addEventListener("focus", () => {
-                field.style.borderColor = "#0f766e";
-            });
-
-            field.addEventListener("blur", () => {
-                field.style.borderColor = "#e2e8f0";
-            });
-
-        });
-
-        document.querySelectorAll(".stat-card").forEach(card => {
-
-            card.addEventListener("mouseenter", () => {
-                card.style.transform = "translateY(-6px)";
-                card.style.transition = ".3s";
-            });
-
-            card.addEventListener("mouseleave", () => {
-                card.style.transform = "translateY(0)";
-            });
-
-        });
-
-        document.querySelectorAll(".timeline-item").forEach(item => {
-
-            item.addEventListener("mouseenter", () => {
-                item.style.transform = "translateX(8px)";
-                item.style.transition = ".3s";
-            });
-
-            item.addEventListener("mouseleave", () => {
-                item.style.transform = "translateX(0)";
-            });
-
-        });
-
-        document.querySelector(".notify").addEventListener("click", () => {
-            alert("No new notifications.");
-        });
-
-        document.querySelectorAll(".sidebar nav a").forEach(link => {
-
-            link.addEventListener("click", () => {
-                document.querySelectorAll(".sidebar nav a").forEach(item => item.classList.remove("active"));
-                link.classList.add("active");
-            });
-
-        });
     </script>
 
 </body>

@@ -6,15 +6,32 @@ public class AdminDTO {
     private String fullName;
     private String email;
     private Long mobileNumber;
+    private String dob;
+    private String gender;
+    private String address;
+    private String profileImage;
 
     public AdminDTO() {
     }
 
-    public AdminDTO(Long adminId, String fullName, String email, Long mobileNumber) {
+    public AdminDTO(
+            Long adminId,
+            String fullName,
+            String email,
+            Long mobileNumber,
+            String dob,
+            String gender,
+            String address,
+            String profileImage) {
+
         this.adminId = adminId;
         this.fullName = fullName;
         this.email = email;
         this.mobileNumber = mobileNumber;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
+        this.profileImage = profileImage;
     }
 
     public Long getAdminId() {
@@ -49,4 +66,35 @@ public class AdminDTO {
         this.mobileNumber = mobileNumber;
     }
 
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 }

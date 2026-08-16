@@ -20,15 +20,37 @@ public class AdminModel {
 
     private Long mobileNumber;
 
+    private String dob;
+
+    private String gender;
+
+    private String address;
+
+    private String profileImage;
+
     public AdminModel() {
     }
 
-    public AdminModel(Long adminId, String fullName, String email, String password, Long mobileNumber) {
+    public AdminModel(
+            Long adminId,
+            String fullName,
+            String email,
+            String password,
+            Long mobileNumber,
+            String dob,
+            String gender,
+            String address,
+            String profileImage) {
+
         this.adminId = adminId;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.mobileNumber = mobileNumber;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
+        this.profileImage = profileImage;
     }
 
     public Long getAdminId() {
@@ -69,5 +91,37 @@ public class AdminModel {
 
     public void setMobileNumber(Long mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

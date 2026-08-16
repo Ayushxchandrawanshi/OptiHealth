@@ -20,7 +20,6 @@ import com.example.demo.Repository.DoctorRepo;
 import com.example.demo.Repository.PatientRepo;
 
 @Service
-
 public class AuthService {
 
     @Autowired
@@ -47,32 +46,52 @@ public class AuthService {
     @Autowired
     private AdminService adminService;
 
-    // ===========================================
-    // PATIENT LOGIN
-    // ===========================================
     public LoginResponse patientLogin(LoginRequest request) {
 
-        PatientModel patient = patientRepo.findByEmail(request.getEmail());
+        PatientModel patient
+                = patientRepo.findByEmail(request.getEmail());
 
         if (patient == null) {
-            return new LoginResponse(false, "Patient Not Found",
-                    null, null, null, null);
+
+            return new LoginResponse(
+                    false,
+                    "Patient Not Found",
+                    null,
+                    null,
+                    null,
+                    null
+            );
         }
 
-        if (!passwordEncoder.matches(request.getPassword(), patient.getPassword())) {
-            return new LoginResponse(false, "Invalid Password",
-                    null, null, null, null);
+        if (!passwordEncoder.matches(
+                request.getPassword(),
+                patient.getPassword())) {
+
+            return new LoginResponse(
+                    false,
+                    "Invalid Password",
+                    null,
+                    null,
+                    null,
+                    null
+            );
         }
 
-        String token = jwtUtils.generateToken(patient.getEmail(), "PATIENT");
+        String token
+                = jwtUtils.generateToken(
+                        patient.getEmail(),
+                        "PATIENT"
+                );
 
-        PatientDTO patientDTO = new PatientDTO(
-                patient.getId(),
-                patient.getFullName(),
-                patient.getEmail(),
-                patient.getMobileNumber(),
-                patient.getGender(),
-                patient.getDob());
+        PatientDTO patientDTO
+                = new PatientDTO(
+                        patient.getId(),
+                        patient.getFullName(),
+                        patient.getEmail(),
+                        patient.getMobileNumber(),
+                        patient.getGender(),
+                        patient.getDob()
+                );
 
         return new LoginResponse(
                 true,
@@ -80,36 +99,57 @@ public class AuthService {
                 token,
                 patient.getEmail(),
                 "PATIENT",
-                patientDTO);
+                patientDTO
+        );
     }
 
-    // ===========================================
-    // DOCTOR LOGIN
-    // ===========================================
     public LoginResponse doctorLogin(LoginRequest request) {
 
-        DoctorModel doctor = doctorRepo.findByEmail(request.getEmail());
+        DoctorModel doctor
+                = doctorRepo.findByEmail(request.getEmail());
 
         if (doctor == null) {
-            return new LoginResponse(false, "Doctor Not Found",
-                    null, null, null, null);
+
+            return new LoginResponse(
+                    false,
+                    "Doctor Not Found",
+                    null,
+                    null,
+                    null,
+                    null
+            );
         }
 
-        if (!passwordEncoder.matches(request.getPassword(), doctor.getPassword())) {
-            return new LoginResponse(false, "Invalid Password",
-                    null, null, null, null);
+        if (!passwordEncoder.matches(
+                request.getPassword(),
+                doctor.getPassword())) {
+
+            return new LoginResponse(
+                    false,
+                    "Invalid Password",
+                    null,
+                    null,
+                    null,
+                    null
+            );
         }
 
-        String token = jwtUtils.generateToken(doctor.getEmail(), "DOCTOR");
+        String token
+                = jwtUtils.generateToken(
+                        doctor.getEmail(),
+                        "DOCTOR"
+                );
 
-        DoctorDTO doctorDTO = new DoctorDTO(
-                doctor.getId(),
-                doctor.getDoctorName(),
-                doctor.getEmail(),
-                doctor.getSpecialization(),
-                doctor.getExperience(),
-                doctor.getFee(),
-                doctor.getDescription());
+        DoctorDTO doctorDTO
+                = new DoctorDTO(
+                        doctor.getId(),
+                        doctor.getDoctorName(),
+                        doctor.getEmail(),
+                        doctor.getSpecialization(),
+                        doctor.getExperience(),
+                        doctor.getFee(),
+                        doctor.getDescription()
+                );
 
         return new LoginResponse(
                 true,
@@ -117,33 +157,58 @@ public class AuthService {
                 token,
                 doctor.getEmail(),
                 "DOCTOR",
-                doctorDTO);
+                doctorDTO
+        );
     }
 
-    // ===========================================
-    // ADMIN LOGIN
-    // ===========================================
     public LoginResponse adminLogin(LoginRequest request) {
 
-        AdminModel admin = adminRepo.findByEmail(request.getEmail());
+        AdminModel admin
+                = adminRepo.findByEmail(request.getEmail());
 
         if (admin == null) {
-            return new LoginResponse(false, "Admin Not Found",
-                    null, null, null, null);
+
+            return new LoginResponse(
+                    false,
+                    "Admin Not Found",
+                    null,
+                    null,
+                    null,
+                    null
+            );
         }
 
-        if (!passwordEncoder.matches(request.getPassword(), admin.getPassword())) {
-            return new LoginResponse(false, "Invalid Password",
-                    null, null, null, null);
+        if (!passwordEncoder.matches(
+                request.getPassword(),
+                admin.getPassword())) {
+
+            return new LoginResponse(
+                    false,
+                    "Invalid Password",
+                    null,
+                    null,
+                    null,
+                    null
+            );
         }
 
-        String token = jwtUtils.generateToken(admin.getEmail(), "ADMIN");
+        String token
+                = jwtUtils.generateToken(
+                        admin.getEmail(),
+                        "ADMIN"
+                );
 
-        AdminDTO adminDTO = new AdminDTO(
-                admin.getAdminId(),
-                admin.getFullName(),
-                admin.getEmail(),
-                admin.getMobileNumber());
+        AdminDTO adminDTO
+                = new AdminDTO(
+                        admin.getAdminId(),
+                        admin.getFullName(),
+                        admin.getEmail(),
+                        admin.getMobileNumber(),
+                        admin.getDob(),
+                        admin.getGender(),
+                        admin.getAddress(),
+                        admin.getProfileImage()
+                );
 
         return new LoginResponse(
                 true,
@@ -151,29 +216,31 @@ public class AuthService {
                 token,
                 admin.getEmail(),
                 "ADMIN",
-                adminDTO);
+                adminDTO
+        );
     }
 
-// ===========================================
-// COMMON LOGIN
-// ===========================================
     public AuthResponse login(LoginRequest request) {
 
-        if (request.getRole() == null || request.getRole().isBlank()) {
+        if (request.getRole() == null
+                || request.getRole().isBlank()) {
+
             return new AuthResponse(
                     false,
                     "Role is required",
                     null,
                     null,
                     null,
-                    null);
+                    null
+            );
         }
 
         switch (request.getRole().toUpperCase()) {
 
             case "PATIENT":
 
-                LoginResponse patientResponse = patientLogin(request);
+                LoginResponse patientResponse
+                        = patientLogin(request);
 
                 return new AuthResponse(
                         patientResponse.isSuccess(),
@@ -181,11 +248,13 @@ public class AuthService {
                         patientResponse.getToken(),
                         patientResponse.getEmail(),
                         patientResponse.getRole(),
-                        patientResponse.getData());
+                        patientResponse.getData()
+                );
 
             case "DOCTOR":
 
-                LoginResponse doctorResponse = doctorLogin(request);
+                LoginResponse doctorResponse
+                        = doctorLogin(request);
 
                 return new AuthResponse(
                         doctorResponse.isSuccess(),
@@ -193,11 +262,13 @@ public class AuthService {
                         doctorResponse.getToken(),
                         doctorResponse.getEmail(),
                         doctorResponse.getRole(),
-                        doctorResponse.getData());
+                        doctorResponse.getData()
+                );
 
             case "ADMIN":
 
-                LoginResponse adminResponse = adminLogin(request);
+                LoginResponse adminResponse
+                        = adminLogin(request);
 
                 return new AuthResponse(
                         adminResponse.isSuccess(),
@@ -205,7 +276,8 @@ public class AuthService {
                         adminResponse.getToken(),
                         adminResponse.getEmail(),
                         adminResponse.getRole(),
-                        adminResponse.getData());
+                        adminResponse.getData()
+                );
 
             default:
 
@@ -215,39 +287,53 @@ public class AuthService {
                         null,
                         null,
                         null,
-                        null);
-
+                        null
+                );
         }
     }
 
-    // ===========================================
-// COMMON REGISTER
-// ===========================================
     public AuthResponse register(RegisterRequest request) {
 
-        if (request.getRole() == null || request.getRole().isBlank()) {
-            return new AuthResponse(false,
+        if (request.getRole() == null
+                || request.getRole().isBlank()) {
+
+            return new AuthResponse(
+                    false,
                     "Role is required",
                     null,
                     null,
                     null,
-                    null);
+                    null
+            );
         }
 
         switch (request.getRole().toUpperCase()) {
 
             case "PATIENT":
 
-                PatientModel patient = new PatientModel();
+                PatientModel patient
+                        = new PatientModel();
 
-                patient.setFullName(request.getFullName());
-                patient.setEmail(request.getEmail());
-                patient.setPassword(request.getPassword());
-                patient.setMobileNumber(request.getMobileNumber());
-                patient.setGender(request.getGender());
-                patient.setDob(request.getDob());
+                patient.setFullName(
+                        request.getFullName());
 
-                patientService.registerPatient(patient);
+                patient.setEmail(
+                        request.getEmail());
+
+                patient.setPassword(
+                        request.getPassword());
+
+                patient.setMobileNumber(
+                        request.getMobileNumber());
+
+                patient.setGender(
+                        request.getGender());
+
+                patient.setDob(
+                        request.getDob());
+
+                patientService.registerPatient(
+                        patient);
 
                 return new AuthResponse(
                         true,
@@ -255,21 +341,37 @@ public class AuthService {
                         null,
                         patient.getEmail(),
                         "PATIENT",
-                        patient);
+                        patient
+                );
 
             case "DOCTOR":
 
-                DoctorModel doctor = new DoctorModel();
+                DoctorModel doctor
+                        = new DoctorModel();
 
-                doctor.setDoctorName(request.getDoctorName());
-                doctor.setEmail(request.getEmail());
-                doctor.setPassword(request.getPassword());
-                doctor.setSpecialization(request.getSpecialization());
-                doctor.setExperience(request.getExperience());
-                doctor.setFee(request.getFee());
-                doctor.setDescription(request.getDescription());
+                doctor.setDoctorName(
+                        request.getDoctorName());
 
-                doctorService.registerDoctor(doctor);
+                doctor.setEmail(
+                        request.getEmail());
+
+                doctor.setPassword(
+                        request.getPassword());
+
+                doctor.setSpecialization(
+                        request.getSpecialization());
+
+                doctor.setExperience(
+                        request.getExperience());
+
+                doctor.setFee(
+                        request.getFee());
+
+                doctor.setDescription(
+                        request.getDescription());
+
+                doctorService.registerDoctor(
+                        doctor);
 
                 return new AuthResponse(
                         true,
@@ -277,18 +379,28 @@ public class AuthService {
                         null,
                         doctor.getEmail(),
                         "DOCTOR",
-                        doctor);
+                        doctor
+                );
 
             case "ADMIN":
 
-                AdminModel admin = new AdminModel();
+                AdminModel admin
+                        = new AdminModel();
 
-                admin.setFullName(request.getFullName());
-                admin.setEmail(request.getEmail());
-                admin.setPassword(request.getPassword());
-                admin.setMobileNumber(request.getMobileNumber());
+                admin.setFullName(
+                        request.getFullName());
 
-                adminService.registerAdmin(admin);
+                admin.setEmail(
+                        request.getEmail());
+
+                admin.setPassword(
+                        request.getPassword());
+
+                admin.setMobileNumber(
+                        request.getMobileNumber());
+
+                adminService.registerAdmin(
+                        admin);
 
                 return new AuthResponse(
                         true,
@@ -296,7 +408,8 @@ public class AuthService {
                         null,
                         admin.getEmail(),
                         "ADMIN",
-                        admin);
+                        admin
+                );
 
             default:
 
@@ -306,15 +419,13 @@ public class AuthService {
                         null,
                         null,
                         null,
-                        null);
+                        null
+                );
         }
-
     }
 
-// ===========================================
-// FORGOT PASSWORD
-// ===========================================
-    public AuthResponse forgotPassword(String email) {
+    public AuthResponse forgotPassword(
+            String email) {
 
         return new AuthResponse(
                 true,
@@ -322,13 +433,13 @@ public class AuthService {
                 null,
                 email,
                 null,
-                null);
+                null
+        );
     }
 
-// ===========================================
-// VERIFY OTP
-// ===========================================
-    public AuthResponse verifyOtp(String email, String otp) {
+    public AuthResponse verifyOtp(
+            String email,
+            String otp) {
 
         return new AuthResponse(
                 true,
@@ -336,13 +447,13 @@ public class AuthService {
                 null,
                 email,
                 null,
-                null);
+                null
+        );
     }
 
-// ===========================================
-// RESET PASSWORD
-// ===========================================
-    public AuthResponse resetPassword(String email, String newPassword) {
+    public AuthResponse resetPassword(
+            String email,
+            String newPassword) {
 
         return new AuthResponse(
                 true,
@@ -350,6 +461,7 @@ public class AuthService {
                 null,
                 email,
                 null,
-                null);
+                null
+        );
     }
 }

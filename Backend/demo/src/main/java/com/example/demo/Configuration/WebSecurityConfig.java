@@ -34,21 +34,23 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(
+                        "/api/admin/register",
+                        "/api/admin/login",
                         "/api/patients/register",
                         "/api/patients/login",
                         "/api/doctors/register",
                         "/api/doctors/login",
-                        "/api/admin/register",
-                        "/api/admin/login",
                         "/api/auth/**"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.GET,
+                        "/profile-images/**",
                         "/api/patients/doctors",
                         "/api/patients/**",
                         "/api/doctors/**",
                         "/api/medical-history/**",
                         "/api/admin/dashboard",
+                        "/api/admin/**",
                         "/api/prescriptions/**",
                         "/api/appointment/**",
                         "/api/departments/**",
@@ -64,7 +66,8 @@ public class WebSecurityConfig {
                         "/api/medical-history",
                         "/api/departments",
                         "/api/billing",
-                        "/api/patient-feedback"
+                        "/api/patient-feedback",
+                        "/api/admin/**"
                 ).permitAll()
                 .requestMatchers(
                         HttpMethod.PUT,
@@ -74,6 +77,7 @@ public class WebSecurityConfig {
                         "/api/doctors/complete/**",
                         "/api/doctors/**",
                         "/api/patients/**",
+                        "/api/admin/**",
                         "/api/departments/**",
                         "/api/billing/**",
                         "/api/patient-feedback/**"
@@ -82,6 +86,7 @@ public class WebSecurityConfig {
                         HttpMethod.DELETE,
                         "/api/doctors/**",
                         "/api/patients/**",
+                        "/api/admin/**",
                         "/api/prescriptions/**",
                         "/api/medical-history/**",
                         "/api/departments/**",
@@ -94,7 +99,6 @@ public class WebSecurityConfig {
                 ).permitAll()
                 .anyRequest().authenticated()
                 )
-                // JWT Filter
                 .addFilterBefore(
                         jwtFilter,
                         UsernamePasswordAuthenticationFilter.class);
@@ -102,9 +106,6 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    // =========================
-    // CORS CONFIGURATION
-    // =========================
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 

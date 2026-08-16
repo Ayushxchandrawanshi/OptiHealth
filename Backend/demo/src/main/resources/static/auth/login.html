@@ -494,7 +494,19 @@
             loginBtn.disabled = true;
             loginBtn.innerHTML = "Logging in...";
             try {
-                const response = await fetch("http://localhost:8080/api/auth/login", {
+                let loginUrl = "";
+
+                if (selectedRole === "PATIENT") {
+                    loginUrl = "http://localhost:8080/api/patients/login";
+                }
+                else if (selectedRole === "DOCTOR") {
+                    loginUrl = "http://localhost:8080/api/doctors/login";
+                }
+                else if (selectedRole === "ADMIN") {
+                    loginUrl = "http://localhost:8080/api/admin/login";
+                }
+
+                const response = await fetch(loginUrl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -502,7 +514,6 @@
                     body: JSON.stringify({
                         email: email,
                         password: pass,
-                        role: selectedRole
                     })
                 });
                 const result = await response.json();
@@ -569,12 +580,24 @@
                 }
 
                 else {
-                    alert(result.message);
+
+                    alert(
+                        result.message ||
+                        "Invalid credentials."
+                    );
                 }
             }
             catch (error) {
-                console.error(error);
-                alert("Unable to connect to server.");
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to server."
+                );
+
             }
             finally {
                 loginBtn.disabled = false;

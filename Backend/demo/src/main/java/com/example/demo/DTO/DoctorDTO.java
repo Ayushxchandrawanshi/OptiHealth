@@ -9,13 +9,14 @@ public class DoctorDTO {
     private int experience;
     private float fee;
     private String description;
+    private String status;
 
     public DoctorDTO() {
     }
 
     public DoctorDTO(Long id, String doctorName, String email,
             String specialization, int experience,
-            float fee, String description) {
+            float fee, String description, String status) {
 
         this.id = id;
         this.doctorName = doctorName;
@@ -24,6 +25,7 @@ public class DoctorDTO {
         this.experience = experience;
         this.fee = fee;
         this.description = description;
+        this.status = status;
     }
 
     public Long getId() {
@@ -80,6 +82,14 @@ public class DoctorDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }

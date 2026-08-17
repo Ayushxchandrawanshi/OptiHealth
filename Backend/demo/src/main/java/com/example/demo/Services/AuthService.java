@@ -148,7 +148,8 @@ public class AuthService {
                         doctor.getSpecialization(),
                         doctor.getExperience(),
                         doctor.getFee(),
-                        doctor.getDescription()
+                        doctor.getDescription(),
+                        doctor.getStatus()
                 );
 
         return new LoginResponse(

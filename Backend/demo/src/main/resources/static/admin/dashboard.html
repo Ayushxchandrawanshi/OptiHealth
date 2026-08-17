@@ -383,10 +383,14 @@
             background: linear-gradient(135deg, #0891b2, #06b6d4);
         }
 
+        .quick-actions-card {
+            margin-top: 24px;
+        }
+
         .bottom-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
+            display: block;
+            margin-top: 0;
+            padding-top: 24px;
         }
 
         .card-title {
@@ -454,6 +458,7 @@
 
         .quick-actions {
             display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 16px;
         }
 
@@ -496,6 +501,18 @@
             color: var(--text);
         }
 
+        @media(max-width:900px) {
+            .quick-actions {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media(max-width:600px) {
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media(max-width:1200px) {
 
             .stats-grid {
@@ -503,7 +520,9 @@
             }
 
             .bottom-section {
-                grid-template-columns: 1fr;
+                display: block;
+                margin-top: 0;
+                padding-top: 24px;
             }
 
         }
@@ -641,7 +660,7 @@
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img id="headerProfileImage" src="../assets/admin.png" alt="Admin">
                         <div>
                             <h4 id="adminName">--</h4>
                             <p id="adminRole">--</p>
@@ -734,101 +753,100 @@
 
                     </div>
 
-                    <div class="bottom-section">
+                </div>
 
-                        <div class="card">
+                <div class="card quick-actions-card">
 
-                            <div class="card-title">
-                                <h2>Recent Appointments</h2>
-                                <a href="appointments.html">View All</a>
+                    <div class="card-title">
+                        <h2>Quick Actions</h2>
+                    </div>
+
+                    <div class="quick-actions">
+
+                        <a href="doctors.html" class="action-btn">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <div>
+                                <h4>Manage Doctors</h4>
+                                <p>Add, Edit & Remove Doctors</p>
                             </div>
+                        </a>
 
-                            <div class="table-container">
-
-                                <table>
-
-                                    <thead>
-
-                                        <tr>
-                                            <th>Patient</th>
-                                            <th>Doctor</th>
-                                            <th>Department</th>
-                                            <th>Time</th>
-                                            <th>Status</th>
-                                        </tr>
-
-                                    </thead>
-
-                                    <tbody id="recentAppointmentsBody">
-                                    </tbody>
-
-                                </table>
-
+                        <a href="patients.html" class="action-btn">
+                            <i class="fa-solid fa-bed-pulse"></i>
+                            <div>
+                                <h4>Manage Patients</h4>
+                                <p>View and Update Patient Records</p>
                             </div>
+                        </a>
 
+                        <a href="appointments.html" class="action-btn">
+                            <i class="fa-solid fa-calendar-plus"></i>
+                            <div>
+                                <h4>Appointments</h4>
+                                <p>Approve or Cancel Appointments</p>
+                            </div>
+                        </a>
+
+                        <a href="departments.html" class="action-btn">
+                            <i class="fa-solid fa-building-user"></i>
+                            <div>
+                                <h4>Departments</h4>
+                                <p>Manage Hospital Departments</p>
+                            </div>
+                        </a>
+
+                        <a href="billing.html" class="action-btn">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                            <div>
+                                <h4>Billing</h4>
+                                <p>Generate Bills & Payments</p>
+                            </div>
+                        </a>
+
+                        <a href="reports.html" class="action-btn">
+                            <i class="fa-solid fa-chart-column"></i>
+                            <div>
+                                <h4>Reports</h4>
+                                <p>View Hospital Analytics</p>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="bottom-section">
+
+                    <div class="card">
+
+                        <div class="card-title">
+                            <h2>Recent Appointments</h2>
+                            <a href="appointments.html">View All</a>
                         </div>
 
-                        <div class="card">
+                        <div class="table-container">
 
-                            <div class="card-title">
-                                <h2>Quick Actions</h2>
-                            </div>
+                            <table>
 
-                            <div class="quick-actions">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Department</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
 
-                                <a href="doctors.html" class="action-btn">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                    <div>
-                                        <h4>Manage Doctors</h4>
-                                        <p>Add, Edit & Remove Doctors</p>
-                                    </div>
-                                </a>
+                                <tbody id="recentAppointmentsBody">
+                                </tbody>
 
-                                <a href="patients.html" class="action-btn">
-                                    <i class="fa-solid fa-bed-pulse"></i>
-                                    <div>
-                                        <h4>Manage Patients</h4>
-                                        <p>View and Update Patient Records</p>
-                                    </div>
-                                </a>
-
-                                <a href="appointments.html" class="action-btn">
-                                    <i class="fa-solid fa-calendar-plus"></i>
-                                    <div>
-                                        <h4>Appointments</h4>
-                                        <p>Approve or Cancel Appointments</p>
-                                    </div>
-                                </a>
-
-                                <a href="departments.html" class="action-btn">
-                                    <i class="fa-solid fa-building-user"></i>
-                                    <div>
-                                        <h4>Departments</h4>
-                                        <p>Manage Hospital Departments</p>
-                                    </div>
-                                </a>
-
-                                <a href="billing.html" class="action-btn">
-                                    <i class="fa-solid fa-money-check-dollar"></i>
-                                    <div>
-                                        <h4>Billing</h4>
-                                        <p>Generate Bills & Payments</p>
-                                    </div>
-                                </a>
-
-                                <a href="reports.html" class="action-btn">
-                                    <i class="fa-solid fa-chart-column"></i>
-                                    <div>
-                                        <h4>Reports</h4>
-                                        <p>View Hospital Analytics</p>
-                                    </div>
-                                </a>
-
-                            </div>
+                            </table>
 
                         </div>
 
                     </div>
+
                 </div>
 
             </main>
@@ -893,6 +911,11 @@
         const notificationCount =
             document.getElementById(
                 "notificationCount"
+            );
+
+        const headerProfileImage =
+            document.getElementById(
+                "headerProfileImage"
             );
 
         function getHeaders() {
@@ -1057,57 +1080,159 @@
         }
 
         function getAdminData() {
-            try {
-                const storedAdmin =
-                    localStorage.getItem(
-                        "admin"
-                    );
 
-                if (storedAdmin) {
-                    return JSON.parse(
-                        storedAdmin
+            const keys = [
+                "currentAdmin",
+                "admin"
+            ];
+
+            for (const key of keys) {
+
+                try {
+
+                    const storedAdmin =
+                        localStorage.getItem(key);
+
+                    if (!storedAdmin) {
+                        continue;
+                    }
+
+                    const parsed =
+                        JSON.parse(storedAdmin);
+
+                    if (
+                        parsed &&
+                        typeof parsed === "object"
+                    ) {
+
+                        if (
+                            parsed.data &&
+                            typeof parsed.data === "object"
+                        ) {
+                            return parsed.data;
+                        }
+
+                        return parsed;
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Admin storage error:",
+                        error
                     );
                 }
-            } catch (error) {
-                console.error(
-                    "Admin storage error:",
-                    error
-                );
             }
 
             return null;
         }
 
-        function loadAdminProfile() {
-            const admin =
-                getAdminData();
+        async function loadAdminProfile() {
 
-            const adminName =
-                document.getElementById(
-                    "adminName"
+            try {
+
+                const adminId =
+                    localStorage.getItem("adminId");
+
+                let admin =
+                    getAdminData();
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                    if (response.ok) {
+
+                        admin =
+                            await response.json();
+
+                        localStorage.setItem(
+                            "currentAdmin",
+                            JSON.stringify(admin)
+                        );
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(admin)
+                        );
+                    }
+                }
+
+                const adminName =
+                    document.getElementById(
+                        "adminName"
+                    );
+
+                const adminRole =
+                    document.getElementById(
+                        "adminRole"
+                    );
+
+                if (adminName) {
+
+                    adminName.textContent =
+                        admin?.fullName ||
+                        admin?.name ||
+                        "Admin";
+                }
+
+                if (adminRole) {
+
+                    adminRole.textContent =
+                        "System Administrator";
+                }
+
+                if (
+                    headerProfileImage &&
+                    admin?.profileImage
+                ) {
+
+                    const cleanName =
+                        String(
+                            admin.profileImage
+                        )
+                            .split("/")
+                            .pop()
+                            .split("\\")
+                            .pop();
+
+                    headerProfileImage.src =
+                        `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                            cleanName
+                        )}`;
+                }
+                else if (headerProfileImage) {
+
+                    headerProfileImage.src =
+                        "../assets/admin.png";
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Admin profile load error:",
+                    error
                 );
 
-            const adminRole =
-                document.getElementById(
-                    "adminRole"
-                );
+                if (headerProfileImage) {
 
-            if (adminName) {
-                adminName.textContent =
-                    admin?.fullName ||
-                    admin?.name ||
-                    "Admin";
-            }
-
-            if (adminRole) {
-                adminRole.textContent =
-                    admin?.role ||
-                    "System Administrator";
+                    headerProfileImage.src =
+                        "../assets/admin.png";
+                }
             }
         }
 
         async function loadDashboard() {
+
             try {
+
                 const response =
                     await fetch(
                         `${API_BASE_URL}/api/admin/dashboard`,
@@ -1117,55 +1242,231 @@
                         }
                     );
 
-                console.log(
-                    "Admin Dashboard Status:",
-                    response.status
-                );
-
                 if (!response.ok) {
+
                     const errorText =
                         await response.text();
 
-                    console.error(
-                        "Admin Dashboard API Error:",
-                        response.status,
-                        errorText
+                    throw new Error(
+                        `Dashboard API Error ${response.status}: ${errorText}`
                     );
-
-                    showDashboardError(
-                        response.status
-                    );
-
-                    return;
                 }
 
                 const data =
                     await response.json();
 
-                console.log(
-                    "Admin Dashboard Data:",
-                    data
-                );
-
-                updateDashboardStats(
-                    data
-                );
+                updateDashboardStats(data);
 
                 renderRecentAppointments(
                     data.recentAppointments
                 );
 
             } catch (error) {
+
                 console.error(
                     "Dashboard Load Error:",
                     error
                 );
 
-                showDashboardError();
+                showDashboardError(
+                    error.message.includes("403")
+                        ? 403
+                        : null
+                );
+            }
+
+            await Promise.allSettled([
+                loadDepartmentCount(),
+                loadBillingStats()
+            ]);
+        }
+
+        async function loadDepartmentCount() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/departments`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Department API Error ${response.status}`
+                    );
+                }
+
+                const departments =
+                    await response.json();
+
+                const count =
+                    Array.isArray(departments)
+                        ? departments.length
+                        : 0;
+
+                setText(
+                    totalDepartments,
+                    count,
+                    "0"
+                );
+
+                setText(
+                    departmentsSubtitle,
+                    "Registered departments",
+                    ""
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Department count error:",
+                    error
+                );
+
+                setText(
+                    totalDepartments,
+                    "0"
+                );
+
+                setText(
+                    departmentsSubtitle,
+                    "No department data",
+                    ""
+                );
+            }
+        }
+
+        async function loadBillingStats() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/billing`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Billing API Error ${response.status}`
+                    );
+                }
+
+                const bills =
+                    await response.json();
+
+                const list =
+                    Array.isArray(bills)
+                        ? bills
+                        : Array.isArray(bills?.content)
+                            ? bills.content
+                            : [];
+
+                const today =
+                    new Date();
+
+                const todayString =
+                    `${today.getFullYear()}-${String(
+                        today.getMonth() + 1
+                    ).padStart(2, "0")}-${String(
+                        today.getDate()
+                    ).padStart(2, "0")}`;
+
+                let todayRevenueValue = 0;
+                let pendingCount = 0;
+
+                list.forEach(bill => {
+
+                    const status =
+                        String(
+                            bill.paymentStatus ?? ""
+                        ).toUpperCase();
+
+                    if (
+                        status === "PENDING" ||
+                        status === "PARTIAL" ||
+                        status === "OVERDUE"
+                    ) {
+                        pendingCount++;
+                    }
+
+                    const billDate =
+                        String(
+                            bill.billDate ?? ""
+                        ).substring(0, 10);
+
+                    if (billDate === todayString) {
+
+                        const amount =
+                            Number(
+                                bill.paidAmount ?? 0
+                            );
+
+                        todayRevenueValue +=
+                            Number.isFinite(amount)
+                                ? amount
+                                : 0;
+                    }
+                });
+
+                setText(
+                    todayRevenue,
+                    "₹" +
+                    todayRevenueValue.toLocaleString(
+                        "en-IN"
+                    ),
+                    "₹0"
+                );
+
+                setText(
+                    revenueSubtitle,
+                    "From today's billing records",
+                    ""
+                );
+
+                setText(
+                    pendingBills,
+                    pendingCount,
+                    "0"
+                );
+
+                setText(
+                    billsSubtitle,
+                    "Pending / Partial / Overdue",
+                    ""
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Billing statistics error:",
+                    error
+                );
+
+                setText(
+                    todayRevenue,
+                    "₹0",
+                    "₹0"
+                );
+
+                setText(
+                    pendingBills,
+                    "0",
+                    "0"
+                );
             }
         }
 
         function updateDashboardStats(data) {
+
             setText(
                 totalDoctors,
                 data.totalDoctors,
@@ -1184,97 +1485,22 @@
                 "0"
             );
 
-            if (
-                data.departments !== null &&
-                data.departments !== undefined
-            ) {
-                setText(
-                    totalDepartments,
-                    data.departments,
-                    "0"
-                );
-
-                setText(
-                    departmentsSubtitle,
-                    "Active",
-                    ""
-                );
-            } else {
-                setText(
-                    totalDepartments,
-                    "N/A"
-                );
-
-                setText(
-                    departmentsSubtitle,
-                    "Department module not connected"
-                );
-            }
-
-            if (
-                data.todayRevenue !== null &&
-                data.todayRevenue !== undefined
-            ) {
-                setText(
-                    todayRevenue,
-                    "₹" + data.todayRevenue
-                );
-
-                setText(
-                    revenueSubtitle,
-                    "Today"
-                );
-            } else {
-                setText(
-                    todayRevenue,
-                    "N/A"
-                );
-
-                setText(
-                    revenueSubtitle,
-                    "Billing module not connected"
-                );
-            }
-
-            if (
-                data.pendingBills !== null &&
-                data.pendingBills !== undefined
-            ) {
-                setText(
-                    pendingBills,
-                    data.pendingBills,
-                    "0"
-                );
-
-                setText(
-                    billsSubtitle,
-                    "Need Review"
-                );
-            } else {
-                setText(
-                    pendingBills,
-                    "N/A"
-                );
-
-                setText(
-                    billsSubtitle,
-                    "Billing module not connected"
-                );
-            }
-
             setText(
                 doctorsSubtitle,
-                "Registered doctors"
+                "Registered doctors",
+                ""
             );
 
             setText(
                 patientsSubtitle,
-                "Registered patients"
+                "Registered patients",
+                ""
             );
 
             setText(
                 appointmentsSubtitle,
-                `${data.todayAppointments || 0} Today`
+                `${data.todayAppointments || 0} Today`,
+                ""
             );
 
             if (notificationCount) {
@@ -1406,37 +1632,39 @@
         function showDashboardError(
             status = null
         ) {
+
             setText(
                 totalDoctors,
-                "--"
+                "0"
             );
 
             setText(
                 totalPatients,
-                "--"
+                "0"
             );
 
             setText(
                 totalAppointments,
-                "--"
+                "0"
             );
 
             setText(
                 totalDepartments,
-                "N/A"
+                "0"
             );
 
             setText(
                 todayRevenue,
-                "N/A"
+                "₹0"
             );
 
             setText(
                 pendingBills,
-                "N/A"
+                "0"
             );
 
             if (recentAppointmentsBody) {
+
                 recentAppointmentsBody.innerHTML = `
             <tr>
                 <td colspan="5"
@@ -1586,10 +1814,7 @@
                             ? notificationCount.textContent
                             : "0";
 
-                    if (
-                        count === "0" ||
-                        count === "N/A"
-                    ) {
+                    if (count === "0") {
                         alert(
                             "No pending appointment notifications."
                         );
@@ -1672,18 +1897,14 @@
         }
 
         async function initializeDashboard() {
-            if (
-                window.innerWidth <=
-                900
-            ) {
-                sidebar.style.left =
-                    "-270px";
+
+            if (window.innerWidth <= 900) {
+                sidebar.style.left = "-270px";
             } else {
-                sidebar.style.left =
-                    "0";
+                sidebar.style.left = "0";
             }
 
-            loadAdminProfile();
+            await loadAdminProfile();
 
             setupSidebar();
             setupNotifications();

@@ -34,12 +34,22 @@ public class DoctorService {
     private PatientRepo patientRepo;
 
     public void registerDoctor(DoctorModel doctor) {
+
         doctor.setPassword(
-                passwordEncoder.encode(doctor.getPassword()));
+                passwordEncoder.encode(
+                        doctor.getPassword()));
+
+        if (doctor.getStatus() == null
+                || doctor.getStatus().isBlank()) {
+
+            doctor.setStatus("ACTIVE");
+        }
+
         doctorRepo.save(doctor);
     }
 
-    public List<DoctorAppointmentDTO> getDoctorAppointments(Long doctorId) {
+    public List<DoctorAppointmentDTO> getDoctorAppointments(
+            Long doctorId) {
 
         List<AppointmentModel> appointments
                 = appointmentRepo.findByDoctorId(doctorId);
@@ -111,7 +121,8 @@ public class DoctorService {
             LocalTime appointmentTime) {
 
         Optional<AppointmentModel> optionalAppointment
-                = appointmentRepo.findById(appointmentId);
+                = appointmentRepo.findById(
+                        appointmentId);
 
         if (optionalAppointment.isPresent()) {
 
@@ -126,7 +137,8 @@ public class DoctorService {
 
             appointment.setStatus("ACCEPTED");
 
-            appointmentRepo.save(appointment);
+            appointmentRepo.save(
+                    appointment);
         }
     }
 
@@ -134,7 +146,8 @@ public class DoctorService {
             Long appointmentId) {
 
         Optional<AppointmentModel> optionalAppointment
-                = appointmentRepo.findById(appointmentId);
+                = appointmentRepo.findById(
+                        appointmentId);
 
         if (optionalAppointment.isPresent()) {
 
@@ -143,7 +156,8 @@ public class DoctorService {
 
             appointment.setStatus("REJECTED");
 
-            appointmentRepo.save(appointment);
+            appointmentRepo.save(
+                    appointment);
         }
     }
 
@@ -151,7 +165,8 @@ public class DoctorService {
             Long appointmentId) {
 
         Optional<AppointmentModel> optionalAppointment
-                = appointmentRepo.findById(appointmentId);
+                = appointmentRepo.findById(
+                        appointmentId);
 
         if (optionalAppointment.isPresent()) {
 
@@ -160,24 +175,30 @@ public class DoctorService {
 
             appointment.setStatus("COMPLETED");
 
-            appointmentRepo.save(appointment);
+            appointmentRepo.save(
+                    appointment);
         }
     }
 
     public List<DoctorModel> getAllDoctors() {
+
         return doctorRepo.findAll();
     }
 
     public void deleteDoctor(Long doctorId) {
+
         if (doctorRepo.existsById(doctorId)) {
-            doctorRepo.deleteById(doctorId);
+
+            doctorRepo.deleteById(
+                    doctorId);
         }
     }
 
     public DoctorModel getDoctorById(
             Long doctorId) {
 
-        return doctorRepo.findById(doctorId)
+        return doctorRepo.findById(
+                doctorId)
                 .orElse(null);
     }
 
@@ -186,7 +207,8 @@ public class DoctorService {
             DoctorModel doctor) {
 
         Optional<DoctorModel> optionalDoctor
-                = doctorRepo.findById(doctorId);
+                = doctorRepo.findById(
+                        doctorId);
 
         if (optionalDoctor.isEmpty()) {
             return null;
@@ -196,16 +218,19 @@ public class DoctorService {
                 = optionalDoctor.get();
 
         if (doctor.getDoctorName() != null) {
+
             existingDoctor.setDoctorName(
                     doctor.getDoctorName());
         }
 
         if (doctor.getEmail() != null) {
+
             existingDoctor.setEmail(
                     doctor.getEmail());
         }
 
         if (doctor.getSpecialization() != null) {
+
             existingDoctor.setSpecialization(
                     doctor.getSpecialization());
         }
@@ -217,70 +242,92 @@ public class DoctorService {
                 doctor.getFee());
 
         if (doctor.getDescription() != null) {
+
             existingDoctor.setDescription(
                     doctor.getDescription());
         }
 
         if (doctor.getMobileNumber() != null) {
+
             existingDoctor.setMobileNumber(
                     doctor.getMobileNumber());
         }
 
         if (doctor.getDob() != null) {
+
             existingDoctor.setDob(
                     doctor.getDob());
         }
 
         if (doctor.getGender() != null) {
+
             existingDoctor.setGender(
                     doctor.getGender());
         }
 
         if (doctor.getBloodGroup() != null) {
+
             existingDoctor.setBloodGroup(
                     doctor.getBloodGroup());
         }
 
         if (doctor.getQualification() != null) {
+
             existingDoctor.setQualification(
                     doctor.getQualification());
         }
 
         if (doctor.getRegistrationNo() != null) {
+
             existingDoctor.setRegistrationNo(
                     doctor.getRegistrationNo());
         }
 
         if (doctor.getClinicAddress() != null) {
+
             existingDoctor.setClinicAddress(
                     doctor.getClinicAddress());
         }
 
         if (doctor.getLanguages() != null) {
+
             existingDoctor.setLanguages(
                     doctor.getLanguages());
         }
 
         if (doctor.getLinkedin() != null) {
+
             existingDoctor.setLinkedin(
                     doctor.getLinkedin());
         }
 
         if (doctor.getWebsite() != null) {
+
             existingDoctor.setWebsite(
                     doctor.getWebsite());
         }
 
         if (doctor.getFacebook() != null) {
+
             existingDoctor.setFacebook(
                     doctor.getFacebook());
         }
 
         if (doctor.getInstagram() != null) {
+
             existingDoctor.setInstagram(
                     doctor.getInstagram());
         }
 
-        return doctorRepo.save(existingDoctor);
+        if (doctor.getStatus() != null
+                && !doctor.getStatus().isBlank()) {
+
+            existingDoctor.setStatus(
+                    doctor.getStatus()
+                            .toUpperCase());
+        }
+
+        return doctorRepo.save(
+                existingDoctor);
     }
 }

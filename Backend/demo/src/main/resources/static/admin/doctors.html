@@ -711,7 +711,7 @@
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img id="headerProfileImage" src="../assets/admin.png" alt="Admin">
                         <div>
                             <h4 id="adminName">--</h4>
                             <p id="adminRole">--</p>
@@ -790,8 +790,6 @@
 
                     </div>
 
-                    <!-- ================= ADD / EDIT DOCTOR MODAL ================= -->
-
                     <div class="modal" id="doctorModal">
 
                         <div class="modal-content">
@@ -833,6 +831,14 @@
                                     <input type="number" id="doctorFee">
                                 </div>
 
+                                <div class="input-group">
+                                    <label>Status</label>
+                                    <select id="doctorStatus">
+                                        <option value="ACTIVE">Active</option>
+                                        <option value="INACTIVE">Inactive</option>
+                                    </select>
+                                </div>
+
                                 <div class="input-group full-width">
                                     <label>Address</label>
                                     <textarea id="doctorAddress"></textarea>
@@ -856,8 +862,6 @@
                         </div>
 
                     </div>
-
-                    <!-- ================= VIEW DOCTOR MODAL ================= -->
 
                     <div class="modal" id="viewModal">
 
@@ -976,6 +980,11 @@
         const notificationCount =
             document.querySelector(".notify span");
 
+        const headerProfileImage =
+            document.getElementById(
+                "headerProfileImage"
+            );
+
         const doctorName =
             document.getElementById("doctorName");
 
@@ -993,6 +1002,9 @@
 
         const doctorFee =
             document.getElementById("doctorFee");
+
+        const doctorStatus =
+            document.getElementById("doctorStatus");
 
         const doctorAddress =
             document.getElementById("doctorAddress");
@@ -1051,41 +1063,142 @@
         }
 
         function getAdminData() {
-            try {
-                const storedAdmin =
-                    localStorage.getItem("admin");
 
-                if (!storedAdmin) {
-                    return null;
+            const keys = [
+                "currentAdmin",
+                "admin"
+            ];
+
+            for (const key of keys) {
+
+                try {
+
+                    const storedAdmin =
+                        localStorage.getItem(key);
+
+                    if (!storedAdmin) {
+                        continue;
+                    }
+
+                    const parsed =
+                        JSON.parse(storedAdmin);
+
+                    if (
+                        parsed &&
+                        typeof parsed === "object"
+                    ) {
+
+                        if (
+                            parsed.data &&
+                            typeof parsed.data === "object"
+                        ) {
+                            return parsed.data;
+                        }
+
+                        return parsed;
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Admin data error:",
+                        error
+                    );
+                }
+            }
+
+            return null;
+        }
+
+        async function loadAdminProfile() {
+
+            try {
+
+                const adminId =
+                    localStorage.getItem("adminId");
+
+                let admin =
+                    getAdminData();
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                    if (response.ok) {
+
+                        admin =
+                            await response.json();
+
+                        localStorage.setItem(
+                            "currentAdmin",
+                            JSON.stringify(admin)
+                        );
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(admin)
+                        );
+                    }
                 }
 
-                return JSON.parse(storedAdmin);
+                if (adminName) {
+
+                    adminName.textContent =
+                        admin?.fullName ||
+                        admin?.name ||
+                        "Admin";
+                }
+
+                if (adminRole) {
+
+                    adminRole.textContent =
+                        "System Administrator";
+                }
+
+                if (
+                    headerProfileImage &&
+                    admin?.profileImage
+                ) {
+
+                    const cleanName =
+                        String(
+                            admin.profileImage
+                        )
+                            .split("/")
+                            .pop()
+                            .split("\\")
+                            .pop();
+
+                    headerProfileImage.src =
+                        `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                            cleanName
+                        )}`;
+                }
+                else if (headerProfileImage) {
+
+                    headerProfileImage.src =
+                        "../assets/admin.png";
+                }
 
             } catch (error) {
+
                 console.error(
-                    "Admin data error:",
+                    "Admin profile load error:",
                     error
                 );
 
-                return null;
-            }
-        }
+                if (headerProfileImage) {
 
-        function loadAdminProfile() {
-            const admin =
-                getAdminData();
-
-            if (adminName) {
-                adminName.textContent =
-                    admin?.fullName ||
-                    admin?.name ||
-                    "Admin";
-            }
-
-            if (adminRole) {
-                adminRole.textContent =
-                    admin?.role ||
-                    "System Administrator";
+                    headerProfileImage.src =
+                        "../assets/admin.png";
+                }
             }
         }
 
@@ -1120,7 +1233,15 @@
         }
 
         function getDoctorStatus(doctor) {
-            return "Active";
+
+            const status =
+                String(
+                    doctor.status || "ACTIVE"
+                ).toUpperCase();
+
+            return status === "INACTIVE"
+                ? "Inactive"
+                : "Active";
         }
 
         function addPasswordField() {
@@ -1200,14 +1321,14 @@
             });
 
             statusFilter.innerHTML = `
-        <option value="all">All Status</option>
-        <option value="active">Active</option>
-    `;
-        }
+    <option value="all">All Status</option>
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+`;
 
-        async function loadDoctors() {
-            try {
-                doctorTable.innerHTML = `
+            async function loadDoctors() {
+                try {
+                    doctorTable.innerHTML = `
             <tr>
                 <td
                     colspan="8"
@@ -1221,31 +1342,31 @@
             </tr>
         `;
 
-                const response =
-                    await fetch(
-                        `${API_BASE_URL}/api/doctors`,
-                        {
-                            method: "GET",
-                            headers: getHeaders()
-                        }
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/doctors`,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                    console.log(
+                        "Doctors API Status:",
+                        response.status
                     );
 
-                console.log(
-                    "Doctors API Status:",
-                    response.status
-                );
+                    if (!response.ok) {
+                        const errorText =
+                            await response.text();
 
-                if (!response.ok) {
-                    const errorText =
-                        await response.text();
+                        console.error(
+                            "Doctors API Error:",
+                            response.status,
+                            errorText
+                        );
 
-                    console.error(
-                        "Doctors API Error:",
-                        response.status,
-                        errorText
-                    );
-
-                    doctorTable.innerHTML = `
+                        doctorTable.innerHTML = `
                 <tr>
                     <td
                         colspan="8"
@@ -1261,27 +1382,27 @@
                 </tr>
             `;
 
-                    return;
-                }
+                        return;
+                    }
 
-                const data =
-                    await response.json();
+                    const data =
+                        await response.json();
 
-                doctors =
-                    Array.isArray(data)
-                        ? data
-                        : [];
+                    doctors =
+                        Array.isArray(data)
+                            ? data
+                            : [];
 
-                populateDepartmentFilters();
-                renderDoctors();
+                    populateDepartmentFilters();
+                    renderDoctors();
 
-            } catch (error) {
-                console.error(
-                    "Load Doctors Error:",
-                    error
-                );
+                } catch (error) {
+                    console.error(
+                        "Load Doctors Error:",
+                        error
+                    );
 
-                doctorTable.innerHTML = `
+                    doctorTable.innerHTML = `
             <tr>
                 <td
                     colspan="8"
@@ -1295,76 +1416,81 @@
                 </td>
             </tr>
         `;
+                }
             }
-        }
 
-        function renderDoctors() {
-            const search =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
+            function renderDoctors() {
+                const search =
+                    searchInput.value
+                        .toLowerCase()
+                        .trim();
 
-            const department =
-                departmentFilter.value
-                    .toLowerCase();
+                const department =
+                    departmentFilter.value
+                        .toLowerCase();
 
-            const status =
-                statusFilter.value
-                    .toLowerCase();
+                const status =
+                    statusFilter.value
+                        .toLowerCase();
 
-            const filteredDoctors =
-                doctors.filter(
-                    doctor => {
+                const filteredDoctors =
+                    doctors.filter(
+                        doctor => {
 
-                        const name =
-                            (
-                                doctor.doctorName ||
-                                ""
-                            ).toLowerCase();
+                            const name =
+                                (
+                                    doctor.doctorName ||
+                                    ""
+                                ).toLowerCase();
 
-                        const email =
-                            (
-                                doctor.email ||
-                                ""
-                            ).toLowerCase();
+                            const email =
+                                (
+                                    doctor.email ||
+                                    ""
+                                ).toLowerCase();
 
-                        const specialization =
-                            (
-                                doctor.specialization ||
-                                ""
-                            ).toLowerCase();
+                            const specialization =
+                                (
+                                    doctor.specialization ||
+                                    ""
+                                ).toLowerCase();
 
-                        const doctorStatus =
-                            getDoctorStatus(
-                                doctor
-                            ).toLowerCase();
+                            const doctorStatus =
+                                getDoctorStatus(
+                                    doctor
+                                ).toLowerCase();
 
-                        const searchMatch =
-                            !search ||
-                            name.includes(search) ||
-                            email.includes(search) ||
-                            specialization.includes(search);
+                            const statusClass =
+                                status.toLowerCase() === "inactive"
+                                    ? "inactive"
+                                    : "active";
 
-                        const departmentMatch =
-                            department === "all" ||
-                            specialization === department;
+                            const searchMatch =
+                                !search ||
+                                name.includes(search) ||
+                                email.includes(search) ||
+                                specialization.includes(search);
 
-                        const statusMatch =
-                            status === "all" ||
-                            doctorStatus === status;
+                            const departmentMatch =
+                                department === "all" ||
+                                specialization === department;
 
-                        return (
-                            searchMatch &&
-                            departmentMatch &&
-                            statusMatch
-                        );
-                    }
-                );
+                            const statusMatch =
+                                status === "all" ||
+                                doctorStatus === status;
 
-            doctorTable.innerHTML = "";
+                            return (
+                                searchMatch &&
+                                departmentMatch &&
+                                statusMatch
+                            );
+                        }
+                    );
 
-            if (!filteredDoctors.length) {
-                doctorTable.innerHTML = `
+                doctorTable.innerHTML = "";
+
+                if (!filteredDoctors.length) {
+                    doctorTable.innerHTML = `
             <tr>
                 <td
                     colspan="8"
@@ -1379,23 +1505,23 @@
             </tr>
         `;
 
-                return;
-            }
+                    return;
+                }
 
-            filteredDoctors.forEach(
-                doctor => {
+                filteredDoctors.forEach(
+                    doctor => {
 
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
+                        const row =
+                            document.createElement(
+                                "tr"
+                            );
 
-                    const status =
-                        getDoctorStatus(
-                            doctor
-                        );
+                        const status =
+                            getDoctorStatus(
+                                doctor
+                            );
 
-                    row.innerHTML = `
+                        row.innerHTML = `
                 <td>
                     <div class="doctor-info">
                         <img
@@ -1409,16 +1535,16 @@
                         <div>
                             <b>
                                 ${escapeHtml(
-                        doctor.doctorName ||
-                        "--"
-                    )}
+                            doctor.doctorName ||
+                            "--"
+                        )}
                             </b>
                             <br>
                             <small>
                                 ID:
                                 ${escapeHtml(
-                        doctor.id
-                    )}
+                            doctor.id
+                        )}
                             </small>
                         </div>
                     </div>
@@ -1426,45 +1552,45 @@
 
                 <td>
                     ${escapeHtml(
-                        doctor.specialization ||
-                        "--"
-                    )}
+                            doctor.specialization ||
+                            "--"
+                        )}
                 </td>
 
                 <td>
                     ${escapeHtml(
-                        formatExperience(
-                            doctor.experience
-                        )
-                    )}
+                            formatExperience(
+                                doctor.experience
+                            )
+                        )}
                 </td>
 
                 <td>
                     ${escapeHtml(
-                        formatFee(
-                            doctor.fee
-                        )
-                    )}
+                            formatFee(
+                                doctor.fee
+                            )
+                        )}
                 </td>
 
                 <td>
                     ${escapeHtml(
-                        doctor.mobileNumber ||
-                        "--"
-                    )}
+                            doctor.mobileNumber ||
+                            "--"
+                        )}
                 </td>
 
                 <td>
                     ${escapeHtml(
-                        doctor.email ||
-                        "--"
-                    )}
+                            doctor.email ||
+                            "--"
+                        )}
                 </td>
 
                 <td>
-                    <span class="status active">
-                        ${status}
-                    </span>
+                    <span class="status ${statusClass}">
+    ${status}
+</span>
                 </td>
 
                 <td>
@@ -1504,335 +1630,440 @@
                 </td>
             `;
 
-                    doctorTable.appendChild(row);
+                        doctorTable.appendChild(row);
+                    }
+                );
+
+                attachRowEvents();
+            }
+
+            function attachRowEvents() {
+                document
+                    .querySelectorAll(
+                        ".view-btn"
+                    )
+                    .forEach(
+                        button => {
+
+                            button.addEventListener(
+                                "click",
+                                () => {
+
+                                    const id =
+                                        Number(
+                                            button.dataset.id
+                                        );
+
+                                    viewDoctor(
+                                        id
+                                    );
+                                }
+                            );
+                        }
+                    );
+
+                document
+                    .querySelectorAll(
+                        ".edit-btn"
+                    )
+                    .forEach(
+                        button => {
+
+                            button.addEventListener(
+                                "click",
+                                () => {
+
+                                    const id =
+                                        Number(
+                                            button.dataset.id
+                                        );
+
+                                    editDoctor(
+                                        id
+                                    );
+                                }
+                            );
+                        }
+                    );
+
+                document
+                    .querySelectorAll(
+                        ".delete-btn"
+                    )
+                    .forEach(
+                        button => {
+
+                            button.addEventListener(
+                                "click",
+                                () => {
+
+                                    const id =
+                                        Number(
+                                            button.dataset.id
+                                        );
+
+                                    deleteDoctor(
+                                        id
+                                    );
+                                }
+                            );
+                        }
+                    );
+            }
+
+            function openModal() {
+                doctorModal.style.display =
+                    "flex";
+            }
+
+            function closeDoctorModal() {
+                doctorModal.style.display =
+                    "none";
+            }
+
+            function closeViewModal() {
+                viewModal.style.display =
+                    "none";
+            }
+
+            function clearDoctorForm() {
+                doctorName.value = "";
+                doctorEmail.value = "";
+                doctorPhone.value = "";
+                doctorExperience.value = "";
+                doctorFee.value = "";
+                doctorAddress.value = "";
+                doctorDepartment.value = "";
+                doctorStatus.value = "ACTIVE";
+            }
+
+            function fillDoctorForm(doctor) {
+                doctorName.value =
+                    doctor.doctorName ||
+                    "";
+
+                doctorEmail.value =
+                    doctor.email ||
+                    "";
+
+                doctorPhone.value =
+                    doctor.mobileNumber ||
+                    "";
+
+                doctorDepartment.value =
+                    doctor.specialization ||
+                    "";
+
+                doctorExperience.value =
+                    doctor.experience ??
+                    "";
+
+                doctorFee.value =
+                    doctor.fee ??
+                    "";
+
+                doctorAddress.value =
+                    doctor.clinicAddress ||
+                    "";
+
+                doctorStatus.value =
+                    String(
+                        doctor.status || "ACTIVE"
+                    ).toUpperCase();
+            }
+
+            function fillViewModal(doctor) {
+                viewDoctorName.value =
+                    doctor.doctorName ||
+                    "--";
+
+                viewDoctorEmail.value =
+                    doctor.email ||
+                    "--";
+
+                viewDoctorDepartment.value =
+                    doctor.specialization ||
+                    "--";
+
+                viewDoctorExperience.value =
+                    formatExperience(
+                        doctor.experience
+                    );
+
+                viewDoctorFee.value =
+                    formatFee(
+                        doctor.fee
+                    );
+
+                viewDoctorStatus.value =
+                    getDoctorStatus(
+                        doctor
+                    );
+
+                viewDoctorAddress.value =
+                    doctor.clinicAddress ||
+                    "--";
+            }
+
+            function viewDoctor(id) {
+                const doctor =
+                    doctors.find(
+                        item =>
+                            Number(item.id) ===
+                            Number(id)
+                    );
+
+                if (!doctor) {
+                    alert(
+                        "Doctor data not found."
+                    );
+                    return;
                 }
-            );
 
-            attachRowEvents();
-        }
-
-        function attachRowEvents() {
-            document
-                .querySelectorAll(
-                    ".view-btn"
-                )
-                .forEach(
-                    button => {
-
-                        button.addEventListener(
-                            "click",
-                            () => {
-
-                                const id =
-                                    Number(
-                                        button.dataset.id
-                                    );
-
-                                viewDoctor(
-                                    id
-                                );
-                            }
-                        );
-                    }
-                );
-
-            document
-                .querySelectorAll(
-                    ".edit-btn"
-                )
-                .forEach(
-                    button => {
-
-                        button.addEventListener(
-                            "click",
-                            () => {
-
-                                const id =
-                                    Number(
-                                        button.dataset.id
-                                    );
-
-                                editDoctor(
-                                    id
-                                );
-                            }
-                        );
-                    }
-                );
-
-            document
-                .querySelectorAll(
-                    ".delete-btn"
-                )
-                .forEach(
-                    button => {
-
-                        button.addEventListener(
-                            "click",
-                            () => {
-
-                                const id =
-                                    Number(
-                                        button.dataset.id
-                                    );
-
-                                deleteDoctor(
-                                    id
-                                );
-                            }
-                        );
-                    }
-                );
-        }
-
-        function openModal() {
-            doctorModal.style.display =
-                "flex";
-        }
-
-        function closeDoctorModal() {
-            doctorModal.style.display =
-                "none";
-        }
-
-        function closeViewModal() {
-            viewModal.style.display =
-                "none";
-        }
-
-        function clearDoctorForm() {
-            doctorName.value = "";
-            doctorEmail.value = "";
-            doctorPhone.value = "";
-            doctorExperience.value = "";
-            doctorFee.value = "";
-            doctorAddress.value = "";
-            doctorDepartment.value = "";
-        }
-
-        function fillDoctorForm(doctor) {
-            doctorName.value =
-                doctor.doctorName ||
-                "";
-
-            doctorEmail.value =
-                doctor.email ||
-                "";
-
-            doctorPhone.value =
-                doctor.mobileNumber ||
-                "";
-
-            doctorDepartment.value =
-                doctor.specialization ||
-                "";
-
-            doctorExperience.value =
-                doctor.experience ??
-                "";
-
-            doctorFee.value =
-                doctor.fee ??
-                "";
-
-            doctorAddress.value =
-                doctor.clinicAddress ||
-                "";
-        }
-
-        function fillViewModal(doctor) {
-            viewDoctorName.value =
-                doctor.doctorName ||
-                "--";
-
-            viewDoctorEmail.value =
-                doctor.email ||
-                "--";
-
-            viewDoctorDepartment.value =
-                doctor.specialization ||
-                "--";
-
-            viewDoctorExperience.value =
-                formatExperience(
-                    doctor.experience
-                );
-
-            viewDoctorFee.value =
-                formatFee(
-                    doctor.fee
-                );
-
-            viewDoctorStatus.value =
-                getDoctorStatus(
+                fillViewModal(
                     doctor
                 );
 
-            viewDoctorAddress.value =
-                doctor.clinicAddress ||
-                "--";
-        }
-
-        function viewDoctor(id) {
-            const doctor =
-                doctors.find(
-                    item =>
-                        Number(item.id) ===
-                        Number(id)
-                );
-
-            if (!doctor) {
-                alert(
-                    "Doctor data not found."
-                );
-                return;
+                viewModal.style.display =
+                    "flex";
             }
 
-            fillViewModal(
-                doctor
-            );
+            function editDoctor(id) {
+                const doctor =
+                    doctors.find(
+                        item =>
+                            Number(item.id) ===
+                            Number(id)
+                    );
 
-            viewModal.style.display =
-                "flex";
-        }
+                if (!doctor) {
+                    alert(
+                        "Doctor data not found."
+                    );
+                    return;
+                }
 
-        function editDoctor(id) {
-            const doctor =
-                doctors.find(
-                    item =>
-                        Number(item.id) ===
-                        Number(id)
+                editingDoctorId =
+                    Number(id);
+
+                doctorModal.querySelector(
+                    ".modal-title"
+                ).textContent =
+                    "Edit Doctor";
+
+                fillDoctorForm(
+                    doctor
                 );
 
-            if (!doctor) {
-                alert(
-                    "Doctor data not found."
-                );
-                return;
+                removePasswordForEdit();
+
+                openModal();
             }
 
-            editingDoctorId =
-                Number(id);
+            function openAddDoctorModal() {
+                editingDoctorId =
+                    null;
 
-            doctorModal.querySelector(
-                ".modal-title"
-            ).textContent =
-                "Edit Doctor";
+                doctorModal.querySelector(
+                    ".modal-title"
+                ).textContent =
+                    "Add Doctor";
 
-            fillDoctorForm(
-                doctor
-            );
+                clearDoctorForm();
 
-            removePasswordForEdit();
+                addPasswordField();
 
-            openModal();
-        }
+                removePasswordForEdit();
 
-        function openAddDoctorModal() {
-            editingDoctorId =
-                null;
-
-            doctorModal.querySelector(
-                ".modal-title"
-            ).textContent =
-                "Add Doctor";
-
-            clearDoctorForm();
-
-            addPasswordField();
-
-            removePasswordForEdit();
-
-            const passwordInput =
-                document.getElementById(
-                    "doctorPassword"
-                );
-
-            if (passwordInput) {
-                passwordInput.value =
-                    "";
-            }
-
-            openModal();
-        }
-
-        async function saveDoctor() {
-            const name =
-                doctorName.value.trim();
-
-            const email =
-                doctorEmail.value.trim();
-
-            const phone =
-                doctorPhone.value.trim();
-
-            const specialization =
-                doctorDepartment.value.trim();
-
-            const experienceValue =
-                doctorExperience.value.trim();
-
-            const feeValue =
-                doctorFee.value.trim();
-
-            const address =
-                doctorAddress.value.trim();
-
-            if (!name) {
-                alert(
-                    "Please enter doctor name."
-                );
-                return;
-            }
-
-            if (!email) {
-                alert(
-                    "Please enter doctor email."
-                );
-                return;
-            }
-
-            if (!specialization) {
-                alert(
-                    "Please select doctor department."
-                );
-                return;
-            }
-
-            if (
-                experienceValue === "" ||
-                Number(experienceValue) < 0
-            ) {
-                alert(
-                    "Please enter valid experience."
-                );
-                return;
-            }
-
-            if (
-                feeValue === "" ||
-                Number(feeValue) < 0
-            ) {
-                alert(
-                    "Please enter valid consultation fee."
-                );
-                return;
-            }
-
-            if (!editingDoctorId) {
                 const passwordInput =
                     document.getElementById(
                         "doctorPassword"
                     );
 
-                const password =
-                    passwordInput
-                        ? passwordInput.value
-                        : "";
+                if (passwordInput) {
+                    passwordInput.value =
+                        "";
+                }
 
-                if (!password) {
+                openModal();
+            }
+
+            async function saveDoctor() {
+                const name =
+                    doctorName.value.trim();
+
+                const email =
+                    doctorEmail.value.trim();
+
+                const phone =
+                    doctorPhone.value.trim();
+
+                const specialization =
+                    doctorDepartment.value.trim();
+
+                const experienceValue =
+                    doctorExperience.value.trim();
+
+                const feeValue =
+                    doctorFee.value.trim();
+
+                const address =
+                    doctorAddress.value.trim();
+
+                if (!name) {
                     alert(
-                        "Please enter a password for the doctor."
+                        "Please enter doctor name."
+                    );
+                    return;
+                }
+
+                if (!email) {
+                    alert(
+                        "Please enter doctor email."
+                    );
+                    return;
+                }
+
+                if (!specialization) {
+                    alert(
+                        "Please select doctor department."
+                    );
+                    return;
+                }
+
+                if (
+                    experienceValue === "" ||
+                    Number(experienceValue) < 0
+                ) {
+                    alert(
+                        "Please enter valid experience."
+                    );
+                    return;
+                }
+
+                if (
+                    feeValue === "" ||
+                    Number(feeValue) < 0
+                ) {
+                    alert(
+                        "Please enter valid consultation fee."
+                    );
+                    return;
+                }
+
+                if (!editingDoctorId) {
+                    const passwordInput =
+                        document.getElementById(
+                            "doctorPassword"
+                        );
+
+                    const password =
+                        passwordInput
+                            ? passwordInput.value
+                            : "";
+
+                    if (!password) {
+                        alert(
+                            "Please enter a password for the doctor."
+                        );
+                        return;
+                    }
+
+                    const payload = {
+                        doctorName: name,
+                        email: email,
+                        password: password,
+                        specialization: specialization,
+                        experience: Number(experienceValue),
+                        fee: Number(feeValue),
+                        description: "",
+                        mobileNumber:
+                            phone
+                                ? Number(phone)
+                                : null,
+                        clinicAddress:
+                            address || null,
+                        status: "ACTIVE"
+                    };
+
+                    try {
+
+                        saveBtn.disabled =
+                            true;
+
+                        const response =
+                            await fetch(
+                                `${API_BASE_URL}/api/doctors/register`,
+                                {
+                                    method: "POST",
+                                    headers:
+                                        getHeaders(),
+                                    body:
+                                        JSON.stringify(
+                                            payload
+                                        )
+                                }
+                            );
+
+                        const responseText =
+                            await response.text();
+
+                        if (!response.ok) {
+
+                            console.error(
+                                "Add Doctor Error:",
+                                response.status,
+                                responseText
+                            );
+
+                            alert(
+                                "Unable to add doctor. Error: " +
+                                response.status
+                            );
+
+                            return;
+                        }
+
+                        alert(
+                            "Doctor added successfully."
+                        );
+
+                        closeDoctorModal();
+
+                        await loadDoctors();
+
+                    } catch (error) {
+
+                        console.error(
+                            "Add Doctor Error:",
+                            error
+                        );
+
+                        alert(
+                            "Unable to connect with backend."
+                        );
+
+                    } finally {
+
+                        saveBtn.disabled =
+                            false;
+                    }
+
+                    return;
+                }
+
+                const existingDoctor =
+                    doctors.find(
+                        doctor =>
+                            Number(doctor.id) ===
+                            Number(
+                                editingDoctorId
+                            )
+                    );
+
+                if (!existingDoctor) {
+                    alert(
+                        "Doctor data not found."
                     );
                     return;
                 }
@@ -1840,8 +2071,8 @@
                 const payload = {
                     doctorName: name,
                     email: email,
-                    password: password,
-                    specialization: specialization,
+                    specialization:
+                        specialization,
                     experience:
                         Number(
                             experienceValue
@@ -1850,13 +2081,49 @@
                         Number(
                             feeValue
                         ),
-                    description: "",
+                    description:
+                        existingDoctor.description ||
+                        "",
                     mobileNumber:
                         phone
                             ? Number(phone)
                             : null,
                     clinicAddress:
-                        address || null
+                        address ||
+                        null,
+                    qualification:
+                        existingDoctor.qualification ||
+                        null,
+                    dob:
+                        existingDoctor.dob ||
+                        null,
+                    gender:
+                        existingDoctor.gender ||
+                        null,
+                    bloodGroup:
+                        existingDoctor.bloodGroup ||
+                        null,
+                    registrationNo:
+                        existingDoctor.registrationNo ||
+                        null,
+                    languages:
+                        existingDoctor.languages ||
+                        null,
+                    linkedin:
+                        existingDoctor.linkedin ||
+                        null,
+                    website:
+                        existingDoctor.website ||
+                        null,
+                    facebook:
+                        existingDoctor.facebook ||
+                        null,
+                    instagram:
+                        existingDoctor.instagram ||
+                        null,
+                    status:
+                        doctorStatus.value
+
                 };
 
                 try {
@@ -1866,9 +2133,9 @@
 
                     const response =
                         await fetch(
-                            `${API_BASE_URL}/api/doctors/register`,
+                            `${API_BASE_URL}/api/doctors/${editingDoctorId}`,
                             {
-                                method: "POST",
+                                method: "PUT",
                                 headers:
                                     getHeaders(),
                                 body:
@@ -1884,13 +2151,13 @@
                     if (!response.ok) {
 
                         console.error(
-                            "Add Doctor Error:",
+                            "Update Doctor Error:",
                             response.status,
                             responseText
                         );
 
                         alert(
-                            "Unable to add doctor. Error: " +
+                            "Unable to update doctor. Error: " +
                             response.status
                         );
 
@@ -1898,7 +2165,7 @@
                     }
 
                     alert(
-                        "Doctor added successfully."
+                        "Doctor updated successfully."
                     );
 
                     closeDoctorModal();
@@ -1908,7 +2175,7 @@
                 } catch (error) {
 
                     console.error(
-                        "Add Doctor Error:",
+                        "Update Doctor Error:",
                         error
                     );
 
@@ -1921,416 +2188,279 @@
                     saveBtn.disabled =
                         false;
                 }
-
-                return;
             }
 
-            const existingDoctor =
-                doctors.find(
-                    doctor =>
-                        Number(doctor.id) ===
-                        Number(
-                            editingDoctorId
-                        )
-                );
-
-            if (!existingDoctor) {
-                alert(
-                    "Doctor data not found."
-                );
-                return;
-            }
-
-            const payload = {
-                doctorName: name,
-                email: email,
-                specialization:
-                    specialization,
-                experience:
-                    Number(
-                        experienceValue
-                    ),
-                fee:
-                    Number(
-                        feeValue
-                    ),
-                description:
-                    existingDoctor.description ||
-                    "",
-                mobileNumber:
-                    phone
-                        ? Number(phone)
-                        : null,
-                clinicAddress:
-                    address ||
-                    null,
-                qualification:
-                    existingDoctor.qualification ||
-                    null,
-                dob:
-                    existingDoctor.dob ||
-                    null,
-                gender:
-                    existingDoctor.gender ||
-                    null,
-                bloodGroup:
-                    existingDoctor.bloodGroup ||
-                    null,
-                registrationNo:
-                    existingDoctor.registrationNo ||
-                    null,
-                languages:
-                    existingDoctor.languages ||
-                    null,
-                linkedin:
-                    existingDoctor.linkedin ||
-                    null,
-                website:
-                    existingDoctor.website ||
-                    null,
-                facebook:
-                    existingDoctor.facebook ||
-                    null,
-                instagram:
-                    existingDoctor.instagram ||
-                    null
-            };
-
-            try {
-
-                saveBtn.disabled =
-                    true;
-
-                const response =
-                    await fetch(
-                        `${API_BASE_URL}/api/doctors/${editingDoctorId}`,
-                        {
-                            method: "PUT",
-                            headers:
-                                getHeaders(),
-                            body:
-                                JSON.stringify(
-                                    payload
-                                )
-                        }
+            async function deleteDoctor(id) {
+                const doctor =
+                    doctors.find(
+                        item =>
+                            Number(item.id) ===
+                            Number(id)
                     );
 
-                const responseText =
-                    await response.text();
-
-                if (!response.ok) {
-
-                    console.error(
-                        "Update Doctor Error:",
-                        response.status,
-                        responseText
-                    );
-
+                if (!doctor) {
                     alert(
-                        "Unable to update doctor. Error: " +
-                        response.status
+                        "Doctor data not found."
                     );
-
                     return;
                 }
 
-                alert(
-                    "Doctor updated successfully."
-                );
-
-                closeDoctorModal();
-
-                await loadDoctors();
-
-            } catch (error) {
-
-                console.error(
-                    "Update Doctor Error:",
-                    error
-                );
-
-                alert(
-                    "Unable to connect with backend."
-                );
-
-            } finally {
-
-                saveBtn.disabled =
-                    false;
-            }
-        }
-
-        async function deleteDoctor(id) {
-            const doctor =
-                doctors.find(
-                    item =>
-                        Number(item.id) ===
-                        Number(id)
-                );
-
-            if (!doctor) {
-                alert(
-                    "Doctor data not found."
-                );
-                return;
-            }
-
-            const confirmed =
-                confirm(
-                    `Delete ${doctor.doctorName || "this doctor"}?`
-                );
-
-            if (!confirmed) {
-                return;
-            }
-
-            try {
-
-                const response =
-                    await fetch(
-                        `${API_BASE_URL}/api/doctors/${id}`,
-                        {
-                            method: "DELETE",
-                            headers:
-                                getHeaders()
-                        }
+                const confirmed =
+                    confirm(
+                        `Delete ${doctor.doctorName || "this doctor"}?`
                     );
 
-                const responseText =
-                    await response.text();
+                if (!confirmed) {
+                    return;
+                }
 
-                if (!response.ok) {
+                try {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/doctors/${id}`,
+                            {
+                                method: "DELETE",
+                                headers:
+                                    getHeaders()
+                            }
+                        );
+
+                    const responseText =
+                        await response.text();
+
+                    if (!response.ok) {
+
+                        console.error(
+                            "Delete Doctor Error:",
+                            response.status,
+                            responseText
+                        );
+
+                        alert(
+                            "Unable to delete doctor. Error: " +
+                            response.status
+                        );
+
+                        return;
+                    }
+
+                    alert(
+                        "Doctor deleted successfully."
+                    );
+
+                    await loadDoctors();
+
+                } catch (error) {
 
                     console.error(
                         "Delete Doctor Error:",
-                        response.status,
-                        responseText
+                        error
                     );
 
                     alert(
-                        "Unable to delete doctor. Error: " +
-                        response.status
+                        "Unable to connect with backend."
                     );
+                }
+            }
 
+            function setupSearch() {
+                if (!searchInput) {
                     return;
                 }
 
-                alert(
-                    "Doctor deleted successfully."
-                );
-
-                await loadDoctors();
-
-            } catch (error) {
-
-                console.error(
-                    "Delete Doctor Error:",
-                    error
-                );
-
-                alert(
-                    "Unable to connect with backend."
+                searchInput.addEventListener(
+                    "input",
+                    renderDoctors
                 );
             }
-        }
 
-        function setupSearch() {
-            if (!searchInput) {
-                return;
+            function setupFilters() {
+                departmentFilter.addEventListener(
+                    "change",
+                    renderDoctors
+                );
+
+                statusFilter.addEventListener(
+                    "change",
+                    renderDoctors
+                );
             }
 
-            searchInput.addEventListener(
-                "input",
-                renderDoctors
-            );
-        }
+            function setupModals() {
+                addDoctorBtn.addEventListener(
+                    "click",
+                    openAddDoctorModal
+                );
 
-        function setupFilters() {
-            departmentFilter.addEventListener(
-                "change",
-                renderDoctors
-            );
+                saveBtn.addEventListener(
+                    "click",
+                    saveDoctor
+                );
 
-            statusFilter.addEventListener(
-                "change",
-                renderDoctors
-            );
-        }
+                cancelBtn.addEventListener(
+                    "click",
+                    closeDoctorModal
+                );
 
-        function setupModals() {
-            addDoctorBtn.addEventListener(
-                "click",
-                openAddDoctorModal
-            );
+                closeViewBtn.addEventListener(
+                    "click",
+                    closeViewModal
+                );
 
-            saveBtn.addEventListener(
-                "click",
-                saveDoctor
-            );
+                closeButtons.forEach(
+                    button => {
 
-            cancelBtn.addEventListener(
-                "click",
-                closeDoctorModal
-            );
+                        button.addEventListener(
+                            "click",
+                            () => {
+                                closeDoctorModal();
+                                closeViewModal();
+                            }
+                        );
+                    }
+                );
 
-            closeViewBtn.addEventListener(
-                "click",
-                closeViewModal
-            );
+                window.addEventListener(
+                    "click",
+                    event => {
 
-            closeButtons.forEach(
-                button => {
+                        if (
+                            event.target ===
+                            doctorModal
+                        ) {
+                            closeDoctorModal();
+                        }
 
-                    button.addEventListener(
+                        if (
+                            event.target ===
+                            viewModal
+                        ) {
+                            closeViewModal();
+                        }
+                    }
+                );
+            }
+
+            function setupSidebar() {
+                if (menuBtn) {
+
+                    menuBtn.addEventListener(
                         "click",
                         () => {
-                            closeDoctorModal();
-                            closeViewModal();
+
+                            if (
+                                window.innerWidth <=
+                                900
+                            ) {
+
+                                sidebar.style.left =
+                                    sidebar.style.left ===
+                                        "0px"
+                                        ? "-270px"
+                                        : "0";
+                            }
                         }
                     );
                 }
-            );
 
-            window.addEventListener(
-                "click",
-                event => {
-
-                    if (
-                        event.target ===
-                        doctorModal
-                    ) {
-                        closeDoctorModal();
-                    }
-
-                    if (
-                        event.target ===
-                        viewModal
-                    ) {
-                        closeViewModal();
-                    }
-                }
-            );
-        }
-
-        function setupSidebar() {
-            if (menuBtn) {
-
-                menuBtn.addEventListener(
+                document.addEventListener(
                     "click",
-                    () => {
+                    event => {
 
                         if (
                             window.innerWidth <=
-                            900
+                            900 &&
+                            sidebar &&
+                            menuBtn &&
+                            !sidebar.contains(
+                                event.target
+                            ) &&
+                            !menuBtn.contains(
+                                event.target
+                            )
                         ) {
 
                             sidebar.style.left =
-                                sidebar.style.left ===
-                                    "0px"
-                                    ? "-270px"
-                                    : "0";
+                                "-270px";
                         }
                     }
                 );
-            }
 
-            document.addEventListener(
-                "click",
-                event => {
-
-                    if (
-                        window.innerWidth <=
-                        900 &&
-                        sidebar &&
-                        menuBtn &&
-                        !sidebar.contains(
-                            event.target
-                        ) &&
-                        !menuBtn.contains(
-                            event.target
-                        )
-                    ) {
+                window.addEventListener(
+                    "resize",
+                    () => {
 
                         sidebar.style.left =
-                            "-270px";
+                            window.innerWidth > 900
+                                ? "0"
+                                : "-270px";
                     }
-                }
-            );
-
-            window.addEventListener(
-                "resize",
-                () => {
-
-                    sidebar.style.left =
-                        window.innerWidth > 900
-                            ? "0"
-                            : "-270px";
-                }
-            );
-        }
-
-        function setupProfile() {
-            if (!profile) {
-                return;
-            }
-
-            profile.addEventListener(
-                "click",
-                () => {
-                    window.location.href =
-                        "profile.html";
-                }
-            );
-        }
-
-        function setupNotification() {
-            const notify =
-                document.querySelector(
-                    ".notify"
                 );
-
-            if (!notify) {
-                return;
             }
 
-            notify.addEventListener(
-                "click",
-                () => {
-                    alert(
-                        "No new notifications."
-                    );
+            function setupProfile() {
+                if (!profile) {
+                    return;
                 }
-            );
-        }
 
-        async function initialize() {
-            addPasswordField();
-
-            if (
-                window.innerWidth <=
-                900
-            ) {
-                sidebar.style.left =
-                    "-270px";
-            } else {
-                sidebar.style.left =
-                    "0";
+                profile.addEventListener(
+                    "click",
+                    () => {
+                        window.location.href =
+                            "profile.html";
+                    }
+                );
             }
 
-            loadAdminProfile();
-            setNotificationCount();
+            function setupNotification() {
+                const notify =
+                    document.querySelector(
+                        ".notify"
+                    );
 
-            setupSidebar();
-            setupProfile();
-            setupNotification();
-            setupSearch();
-            setupFilters();
-            setupModals();
+                if (!notify) {
+                    return;
+                }
 
-            await loadDoctors();
-        }
+                notify.addEventListener(
+                    "click",
+                    () => {
+                        alert(
+                            "No new notifications."
+                        );
+                    }
+                );
+            }
 
-        initialize();
+            async function initialize() {
+                addPasswordField();
+
+                if (
+                    window.innerWidth <=
+                    900
+                ) {
+                    sidebar.style.left =
+                        "-270px";
+                } else {
+                    sidebar.style.left =
+                        "0";
+                }
+
+                await loadAdminProfile();
+                setNotificationCount();
+
+                setupSidebar();
+                setupProfile();
+                setupNotification();
+                setupSearch();
+                setupFilters();
+                setupModals();
+
+                await loadDoctors();
+            }
+
+            initialize();
     </script>
 
 </body>

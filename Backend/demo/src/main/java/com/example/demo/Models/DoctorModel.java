@@ -19,6 +19,7 @@ public class DoctorModel {
     private int experience;
     private float fee;
     private String description;
+    private String status;
 
     private Long mobileNumber;
     private String dob;
@@ -36,7 +37,7 @@ public class DoctorModel {
     public DoctorModel() {
     }
 
-    public DoctorModel(String doctorName, String email, String password, String specialization, int experience, float fee, String description, Long mobileNumber, String dob, String gender, String bloodGroup, String qualification, String registrationNo, String clinicAddress, String languages, String linkedin, String website, String facebook, String instagram) {
+    public DoctorModel(String doctorName, String email, String password, String specialization, int experience, float fee, String description, String status, Long mobileNumber, String dob, String gender, String bloodGroup, String qualification, String registrationNo, String clinicAddress, String languages, String linkedin, String website, String facebook, String instagram) {
 
         this.doctorName = doctorName;
         this.email = email;
@@ -45,6 +46,7 @@ public class DoctorModel {
         this.experience = experience;
         this.fee = fee;
         this.description = description;
+        this.status = status;
         this.mobileNumber = mobileNumber;
         this.dob = dob;
         this.gender = gender;
@@ -121,6 +123,14 @@ public class DoctorModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getMobileNumber() {

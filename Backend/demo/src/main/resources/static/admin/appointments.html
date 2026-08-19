@@ -705,7 +705,7 @@
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img id="headerProfileImage" src="../assets/admin.png" alt="Admin">
                         <div>
                             <h4 id="adminName">--</h4>
                             <p id="adminRole">--</p>
@@ -734,14 +734,10 @@
 
                             <select id="statusFilter">
                                 <option value="all">All Status</option>
-                                <option value="PENDING">Pending</option>
-                                <option value="ACCEPTED">Accepted</option>
-                                <option value="REJECTED">Rejected</option>
-                                <option value="COMPLETED">Completed</option>
                             </select>
 
-                            <select id="departmentFilter">
-                                <option value="all">All Departments</option>
+                            <select id="specializationFilter">
+                                <option value="all"> Specializations</option>
                             </select>
 
                             <select id="doctorFilter">
@@ -766,7 +762,7 @@
 
                                         <th>Patient</th>
                                         <th>Doctor</th>
-                                        <th>Department</th>
+                                        <th>Specialization</th>
                                         <th>Date</th>
                                         <th>Time</th>
                                         <th>Token</th>
@@ -808,7 +804,7 @@
                                 </div>
 
                                 <div class="input-group">
-                                    <label>Department</label>
+                                    <label>Specialization</label>
                                     <input type="text" id="viewDepartment" readonly>
                                 </div>
 
@@ -873,8 +869,8 @@
         const statusFilter =
             document.getElementById("statusFilter");
 
-        const departmentFilter =
-            document.getElementById("departmentFilter");
+        const specializationFilter =
+            document.getElementById("specializationFilter");
 
         const doctorFilter =
             document.getElementById("doctorFilter");
@@ -983,21 +979,104 @@
             }
         }
 
-        function loadAdminProfile() {
-            const admin =
-                getAdminData();
+        async function loadAdminProfile() {
 
-            if (adminName) {
-                adminName.textContent =
-                    admin?.fullName ||
-                    admin?.name ||
-                    "Admin";
-            }
+            try {
 
-            if (adminRole) {
-                adminRole.textContent =
-                    admin?.role ||
-                    "System Administrator";
+                const adminId =
+                    localStorage.getItem("adminId");
+
+                let admin = null;
+
+                const storedAdmin =
+                    localStorage.getItem("currentAdmin") ||
+                    localStorage.getItem("admin");
+
+                if (storedAdmin) {
+
+                    try {
+                        admin = JSON.parse(storedAdmin);
+                    } catch (error) {
+                        console.error(
+                            "Admin data parse error:",
+                            error
+                        );
+                    }
+                }
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                    if (response.ok) {
+
+                        admin =
+                            await response.json();
+
+                        localStorage.setItem(
+                            "currentAdmin",
+                            JSON.stringify(admin)
+                        );
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(admin)
+                        );
+                    }
+                }
+
+                if (adminName) {
+
+                    adminName.textContent =
+                        admin?.fullName ||
+                        admin?.name ||
+                        "Admin";
+                }
+
+                if (adminRole) {
+
+                    adminRole.textContent =
+                        "System Administrator";
+                }
+
+                const headerProfileImage =
+                    document.getElementById(
+                        "headerProfileImage"
+                    );
+
+                if (
+                    headerProfileImage &&
+                    admin?.profileImage
+                ) {
+
+                    const cleanName =
+                        String(
+                            admin.profileImage
+                        )
+                            .split("/")
+                            .pop()
+                            .split("\\")
+                            .pop();
+
+                    headerProfileImage.src =
+                        `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                            cleanName
+                        )}`;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Admin profile load error:",
+                    error
+                );
             }
         }
 
@@ -1339,7 +1418,47 @@
         }
 
         function populateFilters() {
-            const departments = [
+
+            const statuses = [
+                ...new Set(
+                    appointments
+                        .map(
+                            appointment =>
+                                String(
+                                    appointment.status || ""
+                                )
+                                    .trim()
+                                    .toUpperCase()
+                        )
+                        .filter(Boolean)
+                )
+            ].sort();
+
+            statusFilter.innerHTML = `
+        <option value="all">
+            All Status
+        </option>
+    `;
+
+            statuses.forEach(
+                status => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        status;
+
+                    option.textContent =
+                        getStatusText(status);
+
+                    statusFilter.appendChild(option);
+                }
+            );
+
+            const specializations = [
                 ...new Set(
                     doctors
                         .map(
@@ -1350,14 +1469,14 @@
                 )
             ].sort();
 
-            departmentFilter.innerHTML = `
+            specializationFilter.innerHTML = `
         <option value="all">
-            All Departments
+            All Specializations
         </option>
     `;
 
-            departments.forEach(
-                department => {
+            specializations.forEach(
+                specialization => {
 
                     const option =
                         document.createElement(
@@ -1365,12 +1484,12 @@
                         );
 
                     option.value =
-                        department;
+                        specialization;
 
                     option.textContent =
-                        department;
+                        specialization;
 
-                    departmentFilter.appendChild(
+                    specializationFilter.appendChild(
                         option
                     );
                 }
@@ -1414,8 +1533,8 @@
                 statusFilter.value
                     .toUpperCase();
 
-            const selectedDepartment =
-                departmentFilter.value
+            const selectedSpecialization =
+                specializationFilter.value
                     .toLowerCase();
 
             const selectedDoctor =
@@ -1438,7 +1557,7 @@
                                 appointment.doctorId
                             ).toLowerCase();
 
-                        const department =
+                        const specialization =
                             getDepartment(
                                 appointment.doctorId
                             ).toLowerCase();
@@ -1453,16 +1572,15 @@
                             !search ||
                             patientName.includes(search) ||
                             doctorName.includes(search) ||
-                            department.includes(search);
+                            specialization.includes(search);
 
                         const statusMatch =
                             selectedStatus === "ALL" ||
                             status === selectedStatus;
 
-                        const departmentMatch =
-                            selectedDepartment === "all" ||
-                            department ===
-                            selectedDepartment;
+                        const specializationMatch =
+                            selectedSpecialization === "all" ||
+                            specialization === selectedSpecialization;
 
                         const doctorMatch =
                             selectedDoctor === "all" ||
@@ -1482,7 +1600,7 @@
                         return (
                             searchMatch &&
                             statusMatch &&
-                            departmentMatch &&
+                            specializationMatch &&
                             doctorMatch &&
                             dateMatch
                         );
@@ -2237,7 +2355,7 @@
                 renderAppointments
             );
 
-            departmentFilter.addEventListener(
+            specializationFilter.addEventListener(
                 "change",
                 renderAppointments
             );

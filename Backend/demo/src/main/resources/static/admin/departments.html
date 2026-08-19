@@ -696,7 +696,7 @@
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img id="headerProfileImage" src="../assets/admin.png" alt="Admin">
                         <div>
                             <h4 id="adminName">--</h4>
                             <p id="adminRole">--</p>
@@ -1049,21 +1049,104 @@
             }
         }
 
-        function loadAdminProfile() {
-            const admin =
-                getAdminData();
+        async function loadAdminProfile() {
 
-            if (adminName) {
-                adminName.textContent =
-                    admin?.fullName ||
-                    admin?.name ||
-                    "Admin";
-            }
+            try {
 
-            if (adminRole) {
-                adminRole.textContent =
-                    admin?.role ||
-                    "System Administrator";
+                const adminId =
+                    localStorage.getItem("adminId");
+
+                let admin = null;
+
+                const storedAdmin =
+                    localStorage.getItem("currentAdmin") ||
+                    localStorage.getItem("admin");
+
+                if (storedAdmin) {
+
+                    try {
+                        admin = JSON.parse(storedAdmin);
+                    } catch (error) {
+                        console.error(
+                            "Admin data parse error:",
+                            error
+                        );
+                    }
+                }
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                    if (response.ok) {
+
+                        admin =
+                            await response.json();
+
+                        localStorage.setItem(
+                            "currentAdmin",
+                            JSON.stringify(admin)
+                        );
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(admin)
+                        );
+                    }
+                }
+
+                if (adminName) {
+
+                    adminName.textContent =
+                        admin?.fullName ||
+                        admin?.name ||
+                        "Admin";
+                }
+
+                if (adminRole) {
+
+                    adminRole.textContent =
+                        "System Administrator";
+                }
+
+                const headerProfileImage =
+                    document.getElementById(
+                        "headerProfileImage"
+                    );
+
+                if (
+                    headerProfileImage &&
+                    admin?.profileImage
+                ) {
+
+                    const cleanName =
+                        String(
+                            admin.profileImage
+                        )
+                            .split("/")
+                            .pop()
+                            .split("\\")
+                            .pop();
+
+                    headerProfileImage.src =
+                        `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                            cleanName
+                        )}`;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Admin profile load error:",
+                    error
+                );
             }
         }
 
@@ -1092,68 +1175,48 @@
         }
 
         function getDepartmentDoctors(
-            departmentNameValue
+            departmentId
         ) {
-            const name =
-                String(
-                    departmentNameValue || ""
-                ).trim().toLowerCase();
 
             return doctors.filter(
                 doctor =>
-                    String(
-                        doctor.specialization || ""
-                    ).trim().toLowerCase() ===
-                    name
+                    Number(
+                        doctor.departmentId
+                    ) === Number(
+                        departmentId
+                    )
             );
         }
 
-        function getDepartmentPatientCount(
-            departmentNameValue
+        function getDepartmentPatients(
+            departmentId
         ) {
-            const departmentDoctors =
-                getDepartmentDoctors(
-                    departmentNameValue
-                );
 
-            const doctorIds =
-                new Set(
-                    departmentDoctors.map(
-                        doctor =>
-                            Number(doctor.id)
+            return patients.filter(
+                patient =>
+                    Number(
+                        patient.departmentId
+                    ) === Number(
+                        departmentId
                     )
-                );
-
-            const patientIds =
-                new Set();
-
-            appointments.forEach(
-                appointment => {
-
-                    if (
-                        doctorIds.has(
-                            Number(
-                                appointment.doctorId
-                            )
-                        )
-                    ) {
-                        patientIds.add(
-                            Number(
-                                appointment.patientId
-                            )
-                        );
-                    }
-                }
             );
-
-            return patientIds.size;
         }
 
         function getTotalDoctors(
-            departmentNameValue
+            departmentId
         ) {
+
             return getDepartmentDoctors(
-                departmentNameValue
+                departmentId
+            ).length;
+        }
+
+        function getTotalPatients(
+            departmentId
+        ) {
+
+            return getDepartmentPatients(
+                departmentId
             ).length;
         }
 
@@ -1536,12 +1599,12 @@
 
                     const totalDoctors =
                         getTotalDoctors(
-                            department.departmentName
+                            department.id
                         );
 
                     const totalPatients =
-                        getDepartmentPatientCount(
-                            department.departmentName
+                        getTotalPatients(
+                            department.id
                         );
 
                     const headName =
@@ -1750,12 +1813,12 @@
 
             const totalDoctors =
                 getTotalDoctors(
-                    department.departmentName
+                    department.id
                 );
 
             const totalPatients =
-                getDepartmentPatientCount(
-                    department.departmentName
+                getTotalPatients(
+                    department.id
                 );
 
             viewDepartmentCode.value =

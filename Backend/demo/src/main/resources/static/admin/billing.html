@@ -16,6 +16,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -728,7 +730,7 @@
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img id="headerProfileImage" src="../assets/admin.png" alt="Admin">
                         <div>
                             <h4 id="adminName">--</h4>
                             <p id="adminRole">--</p>
@@ -757,10 +759,6 @@
 
                             <select id="statusFilter">
                                 <option value="all">All Payment Status</option>
-                                <option>Paid</option>
-                                <option>Pending</option>
-                                <option>Partial</option>
-                                <option>Overdue</option>
                             </select>
 
                             <select id="patientFilter">
@@ -1101,21 +1099,102 @@
             }
         }
 
-        function loadAdminProfile() {
-            const admin =
-                getAdminData();
+        async function loadAdminProfile() {
 
-            if (adminName) {
-                adminName.textContent =
-                    admin?.fullName ||
-                    admin?.name ||
-                    "Admin";
-            }
+            try {
 
-            if (adminRole) {
-                adminRole.textContent =
-                    admin?.role ||
-                    "System Administrator";
+                const adminId =
+                    localStorage.getItem("adminId");
+
+                let admin = null;
+
+                const storedAdmin =
+                    localStorage.getItem("currentAdmin") ||
+                    localStorage.getItem("admin");
+
+                if (storedAdmin) {
+
+                    try {
+                        admin = JSON.parse(storedAdmin);
+                    } catch (error) {
+                        console.error(
+                            "Admin data parse error:",
+                            error
+                        );
+                    }
+                }
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                    if (response.ok) {
+
+                        admin =
+                            await response.json();
+
+                        localStorage.setItem(
+                            "currentAdmin",
+                            JSON.stringify(admin)
+                        );
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(admin)
+                        );
+                    }
+                }
+
+                if (adminName) {
+                    adminName.textContent =
+                        admin?.fullName ||
+                        admin?.name ||
+                        "Admin";
+                }
+
+                if (adminRole) {
+                    adminRole.textContent =
+                        "System Administrator";
+                }
+
+                const headerProfileImage =
+                    document.getElementById(
+                        "headerProfileImage"
+                    );
+
+                if (
+                    headerProfileImage &&
+                    admin?.profileImage
+                ) {
+
+                    const cleanName =
+                        String(
+                            admin.profileImage
+                        )
+                            .split("/")
+                            .pop()
+                            .split("\\")
+                            .pop();
+
+                    headerProfileImage.src =
+                        `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                            cleanName
+                        )}`;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Admin profile load error:",
+                    error
+                );
             }
         }
 
@@ -1181,6 +1260,33 @@
 
             return doctor?.doctorName ||
                 "Doctor Not Found";
+        }
+
+        function getPatientImage(patientId) {
+
+            const patient =
+                patients.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(patientId)
+                );
+
+            if (!patient?.profileImage) {
+                return "../assets/patient.png";
+            }
+
+            const cleanName =
+                String(
+                    patient.profileImage
+                )
+                    .split("/")
+                    .pop()
+                    .split("\\")
+                    .pop();
+
+            return `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                cleanName
+            )}`;
         }
 
         function getStatusClass(status) {
@@ -1365,6 +1471,53 @@
             );
         }
 
+        function populateStatusFilter() {
+
+            const statuses = [
+                ...new Set(
+                    bills
+                        .map(
+                            bill =>
+                                String(
+                                    bill.paymentStatus || ""
+                                )
+                                    .trim()
+                                    .toUpperCase()
+                        )
+                        .filter(Boolean)
+                )
+            ].sort();
+
+            statusFilter.innerHTML = `
+        <option value="all">
+            All Payment Status
+        </option>
+    `;
+
+            statuses.forEach(
+                status => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        status.toLowerCase();
+
+                    option.textContent =
+                        status.charAt(0) +
+                        status
+                            .slice(1)
+                            .toLowerCase();
+
+                    statusFilter.appendChild(
+                        option
+                    );
+                }
+            );
+        }
+
         async function loadBills() {
             billingTable.innerHTML = `
         <tr>
@@ -1432,6 +1585,7 @@
                         ? data
                         : [];
 
+                populateStatusFilter();
                 renderBills();
 
             } catch (error) {
@@ -1602,12 +1756,16 @@
                     <div class="patient-box">
 
                         <img
-                            src="../assets/patient.png"
-                            alt="Patient"
-                            onerror="
-                                this.style.display='none'
-                            "
-                        >
+                        src="${escapeHtml(
+                        getPatientImage(
+                            bill.patientId
+                        )
+                    )}"
+                    alt="Patient"
+                    onerror="
+                        this.src='../assets/patient.png'
+                        "
+                    >
 
                         <div>
                             <b>
@@ -2331,100 +2489,133 @@
         }
 
         function downloadBill(id) {
+
             const bill =
                 findBillById(id);
 
             if (!bill) {
+
                 alert(
                     "Bill data not found."
                 );
+
                 return;
             }
 
-            const content = `
-OptiHealth Billing Invoice
---------------------------
+            const {
+                jsPDF
+            } = window.jspdf;
 
-Bill ID: ${bill.billNumber ||
-                `BILL-${bill.id}`
-                }
+            const doc =
+                new jsPDF();
 
-Patient: ${getPatientName(
+            const patientName =
+                getPatientName(
                     bill.patientId
-                )
-                }
+                );
 
-Doctor: ${getDoctorName(
+            const doctorName =
+                getDoctorName(
                     bill.doctorId
-                )
-                }
-
-Bill Date: ${bill.billDate ||
-                "--"
-                }
-
-Total Amount: ${formatCurrency(
-                    bill.totalAmount
-                )
-                }
-
-Paid Amount: ${formatCurrency(
-                    bill.paidAmount
-                )
-                }
-
-Due Amount: ${formatCurrency(
-                    getDueAmount(bill)
-                )
-                }
-
-Payment Status: ${bill.paymentStatus ||
-                "--"
-                }
-
-Remarks: ${bill.remarks ||
-                "--"
-                }
-`;
-
-            const blob =
-                new Blob(
-                    [content],
-                    {
-                        type: "text/plain"
-                    }
                 );
 
-            const url =
-                URL.createObjectURL(
-                    blob
+            const total =
+                Number(
+                    bill.totalAmount || 0
                 );
 
-            const link =
-                document.createElement(
-                    "a"
+            const paid =
+                Number(
+                    bill.paidAmount || 0
                 );
 
-            link.href =
-                url;
+            const due =
+                getDueAmount(
+                    bill
+                );
 
-            link.download =
+            doc.setFontSize(20);
+
+            doc.text(
+                "OptiHealth Hospital",
+                20,
+                20
+            );
+
+            doc.setFontSize(14);
+
+            doc.text(
+                "Billing Invoice",
+                20,
+                32
+            );
+
+            doc.setFontSize(11);
+
+            doc.text(
+                `Bill ID: ${bill.billNumber ||
+                `BILL-${bill.id}`
+                }`,
+                20,
+                48
+            );
+
+            doc.text(
+                `Patient: ${patientName}`,
+                20,
+                58
+            );
+
+            doc.text(
+                `Doctor: ${doctorName}`,
+                20,
+                68
+            );
+
+            doc.text(
+                `Bill Date: ${bill.billDate || "--"
+                }`,
+                20,
+                78
+            );
+
+            doc.text(
+                `Total Amount: ₹${total.toLocaleString("en-IN")}`,
+                20,
+                95
+            );
+
+            doc.text(
+                `Paid Amount: ₹${paid.toLocaleString("en-IN")}`,
+                20,
+                105
+            );
+
+            doc.text(
+                `Due Amount: ₹${due.toLocaleString("en-IN")}`,
+                20,
+                115
+            );
+
+            doc.text(
+                `Payment Status: ${bill.paymentStatus || "--"
+                }`,
+                20,
+                125
+            );
+
+            doc.text(
+                `Remarks: ${bill.remarks || "--"
+                }`,
+                20,
+                140
+            );
+
+            doc.save(
                 (
                     bill.billNumber ||
                     `BILL-${bill.id}`
-                ) +
-                ".txt";
-
-            document.body.appendChild(
-                link
-            );
-
-            link.click();
-
-            link.remove();
-
-            URL.revokeObjectURL(
-                url
+                ) + ".pdf"
             );
         }
 

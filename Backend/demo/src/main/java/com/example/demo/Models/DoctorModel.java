@@ -11,6 +11,7 @@ public class DoctorModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long departmentId;
 
     private String doctorName;
     private String email;
@@ -67,6 +68,14 @@ public class DoctorModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getDoctorName() {

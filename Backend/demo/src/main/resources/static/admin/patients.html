@@ -719,7 +719,7 @@
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/admin.png" alt="">
+                        <img id="headerProfileImage" src="../assets/admin.png" alt="Admin">
                         <div>
                             <h4 id="adminName">--</h4>
                             <p id="adminRole">--</p>
@@ -869,6 +869,14 @@
                                     <label>Assigned Doctor</label>
                                     <select id="patientDoctor">
                                         <option value="">Select Doctor</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Status</label>
+                                    <select id="patientStatus">
+                                        <option value="ACTIVE">Active</option>
+                                        <option value="INACTIVE">Inactive</option>
                                     </select>
                                 </div>
 
@@ -1030,6 +1038,9 @@
         const patientDoctor =
             document.getElementById("patientDoctor");
 
+        const patientStatus =
+            document.getElementById("patientStatus");
+
         const patientPassword =
             document.getElementById("patientPassword");
 
@@ -1074,6 +1085,11 @@
                 "notificationCount"
             );
 
+        const headerProfileImage =
+            document.getElementById(
+                "headerProfileImage"
+            );
+
         let patients = [];
         let doctors = [];
         let editingPatientId = null;
@@ -1108,42 +1124,142 @@
         }
 
         function getAdminData() {
-            try {
-                const savedAdmin =
-                    localStorage.getItem("admin");
 
-                if (!savedAdmin) {
-                    return null;
+            const keys = [
+                "currentAdmin",
+                "admin"
+            ];
+
+            for (const key of keys) {
+
+                try {
+
+                    const storedAdmin =
+                        localStorage.getItem(key);
+
+                    if (!storedAdmin) {
+                        continue;
+                    }
+
+                    const parsed =
+                        JSON.parse(storedAdmin);
+
+                    if (
+                        parsed &&
+                        typeof parsed === "object"
+                    ) {
+
+                        if (
+                            parsed.data &&
+                            typeof parsed.data === "object"
+                        ) {
+                            return parsed.data;
+                        }
+
+                        return parsed;
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Admin data error:",
+                        error
+                    );
+                }
+            }
+
+            return null;
+        }
+
+        async function loadAdminProfile() {
+
+            try {
+
+                const adminId =
+                    localStorage.getItem("adminId");
+
+                let admin =
+                    getAdminData();
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method: "GET",
+                                headers: getHeaders()
+                            }
+                        );
+
+                    if (response.ok) {
+
+                        admin =
+                            await response.json();
+
+                        localStorage.setItem(
+                            "currentAdmin",
+                            JSON.stringify(admin)
+                        );
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(admin)
+                        );
+                    }
                 }
 
-                return JSON.parse(
-                    savedAdmin
-                );
+                if (adminName) {
+
+                    adminName.textContent =
+                        admin?.fullName ||
+                        admin?.name ||
+                        "Admin";
+                }
+
+                if (adminRole) {
+
+                    adminRole.textContent =
+                        "System Administrator";
+                }
+
+                if (
+                    headerProfileImage &&
+                    admin?.profileImage
+                ) {
+
+                    const cleanName =
+                        String(
+                            admin.profileImage
+                        )
+                            .split("/")
+                            .pop()
+                            .split("\\")
+                            .pop();
+
+                    headerProfileImage.src =
+                        `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                            cleanName
+                        )}`;
+                }
+                else if (headerProfileImage) {
+
+                    headerProfileImage.src =
+                        "../assets/admin.png";
+                }
+
             } catch (error) {
+
                 console.error(
-                    "Admin data error:",
+                    "Admin profile load error:",
                     error
                 );
 
-                return null;
-            }
-        }
+                if (headerProfileImage) {
 
-        function loadAdminProfile() {
-            const admin =
-                getAdminData();
-
-            if (adminName) {
-                adminName.textContent =
-                    admin?.fullName ||
-                    admin?.name ||
-                    "Admin";
-            }
-
-            if (adminRole) {
-                adminRole.textContent =
-                    admin?.role ||
-                    "System Administrator";
+                    headerProfileImage.src =
+                        "../assets/admin.png";
+                }
             }
         }
 
@@ -1257,12 +1373,18 @@
         }
 
         function setStatusFilter() {
+
             statusFilter.innerHTML = `
         <option value="all">
             All Status
         </option>
-        <option value="na">
-            N/A
+
+        <option value="active">
+            Active
+        </option>
+
+        <option value="inactive">
+            Inactive
         </option>
     `;
         }
@@ -1508,11 +1630,14 @@
                             blood ===
                             selectedBlood;
 
+                        const patientStatus =
+                            String(
+                                patient.status || "ACTIVE"
+                            ).toUpperCase();
+
                         const statusMatch =
-                            selectedStatus ===
-                            "all" ||
-                            selectedStatus ===
-                            "na";
+                            selectedStatus === "all" ||
+                            patientStatus === selectedStatus;
 
                         return (
                             searchMatch &&
@@ -1535,6 +1660,24 @@
 
             filteredPatients.forEach(
                 patient => {
+
+                    const doctor =
+                        findDoctorById(
+                            patient.doctorId
+                        );
+
+                    const patientStatus =
+                        String(
+                            patient.status || "ACTIVE"
+                        ).toUpperCase();
+
+                    const statusClass =
+                        patientStatus === "INACTIVE"
+                            ? "inactive"
+                            : "active";
+
+                    const doctorName =
+                        doctor?.doctorName || "--";
 
                     const row =
                         document.createElement(
@@ -1598,7 +1741,7 @@
                 </td>
 
                 <td>
-                    --
+                    ${escapeHtml(doctorName)}
                 </td>
 
                 <td>
@@ -1616,13 +1759,11 @@
                 </td>
 
                 <td>
-                    <span
-                        class="status"
-                        style="
-                            background:#64748b;
-                        "
-                    >
-                        N/A
+                    <span class="status ${statusClass}">
+                    ${patientStatus === "INACTIVE"
+                            ? "Inactive"
+                            : "Active"
+                        }
                     </span>
                 </td>
 
@@ -1756,7 +1897,7 @@
                                     button.dataset.id;
 
                                 window.location.href =
-                                    `../patient/medical-history.html?patientId=${id}`;
+                                    `patient-medical-history.html?patientId=${id}`;
                             }
                         );
                     }
@@ -1831,6 +1972,7 @@
             patientGender.value = "";
             patientBlood.value = "";
             patientDoctor.value = "";
+            patientStatus.value = "ACTIVE";
             patientPassword.value = "";
             patientAddress.value = "";
         }
@@ -1868,7 +2010,14 @@
                 "";
 
             patientDoctor.value =
-                "";
+                patient.doctorId
+                    ? String(patient.doctorId)
+                    : "";
+
+            patientStatus.value =
+                String(
+                    patient.status || "ACTIVE"
+                ).toUpperCase();
         }
 
         function fillViewPatient(patient) {
@@ -2038,21 +2187,18 @@
                     mobileNumber:
                         phone
                             ? Number(
-                                phone
-                                    .replace(
-                                        /\D/g,
-                                        ""
-                                    )
+                                phone.replace(/\D/g, "")
                             )
                             : null,
-                    gender:
-                        gender || null,
-                    dob:
-                        dob || null,
-                    bloodGroup:
-                        bloodGroup || null,
-                    address:
-                        address || null
+                    gender: gender || null,
+                    dob: dob || null,
+                    bloodGroup: bloodGroup || null,
+                    address: address || null,
+                    doctorId:
+                        patientDoctor.value
+                            ? Number(patientDoctor.value)
+                            : null,
+                    status: "ACTIVE"
                 };
 
                 try {
@@ -2148,7 +2294,15 @@
                     bloodGroup || null,
 
                 address:
-                    address || null
+                    address || null,
+
+                doctorId:
+                    patientDoctor.value
+                        ? Number(patientDoctor.value)
+                        : null,
+
+                status:
+                    patientStatus.value
             };
 
             try {
@@ -2479,7 +2633,7 @@
                     "0";
             }
 
-            loadAdminProfile();
+            await loadAdminProfile();
             setNotificationCount();
 
             setStatusFilter();

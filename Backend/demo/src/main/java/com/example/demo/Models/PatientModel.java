@@ -13,6 +13,8 @@ public class PatientModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+    private Long doctorId;
+    private Long departmentId;
 
     String fullName;
     String email;
@@ -20,6 +22,7 @@ public class PatientModel {
     String password;
     String gender;
     String dob;
+    private String status;
 
     private LocalDate registrationDate;
 
@@ -41,7 +44,8 @@ public class PatientModel {
             Long mobileNumber,
             String password,
             String gender,
-            String dob) {
+            String dob,
+            String status) {
 
         this.fullName = fullName;
         this.email = email;
@@ -49,6 +53,7 @@ public class PatientModel {
         this.password = password;
         this.gender = gender;
         this.dob = dob;
+        this.status = status;
     }
 
     public PatientModel() {
@@ -60,6 +65,22 @@ public class PatientModel {
 
     public void setId(Long Id) {
         this.id = Id;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getFullName() {
@@ -108,6 +129,14 @@ public class PatientModel {
 
     public void setDob(String dob) {
         this.dob = dob;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public LocalDate getRegistrationDate() {

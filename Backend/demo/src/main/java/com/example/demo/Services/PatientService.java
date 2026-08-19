@@ -45,6 +45,12 @@ public class PatientService {
             );
         }
 
+        if (patient.getStatus() == null
+                || patient.getStatus().isBlank()) {
+
+            patient.setStatus("ACTIVE");
+        }
+
         patientRepo.save(patient);
     }
 
@@ -56,7 +62,10 @@ public class PatientService {
             AppointmentModel appointment) {
 
         appointment.setStatus("PENDING");
-        appointmentRepo.save(appointment);
+
+        appointmentRepo.save(
+                appointment
+        );
     }
 
     public List<AppointmentModel> getMyAppointments(
@@ -74,25 +83,27 @@ public class PatientService {
     public PatientModel getPatientById(
             Long patientId) {
 
-        return patientRepo.findById(patientId)
-                .orElseThrow(
-                        () -> new RuntimeException(
-                                "Patient not found"
-                        )
-                );
+        return patientRepo.findById(
+                patientId
+        ).orElseThrow(
+                () -> new RuntimeException(
+                        "Patient not found"
+                )
+        );
     }
 
     public PatientModel updatePatient(
             Long patientId,
             PatientModel updatedPatient) {
 
-        PatientModel patient
-                = patientRepo.findById(patientId)
-                        .orElseThrow(
-                                () -> new RuntimeException(
-                                        "Patient not found"
-                                )
-                        );
+        PatientModel patient =
+                patientRepo.findById(
+                        patientId
+                ).orElseThrow(
+                        () -> new RuntimeException(
+                                "Patient not found"
+                        )
+                );
 
         if (updatedPatient.getFullName() != null) {
             patient.setFullName(
@@ -190,13 +201,33 @@ public class PatientService {
             );
         }
 
-        return patientRepo.save(patient);
+        if (updatedPatient.getDoctorId() != null) {
+            patient.setDoctorId(
+                    updatedPatient.getDoctorId()
+            );
+        }
+
+        if (updatedPatient.getStatus() != null
+                && !updatedPatient.getStatus().isBlank()) {
+
+            patient.setStatus(
+                    updatedPatient.getStatus()
+                            .toUpperCase()
+            );
+        }
+
+        return patientRepo.save(
+                patient
+        );
     }
 
     public void deletePatient(
             Long patientId) {
 
-        if (!patientRepo.existsById(patientId)) {
+        if (!patientRepo.existsById(
+                patientId
+        )) {
+
             throw new RuntimeException(
                     "Patient not found"
             );
@@ -210,8 +241,8 @@ public class PatientService {
     public PatientDashboardDTO getDashboardData(
             Long patientId) {
 
-        Optional<PatientModel> optionalPatient
-                = patientRepo.findById(
+        Optional<PatientModel> optionalPatient =
+                patientRepo.findById(
                         patientId
                 );
 
@@ -219,38 +250,39 @@ public class PatientService {
             return null;
         }
 
-        PatientModel patient
-                = optionalPatient.get();
+        PatientModel patient =
+                optionalPatient.get();
 
-        List<AppointmentModel> appointments
-                = appointmentRepo.findByPatientId(
+        List<AppointmentModel> appointments =
+                appointmentRepo.findByPatientId(
                         patientId
                 );
 
-        long totalDoctors
-                = doctorRepo.count();
+        long totalDoctors =
+                doctorRepo.count();
 
-        String nextDoctor
-                = "Not Assigned";
+        String nextDoctor =
+                "Not Assigned";
 
         if (!appointments.isEmpty()) {
 
-            AppointmentModel appointment
-                    = appointments.get(0);
+            AppointmentModel appointment =
+                    appointments.get(0);
 
-            DoctorModel doctor
-                    = doctorRepo.findById(
+            DoctorModel doctor =
+                    doctorRepo.findById(
                             appointment.getDoctorId()
                     ).orElse(null);
 
             if (doctor != null) {
-                nextDoctor
-                        = doctor.getDoctorName();
+
+                nextDoctor =
+                        doctor.getDoctorName();
             }
         }
 
-        PatientDashboardDTO dashboard
-                = new PatientDashboardDTO();
+        PatientDashboardDTO dashboard =
+                new PatientDashboardDTO();
 
         dashboard.setFullName(
                 patient.getFullName()
@@ -272,9 +304,13 @@ public class PatientService {
                 (int) totalDoctors
         );
 
-        dashboard.setReportCount(0);
+        dashboard.setReportCount(
+                0
+        );
 
-        dashboard.setPrescriptionCount(0);
+        dashboard.setPrescriptionCount(
+                0
+        );
 
         dashboard.setNextDoctorName(
                 nextDoctor

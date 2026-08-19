@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Medical History | OptiHealth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --secondary: #14b8a6;
+            --dark: #0f172a;
+            --text: #64748b;
+            --border: #e2e8f0;
+            --bg: #f5f7fb;
+            --white: #ffffff;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --info: #2563eb;
+            --purple: #7c3aed;
+            --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 22px;
+            background: linear-gradient(180deg, #0f172a, #111827);
+            color: #fff;
+            overflow-y: auto;
+            transition: .3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #5eead4;
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .portal {
+            font-size: 14px;
+            opacity: .8;
+            margin-bottom: 35px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .sidebar nav a i {
+            width: 24px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .main {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .left-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .right-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notify {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notify span {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+        }
+
+        .profile h4 {
+            font-size: 16px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #0f766e);
+            color: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 760px;
+        }
+
+        .history-wrapper {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+            gap: 25px;
+            align-items: start;
+        }
+
+        .left-panel,
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .patient-card {
+            text-align: center;
+        }
+
+        .patient-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd;
+            border: 5px solid #ecfeff;
+            margin-bottom: 18px;
+        }
+
+        .patient-card h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .patient-card p {
+            color: var(--text);
+            margin-bottom: 18px;
+        }
+
+        .patient-status {
+            display: inline-block;
+            padding: 7px 16px;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .active {
+            background: var(--success);
+        }
+
+        .inactive {
+            background: var(--danger);
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .info-list div {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .info-list div:last-child {
+            border-bottom: none;
+        }
+
+        .info-list strong {
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .search-box {
+            margin-bottom: 22px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .box {
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .box h5 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .box p {
+            font-size: 16px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .timeline-icon {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .timeline-content h4 {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .timeline-content p {
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .report-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .report {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 16px 18px;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .report-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .report-left i {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfeff;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .report h4 {
+            font-size: 16px;
+            word-break: break-word;
+        }
+
+        .report p {
+            font-size: 13px;
+            color: var(--text);
+            margin-top: 4px;
+        }
+
+        .view-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 12px;
+            background: var(--info);
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .action-buttons button {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .print-btn {
+            background: var(--success);
+        }
+
+        .pdf-btn {
+            background: var(--purple);
+        }
+
+        .back-btn {
+            background: var(--primary);
+        }
+
+        .action-buttons button:hover,
+        .view-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .timeline-empty {
+            padding: 25px;
+            text-align: center;
+            color: var(--text);
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .error-message {
+            color: var(--danger);
+        }
+
+        @media(max-width:1200px) {
+
+            .history-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar {
+                left: -270px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile div {
+                display: none;
+            }
+
+            .report {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button,
+            .view-btn {
+                width: 100%;
+            }
+        }
+
+        @media(max-width:500px) {
+
+            .page-title h2 {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .patient-card img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <i class="fa-solid fa-hospital"></i>
+                <h2>OptiHealth</h2>
+            </div>
+
+            <p class="portal">Admin Portal</p>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="doctors.html">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Doctors</span>
+                </a>
+
+                <a href="patients.html" class="active">
+                    <i class="fa-solid fa-hospital-user"></i>
+                    <span>Patients</span>
+                </a>
+
+                <a href="appointments.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+
+                <a href="departments.html">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Departments</span>
+                </a>
+
+                <a href="billing.html">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Billing</span>
+                </a>
+
+                <a href="reports.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <span>Reports</span>
+                </a>
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a href="../auth/login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+
+                <div class="left-top">
+
+                    <div class="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+
+                    <div class="page-title">
+                        <h2>Patient Medical History</h2>
+                        <p>View complete medical history and treatment records.</p>
+                    </div>
+
+                </div>
+
+                <div class="right-top">
+
+                    <div class="notify">
+                        <i class="fa-regular fa-bell"></i>
+                        <span id="notificationCount">0</span>
+                    </div>
+
+                    <div class="profile">
+
+                        <img id="headerProfileImage" src="../assets/admin.png" alt="Admin">
+
+                        <div>
+                            <h4 id="adminName">--</h4>
+                            <p id="adminRole">--</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <section class="hero">
+
+                    <h1>Patient Medical History</h1>
+
+                    <p>
+                        Review the selected patient's medical records,
+                        diagnoses, prescriptions, reports and treatment timeline.
+                    </p>
+
+                </section>
+
+                <div class="history-wrapper">
+
+                    <div class="left-panel">
+
+                        <div class="card patient-card">
+
+                            <img id="patientPhoto" src="../assets/patient.png" alt="Patient">
+
+                            <h2 id="patientName">
+                                Loading...
+                            </h2>
+
+                            <p id="patientId">
+                                Patient ID : --
+                            </p>
+
+                            <span id="patientStatus" class="patient-status active">
+                                Active
+                            </span>
+
+                            <div class="info-list">
+
+                                <div>
+                                    <span>Age</span>
+                                    <strong id="patientAge">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Gender</span>
+                                    <strong id="patientGender">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Blood Group</span>
+                                    <strong id="patientBloodGroup">
+                                        Not available
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Height</span>
+                                    <strong id="patientHeight">
+                                        Not available
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Weight</span>
+                                    <strong id="patientWeight">
+                                        Not available
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Allergies</span>
+                                    <strong id="patientAllergies">
+                                        Not available
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Chronic Disease</span>
+                                    <strong id="patientChronic">
+                                        Not available
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Emergency</span>
+                                    <strong id="patientEmergency">
+                                        Not available
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Assigned Doctor</span>
+                                    <strong id="patientDoctor">
+                                        Not Assigned
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">
+                                Quick Summary
+                            </h3>
+
+                            <div class="grid">
+
+                                <div class="box">
+                                    <h5>Total Visits</h5>
+                                    <p>
+                                        <span id="totalVisits">0</span>
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Prescriptions</h5>
+                                    <p>
+                                        <span id="totalPrescriptions">0</span>
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Lab Reports</h5>
+                                    <p>
+                                        <span id="totalReports">0</span>
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Medical Records</h5>
+                                    <p>
+                                        <span id="totalRecords">0</span>
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="right-panel">
+
+                        <div class="card">
+
+                            <div class="search-box">
+
+                                <input type="text" id="searchHistory"
+                                    placeholder="Search diagnosis, report or treatment...">
+
+                            </div>
+
+                            <div class="grid">
+
+                                <div class="box">
+                                    <h5>Current Diagnosis</h5>
+                                    <p id="currentDiagnosis">
+                                        No data
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Current Medication</h5>
+                                    <p id="currentMedication">
+                                        No data
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Latest Visit</h5>
+                                    <p id="latestVisit">
+                                        No data
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Latest Doctor</h5>
+                                    <p id="latestDoctor">
+                                        No data
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Latest Report</h5>
+                                    <p id="latestReport">
+                                        No data
+                                    </p>
+                                </div>
+
+                                <div class="box">
+                                    <h5>Remarks</h5>
+                                    <p id="latestRemarks">
+                                        No data
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">
+                                Medical Timeline
+                            </h3>
+
+                            <div class="timeline" id="timeline">
+
+                                <div class="timeline-empty">
+                                    Loading medical history...
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3 style="margin-bottom:20px;">
+                                Medical Documents
+                            </h3>
+
+                            <div class="report-list" id="reportList">
+
+                                <div class="timeline-empty">
+                                    Loading reports...
+                                </div>
+
+                            </div>
+
+                            <div class="action-buttons">
+
+                                <button class="print-btn" id="printBtn">
+
+                                    <i class="fa-solid fa-print"></i>
+                                    Print History
+
+                                </button>
+
+                                <button class="pdf-btn" id="pdfBtn">
+
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                    Download PDF
+
+                                </button>
+
+                                <button class="back-btn" id="backBtn">
+
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                    Back
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const API_BASE_URL =
+            "http://localhost:8080";
+
+        const token =
+            localStorage.getItem("token");
+
+        const menuBtn =
+            document.querySelector(".menu-btn");
+
+        const sidebar =
+            document.querySelector(".sidebar");
+
+        const profile =
+            document.querySelector(".profile");
+
+        const searchInput =
+            document.getElementById(
+                "searchHistory"
+            );
+
+        const printBtn =
+            document.getElementById(
+                "printBtn"
+            );
+
+        const pdfBtn =
+            document.getElementById(
+                "pdfBtn"
+            );
+
+        const backBtn =
+            document.getElementById(
+                "backBtn"
+            );
+
+        const adminName =
+            document.getElementById(
+                "adminName"
+            );
+
+        const adminRole =
+            document.getElementById(
+                "adminRole"
+            );
+
+        const headerProfileImage =
+            document.getElementById(
+                "headerProfileImage"
+            );
+
+        const notificationCount =
+            document.getElementById(
+                "notificationCount"
+            );
+
+        let medicalHistory = [];
+
+        let patientData = null;
+
+        let doctors = [];
+
+        function getHeaders() {
+
+            const headers = {
+                "Content-Type":
+                    "application/json"
+            };
+
+            if (token) {
+
+                headers["Authorization"] =
+                    "Bearer " + token;
+            }
+
+            return headers;
+        }
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
+        }
+
+        function setText(
+            elementId,
+            value,
+            fallback = "Not available"
+        ) {
+
+            const element =
+                document.getElementById(
+                    elementId
+                );
+
+            if (!element) {
+                return;
+            }
+
+            if (
+                value !== null &&
+                value !== undefined &&
+                String(value).trim() !== ""
+            ) {
+
+                element.textContent =
+                    value;
+
+            } else {
+
+                element.textContent =
+                    fallback;
+            }
+        }
+
+        function getPatientId() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            return params.get(
+                "patientId"
+            );
+        }
+
+        function formatDate(value) {
+
+            if (!value) {
+                return "--";
+            }
+
+            const date =
+                new Date(
+                    String(value).length === 10
+                        ? value + "T00:00:00"
+                        : value
+                );
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return value;
+            }
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+        }
+
+        function calculateAge(dob) {
+
+            if (!dob) {
+                return "--";
+            }
+
+            const birthDate =
+                new Date(dob);
+
+            if (
+                Number.isNaN(
+                    birthDate.getTime()
+                )
+            ) {
+                return "--";
+            }
+
+            const today =
+                new Date();
+
+            let age =
+                today.getFullYear() -
+                birthDate.getFullYear();
+
+            const monthDifference =
+                today.getMonth() -
+                birthDate.getMonth();
+
+            if (
+                monthDifference < 0 ||
+                (
+                    monthDifference === 0 &&
+                    today.getDate() <
+                    birthDate.getDate()
+                )
+            ) {
+
+                age--;
+            }
+
+            return age >= 0
+                ? age + " Years"
+                : "--";
+        }
+
+        function latestHistory() {
+
+            return [
+                ...medicalHistory
+            ]
+                .sort(
+                    (a, b) =>
+                        new Date(
+                            b.visitDate || 0
+                        ) -
+                        new Date(
+                            a.visitDate || 0
+                        )
+                )[0] || null;
+        }
+
+        async function loadAdminProfile() {
+
+            try {
+
+                const adminId =
+                    localStorage.getItem(
+                        "adminId"
+                    );
+
+                let admin = null;
+
+                const storedAdmin =
+                    localStorage.getItem(
+                        "currentAdmin"
+                    ) ||
+                    localStorage.getItem(
+                        "admin"
+                    );
+
+                if (storedAdmin) {
+
+                    try {
+
+                        admin =
+                            JSON.parse(
+                                storedAdmin
+                            );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Admin data parse error:",
+                            error
+                        );
+                    }
+                }
+
+                if (adminId) {
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/admin/${adminId}`,
+                            {
+                                method: "GET",
+                                headers:
+                                    getHeaders()
+                            }
+                        );
+
+                    if (response.ok) {
+
+                        admin =
+                            await response.json();
+
+                        localStorage.setItem(
+                            "currentAdmin",
+                            JSON.stringify(
+                                admin
+                            )
+                        );
+
+                        localStorage.setItem(
+                            "admin",
+                            JSON.stringify(
+                                admin
+                            )
+                        );
+                    }
+                }
+
+                setText(
+                    "adminName",
+                    admin?.fullName,
+                    "Admin"
+                );
+
+                setText(
+                    "adminRole",
+                    "System Administrator",
+                    "System Administrator"
+                );
+
+                if (
+                    headerProfileImage &&
+                    admin?.profileImage
+                ) {
+
+                    const cleanName =
+                        String(
+                            admin.profileImage
+                        )
+                            .split("/")
+                            .pop()
+                            .split("\\")
+                            .pop();
+
+                    headerProfileImage.src =
+                        `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                            cleanName
+                        )}`;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Admin profile error:",
+                    error
+                );
+
+                if (headerProfileImage) {
+
+                    headerProfileImage.src =
+                        "../assets/admin.png";
+                }
+            }
+        }
+
+        async function loadPatient(
+            patientId
+        ) {
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/patients/${patientId}`,
+                    {
+                        method: "GET",
+                        headers:
+                            getHeaders()
+                    }
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Patient API HTTP " +
+                    response.status
+                );
+            }
+
+            return await response.json();
+        }
+
+        async function loadHistory(
+            patientId
+        ) {
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/medical-history/patient/${patientId}`,
+                    {
+                        method: "GET",
+                        headers:
+                            getHeaders()
+                    }
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Medical History API HTTP " +
+                    response.status
+                );
+            }
+
+            const data =
+                await response.json();
+
+            return Array.isArray(data)
+                ? data
+                : [];
+        }
+
+        async function loadDoctors() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients/doctors`,
+                        {
+                            method: "GET",
+                            headers:
+                                getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const data =
+                    await response.json();
+
+                doctors =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+            } catch (error) {
+
+                console.warn(
+                    "Doctor load error:",
+                    error
+                );
+            }
+        }
+
+        function findDoctorById(
+            doctorId
+        ) {
+
+            return doctors.find(
+                doctor =>
+                    Number(
+                        doctor.id
+                    ) ===
+                    Number(
+                        doctorId
+                    )
+            );
+        }
+
+        function renderPatient() {
+
+            if (!patientData) {
+                return;
+            }
+
+            const latest =
+                latestHistory();
+
+            setText(
+                "patientName",
+                patientData.fullName,
+                "Patient"
+            );
+
+            setText(
+                "patientId",
+                patientData.id
+                    ? "Patient ID : " +
+                    patientData.id
+                    : null,
+                "Patient ID : --"
+            );
+
+            setText(
+                "patientAge",
+                calculateAge(
+                    patientData.dob
+                ),
+                "--"
+            );
+
+            setText(
+                "patientGender",
+                patientData.gender,
+                "--"
+            );
+
+            setText(
+                "patientBloodGroup",
+                patientData.bloodGroup,
+                "Not available"
+            );
+
+            setText(
+                "patientHeight",
+                patientData.height
+                    ? patientData.height +
+                    " cm"
+                    : null,
+                "Not available"
+            );
+
+            setText(
+                "patientWeight",
+                patientData.weight
+                    ? patientData.weight +
+                    " Kg"
+                    : null,
+                "Not available"
+            );
+
+            setText(
+                "patientAllergies",
+                patientData.allergies,
+                "Not available"
+            );
+
+            setText(
+                "patientChronic",
+                patientData.existingDiseases,
+                "Not available"
+            );
+
+            setText(
+                "patientEmergency",
+                patientData.emergencyContact,
+                "Not available"
+            );
+
+            const assignedDoctor =
+                findDoctorById(
+                    patientData.doctorId
+                );
+
+            setText(
+                "patientDoctor",
+                assignedDoctor?.doctorName,
+                "Not Assigned"
+            );
+
+            const status =
+                String(
+                    patientData.status ||
+                    "ACTIVE"
+                ).toUpperCase();
+
+            const patientStatus =
+                document.getElementById(
+                    "patientStatus"
+                );
+
+            if (patientStatus) {
+
+                patientStatus.textContent =
+                    status === "INACTIVE"
+                        ? "Inactive"
+                        : "Active";
+
+                patientStatus.className =
+                    "patient-status " +
+                    (
+                        status === "INACTIVE"
+                            ? "inactive"
+                            : "active"
+                    );
+            }
+
+            setText(
+                "currentDiagnosis",
+                latest?.diagnosis,
+                "No diagnosis recorded"
+            );
+
+            setText(
+                "currentMedication",
+                latest?.prescription,
+                "No prescription recorded"
+            );
+
+            setText(
+                "latestVisit",
+                latest
+                    ? formatDate(
+                        latest.visitDate
+                    )
+                    : null,
+                "No visit recorded"
+            );
+
+            const latestDoctor =
+                findDoctorById(
+                    latest?.doctorId
+                );
+
+            setText(
+                "latestDoctor",
+                latestDoctor?.doctorName ||
+                latest?.doctorId,
+                "No doctor recorded"
+            );
+
+            setText(
+                "latestReport",
+                latest?.report,
+                "No report recorded"
+            );
+
+            setText(
+                "latestRemarks",
+                latest?.remarks,
+                "No remarks recorded"
+            );
+
+            setText(
+                "totalVisits",
+                medicalHistory.length,
+                "0"
+            );
+
+            setText(
+                "totalPrescriptions",
+                medicalHistory.filter(
+                    item =>
+                        item.prescription &&
+                        String(
+                            item.prescription
+                        ).trim()
+                ).length,
+                "0"
+            );
+
+            setText(
+                "totalReports",
+                medicalHistory.filter(
+                    item =>
+                        item.report &&
+                        String(
+                            item.report
+                        ).trim()
+                ).length,
+                "0"
+            );
+
+            setText(
+                "totalRecords",
+                medicalHistory.length,
+                "0"
+            );
+        }
+
+        function renderTimeline(
+            records = medicalHistory
+        ) {
+
+            const timeline =
+                document.getElementById(
+                    "timeline"
+                );
+
+            if (!timeline) {
+                return;
+            }
+
+            if (!records.length) {
+
+                timeline.innerHTML = `
+                <div class="timeline-empty">
+                    No medical history found for this patient.
+                </div>
+            `;
+
+                return;
+            }
+
+            const sorted =
+                [...records].sort(
+                    (a, b) =>
+                        new Date(
+                            b.visitDate || 0
+                        ) -
+                        new Date(
+                            a.visitDate || 0
+                        )
+                );
+
+            timeline.innerHTML =
+                sorted
+                    .map(item => {
+
+                        const parts = [];
+
+                        if (item.diagnosis) {
+                            parts.push(
+                                "Diagnosis: " +
+                                escapeHtml(
+                                    item.diagnosis
+                                )
+                            );
+                        }
+
+                        if (item.prescription) {
+                            parts.push(
+                                "Prescription: " +
+                                escapeHtml(
+                                    item.prescription
+                                )
+                            );
+                        }
+
+                        if (item.report) {
+                            parts.push(
+                                "Report: " +
+                                escapeHtml(
+                                    item.report
+                                )
+                            );
+                        }
+
+                        if (item.remarks) {
+                            parts.push(
+                                "Remarks: " +
+                                escapeHtml(
+                                    item.remarks
+                                )
+                            );
+                        }
+
+                        if (item.appointmentId) {
+                            parts.push(
+                                "Appointment ID: " +
+                                escapeHtml(
+                                    item.appointmentId
+                                )
+                            );
+                        }
+
+                        const icon =
+                            item.prescription
+                                ? "fa-prescription"
+                                : item.report
+                                    ? "fa-file-medical"
+                                    : "fa-notes-medical";
+
+                        return `
+                        <div class="timeline-item">
+
+                            <div class="timeline-icon">
+                                <i class="fa-solid ${icon}"></i>
+                            </div>
+
+                            <div class="timeline-content">
+
+                                <h4>
+                                    ${escapeHtml(
+                            formatDate(
+                                item.visitDate
+                            )
+                        )}
+                                </h4>
+
+                                <p>
+                                    ${parts.length
+                                ? parts.join(" • ")
+                                : "No additional details recorded."
+                            }
+                                </p>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                    })
+                    .join("");
+        }
+
+        function renderReports(
+            records = medicalHistory
+        ) {
+
+            const list =
+                document.getElementById(
+                    "reportList"
+                );
+
+            if (!list) {
+                return;
+            }
+
+            const reports =
+                records.filter(
+                    item =>
+                        item.report &&
+                        String(
+                            item.report
+                        ).trim()
+                );
+
+            if (!reports.length) {
+
+                list.innerHTML = `
+                <div class="timeline-empty">
+                    No medical reports found.
+                </div>
+            `;
+
+                return;
+            }
+
+            list.innerHTML =
+                reports
+                    .map(item => {
+
+                        return `
+                        <div class="report">
+
+                            <div class="report-left">
+
+                                <i class="fa-solid fa-file-medical"></i>
+
+                                <div>
+
+                                    <h4>
+                                        ${escapeHtml(
+                            item.report
+                        )}
+                                    </h4>
+
+                                    <p>
+                                        ${escapeHtml(
+                            formatDate(
+                                item.visitDate
+                            )
+                        )}
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <button
+                                class="view-btn"
+                                type="button"
+                                onclick="viewReport('${escapeHtml(
+                            item.report
+                        )}')">
+
+                                View
+
+                            </button>
+
+                        </div>
+                    `;
+
+                    })
+                    .join("");
+        }
+
+        function viewReport(
+            report
+        ) {
+
+            alert(
+                "The current MedicalHistoryModel stores the report name/text, not a report file URL."
+            );
+        }
+
+        function showError(
+            message
+        ) {
+
+            const timeline =
+                document.getElementById(
+                    "timeline"
+                );
+
+            const reportList =
+                document.getElementById(
+                    "reportList"
+                );
+
+            if (timeline) {
+
+                timeline.innerHTML = `
+                <div class="timeline-empty error-message">
+                    ${escapeHtml(message)}
+                </div>
+            `;
+            }
+
+            if (reportList) {
+
+                reportList.innerHTML = `
+                <div class="timeline-empty error-message">
+                    ${escapeHtml(message)}
+                </div>
+            `;
+            }
+        }
+
+        function setupSidebar() {
+
+            if (!menuBtn) {
+                return;
+            }
+
+            menuBtn.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        window.innerWidth <=
+                        900
+                    ) {
+
+                        sidebar.style.left =
+                            sidebar.style.left ===
+                                "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        !sidebar.contains(
+                            event.target
+                        ) &&
+                        !menuBtn.contains(
+                            event.target
+                        )
+                    ) {
+
+                        sidebar.style.left =
+                            "-270px";
+                    }
+
+                }
+            );
+
+            window.addEventListener(
+                "resize",
+                () => {
+
+                    sidebar.style.left =
+                        window.innerWidth > 900
+                            ? "0"
+                            : "-270px";
+
+                }
+            );
+        }
+
+        function setupProfile() {
+
+            if (!profile) {
+                return;
+            }
+
+            profile.addEventListener(
+                "click",
+                () => {
+
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
+
+        function setupSearch() {
+
+            if (!searchInput) {
+                return;
+            }
+
+            searchInput.addEventListener(
+                "input",
+                () => {
+
+                    const value =
+                        searchInput.value
+                            .toLowerCase()
+                            .trim();
+
+                    const filteredRecords =
+                        medicalHistory.filter(
+                            item => {
+
+                                const text =
+                                    [
+                                        item.diagnosis,
+                                        item.prescription,
+                                        item.report,
+                                        item.remarks,
+                                        item.appointmentId
+                                    ]
+                                        .filter(Boolean)
+                                        .join(" ")
+                                        .toLowerCase();
+
+                                return text.includes(
+                                    value
+                                );
+                            }
+                        );
+
+                    renderTimeline(
+                        filteredRecords
+                    );
+
+                    renderReports(
+                        filteredRecords
+                    );
+                }
+            );
+        }
+
+        async function initialize() {
+
+            const patientId =
+                getPatientId();
+
+            if (!patientId) {
+
+                showError(
+                    "Patient ID is missing. Please open this page from the Patients page."
+                );
+
+                return;
+            }
+
+            try {
+
+                await loadAdminProfile();
+
+                const results =
+                    await Promise.all(
+                        [
+                            loadPatient(
+                                patientId
+                            ),
+                            loadHistory(
+                                patientId
+                            ),
+                            loadDoctors()
+                        ]
+                    );
+
+                patientData =
+                    results[0];
+
+                medicalHistory =
+                    results[1];
+
+                renderPatient();
+
+                renderTimeline();
+
+                renderReports();
+
+            } catch (error) {
+
+                console.error(
+                    "Patient Medical History Error:",
+                    error
+                );
+
+                showError(
+                    "Unable to load patient medical history from the backend."
+                );
+            }
+        }
+
+        if (printBtn) {
+
+            printBtn.addEventListener(
+                "click",
+                () => {
+
+                    window.print();
+                }
+            );
+        }
+
+        if (pdfBtn) {
+
+            pdfBtn.addEventListener(
+                "click",
+                () => {
+
+                    alert(
+                        "PDF download is not connected because no PDF endpoint is present in the current backend."
+                    );
+                }
+            );
+        }
+
+        if (backBtn) {
+
+            backBtn.addEventListener(
+                "click",
+                () => {
+
+                    window.location.href =
+                        "patients.html";
+                }
+            );
+        }
+
+        setNotificationCount();
+
+        function setNotificationCount() {
+
+            if (notificationCount) {
+
+                notificationCount.textContent =
+                    "0";
+            }
+        }
+
+        setupSidebar();
+
+        setupProfile();
+
+        setupSearch();
+
+        initialize();
+
+    </script>
+
+</body>
+
+</html>

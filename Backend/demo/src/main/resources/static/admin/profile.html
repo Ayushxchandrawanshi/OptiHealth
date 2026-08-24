@@ -622,6 +622,132 @@
             transform: translateY(-3px);
         }
 
+        .activity-table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .activity-table th:nth-child(1),
+        .activity-table td:nth-child(1) {
+            width: 22%;
+        }
+
+        .activity-table th:nth-child(2),
+        .activity-table td:nth-child(2) {
+            width: 25%;
+        }
+
+        .activity-table th:nth-child(3),
+        .activity-table td:nth-child(3) {
+            width: 32%;
+        }
+
+        .activity-table th:nth-child(4),
+        .activity-table td:nth-child(4) {
+            width: 21%;
+        }
+
+        .activity-table th,
+        .activity-table td {
+            white-space: normal;
+        }
+
+        .activity-table td {
+            word-break: normal;
+            overflow-wrap: anywhere;
+        }
+
+        .activity-table .activity-title {
+            display: block;
+            line-height: 1.4;
+        }
+
+        .activity-table .activity-details {
+            display: block;
+            line-height: 1.5;
+        }
+
+        .activity-table .activity-date {
+            display: block;
+            white-space: nowrap;
+        }
+
+        .activity-table thead {
+            background: #f8fafc;
+        }
+
+        .activity-table th {
+            padding: 16px 18px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .activity-table td {
+            padding: 17px 18px;
+            font-size: 14px;
+            color: #475569;
+            border-bottom: 1px solid #edf2f7;
+            vertical-align: middle;
+        }
+
+        .activity-table tbody tr {
+            transition: 0.2s;
+        }
+
+        .activity-table tbody tr:hover {
+            background: #f8fbff;
+        }
+
+        .activity-type {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .activity-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #ecfeff;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .activity-details {
+            color: #64748b;
+        }
+
+        .activity-date {
+            white-space: nowrap;
+            color: #475569;
+        }
+
+        @media(max-width:768px) {
+
+            .activity-table {
+                min-width: 750px;
+            }
+
+        }
+
         @media(max-width:1200px) {
             .search-box {
                 display: none;
@@ -915,54 +1041,20 @@
 
                         <h3>Recent Activity</h3>
 
-                        <div class="timeline" id="recentActivity">
+                        <div class="table-container activity-table-container">
 
-                            <div class="timeline-item">
-                                <div class="timeline-icon">
-                                    <i class="fa-solid fa-clock"></i>
-                                </div>
-
-                                <div class="timeline-content">
-                                    <h4>No Recent Activity</h4>
-                                    <p>Activity history is not available yet.</p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="activity-card">
-
-                        <h3>Recent Login History</h3>
-
-                        <div class="table-container">
-
-                            <table>
+                            <table class="activity-table">
 
                                 <thead>
-
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                        <th>Device</th>
-                                        <th>Browser</th>
-                                        <th>IP Address</th>
-                                        <th>Status</th>
+                                        <th>Type</th>
+                                        <th>Activity</th>
+                                        <th>Details</th>
+                                        <th>Date & Time</th>
                                     </tr>
-
                                 </thead>
 
-                                <tbody id="loginHistoryBody">
-                                    <tr>
-                                        <td colspan="6" style="
-                                        text-align:center;
-                                        padding:25px;
-                                        color:#64748b;
-                                        ">
-                                            No login history available.
-                                        </td>
-                                    </tr>
+                                <tbody id="recentActivity">
                                 </tbody>
 
                             </table>
@@ -970,6 +1062,7 @@
                         </div>
 
                     </div>
+
                 </div>
 
             </main>
@@ -1085,6 +1178,7 @@
 
             await loadAdminProfile();
             await loadDashboardStats();
+            await loadRecentActivities();
         }
 
         function setupMenu() {
@@ -2279,6 +2373,383 @@
                 loadReportAnalytics(),
                 loadNotificationCount()
             ]);
+        }
+
+
+        async function loadRecentActivities() {
+
+            if (!recentActivity) {
+                return;
+            }
+
+            try {
+
+                recentActivity.innerHTML = `
+    <tr>
+        <td colspan="4"
+            style="
+                text-align: center;
+                padding: 30px;
+                color: #64748b;
+            ">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Loading recent activities...
+        </td>
+    </tr>
+`;
+
+                const [
+                    patientsResponse,
+                    appointmentsResponse,
+                    billingResponse
+                ] = await Promise.all([
+                    fetch(
+                        `${API_BASE_URL}/api/patients`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    ),
+
+                    fetch(
+                        `${API_BASE_URL}/api/appointment/all`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    ),
+
+                    fetch(
+                        `${API_BASE_URL}/api/billing`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    )
+                ]);
+
+                if (
+                    !patientsResponse.ok ||
+                    !appointmentsResponse.ok ||
+                    !billingResponse.ok
+                ) {
+                    throw new Error(
+                        "Unable to load activity data."
+                    );
+                }
+
+                const patients =
+                    await patientsResponse.json();
+
+                const appointments =
+                    await appointmentsResponse.json();
+
+                const bills =
+                    await billingResponse.json();
+
+                const activities = [];
+
+                if (Array.isArray(patients)) {
+
+                    patients.forEach(
+                        patient => {
+
+                            if (!patient.registrationDate) {
+                                return;
+                            }
+
+                            activities.push({
+                                type:
+                                    "Patient",
+
+                                title:
+                                    "New Patient Registered",
+
+                                description:
+                                    `${patient.fullName || "Patient"} registered in the hospital.`,
+
+                                date:
+                                    new Date(
+                                        patient.registrationDate
+                                    ),
+
+                                icon:
+                                    "fa-solid fa-hospital-user"
+                            });
+                        }
+                    );
+                }
+
+                if (Array.isArray(appointments)) {
+
+                    appointments.forEach(
+                        appointment => {
+
+                            if (
+                                !appointment.appointmentDate
+                            ) {
+                                return;
+                            }
+
+                            const status =
+                                String(
+                                    appointment.status || ""
+                                ).toUpperCase();
+
+                            let title =
+                                "Appointment Created";
+
+                            if (
+                                status === "ACCEPTED"
+                            ) {
+                                title =
+                                    "Appointment Accepted";
+                            }
+
+                            else if (
+                                status === "REJECTED"
+                            ) {
+                                title =
+                                    "Appointment Rejected";
+                            }
+
+                            else if (
+                                status === "COMPLETED"
+                            ) {
+                                title =
+                                    "Appointment Completed";
+                            }
+
+                            else if (
+                                status === "PENDING"
+                            ) {
+                                title =
+                                    "Appointment Pending";
+                            }
+
+                            activities.push({
+                                type:
+                                    "Appointment",
+
+                                title:
+                                    title,
+
+                                description:
+                                    `Appointment #${appointment.appointmentId || ""} is currently ${status || "recorded"}.`,
+
+                                date:
+                                    new Date(
+                                        `${appointment.appointmentDate}${appointment.appointmentTime
+                                            ? "T" + appointment.appointmentTime
+                                            : "T00:00:00"
+                                        }`
+                                    ),
+
+                                icon:
+                                    "fa-solid fa-calendar-check"
+                            });
+                        }
+                    );
+                }
+
+                if (Array.isArray(bills)) {
+
+                    bills.forEach(
+                        bill => {
+
+                            if (!bill.billDate) {
+                                return;
+                            }
+
+                            const status =
+                                String(
+                                    bill.paymentStatus || ""
+                                );
+
+                            activities.push({
+                                type:
+                                    "Billing",
+
+                                title:
+                                    "Billing Activity",
+
+                                description:
+                                    `${bill.billNumber || "Bill"} - ${status || "Billing record created"}.`,
+
+                                date:
+                                    new Date(
+                                        bill.billDate
+                                    ),
+
+                                icon:
+                                    "fa-solid fa-file-invoice-dollar"
+                            });
+                        }
+                    );
+                }
+
+                activities.sort(
+                    (a, b) =>
+                        b.date.getTime() -
+                        a.date.getTime()
+                );
+
+                const latestActivities =
+                    activities.slice(0, 5);
+
+                if (
+                    latestActivities.length === 0
+                ) {
+
+                    recentActivity.innerHTML = `
+    <tr>
+        <td colspan="4"
+            style="
+                text-align: center;
+                padding: 30px;
+                color: #64748b;
+            ">
+            No activity records are available.
+        </td>
+    </tr>
+`;
+
+                    return;
+                }
+
+                recentActivity.innerHTML =
+                    latestActivities
+                        .map(
+                            activity => {
+
+                                return `
+                    <tr>
+
+                        <td>
+                            <div class="activity-type">
+
+                                <div class="activity-icon">
+                                    <i class="${activity.icon}"></i>
+                                </div>
+
+                                <span>
+                                    ${escapeHtml(
+                                    activity.type
+                                )}
+                                </span>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="activity-title">
+                                ${escapeHtml(
+                                    activity.title
+                                )}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="activity-details">
+                                ${escapeHtml(
+                                    activity.description
+                                )}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="activity-date">
+                                ${formatActivityDate(
+                                    activity.date
+                                )}
+                            </span>
+                        </td>
+
+                    </tr>
+                `;
+                            }
+                        )
+                        .join("");
+
+            } catch (error) {
+
+                console.error(
+                    "Recent activity error:",
+                    error
+                );
+
+                recentActivity.innerHTML = `
+    <tr>
+        <td colspan="4"
+            style="
+                text-align:center;
+                padding:30px;
+                color:#dc2626;
+            ">
+            Unable to load recent activities.
+            Please check the backend connection.
+        </td>
+    </tr>
+`;
+            }
+        }
+
+        function formatActivityDate(
+            date
+        ) {
+
+            if (
+                !date ||
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return "--";
+            }
+
+            return date.toLocaleString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+        }
+
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
         }
 
         async function loadReportAnalytics() {

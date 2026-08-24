@@ -1487,64 +1487,113 @@ function setupProfile() {
     );
 }
 
-function loadAdminProfile() {
-    const keys = [
-        "admin",
-        "currentAdmin",
-        "user",
-        "currentUser",
-        "userData"
-    ];
+async function loadAdminProfile() {
 
-    let admin = null;
+    try {
 
-    for (const key of keys) {
-        const raw =
-            localStorage.getItem(
-                key
-            );
+        const adminId =
+            localStorage.getItem("adminId");
 
-        if (!raw) {
-            continue;
+        let admin = null;
+
+        const storedAdmin =
+            localStorage.getItem("currentAdmin") ||
+            localStorage.getItem("admin");
+
+        if (storedAdmin) {
+
+            try {
+
+                admin =
+                    JSON.parse(
+                        storedAdmin
+                    );
+
+            } catch (error) {
+
+                console.error(
+                    "Admin data parse error:",
+                    error
+                );
+            }
         }
 
-        try {
-            const parsed =
-                JSON.parse(
-                    raw
+        if (adminId) {
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/admin/${adminId}`,
+                    {
+                        method: "GET",
+                        headers: getHeaders()
+                    }
                 );
 
-            if (
-                parsed &&
-                typeof parsed ===
-                "object"
-            ) {
+            if (response.ok) {
+
                 admin =
-                    parsed;
+                    await response.json();
 
-                break;
+                localStorage.setItem(
+                    "currentAdmin",
+                    JSON.stringify(admin)
+                );
+
+                localStorage.setItem(
+                    "admin",
+                    JSON.stringify(admin)
+                );
             }
-        } catch (error) {
         }
-    }
 
-    if (
-        elements.adminName
-    ) {
-        elements.adminName.textContent =
-            admin?.fullName ||
-            admin?.name ||
-            admin?.adminName ||
-            "Admin";
-    }
+        if (elements.adminName) {
 
-    if (
-        elements.adminRole
-    ) {
-        elements.adminRole.textContent =
-            admin?.role ||
-            admin?.adminRole ||
-            "System Administrator";
+            elements.adminName.textContent =
+                admin?.fullName ||
+                admin?.name ||
+                admin?.adminName ||
+                "Admin";
+        }
+
+        if (elements.adminRole) {
+
+            elements.adminRole.textContent =
+                admin?.role ||
+                admin?.adminRole ||
+                "System Administrator";
+        }
+
+        const headerProfileImage =
+            document.getElementById(
+                "headerProfileImage"
+            );
+
+        if (
+            headerProfileImage &&
+            admin?.profileImage
+        ) {
+
+            const cleanName =
+                String(
+                    admin.profileImage
+                )
+                    .split("/")
+                    .pop()
+                    .split("\\")
+                    .pop();
+
+            headerProfileImage.src =
+                `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                    cleanName
+                )}`;
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Admin profile load error:",
+            error
+        );
     }
 }
 

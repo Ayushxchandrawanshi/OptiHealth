@@ -2,20 +2,14 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Prescription | OptiHealth</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
     <style>
         * {
             margin: 0;
@@ -30,6 +24,8 @@
             --success: #16a34a;
             --warning: #f59e0b;
             --danger: #dc2626;
+            --blue: #2563eb;
+            --purple: #7c3aed;
             --dark: #0f172a;
             --text: #64748b;
             --border: #e2e8f0;
@@ -59,6 +55,7 @@
             padding: 30px 22px;
             overflow-y: auto;
             color: #fff;
+            z-index: 1000;
         }
 
         .logo {
@@ -115,6 +112,7 @@
         .main {
             margin-left: 270px;
             width: calc(100% - 270px);
+            min-width: 0;
         }
 
         .topbar {
@@ -134,6 +132,7 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            min-width: 0;
         }
 
         .menu-btn {
@@ -146,11 +145,17 @@
             justify-content: center;
             cursor: pointer;
             font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .page-title {
+            min-width: 0;
         }
 
         .page-title h2 {
             font-size: 30px;
             font-weight: 700;
+            white-space: nowrap;
         }
 
         .page-title p {
@@ -162,6 +167,7 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            flex-shrink: 0;
         }
 
         .notify {
@@ -180,8 +186,9 @@
             position: absolute;
             top: 4px;
             right: 4px;
-            width: 18px;
+            min-width: 18px;
             height: 18px;
+            padding: 0 4px;
             background: var(--danger);
             border-radius: 50%;
             color: #fff;
@@ -226,6 +233,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow);
+            animation: fadeUp .6s ease both;
         }
 
         .hero::before {
@@ -268,11 +276,10 @@
 
         .prescription-wrapper {
             margin-top: 30px;
-            display: grid;
-            grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 25px;
             width: 100%;
-            align-items: start;
         }
 
         .form-grid {
@@ -287,6 +294,16 @@
             border-radius: 22px;
             padding: 25px;
             box-shadow: var(--shadow);
+            width: 100%;
+            animation: fadeUp .6s ease both;
+        }
+
+        .prescription-wrapper>.card:nth-child(1) {
+            animation-delay: .08s;
+        }
+
+        .prescription-wrapper>.card:nth-child(2) {
+            animation-delay: .16s;
         }
 
         .card h3 {
@@ -336,8 +353,14 @@
         .patient-card {
             display: flex;
             flex-direction: column;
+        }
+
+        .patient-card-top {
+            display: flex;
             align-items: center;
-            text-align: center;
+            gap: 25px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border);
         }
 
         .patient-card img {
@@ -346,33 +369,57 @@
             border-radius: 50%;
             object-fit: cover;
             background: #ddd;
-            margin-bottom: 18px;
             border: 5px solid #ecfeff;
+            flex-shrink: 0;
+            transition: .35s;
+        }
+
+        .patient-card img:hover {
+            transform: scale(1.05);
         }
 
         .patient-card h2 {
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 6px;
         }
 
-        .patient-card p {
+        .patient-card>p {
             color: var(--text);
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         .patient-info {
             width: 100%;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 14px;
+            margin-top: 22px;
         }
 
         .patient-info div {
             display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
+            flex-direction: column;
+            gap: 6px;
+            padding: 14px;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .patient-info div:hover {
+            transform: translateY(-3px);
+            border-color: #b7ebe5;
+        }
+
+        .patient-info span {
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .patient-info strong {
             font-size: 14px;
+            word-break: break-word;
         }
 
         .medicine-table {
@@ -401,6 +448,14 @@
             word-break: break-word;
         }
 
+        .medicine-table tbody tr {
+            transition: .3s;
+        }
+
+        .medicine-table tbody tr:hover {
+            background: #f8fffe;
+        }
+
         .medicine-table input,
         .medicine-table select {
             width: 100%;
@@ -408,6 +463,13 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             outline: none;
+            transition: .3s;
+        }
+
+        .medicine-table input:focus,
+        .medicine-table select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, .12);
         }
 
         .add-btn {
@@ -433,6 +495,11 @@
             background: #dc2626;
             color: #fff;
             cursor: pointer;
+            transition: .3s;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.05);
         }
 
         .action-buttons {
@@ -454,6 +521,10 @@
             color: #fff;
         }
 
+        .action-buttons button:hover {
+            transform: translateY(-3px);
+        }
+
         .save-btn {
             background: #16a34a;
         }
@@ -470,56 +541,67 @@
             background: #dc2626;
         }
 
-        .action-buttons button:hover {
-            transform: translateY(-3px);
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media(max-width:1200px) {
-
-            .prescription-wrapper {
-                grid-template-columns: 1fr;
+            .patient-info {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .form-grid {
                 grid-template-columns: 1fr 1fr;
             }
-
         }
 
         @media(max-width:900px) {
-
             .sidebar {
                 left: -270px;
             }
 
             .main {
-                margin-left: 270px;
-                width: calc(100% - 270px);
-                overflow-x: hidden;
+                margin-left: 0;
+                width: 100%;
             }
 
             .content {
                 padding: 20px;
             }
 
-            .hero {
-                padding: 28px;
+            .topbar {
+                padding: 0 20px;
             }
 
-            .hero h1 {
-                font-size: 28px;
+            .patient-card-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .patient-info {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .form-grid {
                 grid-template-columns: 1fr;
             }
-
         }
 
         @media(max-width:768px) {
-
             .profile div {
                 display: none;
+            }
+
+            .patient-info {
+                grid-template-columns: 1fr;
             }
 
             .action-buttons {
@@ -529,13 +611,15 @@
             .action-buttons button {
                 width: 100%;
             }
-
         }
 
         @media(max-width:500px) {
-
             .page-title h2 {
                 font-size: 24px;
+            }
+
+            .hero {
+                padding: 25px;
             }
 
             .hero h1 {
@@ -543,236 +627,171 @@
             }
 
             .card {
-                background: #fff;
-                border-radius: 22px;
-                padding: 25px;
-                box-shadow: var(--shadow);
-                width: 100%;
-                max-width: 100%;
-                overflow: hidden;
+                padding: 20px;
             }
-
-            .patient-card img {
-                width: 100px;
-                height: 100px;
-            }
-
         }
     </style>
-
 </head>
 
 <body>
-
     <div class="page">
-
         <aside class="sidebar">
-
             <div class="logo">
                 <i class="fa-solid fa-user-doctor"></i>
                 <h2>OptiHealth</h2>
             </div>
-
             <p class="portal">Doctor Portal</p>
-
             <nav>
-
                 <a href="dashboard.html">
                     <i class="fa-solid fa-table-columns"></i>
                     <span>Dashboard</span>
                 </a>
-
                 <a href="appointments.html">
                     <i class="fa-solid fa-calendar-check"></i>
                     <span>Appointments</span>
                 </a>
-
                 <a href="patient-details.html">
                     <i class="fa-solid fa-hospital-user"></i>
                     <span>Patients</span>
                 </a>
-
                 <a href="#" class="active">
                     <i class="fa-solid fa-prescription"></i>
                     <span>Prescriptions</span>
                 </a>
-
                 <a href="medical-history.html">
                     <i class="fa-solid fa-file-waveform"></i>
                     <span>Medical History</span>
                 </a>
-
                 <a href="schedule.html">
                     <i class="fa-solid fa-clock"></i>
                     <span>Schedule</span>
                 </a>
-
                 <a href="profile.html">
                     <i class="fa-solid fa-user"></i>
                     <span>Profile</span>
                 </a>
-
                 <a href="settings.html">
                     <i class="fa-solid fa-gear"></i>
                     <span>Settings</span>
                 </a>
-
                 <a href="../auth/login.html">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
-
             </nav>
-
         </aside>
-
         <div class="main">
-
             <header class="topbar">
-
                 <div class="left-top">
-
                     <div class="menu-btn">
                         <i class="fa-solid fa-bars"></i>
                     </div>
-
                     <div class="page-title">
                         <h2>Create Prescription</h2>
                         <p>Generate and manage patient prescriptions.</p>
                     </div>
-
                 </div>
-
                 <div class="right-top">
-
-                    <div class="notify">
+                    <div class="notify" id="notificationButton">
                         <i class="fa-regular fa-bell"></i>
-                        <span>3</span>
+                        <span id="notificationCount">0</span>
                     </div>
-
                     <div class="profile">
-                        <img src="../assets/doctor.png" alt="">
+                        <img id="doctorProfileImage" src="../assets/doctor.png" alt="Doctor">
                         <div>
                             <h4 id="doctorName">Loading...</h4>
                             <p id="doctorSpecialization">Loading...</p>
                         </div>
                     </div>
-
                 </div>
-
             </header>
-
             <main class="content">
-
                 <section class="hero">
-
                     <h1>Create Patient Prescription</h1>
-
                     <p>Create diagnosis, medicines, tests and follow-up instructions in one place with a printable
                         prescription.</p>
-
                 </section>
-
                 <div class="prescription-wrapper">
                     <div class="card patient-card">
-
-                        <img src="../assets/profile.png" alt="Patient">
-                        <h2 id="patientName">Loading...</h2>
-                        <p>Patient ID : <span id="patientId">-</span></p>
+                        <h3>Patient Information</h3>
+                        <div class="patient-card-top">
+                            <img id="patientImage" src="../assets/profile.png" alt="Patient">
+                            <div>
+                                <h2 id="patientName">Loading...</h2>
+                                <p>Patient ID : <span id="patientId">-</span></p>
+                            </div>
+                        </div>
                         <div class="patient-info">
-
                             <div>
                                 <span>Age</span>
                                 <strong id="patientAge">-</strong>
                             </div>
-
                             <div>
                                 <span>Gender</span>
                                 <strong id="patientGender">-</strong>
                             </div>
-
                             <div>
                                 <span>Blood Group</span>
                                 <strong id="patientBloodGroup">-</strong>
                             </div>
-
                             <div>
                                 <span>Weight</span>
                                 <strong id="patientWeight">-</strong>
                             </div>
-
                             <div>
                                 <span>Height</span>
                                 <strong id="patientHeight">-</strong>
                             </div>
-
                             <div>
                                 <span>Allergy</span>
                                 <strong id="patientAllergies">-</strong>
                             </div>
-
                             <div>
                                 <span>Phone</span>
                                 <strong id="patientPhone">-</strong>
                             </div>
-
                             <div>
                                 <span>Next Visit</span>
                                 <strong id="patientNextVisit">-</strong>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="card">
-
                         <h3>Prescription Details</h3>
-
                         <div class="form-grid">
-
                             <div class="input-group">
                                 <label>Date</label>
                                 <input type="date" id="prescriptionDate">
                             </div>
-
                             <div class="input-group">
                                 <label>Follow-up Date</label>
                                 <input type="date" id="followUpDate">
                             </div>
-
                             <div class="input-group">
                                 <label>Diagnosis</label>
                                 <input type="text" id="diagnosis" placeholder="Enter diagnosis">
                             </div>
-
                             <div class="input-group">
                                 <label>Symptoms</label>
                                 <input type="text" id="symptoms" placeholder="Enter symptoms">
                             </div>
-
                             <div class="input-group">
                                 <label>Blood Pressure</label>
                                 <input type="text" id="bloodPressure" placeholder="120 / 80">
                             </div>
-
                             <div class="input-group">
                                 <label>Heart Rate</label>
                                 <input type="text" id="heartRate" placeholder="72 BPM">
                             </div>
-
                         </div>
-
                         <div class="input-group">
                             <label>Doctor Advice</label>
                             <textarea id="doctorAdvice" placeholder="Write doctor's advice here..."></textarea>
                         </div>
-
                         <div class="input-group">
                             <label>Recommended Lab Tests</label>
                             <textarea id="labTests" placeholder="Blood Test, ECG, X-Ray etc..."></textarea>
                         </div>
-
                         <h3 style="margin-top:35px;">Medicines</h3>
                         <div class="medicine-table">
                             <table id="medicineTable">
@@ -802,7 +821,6 @@
                                                 <option>0-0-1</option>
                                             </select>
                                         </td>
-
                                         <td>
                                             <select>
                                                 <option>3 Days</option>
@@ -812,16 +830,14 @@
                                                 <option>15 Days</option>
                                             </select>
                                         </td>
-
                                         <td>
                                             <select>
                                                 <option>After Food</option>
                                                 <option>Before Food</option>
                                             </select>
                                         </td>
-
                                         <td>
-                                            <button class="remove-btn">
+                                            <button type="button" class="remove-btn">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -829,39 +845,32 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        <button class="add-btn">
+                        <button type="button" class="add-btn">
                             <i class="fa-solid fa-plus"></i>
                             Add Medicine
                         </button>
-
                         <div class="input-group" style="margin-top:30px;">
                             <label>Special Instructions</label>
                             <textarea id="specialInstructions"
                                 placeholder="Additional precautions and instructions..."></textarea>
                         </div>
-
                         <div class="action-buttons">
-                            <button class="save-btn">
+                            <button type="button" class="save-btn">
                                 <i class="fa-solid fa-floppy-disk"></i>
                                 Save Prescription
                             </button>
-
-                            <button class="print-btn">
+                            <button type="button" class="print-btn">
                                 <i class="fa-solid fa-print"></i>
                                 Print
                             </button>
-
-                            <button class="download-btn">
+                            <button type="button" class="download-btn">
                                 <i class="fa-solid fa-download"></i>
                                 Download PDF
                             </button>
-
-                            <button class="clear-btn">
+                            <button type="button" class="clear-btn">
                                 <i class="fa-solid fa-trash"></i>
                                 Clear
                             </button>
-
                         </div>
                     </div>
                 </div>
@@ -879,109 +888,101 @@
         const downloadBtn = document.querySelector(".download-btn");
         const clearBtn = document.querySelector(".clear-btn");
         const dateInput = document.getElementById("prescriptionDate");
-
+        const notificationButton = document.getElementById("notificationButton");
+        const notificationCount = document.getElementById("notificationCount");
+        const doctorProfileImage = document.getElementById("doctorProfileImage");
+        const patientImage = document.getElementById("patientImage");
         const API = "http://localhost:8080/api";
-
         const token = localStorage.getItem("token");
-        const doctor = JSON.parse(localStorage.getItem("user") || "null");
-
-        const urlParams =
-            new URLSearchParams(window.location.search);
-
-        let patientId =
-            urlParams.get("patientId");
-
-        let appointmentId =
-            urlParams.get("appointmentId");
-
-        if (!appointmentId) {
-            appointmentId =
-                localStorage.getItem("appointmentId");
-        }
-
-        if (patientId) {
-            localStorage.setItem("patientId", patientId);
-        }
-
-        if (appointmentId) {
-            localStorage.setItem("appointmentId", appointmentId);
-        }
-
+        let doctor = null;
+        let patientId = null;
+        let appointmentId = null;
+        let appointments = [];
+        const urlParams = new URLSearchParams(window.location.search);
+        patientId = urlParams.get("patientId");
+        appointmentId = urlParams.get("appointmentId");
         if (!patientId) {
             patientId = localStorage.getItem("patientId");
         }
-
+        if (!appointmentId) {
+            appointmentId = localStorage.getItem("appointmentId");
+        }
+        if (patientId) {
+            localStorage.setItem("patientId", patientId);
+        }
+        if (appointmentId) {
+            localStorage.setItem("appointmentId", appointmentId);
+        }
         function setText(id, value) {
             const element = document.getElementById(id);
             if (element) {
-                element.innerText = value ?? "-";
+                element.innerText = value !== null && value !== undefined && value !== "" ? value : "-";
             }
         }
-
         function getHeaders() {
             const headers = {
                 "Content-Type": "application/json"
             };
-
             if (token) {
                 headers["Authorization"] = "Bearer " + token;
             }
-
             return headers;
         }
-
         async function loadPatient() {
             if (!patientId) {
                 alert("Patient ID not found. Please open prescription from an appointment.");
                 return;
             }
-
-            localStorage.setItem("patientId", patientId);
-
             try {
                 const response = await fetch(
-                    API + "/patients/" + patientId,
+                    API + "/patients/" + encodeURIComponent(patientId),
                     {
                         method: "GET",
                         headers: getHeaders()
                     }
                 );
-
                 if (!response.ok) {
                     throw new Error("Patient API Error: " + response.status);
                 }
-
                 const patient = await response.json();
-
-                console.log("Patient Data:", patient);
-
                 setText("patientName", patient.fullName);
                 setText("patientId", "P" + patient.id);
                 setText("patientGender", patient.gender);
                 setText("patientBloodGroup", patient.bloodGroup);
                 setText("patientWeight", patient.weight ? patient.weight + " Kg" : "-");
                 setText("patientHeight", patient.height ? patient.height + " cm" : "-");
-                setText("patientAllergies", patient.allergies || "None");
-                setText("patientPhone", patient.mobileNumber || "-");
-
-                if (patient.dob) {
-                    setText("patientAge", calculateAge(patient.dob) + " Years");
-                } else {
-                    setText("patientAge", "-");
-                }
-
+                setText("patientAllergies", patient.allergies || "-");
+                setText("patientPhone", patient.mobileNumber || patient.phone || "-");
+                setText("patientAge", patient.dob ? calculateAge(patient.dob) + " Years" : "-");
+                loadPatientImage(patient.id);
             } catch (error) {
                 console.error("Patient Load Error:", error);
                 alert("Unable to load patient data.");
             }
         }
-
-        async function loadDoctor() {
-            if (!doctor || !doctor.id) {
-                console.error("Doctor information not found.");
+        function loadPatientImage(id) {
+            if (!patientImage || !id) {
                 return;
             }
-
+            patientImage.src =
+                API + "/patients/" + encodeURIComponent(id) + "/image";
+            patientImage.onerror = function () {
+                this.onerror = null;
+                this.src = "../assets/profile.png";
+            };
+        }
+        async function loadDoctor() {
+            try {
+                const storedDoctor = localStorage.getItem("user");
+                if (storedDoctor) {
+                    doctor = JSON.parse(storedDoctor);
+                }
+            } catch (error) {
+                doctor = null;
+            }
+            if (!doctor || !doctor.id) {
+                return;
+            }
             try {
                 const response = await fetch(
                     API + "/doctors/" + doctor.id,
@@ -990,139 +991,117 @@
                         headers: getHeaders()
                     }
                 );
-
                 if (!response.ok) {
                     throw new Error("Doctor API Error: " + response.status);
                 }
-
-                const data = await response.json();
-
-                console.log("Doctor Data:", data);
-
+                doctor = await response.json();
+                localStorage.setItem("user", JSON.stringify(doctor));
                 setText(
                     "doctorName",
-                    data.doctorName || data.fullName || "Doctor"
+                    doctor.doctorName || doctor.fullName || "-"
                 );
-
                 setText(
                     "doctorSpecialization",
-                    data.specialization || "Specialization"
+                    doctor.specialization || "-"
                 );
-
+                if (doctor.profileImage) {
+                    const imageName = String(doctor.profileImage)
+                        .split("/")
+                        .pop()
+                        .split("\\")
+                        .pop();
+                    doctorProfileImage.src =
+                        "http://localhost:8080/profile-images/" +
+                        encodeURIComponent(imageName);
+                }
             } catch (error) {
                 console.error("Doctor Load Error:", error);
-
-                setText("doctorName", "Doctor");
-                setText("doctorSpecialization", "Specialization");
+                setText("doctorName", "-");
+                setText("doctorSpecialization", "-");
             }
+            doctorProfileImage.onerror = function () {
+                this.onerror = null;
+                this.src = "../assets/doctor.png";
+            };
         }
-
         async function loadAppointmentContext() {
-
-            if (!patientId || !appointmentId) {
-                console.warn("Patient ID or Appointment ID not found.");
+            if (!patientId) {
                 return;
             }
-
             try {
-
                 const response = await fetch(
-                    API + "/patients/appointments/" + patientId,
+                    API + "/patients/appointments/" + encodeURIComponent(patientId),
                     {
                         method: "GET",
                         headers: getHeaders()
                     }
                 );
-
                 if (!response.ok) {
-                    throw new Error(
-                        "Appointment API Error: " + response.status
+                    throw new Error("Appointment API Error: " + response.status);
+                }
+                appointments = await response.json();
+                if (!Array.isArray(appointments)) {
+                    appointments = [];
+                }
+                updateNotificationCount();
+                let currentAppointment = null;
+                if (appointmentId) {
+                    currentAppointment = appointments.find(function (appointment) {
+                        return Number(appointment.appointmentId) === Number(appointmentId);
+                    });
+                }
+                if (!currentAppointment && appointments.length > 0) {
+                    currentAppointment = [...appointments].sort(function (a, b) {
+                        return getAppointmentTimestamp(b) - getAppointmentTimestamp(a);
+                    })[0];
+                    appointmentId = currentAppointment.appointmentId;
+                    localStorage.setItem(
+                        "appointmentId",
+                        String(appointmentId)
                     );
                 }
-
-                const appointments = await response.json();
-
-                const currentAppointment = appointments.find(
-                    function (appointment) {
-                        return Number(appointment.appointmentId) ===
-                            Number(appointmentId);
-                    }
-                );
-
-                if (!currentAppointment) {
-                    console.warn(
-                        "Current appointment not found:",
-                        appointmentId
+                if (currentAppointment) {
+                    setText(
+                        "patientNextVisit",
+                        currentAppointment.appointmentDate || "-"
                     );
-                    return;
                 }
-
-                // Appointment date from backend
-                setText(
-                    "patientNextVisit",
-                    currentAppointment.appointmentDate || "-"
-                );
-
-                // Doctor of this appointment
-                if (currentAppointment.doctorId) {
-
-                    try {
-
-                        const doctorResponse = await fetch(
-                            API + "/doctors/" +
-                            currentAppointment.doctorId,
-                            {
-                                method: "GET",
-                                headers: getHeaders()
-                            }
-                        );
-
-                        if (doctorResponse.ok) {
-
-                            const appointmentDoctor =
-                                await doctorResponse.json();
-
-                            setText(
-                                "doctorName",
-                                appointmentDoctor.doctorName ||
-                                appointmentDoctor.fullName ||
-                                "Doctor"
-                            );
-
-                            setText(
-                                "doctorSpecialization",
-                                appointmentDoctor.specialization ||
-                                "Specialization"
-                            );
-                        }
-
-                    } catch (doctorError) {
-
-                        console.error(
-                            "Appointment Doctor Error:",
-                            doctorError
-                        );
-                    }
-                }
-
             } catch (error) {
-
-                console.error(
-                    "Appointment Context Error:",
-                    error
-                );
+                console.error("Appointment Context Error:", error);
+                setText("patientNextVisit", "-");
+                updateNotificationCount();
             }
         }
-
+        function updateNotificationCount() {
+            if (!notificationCount) {
+                return;
+            }
+            if (!appointments.length) {
+                notificationCount.innerText = "0";
+                return;
+            }
+            const pendingCount = appointments.filter(function (appointment) {
+                return String(appointment.status || "").toUpperCase() === "PENDING";
+            }).length;
+            notificationCount.innerText = String(pendingCount);
+        }
+        function getAppointmentTimestamp(appointment) {
+            const timestamp = new Date(
+                `${appointment.appointmentDate || ""}T${appointment.appointmentTime || "00:00:00"}`
+            ).getTime();
+            if (!Number.isNaN(timestamp)) {
+                return timestamp;
+            }
+            return Number(appointment.appointmentId || 0);
+        }
         function calculateAge(dob) {
             const birthDate = new Date(dob);
+            if (Number.isNaN(birthDate.getTime())) {
+                return "-";
+            }
             const today = new Date();
-
             let age = today.getFullYear() - birthDate.getFullYear();
-
-            const monthDifference =
-                today.getMonth() - birthDate.getMonth();
-
+            const monthDifference = today.getMonth() - birthDate.getMonth();
             if (
                 monthDifference < 0 ||
                 (monthDifference === 0 &&
@@ -1130,13 +1109,10 @@
             ) {
                 age--;
             }
-
             return age;
         }
-
         function addMedicineRow() {
             const row = document.createElement("tr");
-
             row.innerHTML = `
         <td>
             <input type="text" placeholder="Medicine Name">
@@ -1173,13 +1149,11 @@
             </button>
         </td>
     `;
-
             tableBody.appendChild(row);
             attachDeleteEvents();
         }
-
         function attachDeleteEvents() {
-            document.querySelectorAll(".remove-btn").forEach(button => {
+            document.querySelectorAll(".remove-btn").forEach(function (button) {
                 button.onclick = function () {
                     if (tableBody.rows.length > 1) {
                         this.closest("tr").remove();
@@ -1187,20 +1161,16 @@
                 };
             });
         }
-
         function getMedicines() {
             const medicines = [];
-
-            tableBody.querySelectorAll("tr").forEach(row => {
+            tableBody.querySelectorAll("tr").forEach(function (row) {
                 const inputs = row.querySelectorAll("input");
                 const selects = row.querySelectorAll("select");
-
                 const medicineName = inputs[0]?.value.trim() || "";
                 const dosage = inputs[1]?.value.trim() || "";
                 const frequency = selects[0]?.value || "";
                 const duration = selects[1]?.value || "";
                 const food = selects[2]?.value || "";
-
                 if (medicineName) {
                     medicines.push({
                         medicineName: medicineName,
@@ -1211,68 +1181,47 @@
                     });
                 }
             });
-
             return medicines;
         }
-
         async function savePrescription() {
             if (!patientId) {
                 alert("Patient ID not found.");
                 return;
             }
-
             if (!doctor || !doctor.id) {
                 alert("Doctor information not found.");
                 return;
             }
-
             if (!appointmentId) {
                 alert("Appointment ID not found. Please open prescription from an appointment.");
                 return;
             }
-
-            const diagnosis =
-                document.getElementById("diagnosis").value.trim();
-
+            const diagnosis = document.getElementById("diagnosis").value.trim();
             if (!diagnosis) {
                 alert("Please enter diagnosis.");
                 return;
             }
-
             const prescription = {
                 patientId: Number(patientId),
                 doctorId: Number(doctor.id),
                 appointmentId: Number(appointmentId),
                 diagnosis: diagnosis,
-                symptoms:
-                    document.getElementById("symptoms").value.trim(),
-                bloodPressure:
-                    document.getElementById("bloodPressure").value.trim(),
-                heartRate:
-                    document.getElementById("heartRate").value.trim(),
-                doctorAdvice:
-                    document.getElementById("doctorAdvice").value.trim(),
-                labTests:
-                    document.getElementById("labTests").value.trim(),
-                specialInstructions:
-                    document.getElementById("specialInstructions").value.trim(),
-                prescriptionDate:
-                    document.getElementById("prescriptionDate").value,
-                followUpDate:
-                    document.getElementById("followUpDate").value || null
+                symptoms: document.getElementById("symptoms").value.trim(),
+                bloodPressure: document.getElementById("bloodPressure").value.trim(),
+                heartRate: document.getElementById("heartRate").value.trim(),
+                doctorAdvice: document.getElementById("doctorAdvice").value.trim(),
+                labTests: document.getElementById("labTests").value.trim(),
+                specialInstructions: document.getElementById("specialInstructions").value.trim(),
+                prescriptionDate: document.getElementById("prescriptionDate").value,
+                followUpDate: document.getElementById("followUpDate").value || null
             };
-
-            const medicines = getMedicines();
-
             const requestData = {
                 prescription: prescription,
-                medicines: medicines
+                medicines: getMedicines()
             };
-
             saveBtn.disabled = true;
             saveBtn.innerHTML =
                 '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-
             try {
                 const response = await fetch(
                     API + "/prescriptions",
@@ -1282,127 +1231,132 @@
                         body: JSON.stringify(requestData)
                     }
                 );
-
                 const responseText = await response.text();
-
                 if (!response.ok) {
                     console.error(
                         "Prescription API Error:",
                         response.status,
                         responseText
                     );
-
                     throw new Error(
                         "Prescription save failed: " +
                         response.status
                     );
                 }
-
-                const result = JSON.parse(responseText);
-
-                console.log(
-                    "Prescription Saved:",
-                    result
-                );
-
-                alert(
-                    "Prescription saved successfully."
-                );
-
+                let result = null;
+                if (responseText) {
+                    try {
+                        result = JSON.parse(responseText);
+                    } catch (error) {
+                        result = responseText;
+                    }
+                }
+                console.log("Prescription Saved:", result);
+                alert("Prescription saved successfully.");
                 localStorage.removeItem("prescriptionDraft");
-
             } catch (error) {
-                console.error(
-                    "Prescription Save Error:",
-                    error
-                );
-
-                alert(
-                    "Prescription not saved. Please try again."
-                );
+                console.error("Prescription Save Error:", error);
+                alert("Prescription not saved. Please try again.");
             } finally {
                 saveBtn.disabled = false;
                 saveBtn.innerHTML =
                     '<i class="fa-solid fa-floppy-disk"></i> Save Prescription';
             }
         }
-
-        addBtn.onclick = addMedicineRow;
-
-        saveBtn.onclick = savePrescription;
-
-        printBtn.onclick = () => {
-            window.print();
-        };
-
-        downloadBtn.onclick = () => {
-            alert("PDF generation will be connected later.");
-        };
-
-        clearBtn.onclick = () => {
+        function clearPrescription() {
             if (!confirm("Clear complete prescription?")) {
                 return;
             }
-
             document.querySelectorAll(
                 "#diagnosis,#symptoms,#bloodPressure,#heartRate"
-            ).forEach(input => {
+            ).forEach(function (input) {
                 input.value = "";
             });
-
             document.querySelectorAll(
                 "#doctorAdvice,#labTests,#specialInstructions"
-            ).forEach(area => {
+            ).forEach(function (area) {
                 area.value = "";
             });
-
             document.getElementById("followUpDate").value = "";
-
             while (tableBody.rows.length > 1) {
                 tableBody.deleteRow(1);
             }
-
             const firstRow = tableBody.rows[0];
-
             if (firstRow) {
-                firstRow.querySelectorAll("input").forEach(input => {
+                firstRow.querySelectorAll("input").forEach(function (input) {
                     input.value = "";
                 });
+                firstRow.querySelectorAll("select").forEach(function (select) {
+                    select.selectedIndex = 0;
+                });
             }
-        };
+        }
+        if (addBtn) {
+            addBtn.addEventListener("click", addMedicineRow);
+        }
+        if (saveBtn) {
+            saveBtn.addEventListener("click", savePrescription);
+        }
+        if (clearBtn) {
+            clearBtn.addEventListener("click", clearPrescription);
+        }
+        if (printBtn) {
+            printBtn.addEventListener("click", function () {
+                window.print();
+            });
+        }
+        if (downloadBtn) {
+            downloadBtn.addEventListener("click", function () {
+                alert("PDF generation will be connected later.");
+            });
+        }
+        if (notificationButton) {
+            notificationButton.addEventListener("click", function () {
+                const count = Number(
+                    notificationCount?.textContent || 0
+                );
 
-        menuBtn.onclick = () => {
-            if (window.innerWidth <= 900) {
-                sidebar.style.left =
-                    sidebar.style.left === "0px"
-                        ? "-270px"
-                        : "0";
-            }
-        };
-
-        window.addEventListener("resize", () => {
+                if (count > 0) {
+                    alert(
+                        `${count} pending appointment(s) available.`
+                    );
+                } else {
+                    alert(
+                        "No pending appointments."
+                    );
+                }
+            });
+        }
+        if (menuBtn) {
+            menuBtn.addEventListener("click", function () {
+                if (window.innerWidth <= 900) {
+                    sidebar.style.left =
+                        sidebar.style.left === "0px"
+                            ? "-270px"
+                            : "0";
+                }
+            });
+        }
+        window.addEventListener("resize", function () {
             if (window.innerWidth > 900) {
                 sidebar.style.left = "0";
             } else {
                 sidebar.style.left = "-270px";
             }
         });
-
-        window.addEventListener("load", async () => {
+        window.addEventListener("load", async function () {
             sidebar.style.left =
                 window.innerWidth <= 900 ? "-270px" : "0";
-
-            dateInput.value =
-                new Date().toISOString().split("T")[0];
-
+            if (dateInput) {
+                dateInput.value =
+                    new Date().toISOString().split("T")[0];
+            }
             await loadDoctor();
             await loadPatient();
             await loadAppointmentContext();
-
             attachDeleteEvents();
         });
     </script>
-
 </body>
 
 </html>

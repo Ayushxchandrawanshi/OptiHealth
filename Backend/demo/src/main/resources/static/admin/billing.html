@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
     <style>
         * {
@@ -127,12 +127,12 @@
         }
 
         .topbar {
-            height: 80px;
+            min-height: 80px;
             background: #fff;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 35px;
+            gap: 25px;
+            padding: 15px 35px;
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
@@ -143,11 +143,14 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            flex: 0 0 360px;
+            min-width: 330px;
         }
 
         .menu-btn {
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 45px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -157,19 +160,33 @@
             font-size: 20px;
         }
 
+        .page-title {
+            min-width: 0;
+        }
+
         .page-title h2 {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 700;
+            line-height: 1.2;
+            margin: 0;
+            white-space: nowrap;
         }
 
         .page-title p {
             font-size: 14px;
             color: var(--text);
+            margin: 4px 0 0;
+            white-space: nowrap;
+        }
+
+        .topbar .search-box {
+            width: 220px;
+            min-width: 220px;
+            height: 48px;
+            flex-shrink: 0;
         }
 
         .search-box {
-            width: 320px;
-            height: 48px;
             display: flex;
             align-items: center;
             padding: 0 18px;
@@ -195,6 +212,8 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            margin-left: auto;
+            flex-shrink: 0;
         }
 
         .notify {
@@ -2502,6 +2521,16 @@
                 return;
             }
 
+            if (
+                !window.jspdf ||
+                !window.jspdf.jsPDF
+            ) {
+                alert(
+                    "Billing Invoice is not downloaded"
+                );
+                return;
+            }
+
             const {
                 jsPDF
             } = window.jspdf;
@@ -2580,19 +2609,19 @@
             );
 
             doc.text(
-                `Total Amount: ₹${total.toLocaleString("en-IN")}`,
+                `Total Amount: Rs. ${total.toLocaleString("en-IN")}`,
                 20,
                 95
             );
 
             doc.text(
-                `Paid Amount: ₹${paid.toLocaleString("en-IN")}`,
+                `Paid Amount: Rs. ${paid.toLocaleString("en-IN")}`,
                 20,
                 105
             );
 
             doc.text(
-                `Due Amount: ₹${due.toLocaleString("en-IN")}`,
+                `Due Amount: Rs. ${due.toLocaleString("en-IN")}`,
                 20,
                 115
             );

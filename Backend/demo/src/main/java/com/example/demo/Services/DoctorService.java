@@ -1,5 +1,9 @@
 package com.example.demo.Services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,6 +13,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.DoctorAppointmentDTO;
 import com.example.demo.Models.AppointmentModel;
@@ -329,5 +334,101 @@ public class DoctorService {
 
         return doctorRepo.save(
                 existingDoctor);
+    }
+
+    public DoctorModel uploadProfileImage(
+            Long doctorId,
+            MultipartFile file)
+            throws IOException {
+
+        DoctorModel doctor
+                = doctorRepo.findById(doctorId)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "Doctor not found"
+                                )
+                        );
+
+        if (file == null || file.isEmpty()) {
+            throw new RuntimeException(
+                    "Image file is required"
+            );
+        }
+
+        String originalFileName
+                = file.getOriginalFilename();
+
+        if (originalFileName == null
+                || originalFileName.isBlank()) {
+            throw new RuntimeException(
+                    "Invalid image file"
+            );
+        }
+
+        String extension = "";
+
+        int dotIndex
+                = originalFileName.lastIndexOf(".");
+
+        if (dotIndex >= 0) {
+            extension
+                    = originalFileName
+                            .substring(dotIndex)
+                            .toLowerCase();
+        }
+
+        if (!extension.equals(".jpg")
+                && !extension.equals(".jpeg")
+                && !extension.equals(".png")
+                && !extension.equals(".webp")) {
+            throw new RuntimeException(
+                    "Only JPG, JPEG, PNG and WEBP images are allowed"
+            );
+        }
+
+        Path uploadDirectory
+                = Paths.get(
+                        "uploads",
+                        "profile-images"
+                );
+
+        Files.createDirectories(
+                uploadDirectory
+        );
+
+        if (doctor.getProfileImage() != null
+                && !doctor.getProfileImage().isBlank()) {
+            Path oldFile
+                    = uploadDirectory.resolve(
+                            doctor.getProfileImage()
+                    );
+
+            Files.deleteIfExists(
+                    oldFile
+            );
+        }
+
+        String fileName
+                = "doctor-"
+                + doctorId
+                + extension;
+
+        Path filePath
+                = uploadDirectory.resolve(
+                        fileName
+                );
+
+        Files.write(
+                filePath,
+                file.getBytes()
+        );
+
+        doctor.setProfileImage(
+                fileName
+        );
+
+        return doctorRepo.save(
+                doctor
+        );
     }
 }

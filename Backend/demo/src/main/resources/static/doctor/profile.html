@@ -2,14 +2,17 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Profile | OptiHealth</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
@@ -26,6 +29,8 @@
             --success: #16a34a;
             --warning: #f59e0b;
             --danger: #dc2626;
+            --blue: #2563eb;
+            --purple: #7c3aed;
             --dark: #0f172a;
             --text: #64748b;
             --border: #e2e8f0;
@@ -55,6 +60,7 @@
             background: linear-gradient(180deg, #0f172a, #0f766e);
             color: #fff;
             overflow-y: auto;
+            z-index: 1000;
         }
 
         .logo {
@@ -94,12 +100,13 @@
             border-radius: 14px;
             text-decoration: none;
             color: #fff;
-            transition: .3s;
+            transition: .3s ease;
         }
 
         .sidebar nav a:hover,
         .sidebar nav a.active {
             background: rgba(255, 255, 255, .15);
+            transform: translateX(4px);
         }
 
         .sidebar nav i {
@@ -131,6 +138,7 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            min-width: 0;
         }
 
         .menu-btn {
@@ -143,11 +151,23 @@
             border-radius: 14px;
             cursor: pointer;
             font-size: 20px;
+            flex-shrink: 0;
+            transition: .3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(20, 184, 166, .15);
+        }
+
+        .page-title {
+            min-width: 0;
         }
 
         .page-title h2 {
             font-size: 30px;
             font-weight: 700;
+            white-space: nowrap;
         }
 
         .page-title p {
@@ -159,6 +179,7 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            flex-shrink: 0;
         }
 
         .notify {
@@ -171,14 +192,21 @@
             border-radius: 50%;
             position: relative;
             cursor: pointer;
+            transition: .3s ease;
+        }
+
+        .notify:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(20, 184, 166, .15);
         }
 
         .notify span {
             position: absolute;
             top: 5px;
             right: 5px;
-            width: 18px;
+            min-width: 18px;
             height: 18px;
+            padding: 0 4px;
             border-radius: 50%;
             background: var(--danger);
             color: #fff;
@@ -200,15 +228,22 @@
             border-radius: 50%;
             object-fit: cover;
             background: #ddd;
+            transition: .3s ease;
+        }
+
+        .profile img:hover {
+            transform: scale(1.05);
         }
 
         .profile h4 {
             font-size: 16px;
+            white-space: nowrap;
         }
 
         .profile p {
             font-size: 13px;
             color: var(--text);
+            white-space: nowrap;
         }
 
         .content {
@@ -223,6 +258,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow);
+            animation: fadeUp .6s ease both;
         }
 
         .hero::before {
@@ -234,6 +270,7 @@
             height: 220px;
             border-radius: 50%;
             background: rgba(255, 255, 255, .08);
+            animation: floatCircle 6s ease-in-out infinite;
         }
 
         .hero::after {
@@ -245,6 +282,7 @@
             height: 180px;
             border-radius: 50%;
             background: rgba(255, 255, 255, .08);
+            animation: floatCircle 7s ease-in-out infinite reverse;
         }
 
         .hero * {
@@ -265,18 +303,22 @@
 
         .profile-wrapper {
             margin-top: 30px;
-            display: grid;
-            grid-template-columns: minmax(300px, 340px) minmax(0, 1fr);
-            gap: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
             width: 100%;
-            align-items: start;
+        }
+
+        #profileForm {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            width: 100%;
         }
 
         .left-panel,
         .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+            display: contents;
         }
 
         .card {
@@ -287,24 +329,38 @@
             width: 100%;
             max-width: 100%;
             overflow: hidden;
+            animation: fadeUp .6s ease both;
+            transition: .35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 48px rgba(15, 23, 42, .11);
         }
 
         .profile-card {
             text-align: center;
+            background: linear-gradient(180deg, #ffffff, #f8fffe);
         }
 
         .profile-card img {
-            width: 140px;
-            height: 140px;
+            width: 145px;
+            height: 145px;
             border-radius: 50%;
             object-fit: cover;
             background: #ddd;
-            border: 5px solid #ecfeff;
+            border: 6px solid #ecfeff;
             margin-bottom: 18px;
+            transition: .4s ease;
+            box-shadow: 0 12px 28px rgba(15, 118, 110, .12);
+        }
+
+        .profile-card img:hover {
+            transform: scale(1.05);
         }
 
         .profile-card h2 {
-            font-size: 25px;
+            font-size: 27px;
             margin-bottom: 6px;
         }
 
@@ -320,12 +376,18 @@
             justify-content: center;
             gap: 10px;
             padding: 12px 22px;
-            background: #0f766e;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
             color: #fff;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
+            transition: .3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(15, 118, 110, .20);
         }
 
         .upload-btn input {
@@ -333,22 +395,38 @@
         }
 
         .info-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            margin-top: 24px;
         }
 
         .info-list div {
             display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
+            flex-direction: column;
+            gap: 7px;
+            padding: 16px;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            text-align: left;
+            transition: .3s ease;
         }
 
-        .info-list div:last-child {
-            border: none;
+        .info-list div:hover {
+            transform: translateY(-3px);
+            border-color: #99e6dd;
+            background: #f0fdfa;
+        }
+
+        .info-list span {
+            font-size: 12px;
+            color: var(--text);
+        }
+
+        .info-list strong {
+            font-size: 14px;
+            word-break: break-word;
         }
 
         .form-grid {
@@ -378,23 +456,31 @@
             border-radius: 12px;
             outline: none;
             font-size: 14px;
-            transition: .3s;
-            resize: none;
+            background: #fff;
+            transition: .3s ease;
+        }
+
+        .input-group input:hover,
+        .input-group select:hover,
+        .input-group textarea:hover {
+            border-color: #a7deda;
         }
 
         .input-group input:focus,
         .input-group select:focus,
         .input-group textarea:focus {
-            border-color: #0f766e;
-            box-shadow: 0 0 0 3px rgba(20, 184, 166, .15);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, .12);
+            transform: translateY(-1px);
         }
 
         .input-group textarea {
             min-height: 120px;
+            resize: vertical;
         }
 
         .full-width {
-            grid-column: 1/-1;
+            grid-column: 1 / -1;
         }
 
         .password-box {
@@ -407,6 +493,44 @@
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            background: #ecfeff;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            flex-shrink: 0;
+            transition: .3s ease;
+        }
+
+        .card:hover .section-icon {
+            transform: scale(1.05);
+            background: #ccfbf1;
+        }
+
+        .section-header h3 {
+            font-size: 22px;
+        }
+
+        .section-header p {
+            margin-top: 3px;
+            color: var(--text);
+            font-size: 13px;
         }
 
         .action-buttons {
@@ -423,28 +547,76 @@
             cursor: pointer;
             font-weight: 600;
             color: #fff;
-            transition: .3s;
+            transition: .3s ease;
+        }
+
+        .action-buttons button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, .12);
         }
 
         .save-btn {
-            background: #16a34a;
+            background: linear-gradient(135deg, #15803d, #22c55e);
         }
 
         .cancel-btn {
-            background: #dc2626;
+            background: linear-gradient(135deg, #b91c1c, #ef4444);
         }
 
         .password-btn {
-            background: #0f766e;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
         }
 
-        .action-buttons button:hover,
-        .upload-btn:hover {
-            transform: translateY(-3px);
+        .card:nth-child(1) {
+            animation-delay: .05s;
         }
 
-        @media(max-width:1200px) {
-            .profile-wrapper {
+        .card:nth-child(2) {
+            animation-delay: .12s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: .19s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: .26s;
+        }
+
+        .card:nth-child(5) {
+            animation-delay: .33s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatCircle {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-15px, 15px);
+            }
+        }
+
+        @media(max-width:1100px) {
+            .info-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .password-box {
                 grid-template-columns: 1fr;
             }
         }
@@ -463,6 +635,10 @@
                 padding: 20px;
             }
 
+            .topbar {
+                padding: 0 20px;
+            }
+
             .hero {
                 padding: 28px;
             }
@@ -475,8 +651,8 @@
         @media(max-width:768px) {
 
             .form-grid,
-            .password-box,
-            .social-grid {
+            .social-grid,
+            .info-list {
                 grid-template-columns: 1fr;
             }
 
@@ -530,25 +706,50 @@
             <p class="portal">Doctor Portal</p>
 
             <nav>
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
 
-                <a href="dashboard.html"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
+                <a href="appointments.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
 
-                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+                <a href="patient-details.html">
+                    <i class="fa-solid fa-hospital-user"></i>
+                    <span>Patients</span>
+                </a>
 
-                <a href="patient-details.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
+                <a href="prescription.html">
+                    <i class="fa-solid fa-prescription"></i>
+                    <span>Prescriptions</span>
+                </a>
 
-                <a href="prescription.html"><i class="fa-solid fa-prescription"></i><span>Prescriptions</span></a>
+                <a href="medical-history.html">
+                    <i class="fa-solid fa-file-waveform"></i>
+                    <span>Medical History</span>
+                </a>
 
-                <a href="medical-history.html"><i class="fa-solid fa-file-waveform"></i><span>Medical History</span></a>
+                <a href="schedule.html">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Schedule</span>
+                </a>
 
-                <a href="schedule.html"><i class="fa-solid fa-clock"></i><span>Schedule</span></a>
+                <a href="#" class="active">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
 
-                <a href="#" class="active"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
 
-                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
-
-                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
-
+                <a href="../auth/login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
             </nav>
 
         </aside>
@@ -572,13 +773,14 @@
 
                 <div class="right-top">
 
-                    <div class="notify">
+                    <div class="notify" id="notificationButton">
                         <i class="fa-regular fa-bell"></i>
-                        <span>3</span>
+                        <span id="notificationCount">0</span>
                     </div>
 
                     <div class="profile">
-                        <img src="../assets/doctor.png" alt="">
+                        <img id="topDoctorProfileImage" src="../assets/doctor.png" alt="Doctor">
+
                         <div>
                             <h4 id="topDoctorName">--</h4>
                             <p id="topDoctorSpecialization">--</p>
@@ -592,19 +794,39 @@
             <main class="content">
 
                 <section class="hero">
+
                     <h1>Profile Management</h1>
-                    <p>Update your profile, qualifications, specialization, contact details, password and clinic
-                        information from one place.</p>
+
+                    <p>
+                        Update your professional information, personal details,
+                        contact information and other profile settings from one place.
+                    </p>
+
                 </section>
 
                 <div class="profile-wrapper">
+
                     <div class="left-panel">
 
                         <div class="card profile-card">
 
-                            <img src="../assets/doctor.png" id="profilePreview" alt="Doctor">
+                            <div class="section-header">
+
+                                <div class="section-icon">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </div>
+
+                                <div>
+                                    <h3>Doctor Profile</h3>
+                                    <p>Your current profile information</p>
+                                </div>
+
+                            </div>
+
+                            <img id="profilePreview" src="../assets/doctor.png" alt="Doctor">
 
                             <h2 id="doctorName">--</h2>
+
                             <p id="doctorSpecialization">--</p>
 
                             <label class="upload-btn">
@@ -614,26 +836,83 @@
                             </label>
 
                             <div class="info-list">
-                                <div><span>Doctor ID</span><strong id="doctorId">--</strong></div>
-                                <div><span>Department</span><strong id="doctorDepartment">--</strong></div>
-                                <div><span>Experience</span><strong id="doctorExperience">--</strong></div>
-                                <div><span>Qualification</span><strong id="doctorQualification">--</strong></div>
-                                <div><span>Registration No.</span><strong id="doctorRegistration">--</strong></div>
-                                <div><span>Status</span><strong id="doctorStatus">--</strong></div>
+
+                                <div>
+                                    <span>Doctor ID</span>
+                                    <strong id="doctorId">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Department</span>
+                                    <strong id="doctorDepartment">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Experience</span>
+                                    <strong id="doctorExperience">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Qualification</span>
+                                    <strong id="doctorQualification">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Registration No.</span>
+                                    <strong id="doctorRegistration">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Status</span>
+                                    <strong id="doctorStatus">--</strong>
+                                </div>
+
                             </div>
 
                         </div>
 
                         <div class="card">
 
-                            <h3 style="margin-bottom:20px;">Professional Information</h3>
+                            <div class="section-header">
+
+                                <div class="section-icon">
+                                    <i class="fa-solid fa-briefcase-medical"></i>
+                                </div>
+
+                                <div>
+                                    <h3>Professional Information</h3>
+                                    <p>Professional details available in the database</p>
+                                </div>
+
+                            </div>
 
                             <div class="info-list">
-                                <div><span>Consultation Fee</span><strong id="doctorFee">--</strong></div>
-                                <div><span>Patients Served</span><strong id="patientsServed">--</strong></div>
-                                <div><span>Appointments Today</span><strong id="appointmentsToday">--</strong></div>
-                                <div><span>Rating</span><strong id="doctorRating">--</strong></div>
-                                <div><span>Languages</span><strong id="doctorLanguages">--</strong></div>
+
+                                <div>
+                                    <span>Consultation Fee</span>
+                                    <strong id="doctorFee">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Patients Served</span>
+                                    <strong id="patientsServed">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Appointments Today</span>
+                                    <strong id="appointmentsToday">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Rating</span>
+                                    <strong id="doctorRating">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Languages</span>
+                                    <strong id="doctorLanguages">--</strong>
+                                </div>
+
                             </div>
 
                         </div>
@@ -641,11 +920,23 @@
                     </div>
 
                     <form id="profileForm">
+
                         <div class="right-panel">
 
                             <div class="card">
 
-                                <h3 style="margin-bottom:22px;">Personal Information</h3>
+                                <div class="section-header">
+
+                                    <div class="section-icon">
+                                        <i class="fa-solid fa-id-card"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3>Personal Information</h3>
+                                        <p>Update your personal and professional details</p>
+                                    </div>
+
+                                </div>
 
                                 <div class="form-grid">
 
@@ -672,20 +963,25 @@
                                     <div class="input-group">
                                         <label>Gender</label>
                                         <select id="doctorGender">
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Other</option>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                     </div>
 
                                     <div class="input-group">
                                         <label>Blood Group</label>
                                         <select id="doctorBloodGroup">
-                                            <option>O+</option>
-                                            <option>A+</option>
-                                            <option>B+</option>
-                                            <option>AB+</option>
-                                            <option>O-</option>
+                                            <option value="">Select Blood Group</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
                                         </select>
                                     </div>
 
@@ -701,12 +997,12 @@
 
                                     <div class="input-group">
                                         <label>Experience</label>
-                                        <input type="number" id="doctorExperienceInput">
+                                        <input type="number" id="doctorExperienceInput" min="0">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Consultation Fee (₹)</label>
-                                        <input type="number" id="doctorFeeInput">
+                                        <input type="number" id="doctorFeeInput" min="0">
                                     </div>
 
                                     <div class="input-group full-width">
@@ -725,7 +1021,18 @@
 
                             <div class="card">
 
-                                <h3 style="margin-bottom:22px;">Social Links</h3>
+                                <div class="section-header">
+
+                                    <div class="section-icon">
+                                        <i class="fa-solid fa-link"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3>Social Links</h3>
+                                        <p>Manage your professional online presence</p>
+                                    </div>
+
+                                </div>
 
                                 <div class="social-grid">
 
@@ -755,23 +1062,34 @@
 
                             <div class="card">
 
-                                <h3 style="margin-bottom:22px;">Change Password</h3>
+                                <div class="section-header">
+
+                                    <div class="section-icon">
+                                        <i class="fa-solid fa-lock"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3>Change Password</h3>
+                                        <p>Update your account password securely</p>
+                                    </div>
+
+                                </div>
 
                                 <div class="password-box">
 
                                     <div class="input-group">
                                         <label>Current Password</label>
-                                        <input type="password">
+                                        <input type="password" id="currentPassword">
                                     </div>
 
                                     <div class="input-group">
                                         <label>New Password</label>
-                                        <input type="password">
+                                        <input type="password" id="newPassword">
                                     </div>
 
                                     <div class="input-group">
                                         <label>Confirm Password</label>
-                                        <input type="password">
+                                        <input type="password" id="confirmPassword">
                                     </div>
 
                                 </div>
@@ -798,7 +1116,9 @@
                             </div>
 
                         </div>
+
                     </form>
+
                 </div>
 
             </main>
@@ -808,6 +1128,7 @@
     </div>
 
     <script>
+
         const API_BASE_URL = "http://localhost:8080";
 
         const menuBtn = document.querySelector(".menu-btn");
@@ -818,6 +1139,9 @@
         const passwordBtn = document.querySelector(".password-btn");
         const cancelBtn = document.querySelector(".cancel-btn");
         const profileForm = document.getElementById("profileForm");
+        const notificationButton = document.getElementById("notificationButton");
+        const notificationCount = document.getElementById("notificationCount");
+        const topDoctorProfileImage = document.getElementById("topDoctorProfileImage");
 
         const token = localStorage.getItem("token");
 
@@ -825,91 +1149,78 @@
         let doctorData = null;
 
         const fullNameInput =
-            document.getElementById("doctorFullName") ||
-            document.querySelector('input[type="text"]');
+            document.getElementById("doctorFullName");
 
         const emailInput =
-            document.getElementById("doctorEmail") ||
-            document.querySelector('input[type="email"]');
+            document.getElementById("doctorEmail");
 
         const mobileInput =
-            document.getElementById("doctorMobile") ||
-            document.querySelector('input[type="tel"]');
+            document.getElementById("doctorMobile");
 
         const dobInput =
-            document.getElementById("doctorDob") ||
-            document.querySelector('input[type="date"]');
+            document.getElementById("doctorDob");
 
         const genderInput =
-            document.getElementById("doctorGender") ||
-            document.querySelectorAll("select")[0];
+            document.getElementById("doctorGender");
 
         const bloodGroupInput =
-            document.getElementById("doctorBloodGroup") ||
-            document.querySelectorAll("select")[1];
+            document.getElementById("doctorBloodGroup");
 
         const qualificationInput =
-            document.getElementById("doctorQualificationInput") ||
-            document.querySelectorAll('input[type="text"]')[1];
+            document.getElementById("doctorQualificationInput");
 
         const specializationInput =
-            document.getElementById("doctorSpecializationInput") ||
-            document.querySelectorAll('input[type="text"]')[2];
+            document.getElementById("doctorSpecializationInput");
 
         const experienceInput =
-            document.getElementById("doctorExperienceInput") ||
-            document.querySelectorAll('input[type="number"]')[0];
+            document.getElementById("doctorExperienceInput");
 
         const feeInput =
-            document.getElementById("doctorFeeInput") ||
-            document.querySelectorAll('input[type="number"]')[1];
+            document.getElementById("doctorFeeInput");
 
         const addressInput =
-            document.getElementById("doctorAddress") ||
-            document.querySelectorAll("textarea")[0];
+            document.getElementById("doctorAddress");
 
         const descriptionInput =
-            document.getElementById("doctorDescription") ||
-            document.querySelectorAll("textarea")[1];
+            document.getElementById("doctorDescription");
 
         const linkedinInput =
-            document.getElementById("doctorLinkedin") ||
-            document.querySelectorAll('input[type="url"]')[0];
+            document.getElementById("doctorLinkedin");
 
         const websiteInput =
-            document.getElementById("doctorWebsite") ||
-            document.querySelectorAll('input[type="url"]')[1];
+            document.getElementById("doctorWebsite");
 
         const facebookInput =
-            document.getElementById("doctorFacebook") ||
-            document.querySelectorAll('input[type="url"]')[2];
+            document.getElementById("doctorFacebook");
 
         const instagramInput =
-            document.getElementById("doctorInstagram") ||
-            document.querySelectorAll('input[type="url"]')[3];
+            document.getElementById("doctorInstagram");
 
         const currentPasswordInput =
-            document.querySelectorAll('input[type="password"]')[0];
+            document.getElementById("currentPassword");
 
         const newPasswordInput =
-            document.querySelectorAll('input[type="password"]')[1];
+            document.getElementById("newPassword");
 
         const confirmPasswordInput =
-            document.querySelectorAll('input[type="password"]')[2];
+            document.getElementById("confirmPassword");
 
         function getHeaders() {
+
             const headers = {
                 "Content-Type": "application/json"
             };
 
             if (token) {
-                headers["Authorization"] = "Bearer " + token;
+                headers["Authorization"] =
+                    "Bearer " + token;
             }
 
             return headers;
         }
 
         function getDoctorId() {
+
             const storedDoctorId =
                 localStorage.getItem("doctorId");
 
@@ -918,45 +1229,63 @@
             }
 
             try {
+
                 const user =
-                    JSON.parse(localStorage.getItem("user"));
+                    JSON.parse(
+                        localStorage.getItem("user")
+                    );
 
                 if (user) {
                     return (
                         user.id ||
                         user.doctorId ||
                         user.data?.id ||
-                        user.data?.doctorId
+                        user.data?.doctorId ||
+                        null
                     );
                 }
+
             } catch (error) {
+
                 console.error(
                     "User data error:",
                     error
                 );
+
             }
 
             try {
+
                 const doctor =
-                    JSON.parse(localStorage.getItem("doctor"));
+                    JSON.parse(
+                        localStorage.getItem("doctor")
+                    );
 
                 if (doctor) {
                     return (
                         doctor.id ||
-                        doctor.doctorId
+                        doctor.doctorId ||
+                        null
                     );
                 }
+
             } catch (error) {
+
                 console.error(
                     "Doctor data error:",
                     error
                 );
+
             }
 
             return null;
         }
 
-        function setElementValue(element, value) {
+        function setElementValue(
+            element,
+            value
+        ) {
+
             if (!element) {
                 return;
             }
@@ -968,7 +1297,12 @@
                     : "";
         }
 
-        function setText(id, value, fallback = "--") {
+        function setText(
+            id,
+            value,
+            fallback = "--"
+        ) {
+
             const element =
                 document.getElementById(id);
 
@@ -985,6 +1319,7 @@
         }
 
         function sanitizeMobile(value) {
+
             if (
                 value === null ||
                 value === undefined ||
@@ -994,7 +1329,10 @@
             }
 
             const digits =
-                String(value).replace(/\D/g, "");
+                String(value).replace(
+                    /\D/g,
+                    ""
+                );
 
             if (!digits) {
                 return null;
@@ -1008,7 +1346,119 @@
             return Number(lastTen);
         }
 
-        function showDoctorData(doctor) {
+        async function uploadProfileImageToBackend(
+            doctorId,
+            file
+        ) {
+
+            const formData =
+                new FormData();
+
+            formData.append(
+                "file",
+                file
+            );
+
+            const headers = {};
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
+            }
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/doctors/${encodeURIComponent(doctorId)}/profile-image`,
+                    {
+                        method: "POST",
+                        headers: headers,
+                        body: formData
+                    }
+                );
+
+            const responseText =
+                await response.text();
+
+            if (!response.ok) {
+
+                console.error(
+                    "Profile Image Upload Error:",
+                    response.status,
+                    responseText
+                );
+
+                throw new Error(
+                    "Profile image upload failed."
+                );
+            }
+
+            return responseText
+                ? JSON.parse(responseText)
+                : null;
+        }
+
+        function loadDoctorImage(profileImage) {
+
+            if (!profileImage) {
+
+                if (profilePreview) {
+                    profilePreview.src =
+                        "../assets/doctor.png";
+                }
+
+                if (topDoctorProfileImage) {
+                    topDoctorProfileImage.src =
+                        "../assets/doctor.png";
+                }
+
+                return;
+            }
+
+            const imageName =
+                String(profileImage)
+                    .split("/")
+                    .pop()
+                    .split("\\")
+                    .pop();
+
+            const imageUrl =
+                `${API_BASE_URL}/profile-images/${encodeURIComponent(imageName)}`;
+
+            if (profilePreview) {
+
+                profilePreview.src =
+                    imageUrl;
+
+                profilePreview.onerror =
+                    function () {
+
+                        this.onerror = null;
+
+                        this.src =
+                            "../assets/doctor.png";
+                    };
+            }
+
+            if (topDoctorProfileImage) {
+
+                topDoctorProfileImage.src =
+                    imageUrl;
+
+                topDoctorProfileImage.onerror =
+                    function () {
+
+                        this.onerror = null;
+
+                        this.src =
+                            "../assets/doctor.png";
+                    };
+            }
+        }
+
+        function showDoctorData(
+            doctor
+        ) {
+
             doctorData = doctor;
 
             setText(
@@ -1042,6 +1492,8 @@
 
             setText(
                 "doctorDepartment",
+                doctor.department?.departmentName ||
+                doctor.departmentName ||
                 doctor.specialization
             );
 
@@ -1065,33 +1517,23 @@
 
             setText(
                 "doctorStatus",
-                "Active"
+                doctor.status || "Active"
             );
 
             const feeText =
                 doctor.fee !== null &&
                     doctor.fee !== undefined
-                    ? "₹" + doctor.fee
+                    ? "₹" +
+                    Number(
+                        doctor.fee
+                    ).toLocaleString(
+                        "en-IN"
+                    )
                     : "--";
 
             setText(
                 "doctorFee",
                 feeText
-            );
-
-            setText(
-                "patientsServed",
-                "N/A"
-            );
-
-            setText(
-                "appointmentsToday",
-                "N/A"
-            );
-
-            setText(
-                "doctorRating",
-                "N/A"
             );
 
             setText(
@@ -1111,7 +1553,8 @@
 
             setElementValue(
                 mobileInput,
-                doctor.mobileNumber
+                doctor.mobileNumber ||
+                doctor.phone
             );
 
             setElementValue(
@@ -1178,20 +1621,23 @@
                 instagramInput,
                 doctor.instagram
             );
+
+            loadDoctorImage(
+                doctor.profileImage
+            );
         }
 
-        async function loadDoctorProfile() {
+        async function loadDoctorStatistics() {
+
             if (!doctorId) {
-                alert(
-                    "Doctor ID not found. Please login again."
-                );
                 return;
             }
 
             try {
+
                 const response =
                     await fetch(
-                        `${API_BASE_URL}/api/doctors/${doctorId}`,
+                        `${API_BASE_URL}/api/doctors/${encodeURIComponent(doctorId)}/appointments`,
                         {
                             method: "GET",
                             headers: getHeaders()
@@ -1199,6 +1645,104 @@
                     );
 
                 if (!response.ok) {
+                    throw new Error(
+                        "Appointment API Error: " +
+                        response.status
+                    );
+                }
+
+                const appointments =
+                    await response.json();
+
+                const list =
+                    Array.isArray(appointments)
+                        ? appointments
+                        : [];
+
+                const today =
+                    new Date()
+                        .toISOString()
+                        .split("T")[0];
+
+                const todayAppointments =
+                    list.filter(
+                        appointment =>
+                            String(
+                                appointment.appointmentDate || ""
+                            ) === today
+                    ).length;
+
+                const uniquePatients =
+                    new Set(
+                        list
+                            .map(
+                                appointment =>
+                                    appointment.patientId
+                            )
+                            .filter(
+                                patientId =>
+                                    patientId !== null &&
+                                    patientId !== undefined
+                            )
+                    ).size;
+
+                setText(
+                    "patientsServed",
+                    uniquePatients,
+                    "0"
+                );
+
+                setText(
+                    "appointmentsToday",
+                    todayAppointments,
+                    "0"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Doctor Statistics Error:",
+                    error
+                );
+
+                setText(
+                    "patientsServed",
+                    "0",
+                    "0"
+                );
+
+                setText(
+                    "appointmentsToday",
+                    "0",
+                    "0"
+                );
+            }
+        }
+
+        async function loadDoctorProfile() {
+
+            if (!doctorId) {
+
+                alert(
+                    "Doctor ID not found. Please login again."
+                );
+
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/${encodeURIComponent(doctorId)}`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+
                     const errorText =
                         await response.text();
 
@@ -1219,26 +1763,31 @@
                 const data =
                     await response.json();
 
-                console.log(
-                    "Doctor Profile Data:",
-                    data
-                );
-
                 const doctor =
                     Array.isArray(data)
                         ? data[0]
                         : data;
 
                 if (!doctor) {
+
                     alert(
                         "Doctor profile not found."
                     );
+
                     return;
                 }
 
-                showDoctorData(doctor);
+                console.log(
+                    "Doctor Profile Data:",
+                    doctor
+                );
+
+                showDoctorData(
+                    doctor
+                );
 
             } catch (error) {
+
                 console.error(
                     "Doctor Profile Load Error:",
                     error
@@ -1250,8 +1799,64 @@
             }
         }
 
+        async function loadNotificationCount() {
+
+            if (!doctorId) {
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/doctors/appointments/${encodeURIComponent(doctorId)}`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const appointments =
+                    await response.json();
+
+                const pendingCount =
+                    Array.isArray(appointments)
+                        ? appointments.filter(
+                            appointment =>
+                                String(
+                                    appointment.status ||
+                                    ""
+                                ).toUpperCase() ===
+                                "PENDING"
+                        ).length
+                        : 0;
+
+                if (notificationCount) {
+
+                    notificationCount.textContent =
+                        String(
+                            pendingCount
+                        );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Notification Count Error:",
+                    error
+                );
+
+            }
+        }
+
         function buildProfilePayload() {
+
             return {
+
                 doctorName:
                     fullNameInput
                         ? fullNameInput.value.trim()
@@ -1350,15 +1955,20 @@
             };
         }
 
-        async function saveDoctorProfile(event) {
+        async function saveDoctorProfile(
+            event
+        ) {
+
             if (event) {
                 event.preventDefault();
             }
 
             if (!doctorId) {
+
                 alert(
                     "Doctor ID not found. Please login again."
                 );
+
                 return;
             }
 
@@ -1366,32 +1976,42 @@
                 buildProfilePayload();
 
             if (!payload.doctorName) {
+
                 alert(
                     "Please enter doctor name."
                 );
+
                 return;
             }
 
             if (!payload.email) {
+
                 alert(
                     "Please enter email address."
                 );
+
                 return;
             }
 
             if (!payload.specialization) {
+
                 alert(
                     "Please enter specialization."
                 );
+
                 return;
             }
 
             try {
+
                 saveBtn.disabled = true;
+
+                saveBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
                 const response =
                     await fetch(
-                        `${API_BASE_URL}/api/doctors/${doctorId}`,
+                        `${API_BASE_URL}/api/doctors/${encodeURIComponent(doctorId)}`,
                         {
                             method: "PUT",
                             headers: getHeaders(),
@@ -1401,14 +2021,15 @@
                         }
                     );
 
+                const responseText =
+                    await response.text();
+
                 if (!response.ok) {
-                    const errorText =
-                        await response.text();
 
                     console.error(
                         "Update Profile Error:",
                         response.status,
-                        errorText
+                        responseText
                     );
 
                     alert(
@@ -1419,19 +2040,68 @@
                     return;
                 }
 
-                const updatedDoctor =
-                    await response.json();
+                let updatedDoctor;
+
+                try {
+
+                    updatedDoctor =
+                        responseText
+                            ? JSON.parse(
+                                responseText
+                            )
+                            : payload;
+
+                } catch (error) {
+
+                    updatedDoctor =
+                        payload;
+                }
 
                 doctorData =
-                    Array.isArray(updatedDoctor)
+                    Array.isArray(
+                        updatedDoctor
+                    )
                         ? updatedDoctor[0]
                         : updatedDoctor;
+
+                if (
+                    imageInput &&
+                    imageInput.files &&
+                    imageInput.files.length > 0
+                ) {
+                    try {
+                        const uploadedDoctor =
+                            await uploadProfileImageToBackend(
+                                doctorId,
+                                imageInput.files[0]
+                            );
+
+                        if (uploadedDoctor) {
+                            doctorData =
+                                Array.isArray(
+                                    uploadedDoctor
+                                )
+                                    ? uploadedDoctor[0]
+                                    : uploadedDoctor;
+                        }
+                    } catch (error) {
+                        console.error(
+                            "Profile Image Upload Error:",
+                            error
+                        );
+
+                        alert(
+                            "Profile information saved, but profile image upload failed."
+                        );
+                    }
+                }
 
                 showDoctorData(
                     doctorData
                 );
 
                 try {
+
                     localStorage.setItem(
                         "doctor",
                         JSON.stringify(
@@ -1446,11 +2116,14 @@
                             doctorId
                         )
                     );
+
                 } catch (error) {
+
                     console.error(
-                        "Local storage update error:",
+                        "Local Storage Update Error:",
                         error
                     );
+
                 }
 
                 alert(
@@ -1458,6 +2131,7 @@
                 );
 
             } catch (error) {
+
                 console.error(
                     "Update Profile Error:",
                     error
@@ -1468,11 +2142,16 @@
                 );
 
             } finally {
+
                 saveBtn.disabled = false;
+
+                saveBtn.innerHTML =
+                    '<i class="fa-solid fa-floppy-disk"></i> Save Changes';
             }
         }
 
         function updatePassword() {
+
             const current =
                 currentPasswordInput
                     ? currentPasswordInput.value
@@ -1489,33 +2168,41 @@
                     : "";
 
             if (!current) {
+
                 alert(
                     "Enter current password."
                 );
+
                 return;
             }
 
             if (password.length < 6) {
+
                 alert(
                     "Password must contain at least 6 characters."
                 );
+
                 return;
             }
 
             if (password !== confirm) {
+
                 alert(
                     "Passwords do not match."
                 );
+
                 return;
             }
 
             alert(
-                "Password change backend endpoint is not implemented yet."
+                "Password change backend endpoint is not available in the current backend."
             );
         }
 
         function resetProfileForm() {
+
             if (doctorData) {
+
                 showDoctorData(
                     doctorData
                 );
@@ -1534,58 +2221,73 @@
             }
         }
 
-        if (menuBtn) {
-            menuBtn.addEventListener(
+        if (profileForm) {
+
+            profileForm.addEventListener(
+                "submit",
+                saveDoctorProfile
+            );
+        }
+
+        if (saveBtn) {
+
+            saveBtn.addEventListener(
                 "click",
-                () => {
-                    if (window.innerWidth <= 900) {
-                        sidebar.style.left =
-                            sidebar.style.left === "0px"
-                                ? "-270px"
-                                : "0";
+                saveDoctorProfile
+            );
+        }
+
+        if (passwordBtn) {
+
+            passwordBtn.addEventListener(
+                "click",
+                updatePassword
+            );
+        }
+
+        if (cancelBtn) {
+
+            cancelBtn.addEventListener(
+                "click",
+                resetProfileForm
+            );
+        }
+
+        if (notificationButton) {
+
+            notificationButton.addEventListener(
+                "click",
+                function () {
+
+                    const count =
+                        Number(
+                            notificationCount?.textContent ||
+                            0
+                        );
+
+                    if (count > 0) {
+
+                        alert(
+                            `${count} pending appointment(s) available.`
+                        );
+
+                    } else {
+
+                        alert(
+                            "No pending appointments."
+                        );
+
                     }
                 }
             );
         }
 
-        document.addEventListener(
-            "click",
-            event => {
-                if (
-                    window.innerWidth <= 900 &&
-                    sidebar &&
-                    menuBtn &&
-                    !sidebar.contains(
-                        event.target
-                    ) &&
-                    !menuBtn.contains(
-                        event.target
-                    )
-                ) {
-                    sidebar.style.left =
-                        "-270px";
-                }
-            }
-        );
-
-        window.addEventListener(
-            "resize",
-            () => {
-                if (!sidebar) {
-                    return;
-                }
-
-                sidebar.style.left =
-                    window.innerWidth > 900
-                        ? "0"
-                        : "-270px";
-            }
-        );
-
         if (imageInput) {
+
             imageInput.addEventListener(
                 "change",
                 event => {
+
                     const file =
                         event.target.files[0];
 
@@ -1598,11 +2300,13 @@
                             "image/"
                         )
                     ) {
+
                         alert(
                             "Please select an image file."
                         );
 
                         imageInput.value = "";
+
                         return;
                     }
 
@@ -1610,21 +2314,23 @@
                         new FileReader();
 
                     reader.onload =
-                        function (readerEvent) {
+                        function (
+                            readerEvent
+                        ) {
+
+                            const imageUrl =
+                                readerEvent.target.result;
 
                             if (profilePreview) {
+
                                 profilePreview.src =
-                                    readerEvent.target.result;
+                                    imageUrl;
                             }
 
-                            const topProfileImage =
-                                document.querySelector(
-                                    ".profile img"
-                                );
+                            if (topDoctorProfileImage) {
 
-                            if (topProfileImage) {
-                                topProfileImage.src =
-                                    readerEvent.target.result;
+                                topDoctorProfileImage.src =
+                                    imageUrl;
                             }
                         };
 
@@ -1635,35 +2341,73 @@
             );
         }
 
-        if (saveBtn) {
-            saveBtn.addEventListener(
+        if (menuBtn) {
+
+            menuBtn.addEventListener(
                 "click",
-                saveDoctorProfile
+                function () {
+
+                    if (
+                        window.innerWidth <= 900
+                    ) {
+
+                        sidebar.style.left =
+                            sidebar.style.left === "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
             );
         }
 
-        if (passwordBtn) {
-            passwordBtn.addEventListener(
-                "click",
-                updatePassword
-            );
-        }
+        document.addEventListener(
+            "click",
+            function (event) {
 
-        if (cancelBtn) {
-            cancelBtn.addEventListener(
-                "click",
-                resetProfileForm
-            );
-        }
+                if (
+                    window.innerWidth <= 900 &&
+                    sidebar &&
+                    menuBtn &&
+                    !sidebar.contains(
+                        event.target
+                    ) &&
+                    !menuBtn.contains(
+                        event.target
+                    )
+                ) {
+
+                    sidebar.style.left =
+                        "-270px";
+                }
+            }
+        );
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                if (!sidebar) {
+                    return;
+                }
+
+                sidebar.style.left =
+                    window.innerWidth > 900
+                        ? "0"
+                        : "-270px";
+            }
+        );
 
         async function initializeProfile() {
+
             doctorId =
                 getDoctorId();
 
             if (!doctorId) {
+
                 alert(
                     "Doctor ID not found. Please login again."
                 );
+
                 return;
             }
 
@@ -1672,10 +2416,21 @@
                 String(doctorId)
             );
 
+            if (sidebar) {
+
+                sidebar.style.left =
+                    window.innerWidth > 900
+                        ? "0"
+                        : "-270px";
+            }
+
             await loadDoctorProfile();
+            await loadDoctorStatistics();
+            await loadNotificationCount();
         }
 
         initializeProfile();
+
     </script>
 
 </body>

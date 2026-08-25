@@ -14,6 +14,7 @@ public class DoctorModel {
     private Long departmentId;
 
     private String doctorName;
+    private String profileImage;
     private String email;
     private String password;
     private String specialization;
@@ -84,6 +85,14 @@ public class DoctorModel {
 
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getEmail() {

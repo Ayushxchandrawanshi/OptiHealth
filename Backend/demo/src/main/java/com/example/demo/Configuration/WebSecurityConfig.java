@@ -63,6 +63,7 @@ public class WebSecurityConfig {
                         "/api/prescriptions",
                         "/api/doctors/schedule",
                         "/api/doctors/leave",
+                        "/api/doctors/*/profile-image",
                         "/api/medical-history",
                         "/api/departments",
                         "/api/billing",

@@ -27,18 +27,28 @@
         :root {
             --primary: #2563eb;
             --secondary: #06b6d4;
+            --primary-light: #dbeafe;
+            --secondary-light: #cffafe;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
             --dark: #0f172a;
-            --light: #ffffff;
-            --background: #f3f8ff;
             --text: #64748b;
             --border: #e2e8f0;
+            --background: #f3f8ff;
+            --light: #ffffff;
             --shadow: 0 15px 35px rgba(0, 0, 0, .08);
-            --radius: 18px;
+            --shadow-hover: 0 22px 45px rgba(37, 99, 235, .12);
+            --radius: 20px;
         }
 
         body {
             background: var(--background);
             overflow-x: hidden;
+            color: var(--dark);
         }
 
         .dashboard {
@@ -55,14 +65,9 @@
             top: 0;
             height: 100vh;
             overflow-y: auto;
+            z-index: 1000;
+            transition: .4s ease;
         }
-
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            min-height: 100vh;
-        }
-
 
         .logo-section {
             padding: 30px 25px;
@@ -78,6 +83,11 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 8px;
+        }
+
+        .logo-section h2 i {
+            color: #67e8f9;
+            animation: pulseIcon 2.5s ease-in-out infinite;
         }
 
         .logo-section p {
@@ -100,7 +110,7 @@
             border-radius: 14px;
             text-decoration: none;
             color: #fff;
-            transition: .3s;
+            transition: .3s ease;
             font-size: 15px;
             font-weight: 500;
         }
@@ -115,6 +125,13 @@
         .sidebar-menu a.active {
             background: rgba(255, 255, 255, .16);
             transform: translateX(6px);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            min-height: 100vh;
+            width: calc(100% - 280px);
         }
 
         .topbar {
@@ -132,32 +149,46 @@
 
         .menu-btn {
             display: none;
-            font-size: 22px;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #eef5ff;
+            color: var(--primary);
             cursor: pointer;
+            font-size: 20px;
+            flex-shrink: 0;
+            transition: .3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, .12);
+        }
+
+        .page-title {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .page-title h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
             color: var(--dark);
         }
 
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            padding: 12px 18px;
-            border-radius: 14px;
-            width: 360px;
+        .page-title h2 i {
+            color: var(--primary);
+            font-size: 22px;
         }
 
-        .search-box i {
-            color: #94a3b8;
-        }
-
-        .search-box input {
-            width: 100%;
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 15px;
+        .page-title p {
+            color: var(--text);
+            font-size: 13px;
         }
 
         .topbar-right {
@@ -176,22 +207,28 @@
             position: relative;
             font-size: 18px;
             color: var(--primary);
-            transition: .3s;
+            transition: .3s ease;
         }
 
         .notification-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 22px rgba(37, 99, 235, .12);
         }
 
         .notification-count {
             position: absolute;
             top: -4px;
             right: -2px;
+            min-width: 19px;
+            height: 19px;
             background: #ef4444;
             color: #fff;
             font-size: 11px;
-            padding: 3px 6px;
+            padding: 2px 5px;
             border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .profile-box {
@@ -199,6 +236,11 @@
             align-items: center;
             gap: 12px;
             cursor: pointer;
+            transition: .3s ease;
+        }
+
+        .profile-box:hover {
+            transform: translateY(-2px);
         }
 
         .profile-box img {
@@ -207,6 +249,7 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #dbeafe;
+            background: #e2e8f0;
         }
 
         .profile-box h4 {
@@ -233,6 +276,46 @@
             color: #fff;
             box-shadow: var(--shadow);
             margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp .6s ease both;
+        }
+
+        .welcome-card::before {
+            content: "";
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            right: -80px;
+            top: -100px;
+            animation: floatCircle 6s ease-in-out infinite;
+        }
+
+        .welcome-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .06);
+            left: -80px;
+            bottom: -100px;
+            animation: floatCircle 7s ease-in-out infinite reverse;
+        }
+
+        .welcome-card>div {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-card img {
+            width: 260px;
+            max-width: 100%;
+            position: relative;
+            z-index: 2;
+            animation: doctorFloat 4s ease-in-out infinite;
         }
 
         .welcome-card h1 {
@@ -244,11 +327,7 @@
             line-height: 1.8;
             max-width: 600px;
             margin-bottom: 25px;
-        }
-
-        .welcome-card img {
-            width: 260px;
-            max-width: 100%;
+            color: rgba(255, 255, 255, .92);
         }
 
         .welcome-buttons {
@@ -264,7 +343,7 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: .3s;
+            transition: .3s ease;
         }
 
         .primary-btn {
@@ -281,6 +360,7 @@
         .primary-btn:hover,
         .secondary-btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, .12);
         }
 
         .stats-section {
@@ -298,11 +378,26 @@
             align-items: center;
             gap: 18px;
             box-shadow: var(--shadow);
-            transition: .3s;
+            transition: .35s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp .6s ease both;
+        }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, .04);
+            right: -20px;
+            top: -20px;
         }
 
         .stat-card:hover {
             transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
         }
 
         .stat-icon {
@@ -312,9 +407,30 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #dbeafe;
+            background: var(--primary-light);
             font-size: 28px;
             color: var(--primary);
+            flex-shrink: 0;
+            transition: .35s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .stat-card:nth-child(4) .stat-icon {
+            background: #ede9fe;
+            color: #7c3aed;
         }
 
         .stat-card h2 {
@@ -328,14 +444,7 @@
             font-size: 14px;
         }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-        }
-
-        .left-column,
-        .right-column {
+        .dashboard-sections {
             display: flex;
             flex-direction: column;
             gap: 25px;
@@ -346,6 +455,14 @@
             border-radius: var(--radius);
             padding: 25px;
             box-shadow: var(--shadow);
+            width: 100%;
+            animation: fadeUp .7s ease both;
+            transition: .35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
 
         .card-header {
@@ -353,6 +470,31 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            background: #eef5ff;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: .3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.05);
         }
 
         .card-header h3 {
@@ -360,32 +502,107 @@
             font-size: 20px;
         }
 
+        .card-header p {
+            color: var(--text);
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
         .card-header a {
             text-decoration: none;
             color: var(--primary);
             font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .doctor-search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 420px;
+            max-width: 45%;
+            padding: 11px 16px;
+            background: #ffffff;
+            border: 1.5px solid #bfdbfe;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, .08);
+            transition: .3s ease;
+            flex-shrink: 0;
+        }
+
+        .doctor-search-box:hover {
+            border-color: #93c5fd;
+            box-shadow: 0 6px 16px rgba(37, 99, 235, .12);
+        }
+
+        .doctor-search-box:focus-within {
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .10);
+        }
+
+        .doctor-search-box i {
+            color: var(--primary);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .doctor-search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--dark);
+            font-size: 13px;
+        }
+
+        .doctor-search-box input::placeholder {
+            color: #94a3b8;
         }
 
         .appointment-card {
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 18px;
+            padding: 20px;
             border-radius: 16px;
-            background: #f8fbff;
+            background: linear-gradient(135deg, #f8fbff, #eff6ff);
+            border: 1px solid #dbeafe;
+            transition: .3s ease;
+        }
+
+        .appointment-card:hover {
+            transform: translateX(4px);
+            border-color: #bfdbfe;
         }
 
         .appointment-date {
             width: 90px;
+            min-width: 90px;
             text-align: center;
             padding: 18px;
             border-radius: 16px;
-            background: #2563eb;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
             color: #fff;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, .18);
         }
 
         .appointment-date h2 {
             font-size: 32px;
+            line-height: 1;
+            margin-bottom: 7px;
+        }
+
+        .appointment-date span {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .appointment-info {
+            flex: 1;
+            min-width: 0;
         }
 
         .appointment-info h4 {
@@ -397,6 +614,7 @@
         .appointment-info p {
             margin-bottom: 6px;
             color: var(--text);
+            font-size: 14px;
         }
 
         .status {
@@ -409,8 +627,18 @@
         }
 
         .confirmed {
-            background: #dcfce7;
+            background: var(--success-light);
             color: #15803d;
+        }
+
+        .pending {
+            background: var(--warning-light);
+            color: #b45309;
+        }
+
+        .cancelled {
+            background: var(--danger-light);
+            color: #b91c1c;
         }
 
         .history-list {
@@ -423,10 +651,15 @@
             align-items: center;
             padding: 16px 0;
             border-bottom: 1px solid var(--border);
+            gap: 15px;
         }
 
         .history-list li:last-child {
             border-bottom: none;
+        }
+
+        .history-content {
+            min-width: 0;
         }
 
         .history-list h4 {
@@ -440,35 +673,47 @@
         }
 
         .history-list span {
-            background: #dcfce7;
+            background: var(--success-light);
             color: #15803d;
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .doctor-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
         }
 
         .doctor-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
+            text-align: center;
+            gap: 12px;
+            padding: 22px 18px;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            transition: .35s ease;
         }
 
-        .doctor-item:last-child {
-            border-bottom: none;
+        .doctor-item:hover {
+            transform: translateY(-5px);
+            border-color: #bfdbfe;
+            box-shadow: 0 15px 30px rgba(37, 99, 235, .08);
         }
 
         .doctor-item img {
-            width: 60px;
-            height: 60px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             object-fit: cover;
-        }
-
-        .doctor-item div {
-            flex: 1;
+            border: 4px solid #dbeafe;
+            background: #e2e8f0;
         }
 
         .doctor-item h4 {
@@ -483,18 +728,29 @@
 
         .doctor-item button {
             border: none;
-            padding: 10px 16px;
+            padding: 10px 18px;
             border-radius: 10px;
             background: var(--primary);
             color: #fff;
             cursor: pointer;
             font-weight: 600;
+            transition: .3s ease;
+        }
+
+        .doctor-item button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, .18);
+        }
+
+        .notification-list {
+            display: flex;
+            flex-direction: column;
         }
 
         .notification-item {
             display: flex;
             gap: 15px;
-            padding: 16px 0;
+            padding: 17px 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -505,6 +761,7 @@
         .notification-item i {
             width: 46px;
             height: 46px;
+            min-width: 46px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -522,6 +779,84 @@
         .notification-item p {
             font-size: 14px;
             color: var(--text);
+            line-height: 1.6;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 35px 20px;
+            color: var(--text);
+        }
+
+        .empty-state i {
+            display: block;
+            font-size: 38px;
+            margin-bottom: 12px;
+            color: #94a3b8;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes doctorFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes floatCircle {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-12px, 12px);
+            }
+        }
+
+        @keyframes pulseIcon {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        .card:nth-child(1) {
+            animation-delay: .05s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: .12s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: .19s;
         }
 
         @media(max-width:1200px) {
@@ -530,18 +865,19 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            .doctor-list {
+                grid-template-columns: repeat(2, 1fr);
             }
-
         }
 
         @media(max-width:992px) {
 
+            .menu-btn {
+                display: flex;
+            }
+
             .sidebar {
                 left: -280px;
-                transition: .4s;
-                z-index: 1000;
             }
 
             .sidebar.active {
@@ -550,14 +886,7 @@
 
             .main-content {
                 margin-left: 0;
-            }
-
-            .menu-btn {
-                display: block;
-            }
-
-            .search-box {
-                width: 220px;
+                width: 100%;
             }
 
             .welcome-card {
@@ -569,7 +898,6 @@
             .welcome-buttons {
                 justify-content: center;
             }
-
         }
 
         @media(max-width:768px) {
@@ -580,10 +908,6 @@
 
             .topbar {
                 padding: 0 18px;
-            }
-
-            .search-box {
-                display: none;
             }
 
             .stats-section {
@@ -622,19 +946,44 @@
                 gap: 10px;
             }
 
-            .doctor-item {
-                flex-wrap: wrap;
+            .doctor-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:500px) {
+
+            .dashboard-content {
+                padding: 15px;
             }
 
-            .doctor-item button {
-                width: 100%;
-                margin-top: 10px;
+            .welcome-card {
+                padding: 25px 20px;
             }
 
+            .welcome-card h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .topbar {
+                height: 70px;
+            }
+
+            .notification-btn {
+                width: 42px;
+                height: 42px;
+            }
+
+            .profile-box img {
+                width: 44px;
+                height: 44px;
+            }
         }
     </style>
-
-</head>
 
 <body>
 
@@ -694,513 +1043,1786 @@
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
+
             </nav>
+
         </aside>
 
         <div class="main-content">
+
             <header class="topbar">
+
                 <div class="menu-btn">
                     <i class="fa-solid fa-bars"></i>
                 </div>
 
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchDoctor" placeholder="Search doctors, appointments...">
+                <div class="page-title">
+
+                    <h2>
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </h2>
+
+                    <p>
+                        Overview of your healthcare activity.
+                    </p>
+
                 </div>
 
                 <div class="topbar-right">
-                    <button class="notification-btn">
+
+                    <button class="notification-btn" id="notificationButton">
                         <i class="fa-regular fa-bell"></i>
-                        <span class="notification-count">
-                            3
+
+                        <span class="notification-count" id="notificationCount">
+                            0
                         </span>
+
                     </button>
 
-                    <div class="profile-box">
-                        <img src="../assets/profile.png" alt="Patient">
+                    <div class="profile-box" id="profileBox">
+
+                        <img id="patientProfileImage" src="../assets/profile.png" alt="Patient">
+
                         <div>
+
                             <h4 id="patientName">
-                                Patient Name
+                                Loading...
                             </h4>
+
                             <p>
                                 Patient
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </header>
+
             <main class="dashboard-content">
+
                 <section class="welcome-section">
 
                     <div class="welcome-card">
+
                         <div>
+
                             <h1>
                                 Welcome,
-                                <span id="patientFullName">Patient</span> 👋
+                                <span id="patientFullName">
+                                    Patient
+                                </span>
+                                👋
                             </h1>
 
                             <p>
-                                Manage your appointments, track your medical records and stay connected with your
-                                healthcare providers.
+                                Manage your appointments, track your medical records
+                                and stay connected with your healthcare providers.
                             </p>
 
                             <div class="welcome-buttons">
-                                <button class="primary-btn">
+
+                                <button class="primary-btn" id="bookAppointmentBtn">
                                     <i class="fa-solid fa-calendar-plus"></i>
                                     Book Appointment
                                 </button>
 
-                                <button class="secondary-btn">
+                                <button class="secondary-btn" id="findDoctorBtn">
                                     <i class="fa-solid fa-user-doctor"></i>
                                     Find Doctor
                                 </button>
+
                             </div>
+
                         </div>
 
                         <img src="../assets/dashboard-doctor.png" alt="Doctor">
+
                     </div>
+
                 </section>
 
                 <section class="stats-section">
+
                     <div class="stat-card">
+
                         <div class="stat-icon">
                             <i class="fa-solid fa-calendar-check"></i>
                         </div>
 
                         <div>
+
                             <h2 id="appointmentCount">
-                                08
+                                0
                             </h2>
 
                             <p>
                                 Appointments
                             </p>
+
                         </div>
+
                     </div>
 
                     <div class="stat-card">
+
                         <div class="stat-icon">
                             <i class="fa-solid fa-user-doctor"></i>
                         </div>
 
                         <div>
+
                             <h2 id="doctorCount">
-                                24
+                                0
                             </h2>
 
                             <p>
                                 Available Doctors
                             </p>
+
                         </div>
+
                     </div>
 
                     <div class="stat-card">
+
                         <div class="stat-icon">
                             <i class="fa-solid fa-file-medical"></i>
                         </div>
 
                         <div>
+
                             <h2 id="reportCount">
-                                13
+                                0
                             </h2>
 
                             <p>
-                                Medical Reports
+                                Medical Records
                             </p>
+
                         </div>
+
                     </div>
 
                     <div class="stat-card">
+
                         <div class="stat-icon">
                             <i class="fa-solid fa-prescription"></i>
                         </div>
 
                         <div>
+
                             <h2 id="prescriptionCount">
-                                06
+                                0
                             </h2>
 
                             <p>
                                 Prescriptions
                             </p>
+
                         </div>
+
                     </div>
+
                 </section>
 
+                <section class="dashboard-sections">
 
-                <section class="dashboard-grid">
-                    <div class="left-column">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>
-                                    Upcoming Appointment
-                                </h3>
+                    <div class="card">
 
-                                <a href="#">
-                                    View All
-                                </a>
-                            </div>
+                        <div class="card-header">
 
-                            <div class="appointment-card">
-                                <div class="appointment-date">
-                                    <h2>
-                                        25
-                                    </h2>
+                            <div class="card-heading">
 
-                                    <span>
-                                        AUG
-                                    </span>
+                                <div class="card-icon">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Upcoming Appointment
+                                    </h3>
+
+                                    <p>
+                                        Your next scheduled appointment
+                                    </p>
 
                                 </div>
 
-                                <div class="appointment-info">
-                                    <h4 id="nextDoctorName">
-                                        Dr. Sarah Johnson
-                                    </h4>
-                                    <p>
-                                        Cardiologist
-                                    </p>
-
-                                    <p>
-                                        10:30 AM • Room 204
-                                    </p>
-
-                                    <span class="status confirmed">
-                                        Confirmed
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>
-                                    Recent Medical History
-                                </h3>
-
-                                <a href="#">
-                                    View All
-                                </a>
                             </div>
 
-                            <ul class="history-list">
-                                <li>
-                                    <div>
-                                        <h4>
-                                            Blood Test
-                                        </h4>
+                            <a href="my-appointments.html">
+                                View All
+                            </a>
 
-                                        <p>
-                                            15 July 2026
-                                        </p>
-                                    </div>
-
-                                    <span>
-                                        Completed
-                                    </span>
-                                </li>
-
-                                <li>
-                                    <div>
-                                        <h4>
-                                            General Checkup
-                                        </h4>
-
-                                        <p>
-                                            10 July 2026
-                                        </p>
-                                    </div>
-
-                                    <span>
-                                        Completed
-                                    </span>
-                                </li>
-
-                                <li>
-                                    <div>
-                                        <h4>
-                                            Dental Consultation
-                                        </h4>
-
-                                        <p>
-                                            02 July 2026
-                                        </p>
-                                    </div>
-
-                                    <span>
-                                        Completed
-                                    </span>
-                                </li>
-                            </ul>
                         </div>
+
+                        <div class="appointment-card" id="upcomingAppointment">
+
+                            <div class="empty-state">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                <p>
+                                    Loading appointment...
+                                </p>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="right-column">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>
-                                    Top Doctors
-                                </h3>
+                    <div class="card">
 
-                                <a href="#">
-                                    See All
-                                </a>
-                            </div>
+                        <div class="card-header">
 
-                            <div class="doctor-item">
-                                <img src="../assets/doctor1.jpg" alt="Doctor">
-                                <div>
-                                    <h4>
-                                        Dr. Sarah Johnson
-                                    </h4>
+                            <div class="card-heading">
 
-                                    <p>
-                                        Cardiologist
-                                    </p>
+                                <div class="card-icon">
+                                    <i class="fa-solid fa-file-medical"></i>
                                 </div>
 
-                                <button>
-                                    Book
-                                </button>
-                            </div>
-
-                            <div class="doctor-item">
-                                <img src="../assets/doctor2.jpg" alt="Doctor">
                                 <div>
-                                    <h4>
-                                        Dr. Michael Lee
-                                    </h4>
+
+                                    <h3>
+                                        Recent Medical History
+                                    </h3>
 
                                     <p>
-                                        Neurologist
+                                        Your latest medical records
                                     </p>
+
                                 </div>
 
-                                <button>
-                                    Book
-                                </button>
                             </div>
 
-                            <div class="doctor-item">
-                                <img src="../assets/doctor3.jpg" alt="Doctor">
+                            <a href="medical-history.html">
+                                View All
+                            </a>
 
-                                <div>
-                                    <h4>
-                                        Dr. Emily Clark
-                                    </h4>
-
-                                    <p>
-                                        Dermatologist
-                                    </p>
-                                </div>
-
-                                <button>
-                                    Book
-                                </button>
-                            </div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>
-                                    Notifications
-                                </h3>
-                            </div>
+                        <ul class="history-list" id="medicalHistoryList">
 
-                            <div class="notification-item">
-                                <i class="fa-solid fa-bell"></i>
-                                <div>
-                                    <h4>
-                                        Appointment Reminder
-                                    </h4>
+                            <li>
+
+                                <div class="empty-state">
+
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
 
                                     <p>
-                                        Tomorrow at 10:30 AM
+                                        Loading medical history...
                                     </p>
+
                                 </div>
-                            </div>
 
-                            <div class="notification-item">
-                                <i class="fa-solid fa-file-circle-check"></i>
+                            </li>
 
-                                <div>
-                                    <h4>
-                                        Lab Report Ready
-                                    </h4>
+                        </ul>
 
-                                    <p>
-                                        Your blood test report is available.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="notification-item">
-                                <i class="fa-solid fa-heart-circle-check"></i>
-
-                                <div>
-                                    <h4>
-                                        Health Tip
-                                    </h4>
-
-                                    <p>
-                                        Drink at least 2 litres of water daily.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div class="card-heading">
+
+                                <div class="card-icon">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Available Doctors
+                                    </h3>
+
+                                    <p>
+                                        Doctors available for appointments
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="doctor-search-box">
+
+                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                                <input type="text" id="searchDoctor" placeholder="Search doctors...">
+
+                            </div>
+
+                            <a href="find-doctor.html">
+                                See All
+                            </a>
+
+                        </div>
+
+                        <div class="doctor-list" id="doctorList">
+
+                            <div class="empty-state">
+
+                                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                                <p>
+                                    Loading doctors...
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div class="card-heading">
+
+                                <div class="card-icon">
+                                    <i class="fa-regular fa-bell"></i>
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Notifications
+                                    </h3>
+
+                                    <p>
+                                        Latest updates from your healthcare activity
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="notification-list" id="notificationList">
+
+                            <div class="empty-state">
+
+                                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                                <p>
+                                    Loading notifications...
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </section>
+
             </main>
+
         </div>
+
     </div>
 
     <script>
 
-        const menuBtn = document.querySelector(".menu-btn");
-        const sidebar = document.querySelector(".sidebar");
+        const API_BASE_URL = "http://localhost:8080";
 
-        menuBtn.addEventListener("click", () => {
+        const token =
+            localStorage.getItem("token");
 
-            sidebar.classList.toggle("active");
+        const sidebar =
+            document.querySelector(".sidebar");
 
-        });
+        const menuBtn =
+            document.querySelector(".menu-btn");
 
-        document.addEventListener("click", (e) => {
+        const searchInput =
+            document.getElementById("searchDoctor");
 
-            if (window.innerWidth <= 992) {
+        const patientFullName =
+            document.getElementById("patientFullName");
+
+        const patientName =
+            document.getElementById("patientName");
+
+        const patientProfileImage =
+            document.getElementById("patientProfileImage");
+
+        const appointmentCount =
+            document.getElementById("appointmentCount");
+
+        const doctorCount =
+            document.getElementById("doctorCount");
+
+        const reportCount =
+            document.getElementById("reportCount");
+
+        const prescriptionCount =
+            document.getElementById("prescriptionCount");
+
+        const upcomingAppointment =
+            document.getElementById("upcomingAppointment");
+
+        const medicalHistoryList =
+            document.getElementById("medicalHistoryList");
+
+        const doctorList =
+            document.getElementById("doctorList");
+
+        const notificationList =
+            document.getElementById("notificationList");
+
+        const notificationCount =
+            document.getElementById("notificationCount");
+
+        const notificationButton =
+            document.getElementById("notificationButton");
+
+        const bookAppointmentBtn =
+            document.getElementById("bookAppointmentBtn");
+
+        const findDoctorBtn =
+            document.getElementById("findDoctorBtn");
+
+        const profileBox =
+            document.getElementById("profileBox");
+
+        let patientId = null;
+        let patientData = null;
+        let doctors = [];
+        let appointments = [];
+        let medicalRecords = [];
+
+        function getHeaders() {
+
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] =
+                    "Bearer " + token;
+            }
+
+            return headers;
+        }
+
+        function getPatientId() {
+
+            const storedPatientId =
+                localStorage.getItem("patientId");
+
+            if (storedPatientId) {
+                return storedPatientId;
+            }
+
+            try {
+
+                const user =
+                    JSON.parse(
+                        localStorage.getItem("user")
+                    );
+
+                if (user) {
+
+                    return (
+                        user.id ||
+                        user.patientId ||
+                        user.data?.id ||
+                        user.data?.patientId ||
+                        null
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "User data error:",
+                    error
+                );
+
+            }
+
+            return null;
+        }
+
+        function setText(
+            element,
+            value,
+            fallback = "0"
+        ) {
+
+            if (!element) {
+                return;
+            }
+
+            element.textContent =
+                value !== null &&
+                    value !== undefined &&
+                    String(value).trim() !== ""
+                    ? value
+                    : fallback;
+        }
+
+        function formatDate(value) {
+
+            if (!value) {
+                return "--";
+            }
+
+            const date =
+                new Date(
+                    String(value).length === 10
+                        ? value + "T00:00:00"
+                        : value
+                );
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return String(value);
+            }
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+        }
+
+        function formatTime(value) {
+
+            if (!value) {
+                return "--";
+            }
+
+            const parts =
+                String(value).split(":");
+
+            if (parts.length < 2) {
+                return String(value);
+            }
+
+            let hours =
+                Number(parts[0]);
+
+            const minutes =
+                parts[1];
+
+            if (Number.isNaN(hours)) {
+                return String(value);
+            }
+
+            const period =
+                hours >= 12
+                    ? "PM"
+                    : "AM";
+
+            hours =
+                hours % 12 || 12;
+
+            return (
+                String(hours).padStart(2, "0") +
+                ":" +
+                minutes +
+                " " +
+                period
+            );
+        }
+
+        function calculateAge(dob) {
+
+            if (!dob) {
+                return "--";
+            }
+
+            const birthDate =
+                new Date(dob);
+
+            if (
+                Number.isNaN(
+                    birthDate.getTime()
+                )
+            ) {
+                return "--";
+            }
+
+            const today =
+                new Date();
+
+            let age =
+                today.getFullYear() -
+                birthDate.getFullYear();
+
+            const monthDifference =
+                today.getMonth() -
+                birthDate.getMonth();
+
+            if (
+                monthDifference < 0 ||
+                (
+                    monthDifference === 0 &&
+                    today.getDate() <
+                    birthDate.getDate()
+                )
+            ) {
+                age--;
+            }
+
+            return age >= 0
+                ? age
+                : "--";
+        }
+
+        function loadPatientImage(
+            profileImage
+        ) {
+
+            if (
+                !patientProfileImage
+            ) {
+                return;
+            }
+
+            if (!profileImage) {
+
+                patientProfileImage.src =
+                    "../assets/profile.png";
+
+                return;
+            }
+
+            const cleanName =
+                String(profileImage)
+                    .split("/")
+                    .pop()
+                    .split("\\")
+                    .pop();
+
+            patientProfileImage.src =
+                `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                    cleanName
+                )}`;
+
+            patientProfileImage.onerror =
+                function () {
+
+                    this.onerror = null;
+
+                    this.src =
+                        "../assets/profile.png";
+                };
+        }
+
+        async function loadPatientProfile() {
+
+            if (!patientId) {
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients/${encodeURIComponent(
+                            patientId
+                        )}`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Patient API Error: " +
+                        response.status
+                    );
+                }
+
+                const data =
+                    await response.json();
+
+                patientData =
+                    Array.isArray(data)
+                        ? data[0]
+                        : data;
+
+                if (!patientData) {
+                    return;
+                }
+
+                const name =
+                    patientData.fullName ||
+                    "Patient";
+
+                setText(
+                    patientFullName,
+                    name,
+                    "Patient"
+                );
+
+                setText(
+                    patientName,
+                    name,
+                    "Patient"
+                );
+
+                loadPatientImage(
+                    patientData.profileImage
+                );
+
+                try {
+
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(
+                            patientData
+                        )
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Local Storage Error:",
+                        error
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Patient Profile Error:",
+                    error
+                );
+
+                setText(
+                    patientFullName,
+                    "Patient",
+                    "Patient"
+                );
+
+                setText(
+                    patientName,
+                    "Patient",
+                    "Patient"
+                );
+            }
+        }
+
+        async function loadDoctors() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/patients/doctors`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Doctors API Error: " +
+                        response.status
+                    );
+                }
+
+                const data =
+                    await response.json();
+
+                doctors =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                setText(
+                    doctorCount,
+                    doctors.length,
+                    "0"
+                );
+
+                renderDoctors();
+
+            } catch (error) {
+
+                console.error(
+                    "Doctors Load Error:",
+                    error
+                );
+
+                doctors = [];
+
+                setText(
+                    doctorCount,
+                    "0",
+                    "0"
+                );
+
+                renderDoctors();
+            }
+        }
+
+        async function loadAppointments() {
+
+            if (!patientId) {
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/appointment/all`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Appointments API Error: " +
+                        response.status
+                    );
+                }
+
+                const data =
+                    await response.json();
+
+                const allAppointments =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                appointments =
+                    allAppointments.filter(
+                        appointment =>
+                            Number(
+                                appointment.patientId
+                            ) ===
+                            Number(patientId)
+                    );
+
+                setText(
+                    appointmentCount,
+                    appointments.length,
+                    "0"
+                );
+
+                renderUpcomingAppointment();
+
+            } catch (error) {
+
+                console.error(
+                    "Appointments Load Error:",
+                    error
+                );
+
+                appointments = [];
+
+                setText(
+                    appointmentCount,
+                    "0",
+                    "0"
+                );
+
+                renderUpcomingAppointment();
+            }
+        }
+
+        async function loadMedicalHistory() {
+
+            if (!patientId) {
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/api/medical-history/patient/${encodeURIComponent(
+                            patientId
+                        )}`,
+                        {
+                            method: "GET",
+                            headers: getHeaders()
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Medical History API Error: " +
+                        response.status
+                    );
+                }
+
+                const data =
+                    await response.json();
+
+                medicalRecords =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                medicalRecords.sort(
+                    (a, b) =>
+                        new Date(
+                            b.visitDate ||
+                            b.date ||
+                            0
+                        ) -
+                        new Date(
+                            a.visitDate ||
+                            a.date ||
+                            0
+                        )
+                );
+
+                setText(
+                    reportCount,
+                    medicalRecords.length,
+                    "0"
+                );
+
+                const prescriptionRecords =
+                    medicalRecords.filter(
+                        record =>
+                            record.prescription
+                    );
+
+                setText(
+                    prescriptionCount,
+                    prescriptionRecords.length,
+                    "0"
+                );
+
+                renderMedicalHistory();
+
+            } catch (error) {
+
+                console.error(
+                    "Medical History Load Error:",
+                    error
+                );
+
+                medicalRecords = [];
+
+                setText(
+                    reportCount,
+                    "0",
+                    "0"
+                );
+
+                setText(
+                    prescriptionCount,
+                    "0",
+                    "0"
+                );
+
+                renderMedicalHistory();
+            }
+        }
+
+        function renderUpcomingAppointment() {
+
+            if (!upcomingAppointment) {
+                return;
+            }
+
+            if (
+                !appointments ||
+                appointments.length === 0
+            ) {
+
+                upcomingAppointment.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-calendar-xmark"></i>
+                        <p>No upcoming appointments found.</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            const today =
+                new Date();
+
+            today.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+            const upcoming =
+                appointments
+                    .filter(
+                        appointment => {
+
+                            if (
+                                !appointment.appointmentDate
+                            ) {
+                                return false;
+                            }
+
+                            const date =
+                                new Date(
+                                    appointment.appointmentDate +
+                                    "T00:00:00"
+                                );
+
+                            return (
+                                !Number.isNaN(
+                                    date.getTime()
+                                ) &&
+                                date >= today &&
+                                String(
+                                    appointment.status ||
+                                    ""
+                                ).toUpperCase() !==
+                                "CANCELLED"
+                            );
+                        }
+                    )
+                    .sort(
+                        (a, b) =>
+                            new Date(
+                                a.appointmentDate +
+                                "T" +
+                                (
+                                    a.appointmentTime ||
+                                    "00:00"
+                                )
+                            ) -
+                            new Date(
+                                b.appointmentDate +
+                                "T" +
+                                (
+                                    b.appointmentTime ||
+                                    "00:00"
+                                )
+                            )
+                    )[0];
+
+            if (!upcoming) {
+
+                upcomingAppointment.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <p>No upcoming appointments found.</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            const appointmentDate =
+                new Date(
+                    upcoming.appointmentDate +
+                    "T00:00:00"
+                );
+
+            const day =
+                appointmentDate
+                    .getDate();
+
+            const month =
+                appointmentDate
+                    .toLocaleDateString(
+                        "en-IN",
+                        {
+                            month: "short"
+                        }
+                    )
+                    .toUpperCase();
+
+            const doctor =
+                doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(
+                            upcoming.doctorId
+                        )
+                );
+
+            const doctorName =
+                upcoming.doctorName ||
+                doctor?.doctorName ||
+                "Doctor";
+
+            const specialization =
+                upcoming.specialization ||
+                doctor?.specialization ||
+                "Medical Specialist";
+
+            const status =
+                String(
+                    upcoming.status ||
+                    "PENDING"
+                ).toUpperCase();
+
+            const statusClass =
+                status === "ACCEPTED" ||
+                    status === "CONFIRMED"
+                    ? "confirmed"
+                    : status === "CANCELLED" ||
+                        status === "REJECTED"
+                        ? "cancelled"
+                        : "pending";
+
+            upcomingAppointment.innerHTML = `
+                <div class="appointment-date">
+                    <h2>${day}</h2>
+                    <span>${month}</span>
+                </div>
+
+                <div class="appointment-info">
+                    <h4>
+                        ${escapeHtml(
+                doctorName
+            )}
+                    </h4>
+
+                    <p>
+                        ${escapeHtml(
+                specialization
+            )}
+                    </p>
+
+                    <p>
+                        <i class="fa-regular fa-clock"></i>
+                        ${escapeHtml(
+                formatTime(
+                    upcoming.appointmentTime
+                )
+            )}
+                    </p>
+
+                    <span class="status ${statusClass}">
+                        ${escapeHtml(
+                status
+            )}
+                    </span>
+                </div>
+            `;
+        }
+
+        function renderMedicalHistory() {
+
+            if (!medicalHistoryList) {
+                return;
+            }
+
+            medicalHistoryList.innerHTML =
+                "";
+
+            if (
+                !medicalRecords ||
+                medicalRecords.length === 0
+            ) {
+
+                medicalHistoryList.innerHTML = `
+                    <li>
+                        <div class="empty-state">
+                            <i class="fa-solid fa-file-circle-xmark"></i>
+                            <p>No medical history found.</p>
+                        </div>
+                    </li>
+                `;
+
+                return;
+            }
+
+            medicalRecords
+                .slice(0, 5)
+                .forEach(
+                    record => {
+
+                        const item =
+                            document.createElement(
+                                "li"
+                            );
+
+                        const diagnosis =
+                            record.diagnosis ||
+                            record.reason ||
+                            "Medical Consultation";
+
+                        const visitDate =
+                            record.visitDate ||
+                            record.date;
+
+                        item.innerHTML = `
+                            <div class="history-content">
+                                <h4>
+                                    ${escapeHtml(
+                            diagnosis
+                        )}
+                                </h4>
+
+                                <p>
+                                    ${escapeHtml(
+                            formatDate(
+                                visitDate
+                            )
+                        )}
+                                </p>
+                            </div>
+
+                            <span>
+                                ${record.status
+                                ? escapeHtml(
+                                    String(
+                                        record.status
+                                    )
+                                )
+                                : "Recorded"
+                            }
+                            </span>
+                        `;
+
+                        medicalHistoryList.appendChild(
+                            item
+                        );
+                    }
+                );
+        }
+
+        function renderDoctors() {
+
+            if (!doctorList) {
+                return;
+            }
+
+            const searchValue =
+                searchInput
+                    ? searchInput.value
+                        .trim()
+                        .toLowerCase()
+                    : "";
+
+            const filteredDoctors =
+                doctors
+                    .filter(
+                        doctor => {
+
+                            if (!searchValue) {
+                                return true;
+                            }
+
+                            const doctorDetails =
+                                Object.values(
+                                    doctor
+                                )
+                                    .filter(
+                                        value =>
+                                            value !== null &&
+                                            value !== undefined
+                                    )
+                                    .join(" ")
+                                    .toLowerCase();
+
+                            return doctorDetails.includes(
+                                searchValue
+                            );
+                        }
+                    )
+                    .slice(0, 6);
+
+            doctorList.innerHTML =
+                "";
+
+            if (
+                filteredDoctors.length === 0
+            ) {
+
+                doctorList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <p>No doctors found.</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            filteredDoctors.forEach(
+                doctor => {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+                    item.className =
+                        "doctor-item";
+
+                    const imageName =
+                        doctor.profileImage
+                            ? String(
+                                doctor.profileImage
+                            )
+                                .split("/")
+                                .pop()
+                                .split("\\")
+                                .pop()
+                            : "";
+
+                    const imageUrl =
+                        imageName
+                            ? `${API_BASE_URL}/profile-images/${encodeURIComponent(
+                                imageName
+                            )}`
+                            : "../assets/doctor.png";
+
+                    item.innerHTML = `
+                        <img
+                            src="${imageUrl}"
+                            alt="Doctor"
+                            onerror="this.onerror=null;this.src='../assets/doctor.png';"
+                        >
+
+                        <div>
+                            <h4>
+                                ${escapeHtml(
+                        doctor.doctorName ||
+                        "Doctor"
+                    )}
+                            </h4>
+
+                            <p>
+                                ${escapeHtml(
+                        doctor.specialization ||
+                        "Medical Specialist"
+                    )}
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            data-doctor-id="${doctor.id}"
+                        >
+                            Book
+                        </button>
+                    `;
+
+                    doctorList.appendChild(
+                        item
+                    );
+                }
+            );
+
+            doctorList
+                .querySelectorAll(
+                    "button"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                const id =
+                                    this.dataset.doctorId;
+
+                                localStorage.setItem(
+                                    "selectedDoctorId",
+                                    String(id)
+                                );
+
+                                window.location.href =
+                                    "book-appointment.html";
+                            }
+                        );
+                    }
+                );
+        }
+
+        function renderNotifications() {
+
+            if (!notificationList) {
+                return;
+            }
+
+            notificationList.innerHTML =
+                "";
+
+            const pendingAppointments =
+                appointments
+                    .filter(
+                        appointment =>
+                            String(
+                                appointment.status ||
+                                ""
+                            ).toUpperCase() ===
+                            "PENDING"
+                    )
+                    .sort(
+                        (a, b) =>
+                            new Date(
+                                a.appointmentDate ||
+                                0
+                            ) -
+                            new Date(
+                                b.appointmentDate ||
+                                0
+                            )
+                    );
+
+            if (
+                pendingAppointments.length === 0
+            ) {
+
+                notificationList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-bell-slash"></i>
+                        <p>No new notifications.</p>
+                    </div>
+                `;
+
+                if (notificationCount) {
+                    notificationCount.textContent =
+                        "0";
+                }
+
+                return;
+            }
+
+            if (notificationCount) {
+
+                notificationCount.textContent =
+                    String(
+                        pendingAppointments.length
+                    );
+            }
+
+            pendingAppointments
+                .slice(0, 5)
+                .forEach(
+                    appointment => {
+
+                        const doctor =
+                            doctors.find(
+                                item =>
+                                    Number(item.id) ===
+                                    Number(
+                                        appointment.doctorId
+                                    )
+                            );
+
+                        const doctorName =
+                            appointment.doctorName ||
+                            doctor?.doctorName ||
+                            "Doctor";
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+                        item.className =
+                            "notification-item";
+
+                        item.innerHTML = `
+                            <i class="fa-solid fa-calendar-check"></i>
+
+                            <div>
+                                <h4>
+                                    Appointment Pending
+                                </h4>
+
+                                <p>
+                                    Appointment with
+                                    ${escapeHtml(
+                            doctorName
+                        )}
+                                    on
+                                    ${escapeHtml(
+                            formatDate(
+                                appointment.appointmentDate
+                            )
+                        )}
+                                    at
+                                    ${escapeHtml(
+                            formatTime(
+                                appointment.appointmentTime
+                            )
+                        )}
+                                </p>
+                            </div>
+                        `;
+
+                        notificationList.appendChild(
+                            item
+                        );
+                    }
+                );
+        }
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
+        }
+
+        function handleSearch() {
+            renderDoctors();
+        }
+
+        document.addEventListener(
+            "click",
+            function (event) {
 
                 if (
-                    !sidebar.contains(e.target) &&
-                    !menuBtn.contains(e.target)
+                    window.innerWidth <= 992 &&
+                    sidebar &&
+                    menuBtn &&
+                    !sidebar.contains(
+                        event.target
+                    ) &&
+                    !menuBtn.contains(
+                        event.target
+                    )
                 ) {
-                    sidebar.classList.remove("active");
+
+                    sidebar.classList.remove(
+                        "active"
+                    );
+                }
+            }
+        );
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                if (!sidebar) {
+                    return;
                 }
 
-            }
+                if (
+                    window.innerWidth > 992
+                ) {
 
-        });
-
-        const menuLinks = document.querySelectorAll(".sidebar-menu a");
-
-        menuLinks.forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                menuLinks.forEach(item => item.classList.remove("active"));
-                link.classList.add("active");
-
-                if (window.innerWidth <= 992) {
-                    sidebar.classList.remove("active");
+                    sidebar.classList.remove(
+                        "active"
+                    );
                 }
-            });
-        });
-        const notificationBtn = document.querySelector(".notification-btn");
-        notificationBtn.addEventListener("click", () => {
-            alert("You have 3 new notifications.");
-        });
-
-        const primaryButton = document.querySelector(".primary-btn");
-        const secondaryButton = document.querySelector(".secondary-btn");
-
-        primaryButton.addEventListener("click", () => {
-            window.location.href = "book-appointment.html";
-        });
-
-        secondaryButton.addEventListener("click", () => {
-            window.location.href = "find-doctor.html";
-        });
-
-        const doctorButtons = document.querySelectorAll(".doctor-item button");
-        doctorButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                window.location.href = "book-appointment.html";
-            });
-        });
-
-        const patientData = JSON.parse(localStorage.getItem("user"));
-        function loadDashboard() {
-            if (!patientData) {
-                window.location.href = "../auth/login.html";
-                return;
             }
-            document.getElementById("patientFullName").textContent = patientData.fullName;
-            document.getElementById("patientName").textContent = patientData.fullName;
-            document.getElementById("appointmentCount").textContent = "0";
-            document.getElementById("doctorCount").textContent = "0";
-            document.getElementById("reportCount").textContent = "0";
-            document.getElementById("prescriptionCount").textContent = "0";
-            document.getElementById("nextDoctorName").textContent = "Not Assigned";
+        );
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
+                "input",
+                handleSearch
+            );
         }
-        loadDashboard();
 
-        const cards = document.querySelectorAll(".stat-card,.card");
+        if (bookAppointmentBtn) {
 
-        const observer = new IntersectionObserver((entries) => {
+            bookAppointmentBtn.addEventListener(
+                "click",
+                function () {
 
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-
+                    window.location.href =
+                        "book-appointment.html";
                 }
+            );
+        }
 
-            });
+        if (findDoctorBtn) {
 
-        }, {
-            threshold: .15
-        });
+            findDoctorBtn.addEventListener(
+                "click",
+                function () {
 
-        cards.forEach(card => {
+                    window.location.href =
+                        "find-doctor.html";
+                }
+            );
+        }
 
-            card.style.opacity = "0";
-            card.style.transform = "translateY(35px)";
-            card.style.transition = ".6s ease";
+        if (profileBox) {
 
-            observer.observe(card);
+            profileBox.addEventListener(
+                "click",
+                function () {
 
-        });
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+        }
 
-        window.addEventListener("resize", () => {
+        if (notificationButton) {
 
-            if (window.innerWidth > 992) {
-                sidebar.classList.remove("active");
+            notificationButton.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        notificationList
+                    ) {
+
+                        notificationList.scrollIntoView(
+                            {
+                                behavior: "smooth",
+                                block: "center"
+                            }
+                        );
+                    }
+                }
+            );
+        }
+
+        document
+            .querySelectorAll(
+                ".sidebar-menu a"
+            )
+            .forEach(
+                link => {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            if (
+                                window.innerWidth <=
+                                992
+                            ) {
+
+                                sidebar.classList.remove(
+                                    "active"
+                                );
+                            }
+                        }
+                    );
+                }
+            );
+
+        if (menuBtn) {
+
+            menuBtn.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        window.innerWidth <= 992
+                    ) {
+
+                        sidebar.classList.toggle(
+                            "active"
+                        );
+                    }
+                }
+            );
+        }
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    window.innerWidth <= 992 &&
+                    sidebar &&
+                    menuBtn &&
+                    !sidebar.contains(
+                        event.target
+                    ) &&
+                    !menuBtn.contains(
+                        event.target
+                    )
+                ) {
+
+                    sidebar.classList.remove(
+                        "active"
+                    );
+                }
             }
+        );
 
-        });
+        async function initializeDashboard() {
 
-        document.querySelector('a[href="../auth/login.html"]').addEventListener("click", (e) => {
+            patientId =
+                getPatientId();
 
-            e.preventDefault();
+            if (!patientId) {
 
-            const logout = confirm("Are you sure you want to logout?");
+                window.location.href =
+                    "../auth/login.html";
 
-            if (!logout) {
                 return;
             }
 
-            /*
-            
-            Future Spring Boot Integration
-            
-            localStorage.removeItem("token");
-            
-            fetch("/api/auth/logout",{
-            method:"POST",
-            headers:{
-            Authorization:"Bearer "+localStorage.getItem("token")
-            }
-            });
-            
-            */
+            localStorage.setItem(
+                "patientId",
+                String(patientId)
+            );
 
-            window.location.href = "../auth/login.html";
+            await loadPatientProfile();
 
-        });
+            await Promise.all([
+                loadDoctors(),
+                loadAppointments(),
+                loadMedicalHistory()
+            ]);
+
+            renderNotifications();
+        }
+
+        initializeDashboard();
 
     </script>
+
 </body>
 
 </html>

@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Schedule | OptiHealth</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
     <style>
         * {
             margin: 0;
@@ -26,11 +24,13 @@
             --success: #16a34a;
             --warning: #f59e0b;
             --danger: #dc2626;
+            --blue: #2563eb;
+            --purple: #7c3aed;
             --dark: #0f172a;
             --text: #64748b;
             --border: #e2e8f0;
             --bg: #f4f7fb;
-            --white: #fff;
+            --white: #ffffff;
             --shadow: 0 15px 40px rgba(15, 23, 42, .08);
         }
 
@@ -55,13 +55,14 @@
             background: linear-gradient(180deg, #0f172a, #0f766e);
             color: #fff;
             overflow-y: auto;
+            z-index: 1000;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .logo i {
@@ -111,6 +112,7 @@
         .main {
             margin-left: 270px;
             width: calc(100% - 270px);
+            min-width: 0;
             overflow-x: hidden;
         }
 
@@ -131,23 +133,30 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            min-width: 0;
         }
 
         .menu-btn {
             width: 48px;
             height: 48px;
+            background: #ecfeff;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #ecfeff;
-            border-radius: 14px;
             cursor: pointer;
             font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .page-title {
+            min-width: 0;
         }
 
         .page-title h2 {
             font-size: 30px;
             font-weight: 700;
+            white-space: nowrap;
         }
 
         .page-title p {
@@ -159,6 +168,7 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            flex-shrink: 0;
         }
 
         .notify {
@@ -171,14 +181,21 @@
             border-radius: 50%;
             position: relative;
             cursor: pointer;
+            transition: .3s;
+        }
+
+        .notify:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(20, 184, 166, .15);
         }
 
         .notify span {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 18px;
+            top: 4px;
+            right: 4px;
+            min-width: 18px;
             height: 18px;
+            padding: 0 4px;
             border-radius: 50%;
             background: var(--danger);
             color: #fff;
@@ -204,11 +221,13 @@
 
         .profile h4 {
             font-size: 16px;
+            white-space: nowrap;
         }
 
         .profile p {
             font-size: 13px;
             color: var(--text);
+            white-space: nowrap;
         }
 
         .content {
@@ -223,15 +242,16 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow);
+            animation: fadeUp .6s ease both;
         }
 
         .hero::before {
             content: "";
             position: absolute;
-            right: -80px;
-            top: -80px;
-            width: 220px;
-            height: 220px;
+            right: -90px;
+            top: -90px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
             background: rgba(255, 255, 255, .08);
         }
@@ -258,25 +278,22 @@
         }
 
         .hero p {
-            max-width: 700px;
+            max-width: 760px;
             line-height: 1.8;
             font-size: 15px;
         }
 
         .schedule-wrapper {
             margin-top: 30px;
-            display: grid;
-            grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 25px;
             width: 100%;
-            align-items: start;
         }
 
         .left-panel,
         .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+            display: contents;
         }
 
         .card {
@@ -285,12 +302,82 @@
             padding: 25px;
             box-shadow: var(--shadow);
             width: 100%;
-            max-width: 100%;
             overflow: hidden;
+            animation: fadeUp .6s ease both;
+            transition: .3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 18px 45px rgba(15, 23, 42, .10);
+        }
+
+        .schedule-wrapper>.left-panel>.card:nth-child(1) {
+            animation-delay: .08s;
+        }
+
+        .schedule-wrapper>.left-panel>.card:nth-child(2) {
+            animation-delay: .16s;
+        }
+
+        .schedule-wrapper>.left-panel>.card:nth-child(3) {
+            animation-delay: .24s;
+        }
+
+        .schedule-wrapper>.right-panel>.card:nth-child(1) {
+            animation-delay: .32s;
+        }
+
+        .schedule-wrapper>.right-panel>.card:nth-child(2) {
+            animation-delay: .40s;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            background: #ecfeff;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            flex-shrink: 0;
+        }
+
+        .section-heading h3 {
+            font-size: 22px;
+        }
+
+        .section-heading p {
+            margin-top: 3px;
+            color: var(--text);
+            font-size: 13px;
         }
 
         .doctor-card {
             text-align: center;
+        }
+
+        .doctor-card .section-heading {
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .doctor-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border);
         }
 
         .doctor-card img {
@@ -300,36 +387,86 @@
             object-fit: cover;
             background: #ddd;
             border: 5px solid #ecfeff;
-            margin-bottom: 18px;
+            flex-shrink: 0;
+            transition: .35s;
+        }
+
+        .doctor-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .doctor-header-info {
+            text-align: left;
         }
 
         .doctor-card h2 {
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 6px;
         }
 
         .doctor-card p {
-            font-size: 14px;
             color: var(--text);
-            margin-bottom: 18px;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .doctor-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-available {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-unavailable {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .status-na {
+            background: #f1f5f9;
+            color: #64748b;
         }
 
         .info-list {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
+            margin-top: 20px;
         }
 
         .info-list div {
             display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
+            flex-direction: column;
+            gap: 6px;
+            padding: 15px;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-align: left;
+            transition: .3s;
         }
 
-        .info-list div:last-child {
-            border: none;
+        .info-list div:hover {
+            transform: translateY(-3px);
+            border-color: #b7ebe5;
+        }
+
+        .info-list span {
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .info-list strong {
+            font-size: 14px;
+            word-break: break-word;
         }
 
         .schedule-table {
@@ -339,8 +476,9 @@
 
         .schedule-table table {
             width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 760px;
         }
 
         .schedule-table th {
@@ -348,6 +486,15 @@
             color: #fff;
             padding: 15px;
             font-size: 14px;
+            text-align: center;
+        }
+
+        .schedule-table th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        .schedule-table th:last-child {
+            border-top-right-radius: 12px;
         }
 
         .schedule-table td {
@@ -357,21 +504,28 @@
             font-size: 14px;
             vertical-align: middle;
             word-break: break-word;
+            background: #fff;
+            transition: .3s;
         }
 
-        .schedule-table tr:hover {
-            background: #f8fbff;
+        .schedule-table tbody tr:hover td {
+            background: #f8fffe;
         }
 
-        input[type="time"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 11px 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            outline: none;
-            font-size: 14px;
+        .day-cell {
+            font-weight: 600;
+            color: var(--dark);
+            text-align: left !important;
+        }
+
+        .time-cell {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .unavailable-cell {
+            color: var(--text);
+            font-style: italic;
         }
 
         .switch {
@@ -387,10 +541,7 @@
 
         .slider {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: #cbd5e1;
             border-radius: 30px;
             cursor: pointer;
@@ -407,20 +558,21 @@
             background: #fff;
             border-radius: 50%;
             transition: .3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
         }
 
         .switch input:checked+.slider {
-            background: #16a34a;
+            background: var(--success);
         }
 
         .switch input:checked+.slider:before {
             transform: translateX(24px);
         }
 
-        .grid {
+        .settings-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
+            gap: 18px;
         }
 
         .input-group {
@@ -437,17 +589,71 @@
         .input-group input,
         .input-group select {
             width: 100%;
-            max-width: 100%;
-            padding: 13px;
+            padding: 13px 14px;
             border: 1px solid var(--border);
             border-radius: 12px;
             outline: none;
+            font-size: 14px;
+            background: #fff;
+            transition: .3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, .12);
         }
 
         .leave-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .leave-list {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 12px;
+        }
+
+        .leave-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 16px;
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: .3s;
+        }
+
+        .leave-item:hover {
+            transform: translateX(4px);
+            border-color: #b7ebe5;
+        }
+
+        .leave-date {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .leave-reason {
+            color: var(--text);
+            font-size: 13px;
+            text-align: right;
+        }
+
+        .empty-state {
+            padding: 28px;
+            text-align: center;
+            color: var(--text);
+            background: #f8fbff;
+            border: 1px dashed var(--border);
+            border-radius: 16px;
         }
 
         .action-buttons {
@@ -458,7 +664,7 @@
         }
 
         .action-buttons button {
-            padding: 13px 24px;
+            padding: 13px 22px;
             border: none;
             border-radius: 14px;
             cursor: pointer;
@@ -467,24 +673,63 @@
             transition: .3s;
         }
 
-        .save-btn {
-            background: #16a34a;
-        }
-
-        .reset-btn {
-            background: #f59e0b;
-        }
-
-        .leave-btn {
-            background: #0f766e;
-        }
-
         .action-buttons button:hover {
             transform: translateY(-3px);
         }
 
+        .save-btn {
+            background: var(--success);
+        }
+
+        .reset-btn {
+            background: var(--warning);
+        }
+
+        .leave-btn {
+            background: var(--primary);
+        }
+
+        .loading {
+            padding: 20px;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .page-message {
+            padding: 16px 18px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media(max-width:1200px) {
-            .schedule-wrapper {
+            .info-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .leave-box {
                 grid-template-columns: 1fr;
             }
         }
@@ -503,22 +748,36 @@
                 padding: 20px;
             }
 
-            .hero {
-                padding: 28px;
+            .topbar {
+                padding: 0 20px;
             }
 
-            .hero h1 {
-                font-size: 28px;
+            .doctor-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .doctor-header-info {
+                text-align: center;
+            }
+
+            .info-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media(max-width:768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
             .profile div {
                 display: none;
+            }
+
+            .info-list {
+                grid-template-columns: 1fr;
             }
 
             .action-buttons {
@@ -529,18 +788,23 @@
                 width: 100%;
             }
 
-            .schedule-table {
-                overflow-x: auto;
+            .leave-item {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-            .schedule-table table {
-                min-width: 760px;
+            .leave-reason {
+                text-align: left;
             }
         }
 
         @media(max-width:500px) {
             .page-title h2 {
                 font-size: 24px;
+            }
+
+            .hero {
+                padding: 25px;
             }
 
             .hero h1 {
@@ -557,363 +821,442 @@
             }
         }
     </style>
-
 </head>
 
 <body>
-
     <div class="page">
-
         <aside class="sidebar">
-
             <div class="logo">
                 <i class="fa-solid fa-user-doctor"></i>
                 <h2>OptiHealth</h2>
             </div>
-
             <p class="portal">Doctor Portal</p>
-
             <nav>
-
-                <a href="dashboard.html"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
-
-                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
-
-                <a href="patient-details.html"><i class="fa-solid fa-hospital-user"></i><span>Patients</span></a>
-
-                <a href="prescription.html"><i class="fa-solid fa-prescription"></i><span>Prescriptions</span></a>
-
-                <a href="medical-history.html"><i class="fa-solid fa-file-waveform"></i><span>Medical History</span></a>
-
-                <a href="#" class="active"><i class="fa-solid fa-clock"></i><span>Schedule</span></a>
-
-                <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
-
-                <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
-
-                <a href="../auth/login.html"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
-
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="appointments.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="patient-details.html">
+                    <i class="fa-solid fa-hospital-user"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="prescription.html">
+                    <i class="fa-solid fa-prescription"></i>
+                    <span>Prescriptions</span>
+                </a>
+                <a href="medical-history.html">
+                    <i class="fa-solid fa-file-waveform"></i>
+                    <span>Medical History</span>
+                </a>
+                <a href="#" class="active">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Schedule</span>
+                </a>
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="../auth/login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
             </nav>
-
         </aside>
-
         <div class="main">
-
             <header class="topbar">
-
                 <div class="left-top">
-
                     <div class="menu-btn">
                         <i class="fa-solid fa-bars"></i>
                     </div>
-
                     <div class="page-title">
                         <h2>Doctor Schedule</h2>
                         <p>Manage your consultation timings and availability.</p>
                     </div>
-
                 </div>
-
                 <div class="right-top">
-
-                    <div class="notify">
+                    <div class="notify" id="notificationButton">
                         <i class="fa-regular fa-bell"></i>
-                        <span>3</span>
+                        <span id="notificationCount">0</span>
                     </div>
-
                     <div class="profile">
-                        <img src="../assets/doctor.png" alt="">
+                        <img id="topDoctorProfileImage" src="../assets/doctor.png" alt="Doctor">
                         <div>
-                            <h4 id="topDoctorName">--</h4>
-                            <p id="topDoctorSpecialization">--</p>
+                            <h4 id="topDoctorName">Loading...</h4>
+                            <p id="topDoctorSpecialization">Loading...</p>
                         </div>
                     </div>
-
                 </div>
-
             </header>
-
             <main class="content">
-
+                <div id="pageMessage" class="page-message"></div>
                 <section class="hero">
                     <h1>Schedule Management</h1>
                     <p>Configure your weekly consultation timings, availability, break hours, appointment limits and
                         leave schedule.</p>
                 </section>
-
                 <div class="schedule-wrapper">
-                    <div class="left-panel">
-
-                        <div class="card doctor-card">
-                            <img src="../assets/doctor.png" alt="">
-                            <h2 id="doctorName">--</h2>
-                            <p id="doctorSpecialization">--</p>
-
-                            <div class="info-list">
-                                <div><span>Doctor ID</span><strong id="doctorId">--</strong></div>
-                                <div><span>Experience</span><strong id="doctorExperience">--</strong></div>
-                                <div><span>Description</span><strong id="doctorQualification">--</strong></div>
-                                <div><span>Department</span><strong id="doctorDepartment">--</strong></div>
-                                <div><span>Today's Appointments</span><strong id="todayAppointments">0</strong></div>
-                                <div><span>Status</span><strong id="doctorStatus">--</strong></div>
+                    <div class="card doctor-card">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-user-doctor"></i>
                             </div>
-
-                        </div>
-
-                        <div class="card">
-
-                            <h3 style="margin-bottom:20px;">Schedule Settings</h3>
-
-                            <div class="grid">
-
-                                <div class="input-group">
-                                    <label>Consultation Duration</label>
-                                    <select id="consultationDuration">
-                                        <option value="10">10 Minutes</option>
-                                        <option value="15">15 Minutes</option>
-                                        <option value="20">20 Minutes</option>
-                                        <option value="30">30 Minutes</option>
-                                    </select>
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Daily Appointment Limit</label>
-                                    <input type="number" id="appointmentLimit">
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Break Start</label>
-                                    <input type="time" id="breakStart">
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Break End</label>
-                                    <input type="time" id="breakEnd">
-                                </div>
-
+                            <div>
+                                <h3>Doctor Profile</h3>
+                                <p>Current doctor information from the hospital database</p>
                             </div>
-
                         </div>
-
-                        <div class="card">
-
-                            <h3 style="margin-bottom:20px;">Leave Management</h3>
-
-                            <div class="leave-box">
-
-                                <div class="input-group">
-                                    <label>Leave Date</label>
-                                    <input type="date" id="leaveDate">
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Reason</label>
-                                    <select id="leaveReason">
-                                        <option>Vacation</option>
-                                        <option>Sick Leave</option>
-                                        <option>Emergency</option>
-                                        <option>Conference</option>
-                                        <option>Personal</option>
-                                    </select>
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Remarks</label>
-                                    <input type="text" id="leaveRemarks" placeholder="Enter remarks">
-                                </div>
-
+                        <div class="doctor-header">
+                            <img id="doctorProfileImage" src="../assets/doctor.png" alt="Doctor">
+                            <div class="doctor-header-info">
+                                <h2 id="doctorName">Loading...</h2>
+                                <p id="doctorSpecialization">Loading...</p>
+                                <span id="doctorStatus" class="doctor-status status-na">
+                                    <i class="fa-solid fa-circle"></i>
+                                    Loading...
+                                </span>
                             </div>
-
                         </div>
-
+                        <div class="info-list">
+                            <div>
+                                <span>Doctor ID</span>
+                                <strong id="doctorId">--</strong>
+                            </div>
+                            <div>
+                                <span>Experience</span>
+                                <strong id="doctorExperience">--</strong>
+                            </div>
+                            <div>
+                                <span>Department</span>
+                                <strong id="doctorDepartment">--</strong>
+                            </div>
+                            <div>
+                                <span>Description</span>
+                                <strong id="doctorQualification">--</strong>
+                            </div>
+                            <div>
+                                <span>Today's Appointments</span>
+                                <strong id="todayAppointments">0</strong>
+                            </div>
+                            <div>
+                                <span>Today's Schedule</span>
+                                <strong id="todaySchedule">--</strong>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="right-panel">
-
-                        <div class="card">
-
-                            <h3 style="margin-bottom:20px;">Weekly Availability</h3>
-
-                            <div class="schedule-table">
-
-                                <table>
-
-                                    <thead>
-
-                                        <tr>
-                                            <th>Day</th>
-                                            <th>Status</th>
-                                            <th>Morning</th>
-                                            <th>Evening</th>
-                                        </tr>
-
-                                    </thead>
-
-                                    <tbody id="scheduleBody">
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td class="morning-time">--</td>
-                                            <td class="evening-time">--</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td class="morning-time">--</td>
-                                            <td class="evening-time">--</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Wednesday</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td class="morning-time">--</td>
-                                            <td class="evening-time">--</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Thursday</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td class="morning-time">--</td>
-                                            <td class="evening-time">--</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Friday</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td class="morning-time">--</td>
-                                            <td class="evening-time">--</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Saturday</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td class="morning-time">--</td>
-                                            <td class="evening-time">--</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Sunday</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td class="morning-time">--</td>
-                                            <td class="evening-time">--</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
-
+                    <div class="card">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-calendar-week"></i>
                             </div>
-
+                            <div>
+                                <h3>Weekly Availability</h3>
+                                <p>Manage availability for each day of the week</p>
+                            </div>
                         </div>
+                        <div class="schedule-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Status</th>
+                                        <th>Morning Start</th>
+                                        <th>Morning End</th>
+                                        <th>Evening Start</th>
+                                        <th>Evening End</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scheduleBody">
+                                    <tr>
+                                        <td class="day-cell">Monday</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-end">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-end">
+                                        </td>
+                                    </tr>
 
-                        <div class="card">
+                                    <tr>
+                                        <td class="day-cell">Tuesday</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-end">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-end">
+                                        </td>
+                                    </tr>
 
-                            <h3 style="margin-bottom:20px;">Upcoming Leaves & Holidays</h3>
+                                    <tr>
+                                        <td class="day-cell">Wednesday</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-end">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-end">
+                                        </td>
+                                    </tr>
 
-                            <div class="info-list" id="leaveList">
-                                <div>
-                                    <span>No leaves found</span>
-                                    <strong>--</strong>
-                                </div>
-                            </div>
+                                    <tr>
+                                        <td class="day-cell">Thursday</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-end">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-end">
+                                        </td>
+                                    </tr>
 
-                            <div class="action-buttons">
+                                    <tr>
+                                        <td class="day-cell">Friday</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-end">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-end">
+                                        </td>
+                                    </tr>
 
-                                <button class="save-btn" id="saveScheduleBtn">
-                                    <i class="fa-solid fa-floppy-disk"></i>
-                                    Save Schedule
-                                </button>
+                                    <tr>
+                                        <td class="day-cell">Saturday</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-end">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-end">
+                                        </td>
+                                    </tr>
 
-                                <button class="reset-btn" id="resetScheduleBtn">
-                                    <i class="fa-solid fa-rotate-left"></i>
-                                    Reset
-                                </button>
+                                    <tr>
+                                        <td class="day-cell">Sunday</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="morning-end">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-start">
+                                        </td>
+                                        <td>
+                                            <input type="time" class="evening-end">
+                                        </td>
+                                    </tr>
 
-                                <button class="leave-btn" id="applyLeaveBtn">
-                                    <i class="fa-solid fa-calendar-plus"></i>
-                                    Apply Leave
-                                </button>
-
-                            </div>
-
+                                </tbody>
+                            </table>
                         </div>
-
+                    </div>
+                    <div class="card">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
+                            <div>
+                                <h3>Schedule Settings</h3>
+                                <p>Configure consultation and working-hour settings</p>
+                            </div>
+                        </div>
+                        <div class="settings-grid">
+                            <div class="input-group">
+                                <label for="consultationDuration">Consultation Duration</label>
+                                <select id="consultationDuration">
+                                    <option value="">Select Duration</option>
+                                    <option value="10">10 Minutes</option>
+                                    <option value="15">15 Minutes</option>
+                                    <option value="20">20 Minutes</option>
+                                    <option value="30">30 Minutes</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="appointmentLimit">Daily Appointment Limit</label>
+                                <input type="number" id="appointmentLimit" min="1" placeholder="Enter limit">
+                            </div>
+                            <div class="input-group">
+                                <label for="breakStart">Break Start</label>
+                                <input type="time" id="breakStart">
+                            </div>
+                            <div class="input-group">
+                                <label for="breakEnd">Break End</label>
+                                <input type="time" id="breakEnd">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-calendar-xmark"></i>
+                            </div>
+                            <div>
+                                <h3>Leave Management</h3>
+                                <p>Apply leave and view upcoming leave records</p>
+                            </div>
+                        </div>
+                        <div class="leave-box">
+                            <div class="input-group">
+                                <label for="leaveDate">Leave Date</label>
+                                <input type="date" id="leaveDate">
+                            </div>
+                            <div class="input-group">
+                                <label for="leaveReason">Reason</label>
+                                <select id="leaveReason">
+                                    <option value="Vacation">Vacation</option>
+                                    <option value="Sick Leave">Sick Leave</option>
+                                    <option value="Emergency">Emergency</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Personal">Personal</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="leaveRemarks">Remarks</label>
+                                <input type="text" id="leaveRemarks" placeholder="Enter remarks">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+                            <div>
+                                <h3>Upcoming Leaves & Holidays</h3>
+                                <p>Leave records saved in the database</p>
+                            </div>
+                        </div>
+                        <div class="leave-list" id="leaveList">
+                            <div class="loading">Loading leave records...</div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="save-btn" id="saveScheduleBtn" type="button">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Save Schedule
+                            </button>
+                            <button class="reset-btn" id="resetScheduleBtn" type="button">
+                                <i class="fa-solid fa-rotate-left"></i>
+                                Reset
+                            </button>
+                            <button class="leave-btn" id="applyLeaveBtn" type="button">
+                                <i class="fa-solid fa-calendar-plus"></i>
+                                Apply Leave
+                            </button>
+                        </div>
                     </div>
                 </div>
-
             </main>
-
         </div>
-
     </div>
 
     <script>
         const API_BASE_URL = "http://localhost:8080";
-
         const menuBtn = document.querySelector(".menu-btn");
         const sidebar = document.querySelector(".sidebar");
-        const saveBtn = document.getElementById("saveScheduleBtn") || document.querySelector(".save-btn");
-        const resetBtn = document.getElementById("resetScheduleBtn") || document.querySelector(".reset-btn");
-        const leaveBtn = document.getElementById("applyLeaveBtn") || document.querySelector(".leave-btn");
-
+        const saveBtn = document.getElementById("saveScheduleBtn");
+        const resetBtn = document.getElementById("resetScheduleBtn");
+        const leaveBtn = document.getElementById("applyLeaveBtn");
+        const notificationButton = document.getElementById("notificationButton");
+        const notificationCount = document.getElementById("notificationCount");
+        const topDoctorProfileImage = document.getElementById("topDoctorProfileImage");
+        const doctorProfileImage = document.getElementById("doctorProfileImage");
         const duration = document.getElementById("consultationDuration");
         const appointmentLimit = document.getElementById("appointmentLimit");
         const breakStart = document.getElementById("breakStart");
         const breakEnd = document.getElementById("breakEnd");
-
         const leaveDate = document.getElementById("leaveDate");
         const leaveReason = document.getElementById("leaveReason");
         const leaveRemarks = document.getElementById("leaveRemarks");
-
-        const scheduleBody =
-            document.getElementById("scheduleBody") ||
-            document.querySelector(".schedule-table tbody");
-
-        const leaveList =
-            document.getElementById("leaveList") ||
-            document.querySelector(".info-list");
-
+        const scheduleBody = document.getElementById("scheduleBody");
+        const leaveList = document.getElementById("leaveList");
+        const pageMessage = document.getElementById("pageMessage");
         const token = localStorage.getItem("token");
-
         let doctorId = null;
         let doctorSchedules = [];
         let doctorLeaves = [];
-
+        let doctorAppointments = [];
         const DAYS = [
             "Monday",
             "Tuesday",
@@ -923,64 +1266,43 @@
             "Saturday",
             "Sunday"
         ];
-
         function getDoctorId() {
             const storedDoctorId = localStorage.getItem("doctorId");
-
             if (storedDoctorId) {
                 return storedDoctorId;
             }
-
             try {
                 const user = JSON.parse(localStorage.getItem("user"));
-
                 if (user) {
-                    return (
-                        user.id ||
-                        user.doctorId ||
-                        user.data?.id ||
-                        user.data?.doctorId
-                    );
+                    return user.id || user.doctorId || user.data?.id || user.data?.doctorId || null;
                 }
             } catch (error) {
                 console.error("User data error:", error);
             }
-
             try {
                 const doctor = JSON.parse(localStorage.getItem("doctor"));
-
                 if (doctor) {
-                    return (
-                        doctor.id ||
-                        doctor.doctorId
-                    );
+                    return doctor.id || doctor.doctorId || null;
                 }
             } catch (error) {
                 console.error("Doctor data error:", error);
             }
-
             return null;
         }
-
         function getHeaders() {
             const headers = {
                 "Content-Type": "application/json"
             };
-
             if (token) {
-                headers["Authorization"] = "Bearer " + token;
+                headers.Authorization = "Bearer " + token;
             }
-
             return headers;
         }
-
         function setText(id, value, fallback = "--") {
             const element = document.getElementById(id);
-
             if (!element) {
                 return;
             }
-
             element.textContent =
                 value !== null &&
                     value !== undefined &&
@@ -988,103 +1310,142 @@
                     ? value
                     : fallback;
         }
-
-        function formatDate(dateValue) {
-            if (!dateValue) {
+        function formatDate(value) {
+            if (!value) {
                 return "--";
             }
-
-            const date = new Date(dateValue);
-
+            const date = new Date(
+                String(value).length === 10
+                    ? value + "T00:00:00"
+                    : value
+            );
             if (Number.isNaN(date.getTime())) {
-                return dateValue;
+                return String(value);
             }
-
             return date.toLocaleDateString("en-IN", {
                 day: "2-digit",
                 month: "short",
                 year: "numeric"
             });
         }
-
-        function formatTime(timeValue) {
-            if (!timeValue) {
+        function formatTime(value) {
+            if (!value) {
                 return "--";
             }
-
-            const parts = String(timeValue).split(":");
-
+            const parts = String(value).split(":");
             if (parts.length < 2) {
-                return timeValue;
+                return String(value);
             }
-
             let hours = Number(parts[0]);
             const minutes = parts[1];
-
             if (Number.isNaN(hours)) {
-                return timeValue;
+                return String(value);
             }
-
             const period = hours >= 12 ? "PM" : "AM";
-
-            hours = hours % 12;
-
-            if (hours === 0) {
-                hours = 12;
-            }
-
+            hours = hours % 12 || 12;
             return `${String(hours).padStart(2, "0")}:${minutes} ${period}`;
+        }
+        function showMessage(message, type = "success") {
+            if (!pageMessage) {
+                return;
+            }
+            pageMessage.textContent = message;
+            pageMessage.className = "page-message " + (
+                type === "error"
+                    ? "error-message"
+                    : "success-message"
+            );
+            pageMessage.style.display = "block";
+            clearTimeout(showMessage.timer);
+            showMessage.timer = setTimeout(() => {
+                pageMessage.style.display = "none";
+            }, 4000);
+        }
+
+        function updateDoctorStatus() {
+            const statusElement = document.getElementById("doctorStatus");
+            const todayScheduleElement = document.getElementById("todaySchedule");
+            if (!statusElement) {
+                return;
+            }
+            const dayNames = [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            ];
+            const todayName = dayNames[new Date().getDay()];
+            const todaySchedule = doctorSchedules.find(schedule =>
+                String(schedule.day || "").trim().toLowerCase() ===
+                todayName.toLowerCase()
+            );
+            statusElement.className = "doctor-status";
+            if (!todaySchedule) {
+                statusElement.classList.add("status-na");
+                statusElement.innerHTML =
+                    '<i class="fa-solid fa-circle"></i> No Schedule';
+                if (todayScheduleElement) {
+                    todayScheduleElement.textContent = "--";
+                }
+                return;
+            }
+            if (todaySchedule.available) {
+                statusElement.classList.add("status-available");
+                statusElement.innerHTML =
+                    '<i class="fa-solid fa-circle"></i> Available';
+                const morning =
+                    todaySchedule.morningStart &&
+                        todaySchedule.morningEnd
+                        ? `${formatTime(todaySchedule.morningStart)} - ${formatTime(todaySchedule.morningEnd)}`
+                        : "";
+                const evening =
+                    todaySchedule.eveningStart &&
+                        todaySchedule.eveningEnd
+                        ? `${formatTime(todaySchedule.eveningStart)} - ${formatTime(todaySchedule.eveningEnd)}`
+                        : "";
+                const scheduleText =
+                    [morning, evening]
+                        .filter(Boolean)
+                        .join(" | ");
+                if (todayScheduleElement) {
+                    todayScheduleElement.textContent =
+                        scheduleText || "Time Not Set";
+                }
+            } else {
+                statusElement.classList.add("status-unavailable");
+                statusElement.innerHTML =
+                    '<i class="fa-solid fa-circle"></i> Unavailable';
+                if (todayScheduleElement) {
+                    todayScheduleElement.textContent =
+                        "Unavailable";
+                }
+            }
         }
 
         async function loadDoctor() {
             if (!doctorId) {
                 return;
             }
-
             try {
                 const response = await fetch(
-                    `${API_BASE_URL}/api/doctors/${doctorId}`,
+                    `${API_BASE_URL}/api/doctors/${encodeURIComponent(doctorId)}`,
                     {
                         method: "GET",
                         headers: getHeaders()
                     }
                 );
-
                 if (!response.ok) {
-                    console.error(
-                        "Doctor API Error:",
-                        response.status
-                    );
-                    return;
+                    throw new Error("Doctor API Error: " + response.status);
                 }
-
                 const doctor = await response.json();
-
-                setText(
-                    "doctorName",
-                    doctor.doctorName
-                );
-
-                setText(
-                    "topDoctorName",
-                    doctor.doctorName
-                );
-
-                setText(
-                    "doctorSpecialization",
-                    doctor.specialization
-                );
-
-                setText(
-                    "topDoctorSpecialization",
-                    doctor.specialization
-                );
-
-                setText(
-                    "doctorId",
-                    doctor.id
-                );
-
+                setText("doctorName", doctor.doctorName);
+                setText("topDoctorName", doctor.doctorName);
+                setText("doctorSpecialization", doctor.specialization);
+                setText("topDoctorSpecialization", doctor.specialization);
+                setText("doctorId", doctor.id);
                 setText(
                     "doctorExperience",
                     doctor.experience !== null &&
@@ -1092,105 +1453,137 @@
                         ? doctor.experience + " Years"
                         : "--"
                 );
-
                 setText(
                     "doctorQualification",
-                    doctor.qualification ||
-                    doctor.description
+                    doctor.qualification || doctor.description
                 );
-
                 setText(
                     "doctorDepartment",
+                    doctor.department?.departmentName ||
+                    doctor.departmentName ||
                     doctor.specialization
                 );
+                loadDoctorImage(doctor.profileImage);
             } catch (error) {
-                console.error(
-                    "Doctor Load Error:",
-                    error
-                );
+                console.error("Doctor Load Error:", error);
+                setText("doctorName", "--");
+                setText("topDoctorName", "--");
+                setText("doctorSpecialization", "--");
+                setText("topDoctorSpecialization", "--");
             }
         }
-
+        function loadDoctorImage(profileImage) {
+            if (!profileImage) {
+                if (doctorProfileImage) {
+                    doctorProfileImage.src = "../assets/doctor.png";
+                }
+                if (topDoctorProfileImage) {
+                    topDoctorProfileImage.src = "../assets/doctor.png";
+                }
+                return;
+            }
+            const imageName = String(profileImage)
+                .split("/")
+                .pop()
+                .split("\\")
+                .pop();
+            const imageUrl =
+                `${API_BASE_URL}/profile-images/${encodeURIComponent(imageName)}`;
+            if (doctorProfileImage) {
+                doctorProfileImage.src = imageUrl;
+                doctorProfileImage.onerror = function () {
+                    this.onerror = null;
+                    this.src = "../assets/doctor.png";
+                };
+            }
+            if (topDoctorProfileImage) {
+                topDoctorProfileImage.src = imageUrl;
+                topDoctorProfileImage.onerror = function () {
+                    this.onerror = null;
+                    this.src = "../assets/doctor.png";
+                };
+            }
+        }
         async function loadTodayAppointments() {
             if (!doctorId) {
                 return;
             }
-
             try {
                 const response = await fetch(
-                    `${API_BASE_URL}/api/doctors/appointments/${doctorId}`,
+                    `${API_BASE_URL}/api/doctors/appointments/${encodeURIComponent(doctorId)}`,
                     {
                         method: "GET",
                         headers: getHeaders()
                     }
                 );
-
                 if (!response.ok) {
-                    console.error(
-                        "Appointments API Error:",
-                        response.status
-                    );
-                    return;
+                    throw new Error("Appointments API Error: " + response.status);
                 }
-
                 const appointments = await response.json();
-
-                const today = new Date();
-                const todayString =
-                    today.toISOString().split("T")[0];
-
-                const todayCount = Array.isArray(appointments)
-                    ? appointments.filter(appointment => {
-                        const appointmentDate =
-                            appointment.appointmentDate;
-
-                        return appointmentDate === todayString;
-                    }).length
-                    : 0;
-
+                doctorAppointments = Array.isArray(appointments)
+                    ? appointments
+                    : [];
+                const todayString = new Date()
+                    .toISOString()
+                    .split("T")[0];
+                const todayCount = doctorAppointments.filter(appointment =>
+                    String(appointment.appointmentDate || "") === todayString
+                ).length;
                 setText(
                     "todayAppointments",
                     todayCount,
                     "0"
                 );
+                const pendingCount = doctorAppointments.filter(appointment =>
+                    String(appointment.status || "").toUpperCase() === "PENDING"
+                ).length;
+                if (notificationCount) {
+                    notificationCount.textContent =
+                        String(pendingCount);
+                }
             } catch (error) {
                 console.error(
                     "Appointments Load Error:",
                     error
                 );
+                setText(
+                    "todayAppointments",
+                    "0"
+                );
+                if (notificationCount) {
+                    notificationCount.textContent = "0";
+                }
             }
         }
-
         async function loadSchedule() {
             if (!doctorId) {
                 return;
             }
-
             try {
                 const response = await fetch(
-                    `${API_BASE_URL}/api/doctors/${doctorId}/schedule`,
+                    `${API_BASE_URL}/api/doctors/${encodeURIComponent(doctorId)}/schedule`,
                     {
                         method: "GET",
                         headers: getHeaders()
                     }
                 );
-
                 if (!response.ok) {
-                    console.error(
-                        "Schedule API Error:",
+                    if (response.status === 404) {
+                        doctorSchedules = [];
+                        renderWeeklySchedule();
+                        loadScheduleSettings();
+                        updateDoctorStatus();
+                        return;
+                    }
+                    throw new Error(
+                        "Schedule API Error: " +
                         response.status
                     );
-                    showEmptySchedule();
-                    return;
                 }
-
                 const schedules = await response.json();
-
-                doctorSchedules =
-                    Array.isArray(schedules)
-                        ? schedules
-                        : [];
-
+                doctorSchedules = Array.isArray(schedules)
+                    ? schedules
+                    : [];
                 loadScheduleSettings();
                 renderWeeklySchedule();
                 updateDoctorStatus();
@@ -1199,50 +1592,41 @@
                     "Schedule Load Error:",
                     error
                 );
-
-                showEmptySchedule();
+                doctorSchedules = [];
+                renderWeeklySchedule();
+                loadScheduleSettings();
+                updateDoctorStatus();
             }
         }
-
         function loadScheduleSettings() {
             if (!doctorSchedules.length) {
                 if (duration) {
                     duration.value = "";
                 }
-
                 if (appointmentLimit) {
                     appointmentLimit.value = "";
                 }
-
                 if (breakStart) {
                     breakStart.value = "";
                 }
-
                 if (breakEnd) {
                     breakEnd.value = "";
                 }
-
                 return;
             }
-
-            const firstSchedule =
-                doctorSchedules[0];
-
+            const firstSchedule = doctorSchedules[0];
             if (duration) {
                 duration.value =
                     firstSchedule.consultationDuration || "";
             }
-
             if (appointmentLimit) {
                 appointmentLimit.value =
                     firstSchedule.appointmentLimit || "";
             }
-
             if (breakStart) {
                 breakStart.value =
                     firstSchedule.breakStart || "";
             }
-
             if (breakEnd) {
                 breakEnd.value =
                     firstSchedule.breakEnd || "";
@@ -1253,382 +1637,161 @@
             if (!scheduleBody) {
                 return;
             }
-
-            const rows =
-                scheduleBody.querySelectorAll("tr");
-
+            const rows = scheduleBody.querySelectorAll("tr");
             rows.forEach(row => {
-                const dayCell =
-                    row.querySelector("td");
-
+                const dayCell = row.querySelector(".day-cell");
                 if (!dayCell) {
                     return;
                 }
-
-                const day =
-                    dayCell.textContent.trim();
-
-                const schedule =
-                    doctorSchedules.find(
-                        item =>
-                            String(item.day).toLowerCase() ===
-                            day.toLowerCase()
-                    );
-
-                const toggle =
-                    row.querySelector(
-                        'input[type="checkbox"]'
-                    );
-
-                const morningCell =
-                    row.querySelector(
-                        ".morning-time"
-                    ) ||
-                    row.cells[2];
-
-                const eveningCell =
-                    row.querySelector(
-                        ".evening-time"
-                    ) ||
-                    row.cells[3];
-
+                const day = dayCell.textContent.trim();
+                const schedule = doctorSchedules.find(item =>
+                    String(item.day || "").toLowerCase() === day.toLowerCase()
+                );
+                const toggle = row.querySelector('input[type="checkbox"]');
+                const morningStart = row.querySelector(".morning-start");
+                const morningEnd = row.querySelector(".morning-end");
+                const eveningStart = row.querySelector(".evening-start");
+                const eveningEnd = row.querySelector(".evening-end");
                 if (!schedule) {
                     if (toggle) {
                         toggle.checked = false;
                     }
-
-                    if (morningCell) {
-                        morningCell.textContent =
-                            "Unavailable";
+                    if (morningStart) {
+                        morningStart.value = "";
                     }
-
-                    if (eveningCell) {
-                        eveningCell.textContent =
-                            "Unavailable";
+                    if (morningEnd) {
+                        morningEnd.value = "";
                     }
-
+                    if (eveningStart) {
+                        eveningStart.value = "";
+                    }
+                    if (eveningEnd) {
+                        eveningEnd.value = "";
+                    }
                     return;
                 }
-
                 if (toggle) {
-                    toggle.checked =
-                        Boolean(schedule.available);
+                    toggle.checked = Boolean(schedule.available);
                 }
-
-                if (!schedule.available) {
-                    if (morningCell) {
-                        morningCell.textContent =
-                            "Unavailable";
-                    }
-
-                    if (eveningCell) {
-                        eveningCell.textContent =
-                            "Unavailable";
-                    }
-
-                    return;
+                if (morningStart) {
+                    morningStart.value = schedule.morningStart || "";
                 }
-
-                if (morningCell) {
-                    morningCell.textContent =
-                        schedule.morningStart &&
-                            schedule.morningEnd
-                            ? `${formatTime(schedule.morningStart)} - ${formatTime(schedule.morningEnd)}`
-                            : "--";
+                if (morningEnd) {
+                    morningEnd.value = schedule.morningEnd || "";
                 }
-
-                if (eveningCell) {
-                    eveningCell.textContent =
-                        schedule.eveningStart &&
-                            schedule.eveningEnd
-                            ? `${formatTime(schedule.eveningStart)} - ${formatTime(schedule.eveningEnd)}`
-                            : "--";
+                if (eveningStart) {
+                    eveningStart.value = schedule.eveningStart || "";
+                }
+                if (eveningEnd) {
+                    eveningEnd.value = schedule.eveningEnd || "";
+                }
+                const disabled = !schedule.available;
+                if (morningStart) {
+                    morningStart.disabled = disabled;
+                }
+                if (morningEnd) {
+                    morningEnd.disabled = disabled;
+                }
+                if (eveningStart) {
+                    eveningStart.disabled = disabled;
+                }
+                if (eveningEnd) {
+                    eveningEnd.disabled = disabled;
                 }
             });
         }
 
-        function updateDoctorStatus() {
-            const statusElement =
-                document.getElementById(
-                    "doctorStatus"
-                );
-
-            if (!statusElement) {
+        function setTimeCell(element, value, unavailable) {
+            if (!element) {
                 return;
             }
-
-            const todayName =
-                new Date().toLocaleDateString(
-                    "en-US",
-                    {
-                        weekday: "long"
-                    }
-                );
-
-            const todaySchedule =
-                doctorSchedules.find(
-                    item =>
-                        String(item.day).toLowerCase() ===
-                        todayName.toLowerCase()
-                );
-
-            if (
-                todaySchedule &&
-                todaySchedule.available
-            ) {
-                statusElement.textContent =
-                    "Available";
-
-                statusElement.style.color =
-                    "#16a34a";
-            } else {
-                statusElement.textContent =
-                    "Unavailable";
-
-                statusElement.style.color =
-                    "#dc2626";
-            }
-        }
-
-        function showEmptySchedule() {
-            if (!scheduleBody) {
-                return;
-            }
-
-            const rows =
-                scheduleBody.querySelectorAll("tr");
-
-            rows.forEach(row => {
-                const toggle =
-                    row.querySelector(
-                        'input[type="checkbox"]'
-                    );
-
-                if (toggle) {
-                    toggle.checked = false;
-                }
-
-                if (row.cells[2]) {
-                    row.cells[2].textContent =
-                        "Unavailable";
-                }
-
-                if (row.cells[3]) {
-                    row.cells[3].textContent =
-                        "Unavailable";
-                }
-            });
-
-            setText(
-                "doctorStatus",
-                "Unavailable"
+            element.textContent = value;
+            element.classList.toggle(
+                "unavailable-cell",
+                unavailable
+            );
+            element.classList.toggle(
+                "time-cell",
+                !unavailable
             );
         }
 
         function buildSchedulePayload() {
             const schedules = [];
-
             if (!scheduleBody) {
                 return schedules;
             }
-
-            const rows =
-                scheduleBody.querySelectorAll("tr");
-
+            const rows = scheduleBody.querySelectorAll("tr");
             rows.forEach(row => {
-                const dayCell =
-                    row.querySelector("td");
-
+                const dayCell = row.querySelector(".day-cell");
                 if (!dayCell) {
                     return;
                 }
-
-                const day =
-                    dayCell.textContent.trim();
-
-                const toggle =
-                    row.querySelector(
-                        'input[type="checkbox"]'
-                    );
-
-                const available =
-                    toggle
-                        ? toggle.checked
-                        : false;
-
-                const morningCell =
-                    row.querySelector(
-                        ".morning-time"
-                    ) ||
-                    row.cells[2];
-
-                const eveningCell =
-                    row.querySelector(
-                        ".evening-time"
-                    ) ||
-                    row.cells[3];
-
-                let morningStart = null;
-                let morningEnd = null;
-                let eveningStart = null;
-                let eveningEnd = null;
-
-                if (available) {
-                    const currentSchedule =
-                        doctorSchedules.find(
-                            item =>
-                                String(item.day).toLowerCase() ===
-                                day.toLowerCase()
-                        );
-
-                    if (currentSchedule) {
-                        morningStart =
-                            currentSchedule.morningStart || null;
-
-                        morningEnd =
-                            currentSchedule.morningEnd || null;
-
-                        eveningStart =
-                            currentSchedule.eveningStart || null;
-
-                        eveningEnd =
-                            currentSchedule.eveningEnd || null;
-                    } else {
-                        const morningText =
-                            morningCell
-                                ? morningCell.textContent.trim()
-                                : "";
-
-                        const eveningText =
-                            eveningCell
-                                ? eveningCell.textContent.trim()
-                                : "";
-
-                        const morningParts =
-                            morningText.split("-");
-
-                        const eveningParts =
-                            eveningText.split("-");
-
-                        if (morningParts.length === 2) {
-                            morningStart =
-                                convertDisplayTime(
-                                    morningParts[0].trim()
-                                );
-
-                            morningEnd =
-                                convertDisplayTime(
-                                    morningParts[1].trim()
-                                );
-                        }
-
-                        if (eveningParts.length === 2) {
-                            eveningStart =
-                                convertDisplayTime(
-                                    eveningParts[0].trim()
-                                );
-
-                            eveningEnd =
-                                convertDisplayTime(
-                                    eveningParts[1].trim()
-                                );
-                        }
-                    }
-                }
-
+                const day = dayCell.textContent.trim();
+                const toggle = row.querySelector('input[type="checkbox"]');
+                const morningStart = row.querySelector(".morning-start");
+                const morningEnd = row.querySelector(".morning-end");
+                const eveningStart = row.querySelector(".evening-start");
+                const eveningEnd = row.querySelector(".evening-end");
+                const available = toggle ? toggle.checked : false;
                 schedules.push({
                     doctorId: Number(doctorId),
                     day: day,
                     available: available,
-                    morningStart: morningStart,
-                    morningEnd: morningEnd,
-                    eveningStart: eveningStart,
-                    eveningEnd: eveningEnd,
+                    morningStart: available && morningStart && morningStart.value
+                        ? morningStart.value
+                        : null,
+                    morningEnd: available && morningEnd && morningEnd.value
+                        ? morningEnd.value
+                        : null,
+                    eveningStart: available && eveningStart && eveningStart.value
+                        ? eveningStart.value
+                        : null,
+                    eveningEnd: available && eveningEnd && eveningEnd.value
+                        ? eveningEnd.value
+                        : null,
                     consultationDuration:
-                        duration &&
-                            duration.value
+                        duration && duration.value
                             ? Number(duration.value)
                             : null,
                     appointmentLimit:
-                        appointmentLimit &&
-                            appointmentLimit.value
+                        appointmentLimit && appointmentLimit.value
                             ? Number(appointmentLimit.value)
                             : null,
                     breakStart:
-                        breakStart &&
-                            breakStart.value
+                        breakStart && breakStart.value
                             ? breakStart.value
                             : null,
                     breakEnd:
-                        breakEnd &&
-                            breakEnd.value
+                        breakEnd && breakEnd.value
                             ? breakEnd.value
                             : null
                 });
             });
-
             return schedules;
-        }
-
-        function convertDisplayTime(value) {
-            if (!value) {
-                return null;
-            }
-
-            const match =
-                value.match(
-                    /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
-                );
-
-            if (!match) {
-                return value;
-            }
-
-            let hours =
-                Number(match[1]);
-
-            const minutes =
-                match[2];
-
-            const period =
-                match[3].toUpperCase();
-
-            if (period === "AM" && hours === 12) {
-                hours = 0;
-            }
-
-            if (period === "PM" && hours !== 12) {
-                hours += 12;
-            }
-
-            return (
-                String(hours).padStart(2, "0") +
-                ":" +
-                minutes
-            );
         }
 
         async function saveSchedule() {
             if (!doctorId) {
-                alert(
-                    "Doctor ID not found. Please login again."
+                showMessage(
+                    "Doctor ID not found. Please login again.",
+                    "error"
                 );
                 return;
             }
-
             const schedules =
                 buildSchedulePayload();
-
             if (!schedules.length) {
-                alert(
-                    "No schedule data found."
+                showMessage(
+                    "No schedule data found.",
+                    "error"
                 );
                 return;
             }
-
             try {
                 saveBtn.disabled = true;
-
+                saveBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
                 const response = await fetch(
                     `${API_BASE_URL}/api/doctors/schedule`,
                     {
@@ -1640,38 +1803,37 @@
                         })
                     }
                 );
-
+                const responseText =
+                    await response.text();
                 if (!response.ok) {
-                    const errorText =
-                        await response.text();
-
                     console.error(
                         "Save Schedule Error:",
                         response.status,
-                        errorText
+                        responseText
                     );
-
-                    alert(
-                        "Unable to save schedule. Error: " +
-                        response.status
+                    throw new Error(
+                        "Unable to save schedule."
                     );
-
-                    return;
                 }
-
-                const savedData =
-                    await response.json();
-
+                let savedData = [];
+                if (responseText) {
+                    try {
+                        savedData =
+                            JSON.parse(responseText);
+                    } catch (error) {
+                        savedData = schedules;
+                    }
+                } else {
+                    savedData = schedules;
+                }
                 doctorSchedules =
                     Array.isArray(savedData)
                         ? savedData
                         : schedules;
-
                 renderWeeklySchedule();
                 loadScheduleSettings();
                 updateDoctorStatus();
-
-                alert(
+                showMessage(
                     "Schedule saved successfully."
                 );
             } catch (error) {
@@ -1679,121 +1841,122 @@
                     "Save Schedule Error:",
                     error
                 );
-
-                alert(
-                    "Unable to connect with backend."
+                showMessage(
+                    "Unable to connect with backend.",
+                    "error"
                 );
             } finally {
                 saveBtn.disabled = false;
+                saveBtn.innerHTML =
+                    '<i class="fa-solid fa-floppy-disk"></i> Save Schedule';
             }
         }
-
         async function loadLeaves() {
             if (!doctorId) {
                 return;
             }
-
             try {
                 const response = await fetch(
-                    `${API_BASE_URL}/api/doctors/${doctorId}/leaves`,
+                    `${API_BASE_URL}/api/doctors/${encodeURIComponent(doctorId)}/leaves`,
                     {
                         method: "GET",
                         headers: getHeaders()
                     }
                 );
-
                 if (!response.ok) {
-                    console.error(
-                        "Leaves API Error:",
+                    if (response.status === 404) {
+                        doctorLeaves = [];
+                        renderLeaves();
+                        return;
+                    }
+                    throw new Error(
+                        "Leaves API Error: " +
                         response.status
                     );
-
-                    renderLeaves([]);
-                    return;
                 }
-
-                const leaves =
-                    await response.json();
-
-                doctorLeaves =
-                    Array.isArray(leaves)
-                        ? leaves
-                        : [];
-
-                renderLeaves(
-                    doctorLeaves
-                );
+                const leaves = await response.json();
+                doctorLeaves = Array.isArray(leaves)
+                    ? leaves
+                    : [];
+                renderLeaves();
             } catch (error) {
                 console.error(
                     "Leave Load Error:",
                     error
                 );
-
-                renderLeaves([]);
+                doctorLeaves = [];
+                renderLeaves();
             }
         }
-
-        function renderLeaves(leaves) {
+        function renderLeaves() {
             if (!leaveList) {
                 return;
             }
-
             leaveList.innerHTML = "";
-
-            if (!leaves.length) {
-                leaveList.innerHTML = `
-            <div>
-                <span>No leaves found</span>
-                <strong>--</strong>
-            </div>
-        `;
-
+            if (!doctorLeaves.length) {
+                leaveList.innerHTML =
+                    '<div class="empty-state">No leave records found.</div>';
                 return;
             }
-
             const sortedLeaves =
-                [...leaves].sort(
+                [...doctorLeaves].sort(
                     (a, b) =>
                         new Date(a.leaveDate || 0) -
                         new Date(b.leaveDate || 0)
                 );
-
-            sortedLeaves.forEach(
-                leave => {
-                    const item =
-                        document.createElement("div");
-
-                    item.innerHTML = `
-                <span>
-                    ${formatDate(leave.leaveDate)}
-                </span>
-                <strong>
-                    ${escapeHtml(
-                        leave.reason || "Leave"
-                    )}
-                </strong>
-            `;
-
-                    leaveList.appendChild(item);
-                }
-            );
+            sortedLeaves.forEach(leave => {
+                const item =
+                    document.createElement("div");
+                item.className = "leave-item";
+                const reason =
+                    leave.reason ||
+                    "--";
+                const remarks =
+                    leave.remarks ||
+                    "";
+                item.innerHTML = `
+            <div class="leave-date">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>${escapeHtml(formatDate(leave.leaveDate))}</span>
+            </div>
+            <div class="leave-reason">
+                ${escapeHtml(reason)}
+                ${remarks ? " • " + escapeHtml(remarks) : ""}
+            </div>
+        `;
+                leaveList.appendChild(item);
+            });
         }
-
         async function applyLeave() {
             if (!doctorId) {
-                alert(
-                    "Doctor ID not found. Please login again."
+                showMessage(
+                    "Doctor ID not found. Please login again.",
+                    "error"
                 );
                 return;
             }
-
             if (!leaveDate || !leaveDate.value) {
-                alert(
-                    "Please select a leave date."
+                showMessage(
+                    "Please select a leave date.",
+                    "error"
                 );
                 return;
             }
-
+            const selectedDate =
+                new Date(
+                    leaveDate.value +
+                    "T00:00:00"
+                );
+            if (
+                !Number.isNaN(selectedDate.getTime()) &&
+                selectedDate < new Date(new Date().toDateString())
+            ) {
+                showMessage(
+                    "Leave date cannot be in the past.",
+                    "error"
+                );
+                return;
+            }
             const payload = {
                 doctorId: Number(doctorId),
                 leave: {
@@ -1810,10 +1973,10 @@
                             : ""
                 }
             };
-
             try {
                 leaveBtn.disabled = true;
-
+                leaveBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Applying...';
                 const response = await fetch(
                     `${API_BASE_URL}/api/doctors/leave`,
                     {
@@ -1822,45 +1985,37 @@
                         body: JSON.stringify(payload)
                     }
                 );
-
+                const responseText =
+                    await response.text();
                 if (!response.ok) {
-                    const errorText =
-                        await response.text();
-
                     console.error(
                         "Save Leave Error:",
                         response.status,
-                        errorText
+                        responseText
                     );
-
-                    alert(
-                        "Unable to apply leave. Error: " +
-                        response.status
+                    throw new Error(
+                        "Unable to apply leave."
                     );
-
-                    return;
                 }
-
-                const savedLeave =
-                    await response.json();
-
-                doctorLeaves.push(
-                    savedLeave
-                );
-
-                renderLeaves(
-                    doctorLeaves
-                );
-
-                if (leaveDate) {
-                    leaveDate.value = "";
+                let savedLeave = {};
+                if (responseText) {
+                    try {
+                        savedLeave =
+                            JSON.parse(responseText);
+                    } catch (error) {
+                        savedLeave = {
+                            doctorId: Number(doctorId),
+                            leaveDate: leaveDate.value,
+                            reason: leaveReason.value,
+                            remarks: leaveRemarks.value
+                        };
+                    }
                 }
-
-                if (leaveRemarks) {
-                    leaveRemarks.value = "";
-                }
-
-                alert(
+                doctorLeaves.push(savedLeave);
+                renderLeaves();
+                leaveDate.value = "";
+                leaveRemarks.value = "";
+                showMessage(
                     "Leave applied successfully."
                 );
             } catch (error) {
@@ -1868,12 +2023,14 @@
                     "Apply Leave Error:",
                     error
                 );
-
-                alert(
-                    "Unable to connect with backend."
+                showMessage(
+                    "Unable to connect with backend.",
+                    "error"
                 );
             } finally {
                 leaveBtn.disabled = false;
+                leaveBtn.innerHTML =
+                    '<i class="fa-solid fa-calendar-plus"></i> Apply Leave';
             }
         }
 
@@ -1881,79 +2038,58 @@
             if (duration) {
                 duration.value = "";
             }
-
             if (appointmentLimit) {
                 appointmentLimit.value = "";
             }
-
             if (breakStart) {
                 breakStart.value = "";
             }
-
             if (breakEnd) {
                 breakEnd.value = "";
             }
-
             if (scheduleBody) {
                 scheduleBody
-                    .querySelectorAll(
-                        'input[type="checkbox"]'
-                    )
-                    .forEach(
-                        toggle => {
-                            toggle.checked = false;
-                        }
-                    );
-
+                    .querySelectorAll('input[type="checkbox"]')
+                    .forEach(toggle => {
+                        toggle.checked = false;
+                    });
                 scheduleBody
-                    .querySelectorAll(
-                        ".morning-time, .evening-time"
-                    )
-                    .forEach(
-                        cell => {
-                            cell.textContent =
-                                "Unavailable";
-                        }
-                    );
-
-                scheduleBody
-                    .querySelectorAll(
-                        "tr"
-                    )
-                    .forEach(
-                        row => {
-                            if (row.cells[2]) {
-                                row.cells[2].textContent =
-                                    "Unavailable";
-                            }
-
-                            if (row.cells[3]) {
-                                row.cells[3].textContent =
-                                    "Unavailable";
-                            }
-                        }
-                    );
+                    .querySelectorAll('input[type="time"]')
+                    .forEach(input => {
+                        input.value = "";
+                        input.disabled = true;
+                    });
             }
-
-            alert(
-                "Schedule form reset."
-            );
+            updateDoctorStatus();
+            showMessage("Schedule form reset.");
         }
 
+        function escapeHtml(value) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
         if (saveBtn) {
             saveBtn.addEventListener(
                 "click",
                 saveSchedule
             );
         }
-
         if (resetBtn) {
             resetBtn.addEventListener(
                 "click",
                 resetSchedule
             );
         }
-
         if (leaveBtn) {
             leaveBtn.addEventListener(
                 "click",
@@ -1963,53 +2099,58 @@
 
         if (scheduleBody) {
             scheduleBody
-                .querySelectorAll(
-                    'input[type="checkbox"]'
-                )
-                .forEach(
-                    toggle => {
-                        toggle.addEventListener(
-                            "change",
-                            () => {
-                                const row =
-                                    toggle.closest("tr");
-
-                                if (!row) {
-                                    return;
-                                }
-
-                                const morningCell =
-                                    row.querySelector(
-                                        ".morning-time"
-                                    ) ||
-                                    row.cells[2];
-
-                                const eveningCell =
-                                    row.querySelector(
-                                        ".evening-time"
-                                    ) ||
-                                    row.cells[3];
-
-                                if (!toggle.checked) {
-                                    if (morningCell) {
-                                        morningCell.textContent =
-                                            "Unavailable";
-                                    }
-
-                                    if (eveningCell) {
-                                        eveningCell.textContent =
-                                            "Unavailable";
-                                    }
-                                }
-                            }
-                        );
-                    }
-                );
+                .querySelectorAll('input[type="checkbox"]')
+                .forEach(toggle => {
+                    toggle.addEventListener("change", function () {
+                        const row = this.closest("tr");
+                        if (!row) {
+                            return;
+                        }
+                        const timeInputs = row.querySelectorAll('input[type="time"]');
+                        timeInputs.forEach(input => {
+                            input.disabled = !this.checked;
+                        });
+                    });
+                });
         }
 
+        if (notificationButton) {
+            notificationButton.addEventListener(
+                "click",
+                function () {
+                    const count =
+                        Number(
+                            notificationCount?.textContent ||
+                            0
+                        );
+                    if (count > 0) {
+                        alert(
+                            `${count} pending appointment(s) available.`
+                        );
+                    } else {
+                        alert(
+                            "No pending appointments."
+                        );
+                    }
+                }
+            );
+        }
+        if (menuBtn) {
+            menuBtn.addEventListener(
+                "click",
+                function () {
+                    if (window.innerWidth <= 900) {
+                        sidebar.style.left =
+                            sidebar.style.left === "0px"
+                                ? "-270px"
+                                : "0";
+                    }
+                }
+            );
+        }
         document.addEventListener(
             "click",
-            event => {
+            function (event) {
                 if (
                     window.innerWidth <= 900 &&
                     sidebar &&
@@ -2022,63 +2163,46 @@
                 }
             }
         );
-
         window.addEventListener(
             "resize",
-            () => {
+            function () {
                 if (!sidebar) {
                     return;
                 }
-
                 sidebar.style.left =
                     window.innerWidth > 900
                         ? "0"
                         : "-270px";
             }
         );
-
-        function escapeHtml(value) {
-            if (
-                value === null ||
-                value === undefined
-            ) {
-                return "";
-            }
-
-            return String(value)
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;")
-                .replaceAll("'", "&#039;");
-        }
-
         async function initializeSchedule() {
             doctorId = getDoctorId();
-
             if (!doctorId) {
-                alert(
-                    "Doctor ID not found. Please login again."
+                showMessage(
+                    "Doctor ID not found. Please login again.",
+                    "error"
                 );
                 return;
             }
-
             localStorage.setItem(
                 "doctorId",
                 String(doctorId)
             );
-
+            if (sidebar) {
+                sidebar.style.left =
+                    window.innerWidth > 900
+                        ? "0"
+                        : "-270px";
+            }
+            await loadDoctor();
             await Promise.all([
-                loadDoctor(),
                 loadTodayAppointments(),
                 loadSchedule(),
                 loadLeaves()
             ]);
         }
-
         initializeSchedule();
     </script>
-
 </body>
 
 </html>
